@@ -67,3 +67,27 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Still pending: Linux/remote CI, Cloudflare response-header verification, real
   devices/screen readers, actual patient/clinician usability sessions, approved
   medical/translation copy, and an institution-approved enquiry service.
+
+## Reference-led redesign — 2026-10-30
+
+- Owner-approved references: Sarvestani Lab and Ranade Lab. The rejected visual
+  and copy patterns are now recorded in `AGENTS.md` and the project brief.
+- Red: the root-home acceptance test loaded the former language-selection page
+  and failed on its name-only heading instead of the requested research homepage.
+- Green: the root and localized routes now share a factual bilingual homepage.
+  New acceptance checks cover five consistent navigation destinations, early
+  study access, removed slogan/panel patterns, and equivalent Hebrew content.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, **21 unit tests,
+  and 110 Playwright checks passed**, with no skipped checks.
+- Visually reviewed updated English/Hebrew desktop homepages, the Hebrew mobile
+  page, and a representative study detail page. Refined heading density, removed
+  repeated introductory copy, and corrected the illustration before this review.
+- The site still generates 24 static HTML pages and zero JavaScript files.
+  CSS totals 16,990 bytes; the retained self-hosted font files total 108,104 bytes.
+  No rendering errors or failed local asset requests appeared during capture.
+- The assessment illustration is original explanatory SVG, not a borrowed lab
+  asset, participant portrait, clinical instruction, or research measurement.
+- Existing study records, disabled enquiry routes, noindex/security configuration,
+  and the owner's local-only publishing decision are unchanged.
+- A passing suite is not visual approval. This iteration remains a design draft
+  for owner review; all manual, clinical, hosting, and publishing gates still apply.

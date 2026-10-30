@@ -6,7 +6,10 @@ test('the draft identifies the group and stays out of search results', async ({
 }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Cukierman-Yaffe',
+    'Diabetes',
+  );
+  await expect(page.getByRole('main')).toContainText(
+    'Prof. Tali Cukierman-Yaffe',
   );
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     'content',

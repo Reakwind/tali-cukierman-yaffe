@@ -1,0 +1,502 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../layouts/Layout.astro';
+import AssessmentIllustration from './AssessmentIllustration.astro';
+import StudyCard from './StudyCard.astro';
+import { ui, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = ui[locale];
+const he = locale === 'he';
+const studies = (await getCollection('studies')).filter(
+  (study) => study.data.registryStatus === 'RECRUITING',
+);
+const content = he
+  ? {
+      title: ['סוכרת,', 'קוגניציה והזדקנות.'],
+      intro:
+        'אנו חוקרים כיצד סוכרת קשורה לזיכרון, לחשיבה ולתפקוד גופני בגיל המבוגר.',
+      role: 'אנדוקרינולוגית ואפידמיולוגית קלינית',
+      clinician: 'מידע לצוותים רפואיים',
+      institutions: ['המרכז הרפואי שיבא', 'אוניברסיטת תל אביב'],
+      studyIntro: 'מידע על מחקרים קליניים, האוכלוסיות הנחקרות ופרטי ההשתתפות.',
+      allStudies: 'כל המחקרים',
+      sourceNote:
+        'הסטטוס מוצג לפי הרישום הציבורי. הזמינות ומסלול הפנייה עדיין דורשים אישור של הצוות.',
+      research: 'תחומי המחקר',
+      researchIntro:
+        'המחקר משלב אנדוקרינולוגיה, אפידמיולוגיה קלינית והערכת תפקוד.',
+      areas: [
+        {
+          id: 'cognition',
+          title: 'סוכרת ותפקוד קוגניטיבי',
+          text: 'שינויים בזיכרון ובחשיבה, והמשמעות שלהם לניהול סוכרת בגיל המבוגר.',
+        },
+        {
+          id: 'movement',
+          title: 'כוח שריר ותפקוד גופני',
+          text: 'מחקר על תפקוד, שבריריות ופעילות גופנית במבוגרים עם סוכרת.',
+        },
+        {
+          id: 'technology',
+          title: 'כלי הערכה דיגיטליים',
+          text: 'פיתוח ותיקוף של כלי הערכה קוגניטיביים, לרבות מחקר על מבחן החלפת סמלים בספרות.',
+        },
+      ],
+      about: 'על קבוצת המחקר',
+      aboutText:
+        'פרופ׳ טלי צוקרמן־יפה עוסקת במחקר ובטיפול בסוכרת, בקוגניציה ובהזדקנות. העשייה הקלינית והאקדמית כוללת תפקידים בשיבא ובאוניברסיטת תל אביב ושיתופי פעולה עם PHRI ופלטפורמת 6 Vital.',
+      profile: 'תפקידים ושיתופי פעולה',
+      participant: 'למטופלים ולבני משפחה',
+      participantText:
+        'קראו על מטרת המחקר, הביקורים והבדיקות הנדרשים ועל תהליך ההחלטה להשתתף. בשלב זה האתר אינו מקבל פניות או מידע רפואי.',
+      participationLink: 'על השתתפות במחקר',
+      professional: 'לצוותים רפואיים ולחוקרים',
+      professionalText:
+        'עיינו במחקרים ובפרסומים ושתפו דפי מידע עם מטופלים. מסלול הפניה מקצועי יתווסף לאחר אישור המוסד.',
+      professionalLink: 'מידע על הפניות ושיתופי פעולה',
+    }
+  : {
+      title: ['Diabetes,', 'cognition & aging.'],
+      intro:
+        'We study how diabetes relates to memory, thinking, and physical function in older adults.',
+      role: 'Endocrinologist & clinical epidemiologist',
+      clinician: 'For clinicians & collaborators',
+      institutions: ['Sheba Medical Center', 'Tel Aviv University'],
+      studyIntro:
+        'Clinical studies, the populations they concern, and what participation involves.',
+      allStudies: 'All studies',
+      sourceNote:
+        'Status reflects the public registry. Current availability and an enquiry route still require research-team approval.',
+      research: 'Research areas',
+      researchIntro:
+        'Our work combines endocrinology, clinical epidemiology, and functional assessment.',
+      areas: [
+        {
+          id: 'cognition',
+          title: 'Diabetes & cognitive function',
+          text: 'Changes in memory and thinking, and their implications for managing diabetes in older age.',
+        },
+        {
+          id: 'movement',
+          title: 'Muscle strength & physical function',
+          text: 'Research on physical function, frailty, and exercise in older adults with diabetes.',
+        },
+        {
+          id: 'technology',
+          title: 'Digital assessment tools',
+          text: 'Development and validation of cognitive assessment tools, including a digital Digit Symbol Substitution Test.',
+        },
+      ],
+      about: 'About the research group',
+      aboutText:
+        'Prof. Tali Cukierman-Yaffe works in diabetes research and care, cognition, and aging. Her clinical and academic work includes roles at Sheba Medical Center and Tel Aviv University, with collaborations involving PHRI and the 6 Vital platform.',
+      profile: 'Roles & collaborations',
+      participant: 'For patients & caregivers',
+      participantText:
+        'Read about a study’s purpose, visits, assessments, and the decision to take part. This draft does not accept enquiries or medical information.',
+      participationLink: 'About participation',
+      professional: 'For clinicians & researchers',
+      professionalText:
+        'Review studies and publications, or share study information with patients. A professional referral route will be added after institutional approval.',
+      professionalLink: 'Referral & collaboration information',
+    };
+---
+
+<Layout
+  locale={locale}
+  title={he ? 'סוכרת, קוגניציה והזדקנות' : 'Diabetes, cognition & aging'}
+>
+  <section class="container home-intro" aria-labelledby="home-title">
+    <div class="intro-copy">
+      <p class="group-byline">
+        {t.fullName}
+        <span>{content.role}</span>
+      </p>
+      <h1 id="home-title">
+        {content.title.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h1>
+      <p class="intro-text">{content.intro}</p>
+      <div class="intro-actions">
+        <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
+          {t.explore}
+          <span aria-hidden="true">→</span>
+        </a>
+        <a
+          class="text-link"
+          href={getRelativeLocaleUrl(locale, 'for-clinicians/')}
+        >
+          {content.clinician}
+        </a>
+      </div>
+    </div>
+    <div class="intro-visual">
+      <AssessmentIllustration locale={locale} />
+    </div>
+    <div class="institution-links">
+      <a href="https://eng.sheba.co.il/Center-for-Treatment-and-Study-Diabetes-in-Old-Age">
+        {content.institutions[0]}
+      </a>
+      <span aria-hidden="true">/</span>
+      <a href="https://cris.tau.ac.il/en/persons/tali-cukierman-yaffe/">
+        {content.institutions[1]}
+      </a>
+    </div>
+  </section>
+
+  <section
+    id="home-studies"
+    class="container home-studies"
+    aria-labelledby="home-studies-title"
+  >
+    <div class="section-heading">
+      <div>
+        <h2 id="home-studies-title">{t.nav.studies}</h2>
+        <p>{content.studyIntro}</p>
+      </div>
+      <a class="text-link" href={getRelativeLocaleUrl(locale, 'studies/')}>
+        {content.allStudies}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="study-index">
+      {studies.map((study) => (
+        <StudyCard study={study} locale={locale} compact />
+      ))}
+    </div>
+    <p class="source-note">{content.sourceNote}</p>
+  </section>
+
+  <section
+    id="home-research"
+    class="research-section"
+    aria-labelledby="research-title"
+  >
+    <div class="container research-layout">
+      <div class="research-intro">
+        <h2 id="research-title">{content.research}</h2>
+        <p>{content.researchIntro}</p>
+      </div>
+      <div class="research-list">
+        {content.areas.map((area) => (
+          <article>
+            <h3>
+              <a
+                href={`${getRelativeLocaleUrl(locale, 'research/')}#${area.id}`}
+              >
+                {area.title}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </h3>
+            <p>{area.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container group-section" aria-labelledby="group-title">
+    <div>
+      <h2 id="group-title">{content.about}</h2>
+      <p>{content.aboutText}</p>
+      <a class="text-link" href={getRelativeLocaleUrl(locale, 'about/')}>
+        {content.profile}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="group-links">
+      <p>
+        {he
+          ? 'קשרים מוסדיים ותחום דיגיטלי'
+          : 'Institutional connections & digital work'}
+      </p>
+      <a
+        href="https://www.phri.ca/collaborations/phri-international-fellows/"
+        lang="en"
+        dir="ltr"
+      >
+        Population Health Research Institute
+      </a>
+      <a href="https://6-vital.com/" lang="en" dir="ltr">
+        6 Vital
+      </a>
+      <a href={getRelativeLocaleUrl(locale, 'publications/')}>
+        {t.publications}
+      </a>
+    </div>
+  </section>
+
+  <section class="participant-section" aria-labelledby="participant-title">
+    <div class="container participant-layout">
+      <div>
+        <h2 id="participant-title">{content.participant}</h2>
+        <p>{content.participantText}</p>
+        <a
+          class="text-link"
+          href={getRelativeLocaleUrl(locale, 'participation/')}
+        >
+          {content.participationLink}
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div>
+        <h3>{content.professional}</h3>
+        <p>{content.professionalText}</p>
+        <a
+          class="text-link"
+          href={getRelativeLocaleUrl(locale, 'for-clinicians/')}
+        >
+          {content.professionalLink}
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .home-intro {
+    padding-block: 4.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    column-gap: 3.5rem;
+    align-items: center;
+  }
+  .group-byline {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-block-end: 1.6rem;
+  }
+  .group-byline span {
+    display: block;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  h1 {
+    font-size: clamp(2.7rem, 5vw, 3.7rem);
+    line-height: 1.09;
+    letter-spacing: -0.045em;
+    margin-block-end: 1.75rem;
+    font-weight: 500;
+  }
+  h1 span {
+    display: block;
+  }
+  .intro-text {
+    font-size: 1.07rem;
+    max-inline-size: 40ch;
+    line-height: 1.6;
+  }
+  .intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+    margin-block: 1.8rem 1rem;
+  }
+  .intro-actions .text-link {
+    font-size: 0.78rem;
+  }
+  .intro-visual {
+    align-self: center;
+    padding-block-start: 2rem;
+  }
+  .institution-links {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1rem;
+    border-block-end: 1px solid var(--line);
+    padding-block: 2.25rem 1.4rem;
+    font-size: 0.76rem;
+    color: var(--muted);
+  }
+  .institution-links a {
+    text-decoration: none;
+  }
+  .institution-links a:hover {
+    text-decoration: underline;
+  }
+  .home-studies {
+    padding-block: 3rem 4rem;
+  }
+  .source-note {
+    color: var(--muted);
+    font-size: 0.74rem;
+    max-inline-size: 88ch;
+    margin-block: 1.25rem 0;
+  }
+  .research-section {
+    background: var(--mist);
+    padding-block: 4rem;
+  }
+  .research-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 6rem;
+  }
+  .research-intro p {
+    max-inline-size: 32ch;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .research-list article {
+    padding-block: 1.3rem;
+    border-block-start: 1px solid var(--line-strong);
+  }
+  .research-list article:first-child {
+    padding-block-start: 0;
+    border-block-start: none;
+  }
+  .research-list article:last-child {
+    padding-block-end: 0;
+  }
+  .research-list h3 {
+    font-size: 1.1rem;
+    margin-block-end: 0.6rem;
+  }
+  .research-list h3 a {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    text-decoration: none;
+  }
+  .research-list h3 a:hover {
+    text-decoration: underline;
+  }
+  .research-list h3 span {
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+  }
+  .research-list p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-block-end: 0;
+    max-inline-size: 52ch;
+  }
+  .group-section {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 6rem;
+    padding-block: 4.5rem;
+  }
+  .group-section > div > p {
+    color: var(--muted);
+    max-inline-size: 59ch;
+    font-size: 0.9rem;
+  }
+  .group-links {
+    border-inline-start: 1px solid var(--line);
+    padding-inline-start: 2rem;
+    align-self: center;
+  }
+  .group-links > p {
+    font-size: 0.72rem !important;
+    margin-block-end: 0.75rem;
+  }
+  .group-links a {
+    display: block;
+    inline-size: fit-content;
+    padding-block: 0.5rem;
+    font-size: 0.82rem;
+  }
+  .participant-section {
+    background: var(--cyan);
+    padding-block: 3.5rem;
+  }
+  .participant-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+  .participant-layout h2 {
+    font-size: 1.65rem;
+  }
+  .participant-layout h3 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-block-end: 1rem;
+  }
+  .participant-layout p {
+    font-size: 0.88rem;
+    max-inline-size: 54ch;
+  }
+  :global([dir='rtl']) .research-list h3 span {
+    transform: scaleX(-1);
+  }
+  @media (max-width: 950px) {
+    .home-intro {
+      gap: 2rem;
+      padding-block-start: 3rem;
+    }
+    .intro-actions {
+      gap: 0.75rem 1.25rem;
+    }
+    .research-layout,
+    .group-section,
+    .participant-layout {
+      gap: 3rem;
+    }
+  }
+  @media (max-width: 650px) {
+    .home-intro {
+      grid-template-columns: 1fr;
+      padding-block-start: 2rem;
+    }
+    h1 {
+      font-size: clamp(2.8rem, 12vw, 3.7rem);
+    }
+    .group-byline {
+      margin-block-end: 1.25rem;
+    }
+    .intro-text {
+      font-size: 1rem;
+    }
+    .intro-actions {
+      margin-block-end: 0;
+    }
+    .intro-visual {
+      max-inline-size: 410px;
+      inline-size: 100%;
+      margin-inline: auto;
+      padding-block-start: 0.5rem;
+    }
+    .institution-links {
+      padding-block-start: 0.5rem;
+    }
+    .home-studies {
+      padding-block: 2rem 2.75rem;
+    }
+    .research-layout,
+    .group-section,
+    .participant-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .research-section,
+    .participant-section {
+      padding-block: 2.75rem;
+    }
+    .group-section {
+      padding-block: 3rem;
+    }
+    .research-list article:first-child {
+      border-block-start: 1px solid var(--line-strong);
+      padding-block-start: 1.3rem;
+    }
+    .group-links {
+      border-inline-start: none;
+      border-block-start: 1px solid var(--line);
+      padding-inline-start: 0;
+      padding-block-start: 1.2rem;
+    }
+  }
+</style>

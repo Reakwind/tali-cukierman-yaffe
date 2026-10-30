@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui, type Locale } from '../i18n/ui';
-import '../styles/global.css';
+import '../styles/site.css';
 
 interface Props {
   locale: Locale;
@@ -29,7 +29,7 @@ const home = getRelativeLocaleUrl(locale);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#183e33" />
+    <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={`${title} · ${t.groupName}`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -39,7 +39,7 @@ const home = getRelativeLocaleUrl(locale);
       href={
         locale === 'he'
           ? '/fonts/plex-hebrew-regular.woff2'
-          : '/fonts/plex-sans-regular.woff2'
+          : '/fonts/lexend-latin.woff2'
       }
       as="font"
       type="font/woff2"
@@ -60,9 +60,6 @@ const home = getRelativeLocaleUrl(locale);
       </div>
       <div class="container header-row">
         <a href={home} class="brand" aria-label={t.groupName}>
-          <span class="brand-mark" aria-hidden="true" dir="ltr">
-            tcy<span>·</span>
-          </span>
           <span>
             <span class="brand-name">{t.brand}</span>
             <span class="brand-subtitle">{t.group}</span>
@@ -103,15 +100,6 @@ const home = getRelativeLocaleUrl(locale);
         >
           {other === 'he' ? 'עברית' : 'English'}
         </a>
-        <a
-          class="button button-small header-cta"
-          href={getRelativeLocaleUrl(locale, 'studies/')}
-        >
-          {t.explore}
-          <span class="arrow" aria-hidden="true">
-            ↗
-          </span>
-        </a>
       </div>
     </header>
     <main id="main" tabindex="-1">
@@ -120,7 +108,7 @@ const home = getRelativeLocaleUrl(locale);
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-intro">
-          <p class="eyebrow">{t.groupName}</p>
+          <p class="footer-group-name">{t.groupName}</p>
           <p class="footer-statement">{t.footerNote}</p>
           <p class="small muted">{t.medicalNote}</p>
         </div>
@@ -132,11 +120,6 @@ const home = getRelativeLocaleUrl(locale);
                 <a href={getRelativeLocaleUrl(locale, `${path}/`)}>{label}</a>
               </li>
             ))}
-            <li>
-              <a href={getRelativeLocaleUrl(locale, 'publications/')}>
-                {t.publications}
-              </a>
-            </li>
           </ul>
         </div>
         <div>

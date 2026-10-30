@@ -38,7 +38,6 @@ const studies = (await getCollection('studies')).sort(
       <span aria-current="page">{t.nav.studies}</span>
     </nav>
     <div class="page-heading">
-      <p class="eyebrow">{t.nav.studies}</p>
       <h1>{content.title}</h1>
       <p class="page-intro">{content.intro}</p>
     </div>
@@ -62,15 +61,10 @@ const studies = (await getCollection('studies')).sort(
     </div>
     <div class="section-heading section">
       <div>
-        <p class="eyebrow">
-          {locale === 'he'
-            ? 'לצוותים רפואיים'
-            : 'For clinicians & collaborators'}
-        </p>
         <h2>
           {locale === 'he'
-            ? 'לשתף מידע. לפתוח שיחה.'
-            : 'Share information. Start a conversation.'}
+            ? 'הפניות ושיתופי פעולה'
+            : 'Referrals & collaboration'}
         </h2>
       </div>
       <a

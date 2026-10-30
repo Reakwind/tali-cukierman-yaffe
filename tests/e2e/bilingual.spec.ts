@@ -88,7 +88,7 @@ test('research-theme links reach a real section, not an altered fragment', async
 }) => {
   await page.goto('/en/');
   await page
-    .getByRole('link', { name: /Learn more.*Cognitive health/ })
+    .getByRole('link', { name: /Diabetes & cognitive function/ })
     .click();
   await expect(page.locator(':target')).toHaveAttribute('id', 'cognition');
 });

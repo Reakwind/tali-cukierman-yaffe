@@ -7,12 +7,14 @@ import StudyName from './StudyName.astro';
 interface Props {
   study: CollectionEntry<'studies'>;
   locale: Locale;
+  compact?: boolean;
 }
-const { study, locale } = Astro.props;
+const { study, locale, compact = false } = Astro.props;
 const t = ui[locale];
 const data = study.data;
 const content = data.localized[locale];
 const closed = data.registryStatus === 'COMPLETED';
+const Heading = compact ? 'h3' : 'h2';
 const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
   dateStyle: 'long',
   timeZone: 'UTC',
@@ -20,7 +22,7 @@ const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
 ---
 
 <article
-  class="study-card"
+  class:list={['study-card', { 'study-card--compact': compact }]}
   id={study.id}
   data-study={study.id}
   data-status={data.registryStatus}
@@ -28,15 +30,21 @@ const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
   <span class:list={['status', { 'status-closed': closed }]}>
     {closed ? t.completed : t.recruiting}
   </span>
-  <h2>
+  <Heading>
     <StudyName title={content.title} acronym={data.acronym} />
-  </h2>
+  </Heading>
   <p>{content.summary}</p>
   <dl class="study-facts">
     <div>
-      <dt>{t.record}</dt>
+      <dt>
+        {compact
+          ? locale === 'he'
+            ? 'משך המחקר'
+            : 'Study duration'
+          : t.record}
+      </dt>
       <dd>
-        <bdi dir="ltr">{data.registryId}</bdi>
+        {compact ? content.duration : <bdi dir="ltr">{data.registryId}</bdi>}
       </dd>
     </div>
     <div>
@@ -52,7 +60,7 @@ const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
   >
     {t.readStudy}
     <span class="arrow" aria-hidden="true">
-      ↗
+      →
     </span>
   </a>
 </article>

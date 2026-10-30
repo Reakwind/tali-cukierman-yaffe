@@ -12,7 +12,7 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 - Maintenance: agent-assisted content edits through tested pull requests.
 - Public GitHub repository: `reakwind/tali-cukierman-yaffe`.
 - Stack: proceed with the lean static Astro/TypeScript/CSS recommendation.
-- Content: no current CV or preferred design examples are available. Draft from
+- Content: no current CV or approved portraits/team photos are available. Draft from
   attributed public sources, improve iteratively, and mark content pending review.
 - 6 Vital: the owner describes it as a platform Tali created. Present it as one
   strand of the group's digital-health work, not as the website's main identity.
@@ -23,6 +23,30 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 - Later decision: continue application development locally rather than grant the
   additional GitHub workflow scope. Keep CI publishing, feature PRs, and merges
   pending; do not work around that boundary.
+
+## Design revision agreed with the owner
+
+The initial draft was rejected as amateurish and generic. The owner selected
+Sarvestani Lab and Ranade Lab as the closest references:
+
+- https://www.sarvestanilab.com/
+- https://www.ranadelab.org/
+
+Use their independent lab identity, clear navigation, sans-serif typography,
+spacing, and purposeful visual material as principles—not copied assets.
+Prefer white, dark slate, and restrained pale cyan over the rejected green/serif
+wellness treatment. Keep page and section headings factual, with study discovery
+and clinician referrals ahead of decorative storytelling.
+
+Explicitly avoid the formulaic traits discussed with the owner: glowing or
+gradient hero treatments, floating glossy 3D objects, pill-button pairs, invented
+catchphrases, arbitrary statistics, and repeated generic card grids. A scientific
+illustration must describe an actual research method or question and must not
+pretend to be study data, a validated test, or an actual participant portrait.
+
+The next iteration begins with the bilingual homepage and shared visual system.
+Existing sourced study data, disabled enquiry routes, and local-only publishing
+remain unchanged. Cleared real photography can be added later; do not fabricate it.
 
 ## Updated journeys
 

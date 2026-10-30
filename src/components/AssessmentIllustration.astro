@@ -1,0 +1,116 @@
+---
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const he = locale === 'he';
+---
+
+<figure class="assessment-figure">
+  <svg
+    viewBox="0 0 500 370"
+    role="img"
+    aria-labelledby="assessment-title assessment-description"
+  >
+    <title id="assessment-title">{he ? 'איור של הערכת מעבר מישיבה לעמידה' : 'Illustration of a sit-to-stand assessment'}</title>
+    <desc id="assessment-description">
+      {he
+        ? 'דמות בישיבה ולצדה דמות בעמידה, להמחשת מחקר על תפקוד גופני. האיור אינו הוראות לביצוע בדיקה.'
+        : 'A seated figure and a standing figure illustrate physical-function research. This is not an instruction for performing a test.'}
+    </desc>
+    <ellipse cx="268" cy="182" rx="192" ry="169" fill="#e1f3f5" />
+    <g
+      fill="none"
+      stroke="#293f49"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <!-- Chair and seated figure: an editorial illustration, not a clinical diagram. -->
+      <path d="M75 155v104h122M79 259v71m111-71v71M75 180h25" />
+      <path
+        d="M120 124c-6-14-2-30 8-35 12-7 27 2 27 17 1 11-5 24-14 26-8 2-16-2-21-8Z"
+        fill="#fff"
+      />
+      <path d="M120 107c4 1 7-7 8-14 11 8 19 6 26 11m-3 12 7 3-7 3m-20 10v16m13-17 1 14" />
+      <path
+        d="M128 145c-17 0-27 12-25 33l5 57c18 8 40 8 58 1l-5-51c-3-27-14-38-33-40Z"
+        fill="#fff"
+      />
+      <path d="m124 163 13 31 32-17m-21-19 21 27-30 10" />
+      <path
+        d="M109 235c24-3 57-4 83-3 23 0 37 10 39 28l7 59-11 3-12-53c-2-9-10-12-19-12h-60c-17 0-25-7-27-17Z"
+        fill="#fff"
+      />
+      <path
+        d="m227 320 11-1 3 8 12 3c6 1 9 5 7 10h-31c-5 0-7-6-6-11Z"
+        fill="#fff"
+      />
+      <path d="M112 239h32m69 19 4 19" stroke="#7e959a" />
+      <!-- Standing figure. No measurement, score, or outcome is depicted. -->
+      <path
+        d="M340 73c-5-14 0-27 11-31 13-4 26 5 26 20 0 13-8 25-18 25-8 0-15-6-19-14Z"
+        fill="#fff"
+      />
+      <path d="M341 59c10 0 12-10 13-15 5 8 14 10 22 11m-2 11 7 4-7 2m-22 13-1 18m15-19 2 18" />
+      <path
+        d="m321 204-6 66-6 52 12 3 20-95 13 43 17 52 12-4-7-57-5-60Z"
+        fill="#fff"
+      />
+      <path
+        d="m309 322-4 10c-1 5 2 8 8 8h25c3-5-3-10-12-11l-5-4m50 0 7 10c2 4 8 5 15 5h13c2-5-3-10-11-11l-12-8"
+        fill="#fff"
+      />
+      <path
+        d="M351 101c-16 1-26 11-29 30l-6 73c18 7 40 7 59 0l-2-69c0-20-6-31-21-34Z"
+        fill="#fff"
+      />
+      <path d="m335 117-9 39 33 20m7-61 8 41-32 19m17 1 12 1m-29-2-9 3" />
+      <path d="M337 196h22" stroke="#7e959a" />
+      <path
+        d="M229 134c18-22 40-37 67-40"
+        stroke="#527d88"
+        stroke-dasharray="3 7"
+      />
+      <path d="m287 86 11 8-8 11" stroke="#527d88" />
+      <path d="M54 341h374" stroke="#9ebdc4" stroke-width="1.2" />
+    </g>
+  </svg>
+  <div class="assessment-legend" dir="ltr">
+    <span dir={he ? 'rtl' : 'ltr'}>{he ? 'ישיבה' : 'Seated'}</span>
+    <span dir={he ? 'rtl' : 'ltr'}>{he ? 'עמידה' : 'Standing'}</span>
+  </div>
+  <figcaption>
+    {he
+      ? 'תפקוד גופני הוא אחד מתחומי המחקר שלנו.'
+      : 'Physical function is one part of our research.'}
+  </figcaption>
+</figure>
+
+<style>
+  .assessment-figure {
+    margin: 0;
+  }
+  svg {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+  .assessment-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 14% 12%;
+    margin-block-start: -0.25rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  figcaption {
+    margin-block-start: 1rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: center;
+  }
+</style>

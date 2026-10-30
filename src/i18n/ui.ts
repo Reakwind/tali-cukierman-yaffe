@@ -7,10 +7,10 @@ const en = {
   fullName: 'Prof. Tali Cukierman-Yaffe',
   groupName: 'The Cukierman-Yaffe research group',
   description:
-    'Research at the intersection of diabetes, cognition, and healthy aging.',
-  draft: 'WORK IN PROGRESS',
+    'Research on diabetes, cognitive function, and aging led by Prof. Tali Cukierman-Yaffe.',
+  draft: 'Website draft',
   draftText:
-    'A website draft. Content and translations await research-team review; enquiries are not yet available.',
+    'Content and translations are under review. Study enquiries are not yet enabled.',
   skip: 'Skip to main content',
   menu: 'Menu',
   mainNavigation: 'Main navigation',
@@ -18,8 +18,9 @@ const en = {
   learn: 'Learn more',
   home: 'Home',
   nav: {
-    research: 'Our research',
     studies: 'Studies',
+    research: 'Our research',
+    publications: 'Publications',
     about: 'The group',
     'for-clinicians': 'For clinicians',
   },
@@ -29,8 +30,7 @@ const en = {
   publications: 'Selected publications',
   privacy: 'Privacy',
   accessibility: 'Accessibility',
-  footerNote:
-    'Understanding the whole person. Connecting science with everyday life.',
+  footerNote: 'Diabetes, cognitive function, and aging.',
   medicalNote:
     'Research information, not medical advice. This draft does not collect patient information or enroll participants.',
   back: 'Back to studies',
@@ -61,10 +61,11 @@ export const ui: Record<Locale, typeof en> = {
     group: 'קבוצת המחקר',
     fullName: 'פרופ׳ טלי צוקרמן־יפה',
     groupName: 'קבוצת המחקר של פרופ׳ טלי צוקרמן־יפה',
-    description: 'מחקר בנקודת המפגש בין סוכרת, תפקוד קוגניטיבי והזדקנות בריאה.',
-    draft: 'האתר בתהליך פיתוח',
+    description:
+      'מחקר על סוכרת, תפקוד קוגניטיבי והזדקנות בהובלת פרופ׳ טלי צוקרמן־יפה.',
+    draft: 'טיוטת אתר',
     draftText:
-      'זוהי טיוטת אתר. התוכן והתרגומים ממתינים לבדיקת צוות המחקר; עדיין לא ניתן לשלוח פניות.',
+      'התוכן והתרגומים בבדיקה. עדיין לא ניתן לשלוח פניות להשתתפות במחקרים.',
     skip: 'דילוג לתוכן הראשי',
     menu: 'תפריט',
     mainNavigation: 'ניווט ראשי',
@@ -72,8 +73,9 @@ export const ui: Record<Locale, typeof en> = {
     learn: 'למידע נוסף',
     home: 'בית',
     nav: {
-      research: 'המחקר שלנו',
       studies: 'מחקרים',
+      research: 'המחקר שלנו',
+      publications: 'פרסומים',
       about: 'על הקבוצה',
       'for-clinicians': 'לצוותים רפואיים',
     },
@@ -83,7 +85,7 @@ export const ui: Record<Locale, typeof en> = {
     publications: 'פרסומים נבחרים',
     privacy: 'פרטיות',
     accessibility: 'נגישות',
-    footerNote: 'להבין את האדם השלם. לחבר בין המדע לחיי היום־יום.',
+    footerNote: 'סוכרת, תפקוד קוגניטיבי והזדקנות.',
     medicalNote:
       'מידע מחקרי, לא ייעוץ רפואי. טיוטת האתר אינה אוספת מידע על מטופלים ואינה מבצעת הרשמה למחקרים.',
     back: 'בחזרה למחקרים',

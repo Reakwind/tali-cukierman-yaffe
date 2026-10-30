@@ -27,7 +27,7 @@ interface Page {
 export const pages: Record<Locale, Record<PageKey, Page>> = {
   en: {
     research: {
-      title: 'The whole person. The bigger picture.',
+      title: 'Our research',
       intro:
         'Research connecting metabolic health, cognition, and physical function — from clinical questions to digital assessment tools.',
       sections: [
@@ -77,14 +77,14 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     studies: {
-      title: 'Find the question that matters to you.',
+      title: 'Studies',
       intro:
         'A first look at publicly registered studies. A registry status is not a promise of current availability; the research team must confirm next steps.',
       // Individual study content comes from the validated Astro collection.
       sections: [],
     },
     about: {
-      title: 'Curious minds. Connected research.',
+      title: 'About the research group',
       intro:
         'The research group brings together work led by Prof. Tali Cukierman-Yaffe across clinical, academic, and digital-health settings.',
       sections: [
@@ -98,7 +98,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'connections',
-          title: 'Across organizations, around shared questions',
+          title: 'Institutional roles',
           paragraphs: [
             'Public institutional profiles describe the following connections. These are distinct roles, not a claim that this draft is an official website of any institution.',
           ],
@@ -111,17 +111,17 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'six-vital',
-          title: '6 Vital: a digital-health strand',
+          title: '6 Vital',
           paragraphs: [
-            'The project owner identifies 6 Vital as a platform created by Tali. Its public website describes digital cognitive measurement, caregiver/patient-management tools, and a patient app.',
+            '6 Vital is a digital-health platform created by Tali. Its public website describes digital cognitive measurement, caregiver/patient-management tools, and a patient app.',
             'The platform’s exact relationship to individual studies, ownership, product status, and preferred web address should be confirmed before launch. It is not this website’s enrollment or medical-care service.',
           ],
         },
         {
           id: 'people',
-          title: 'The people behind the work',
+          title: 'Team information',
           paragraphs: [
-            'A reviewed team roster, portraits, supervision information, and open positions will be added when available. We have not invented team members or published an unapproved recruitment advertisement.',
+            'Team profiles, supervision information, and any open positions will be added after research-team review.',
           ],
         },
       ],
@@ -142,7 +142,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     'for-clinicians': {
-      title: 'A clearer connection to research.',
+      title: 'For clinicians & collaborators',
       intro:
         'For clinicians and collaborators helping people learn about research. Share information, not patient details, through this draft.',
       sections: [
@@ -184,7 +184,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     participation: {
-      title: 'Your questions come first.',
+      title: 'Participating in research',
       intro:
         'Learning about a study does not commit you to taking part. An enquiry is not enrollment or informed consent.',
       sections: [
@@ -221,7 +221,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     publications: {
-      title: 'Evidence behind the questions.',
+      title: 'Selected publications',
       intro:
         'A small selection of source-verified publications, not a complete bibliography. Visit the institutional profile for the full record.',
       sections: [
@@ -270,7 +270,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     privacy: {
-      title: 'Privacy, by keeping things simple.',
+      title: 'Privacy',
       intro:
         'This draft is an informational website, not a place to submit medical or contact information.',
       sections: [
@@ -301,7 +301,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     accessibility: {
-      title: 'Designed to be easier to use.',
+      title: 'Accessibility',
       intro:
         'Our target is WCAG 2.2 AA. This work-in-progress website has not been certified, and manual testing remains part of the work.',
       sections: [
@@ -339,7 +339,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
   },
   he: {
     research: {
-      title: 'האדם השלם. התמונה הרחבה.',
+      title: 'המחקר שלנו',
       intro:
         'מחקר המחבר בין בריאות מטבולית, קוגניציה ותפקוד גופני — משאלות קליניות ועד כלי הערכה דיגיטליים.',
       sections: [
@@ -389,13 +389,13 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     studies: {
-      title: 'למצוא את השאלה שחשובה לכם.',
+      title: 'מחקרים',
       intro:
         'היכרות ראשונית עם מחקרים הרשומים במקורות ציבוריים. סטטוס ברישום אינו מבטיח זמינות נוכחית; הצוות צריך לאשר את הצעד הבא.',
       sections: [],
     },
     about: {
-      title: 'סקרנות משותפת. מחקר מחובר.',
+      title: 'על קבוצת המחקר',
       intro:
         'הקבוצה מרכזת את המחקר בהובלת פרופ׳ טלי צוקרמן־יפה במסגרות קליניות, אקדמיות ודיגיטליות.',
       sections: [
@@ -409,7 +409,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'connections',
-          title: 'בין ארגונים, סביב שאלות משותפות',
+          title: 'תפקידים מוסדיים',
           paragraphs: [
             'הקשרים הבאים מתוארים בפרופילים מוסדיים ציבוריים. אלו תפקידים נפרדים, ואין בכך טענה שטיוטה זו היא אתר רשמי של מוסד כלשהו.',
           ],
@@ -422,17 +422,17 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'six-vital',
-          title: '6 Vital: חלק מהעשייה הדיגיטלית',
+          title: '6 Vital',
           paragraphs: [
-            'בעל הפרויקט מציין ש־6 Vital היא פלטפורמה שטלי יצרה. האתר הציבורי מתאר מדידה קוגניטיבית דיגיטלית, כלים לניהול ולתמיכה במטופלים ובמטפלים, ואפליקציה למטופלים.',
+            '6 Vital היא פלטפורמה דיגיטלית שטלי יצרה. האתר הציבורי מתאר מדידה קוגניטיבית דיגיטלית, כלים לניהול ולתמיכה במטופלים ובמטפלים, ואפליקציה למטופלים.',
             'הקשר המדויק למחקרים, הבעלות, סטטוס המוצרים וכתובת האתר המועדפת דורשים אישור לפני השקה. הפלטפורמה אינה שירות ההרשמה או הטיפול הרפואי של אתר זה.',
           ],
         },
         {
           id: 'people',
-          title: 'האנשים שמאחורי המחקר',
+          title: 'מידע על הצוות',
           paragraphs: [
-            'רשימת צוות מאושרת, תמונות, מידע על הנחיה והזדמנויות יצורפו כאשר יהיו זמינים. לא המצאנו חברי צוות ולא פרסמנו מודעת גיוס שלא אושרה.',
+            'פרופילים של חברי הצוות, מידע על הנחיה והזדמנויות יצורפו לאחר בדיקת צוות המחקר.',
           ],
         },
       ],
@@ -453,7 +453,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     'for-clinicians': {
-      title: 'חיבור ברור יותר למחקר.',
+      title: 'לצוותים רפואיים ולחוקרים',
       intro:
         'לצוותים רפואיים ולשותפים המסייעים לאנשים להכיר מחקרים. דרך טיוטה זו משתפים מידע על המחקר, לא מידע על מטופלים.',
       sections: [
@@ -495,7 +495,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     participation: {
-      title: 'קודם כול, השאלות שלכם.',
+      title: 'השתתפות במחקר',
       intro:
         'קריאה על מחקר אינה מחייבת השתתפות. פנייה אינה הרשמה למחקר ואינה הסכמה מדעת.',
       sections: [
@@ -532,7 +532,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     publications: {
-      title: 'הראיות שמאחורי השאלות.',
+      title: 'פרסומים נבחרים',
       intro:
         'מבחר קטן של פרסומים שנבדקו מול המקורות, לא רשימת פרסומים מלאה. לרשימה המלאה אפשר לעיין בפרופיל המוסדי.',
       sections: [
@@ -581,7 +581,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     privacy: {
-      title: 'פרטיות מתחילה בפשטות.',
+      title: 'פרטיות',
       intro: 'זוהי טיוטת אתר מידע, לא מקום למסירת פרטים רפואיים או פרטי קשר.',
       sections: [
         {
@@ -611,7 +611,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       ],
     },
     accessibility: {
-      title: 'נועד להיות פשוט יותר לשימוש.',
+      title: 'נגישות',
       intro:
         'היעד שלנו הוא WCAG 2.2 ברמת AA. האתר עדיין בפיתוח, לא הוסמך, ובדיקה ידנית היא חלק מהעבודה הנדרשת.',
       sections: [

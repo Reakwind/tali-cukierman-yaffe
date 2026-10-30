@@ -12,20 +12,26 @@ Never supply patient data in an editing request, GitHub issue, or source file.
 
 ## Where content lives
 
-| Content                                                         | File                                                |
-| --------------------------------------------------------------- | --------------------------------------------------- |
-| Individual studies in both languages                            | `src/content/studies/*.json`                        |
-| Required study fields and draft safety rules                    | `src/lib/study-schema.ts`                           |
-| Astro's built-in content loading                                | `src/content.config.ts`                             |
-| About, research, publications, guidance, privacy, accessibility | `src/data/pages.ts`                                 |
-| Shared navigation and interface translations                    | `src/i18n/ui.ts`                                    |
-| Homepage editorial copy                                         | `src/pages/[locale]/index.astro`                    |
-| Shared layout and appearance                                    | `src/layouts/Layout.astro`, `src/styles/global.css` |
+| Content                                                         | File                                              |
+| --------------------------------------------------------------- | ------------------------------------------------- |
+| Individual studies in both languages                            | `src/content/studies/*.json`                      |
+| Required study fields and draft safety rules                    | `src/lib/study-schema.ts`                         |
+| Astro's built-in content loading                                | `src/content.config.ts`                           |
+| About, research, publications, guidance, privacy, accessibility | `src/data/pages.ts`                               |
+| Shared navigation and interface translations                    | `src/i18n/ui.ts`                                  |
+| Homepage editorial copy                                         | `src/components/Home.astro`                       |
+| Shared layout and appearance                                    | `src/layouts/Layout.astro`, `src/styles/site.css` |
 
 Study cards, detail pages, and the homepage feature read the same validated study
 collection. The homepage only features a record whose registry status is recruiting;
 it does not convert that registry status into a promise of current availability.
 Do not duplicate dates, registry status, or study summaries in page templates.
+
+The root URL and both localized homepages share `Home.astro`; there is no initial
+language-selection gate. Keep the five main destinations visible on desktop and
+available through the native disclosure menu on small screens. Follow the approved
+Sarvestani/Ranade direction and copy guardrails in `AGENTS.md` rather than bringing
+back the rejected wellness-style headings or decorative template sections.
 
 Each study file includes:
 
