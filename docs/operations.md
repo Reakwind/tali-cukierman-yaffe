@@ -4,6 +4,17 @@
 
 Repository: https://github.com/reakwind/tali-cukierman-yaffe
 
+Current publishing boundary: the owner chose **local development** rather than
+granting the extra GitHub `workflow` OAuth scope. The public repository contains
+only its initial seed. The foundation commit, CI workflow, and subsequent features
+remain local; no feature PR has been published or merged. Do not work around this
+decision by weakening protection or publishing workflows another way.
+
+Local feature branches are stacked from the foundation for review. When the owner
+chooses to publish, open and validate the foundation PR first, then rebase the next
+unpublished feature onto the squash-merged `main` and publish its own PR. Do not
+force-push a shared branch or merge unverified work directly into `main`.
+
 Applied and read back through GitHub's API on 2026-10-30:
 
 - Public visibility; squash-only merges; merged branches automatically deleted.

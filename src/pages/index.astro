@@ -1,15 +1,40 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Tali Cukierman-Yaffe · Research group</title>
-  </head>
-  <body>
-    <main>
-      <h1>Tali Cukierman-Yaffe research group</h1>
-      <p>Website draft. Research information is being prepared for review.</p>
-    </main>
-  </body>
-</html>
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout locale="en" title="Choose your language">
+  <div class="container language-choice">
+    <p class="eyebrow">
+      Research group ·{' '}
+      <span lang="he" dir="rtl" class="hebrew-text">
+        קבוצת המחקר
+      </span>
+    </p>
+    <h1>Tali Cukierman-Yaffe</h1>
+    <p class="page-intro">
+      Diabetes, cognition, and healthy aging.
+      <br />
+      <span class="hebrew-text" lang="he" dir="rtl">
+        סוכרת, קוגניציה והזדקנות בריאה.
+      </span>
+    </p>
+    <div class="actions">
+      <a class="button" href="/en/" lang="en" hreflang="en">
+        Explore in English <span aria-hidden="true">↗</span>
+      </a>
+      <a
+        class="button button-secondary hebrew-text"
+        href="/he/"
+        lang="he"
+        hreflang="he"
+        dir="rtl"
+      >
+        לאתר בעברית <span aria-hidden="true">↖</span>
+      </a>
+    </div>
+    <p class="small muted">Choose a language. You can switch on any page.</p>
+    <p class="small muted hebrew-text" lang="he" dir="rtl">
+      בחרו שפה. ניתן לעבור בין השפות מכל דף.
+    </p>
+  </div>
+</Layout>

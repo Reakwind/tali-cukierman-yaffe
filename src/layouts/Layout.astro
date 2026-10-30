@@ -1,0 +1,173 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui, type Locale } from '../i18n/ui';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  pagePath?: string;
+}
+
+const {
+  locale,
+  title,
+  description = ui[locale].description,
+  pagePath = '',
+} = Astro.props;
+const t = ui[locale];
+const other = locale === 'en' ? 'he' : 'en';
+const section = pagePath.split('/')[0];
+const home = getRelativeLocaleUrl(locale);
+---
+
+<!doctype html>
+<html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#183e33" />
+    <meta property="og:title" content={`${title} · ${t.groupName}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href={
+        locale === 'he'
+          ? '/fonts/plex-hebrew-regular.woff2'
+          : '/fonts/plex-sans-regular.woff2'
+      }
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>{title} · {t.groupName}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {t.skip}
+    </a>
+    <header class="site-header">
+      <div class="draft-notice" data-draft-notice>
+        <div class="container draft-inner">
+          <strong>{t.draft}</strong>
+          <span>{t.draftText}</span>
+        </div>
+      </div>
+      <div class="container header-row">
+        <a href={home} class="brand" aria-label={t.groupName}>
+          <span class="brand-mark" aria-hidden="true" dir="ltr">
+            tcy<span>·</span>
+          </span>
+          <span>
+            <span class="brand-name">{t.brand}</span>
+            <span class="brand-subtitle">{t.group}</span>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label={t.mainNavigation}>
+          {Object.entries(t.nav).map(([path, label]) => (
+            <a
+              href={getRelativeLocaleUrl(locale, `${path}/`)}
+              aria-current={section === path ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <details class="mobile-menu">
+          <summary>
+            {t.menu}
+            <span aria-hidden="true">☰</span>
+          </summary>
+          <nav class="menu-panel" aria-label={t.mainNavigation}>
+            {Object.entries(t.nav).map(([path, label]) => (
+              <a
+                href={getRelativeLocaleUrl(locale, `${path}/`)}
+                aria-current={section === path ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </details>
+        <a
+          class="language-link"
+          href={getRelativeLocaleUrl(other, pagePath)}
+          lang={other}
+          hreflang={other}
+          dir={other === 'he' ? 'rtl' : 'ltr'}
+        >
+          {other === 'he' ? 'עברית' : 'English'}
+        </a>
+        <a
+          class="button button-small header-cta"
+          href={getRelativeLocaleUrl(locale, 'studies/')}
+        >
+          {t.explore}
+          <span class="arrow" aria-hidden="true">
+            ↗
+          </span>
+        </a>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-intro">
+          <p class="eyebrow">{t.groupName}</p>
+          <p class="footer-statement">{t.footerNote}</p>
+          <p class="small muted">{t.medicalNote}</p>
+        </div>
+        <div>
+          <h2 class="footer-heading">{t.footerExplore}</h2>
+          <ul class="footer-links">
+            {Object.entries(t.nav).map(([path, label]) => (
+              <li>
+                <a href={getRelativeLocaleUrl(locale, `${path}/`)}>{label}</a>
+              </li>
+            ))}
+            <li>
+              <a href={getRelativeLocaleUrl(locale, 'publications/')}>
+                {t.publications}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer-heading">{t.footerKnow}</h2>
+          <ul class="footer-links">
+            <li>
+              <a href={getRelativeLocaleUrl(locale, 'participation/')}>
+                {t.participation}
+              </a>
+            </li>
+            <li>
+              <a href={getRelativeLocaleUrl(locale, 'privacy/')}>{t.privacy}</a>
+            </li>
+            <li>
+              <a href={getRelativeLocaleUrl(locale, 'accessibility/')}>
+                {t.accessibility}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>
+          © {new Date().getFullYear()} · {t.groupName}
+        </span>
+        <span>
+          {locale === 'he'
+            ? 'סוכרת · קוגניציה · הזדקנות בריאה'
+            : 'Diabetes · Cognition · Healthy aging'}
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
