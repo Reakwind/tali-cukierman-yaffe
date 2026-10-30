@@ -20,9 +20,43 @@ be placed in this repository, its issues, or pull requests.
 - [Participant-enquiry plan](docs/registration-plan.md)
 - [Agent workflow](AGENTS.md)
 
-Development setup will be documented with the tested application foundation.
 Every feature is developed through a focused PR and squash-merged only when its
 checks pass. No additional paid services are authorized.
+
+## Development
+
+Use Node.js 24 (the exact version is in `.node-version`) and npm. On this Mac,
+Homebrew's versioned Node may need to be added to the terminal's path:
+
+```sh
+export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
+npm ci
+npx playwright install chromium firefox webkit
+npm run dev
+```
+
+Open the local URL Astro prints. The public site is generated as static files in
+`dist/`; no server adapter, database, or production Node.js process is required.
+
+Before opening or merging a PR:
+
+```sh
+npm run verify
+```
+
+This runs formatting, linting, type checks, Node tests, a production build, and
+Playwright on three desktop engines plus Android/iPhone viewports. Browser tests
+start their own local production preview. These viewports are emulation, not
+physical-device testing. Automated accessibility checks do not replace manual checks.
+
+Use `npm run format` to format files. Set `ASTRO_TELEMETRY_DISABLED=1` to disable
+Astro development telemetry, as CI does.
+
+## Deployment and security
+
+See [operations](docs/operations.md). Cloudflare has not yet been connected.
+Drafts are deliberately non-indexable, but **noindex is not access control**:
+this repository is public, and a deployed preview would normally be public too.
 
 ## Rights
 

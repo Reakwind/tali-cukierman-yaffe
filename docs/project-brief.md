@@ -1,0 +1,84 @@
+# Confirmed project direction
+
+Updated 2026-10-30 following the owner's discovery answers. This supersedes the
+personal-hub recommendation and tentative audience priorities in `discovery.md`.
+
+## Decisions
+
+- Identity: Tali Cukierman-Yaffe's research group and projects.
+- Languages: English and Hebrew at launch; full RTL support, not a translated overlay.
+- Main outcome: increase awareness and appropriate study enquiries/referrals from
+  patients, caregivers, clinicians, and academic collaborators.
+- Maintenance: agent-assisted content edits through tested pull requests.
+- Public GitHub repository: `reakwind/tali-cukierman-yaffe`.
+- Stack: proceed with the lean static Astro/TypeScript/CSS recommendation.
+- Content: no current CV or preferred design examples are available. Draft from
+  attributed public sources, improve iteratively, and mark content pending review.
+- 6 Vital: the owner describes it as a platform Tali created. Present it as one
+  strand of the group's digital-health work, not as the website's main identity.
+- Registration: no approved route has been supplied; a solution is needed. Plan it
+  separately, with no health-data collection or pretend successful submission.
+- Tooling: owner approved installing Node.js LTS and GitHub CLI using Homebrew.
+- No new paid services or account upgrades.
+
+## Updated journeys
+
+1. Potential participant/caregiver: understand the research -> inspect a study's
+   purpose, location, participation burden, and current information -> review
+   what an enquiry means -> use an approved enquiry route once available.
+2. Referring clinician: find the relevant study -> inspect source eligibility and
+   status -> understand the referral process -> give the patient a shareable
+   study link or use the institution-approved referral channel. Never upload
+   patient details to this public website or GitHub.
+3. Academic collaborator: research theme -> related studies and publications ->
+   group/affiliation information -> appropriate collaboration contact.
+4. Prospective student: research fit -> methods and selected publications ->
+   approved opportunities/contact information when supplied.
+5. Industry/investor: digital-health work -> evidence and limitations -> 6 Vital
+   or another appropriate institutional channel. Secondary to recruitment.
+
+## Initial structure
+
+- Home, with a prominent "Explore studies" action and a clinician/referral route.
+- Studies, with readable detail pages and distinct registry-recruiting/completed
+  states. No unapproved "Register now" button.
+- Research, including cognition, physical function, and digital-health work.
+- About the group, current sourced affiliations, and clinical roles.
+- Selected publications, DOI links, and institutional full-publication profile.
+- For clinicians/collaborators, participation guidance, privacy, and accessibility.
+
+Keep navigation short and consistent. Information should remain discoverable by
+topic; visitors should not have to identify themselves before seeing the site.
+
+## New source checks
+
+- `https://6vital.com` did not return usable content during the session.
+  `https://6-vital.com/` is accessible and describes digital cognitive measurement,
+  a caregiver/patient-management system, and a patient app. Confirm the preferred
+  canonical platform URL with the team before launch.
+- ClinicalTrials.gov `NCT06497595` (STAY-STRONG): registry lists `RECRUITING`,
+  last update posted 2026-07-21. This is a dated public listing, not a guarantee
+  of current availability or approved website recruitment text.
+- ClinicalTrials.gov `NCT06236256` (older-adult hybrid closed-loop study): registry
+  lists `COMPLETED`, completion 2025-08-20, last update posted 2026-07-21.
+  Third-party search results still describe it as recruiting; do not reuse them.
+- Official records read directly:
+  - https://clinicaltrials.gov/api/v2/studies/NCT06497595
+  - https://clinicaltrials.gov/api/v2/studies/NCT06236256
+- Participant information from Israel's Ministry of Health:
+  https://me.health.gov.il/en/older-adult/services-rights/living-with-a-condition/treatments/clinical-trials/
+- Ministry procedure (including recruitment-advertising references):
+  https://www.gov.il/he/pages/protocol-of-medical-research-involving-human-subjects
+
+## Launch gates still open
+
+- Tali/team approval of the group's name, biography, roles, and English/Hebrew copy.
+- Current study/site status, accurate participation burdens, and approved recruitment
+  material. Summaries are not a substitute for complete approved eligibility/risk details.
+- Recruitment-data controller, approved form/channel, retention, access, privacy
+  information, accessibility, and ethics/institutional approval as applicable.
+- Approved public contact details; no personal mobile numbers copied automatically.
+- Permission-cleared photography and institutional/platform logos.
+- GitHub browser login and verification of repository protections/checks.
+- Cloudflare account access and deployment choice; optional domain and code license.
+- Real-device/manual accessibility checks and final production smoke testing.
