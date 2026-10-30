@@ -80,34 +80,8 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       title: 'Find the question that matters to you.',
       intro:
         'A first look at publicly registered studies. A registry status is not a promise of current availability; the research team must confirm next steps.',
-      sections: [
-        {
-          id: 'stay-strong',
-          title: 'STAY-STRONG',
-          paragraphs: [
-            'ClinicalTrials.gov NCT06497595 lists this study as recruiting, with an update posted on 21 July 2026. It investigates exercise and nutritional intervention in older adults with type 2 diabetes and obesity receiving semaglutide.',
-            'Participant information, site availability, and a secure enquiry route still require team approval. This draft does not accept applications.',
-          ],
-        },
-        {
-          id: 'hybrid-closed-loop',
-          title: 'Hybrid closed-loop study — completed',
-          paragraphs: [
-            'ClinicalTrials.gov NCT06236256 lists the older-adult type 1 diabetes hybrid closed-loop study as completed. The registry reports completion on 20 August 2025, with an update posted on 21 July 2026.',
-            'It is included as research context, not an opportunity to enroll.',
-          ],
-        },
-      ],
-      sources: [
-        {
-          label: 'STAY-STRONG official registry record',
-          url: 'https://clinicaltrials.gov/study/NCT06497595',
-        },
-        {
-          label: 'Completed hybrid closed-loop study',
-          url: 'https://clinicaltrials.gov/study/NCT06236256',
-        },
-      ],
+      // Individual study content comes from the validated Astro collection.
+      sections: [],
     },
     about: {
       title: 'Curious minds. Connected research.',
@@ -418,34 +392,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       title: 'למצוא את השאלה שחשובה לכם.',
       intro:
         'היכרות ראשונית עם מחקרים הרשומים במקורות ציבוריים. סטטוס ברישום אינו מבטיח זמינות נוכחית; הצוות צריך לאשר את הצעד הבא.',
-      sections: [
-        {
-          id: 'stay-strong',
-          title: 'מחקר STAY-STRONG',
-          paragraphs: [
-            'ברישום הרשמי NCT06497595 באתר ClinicalTrials.gov המחקר מופיע כמגייס משתתפים, בעדכון שפורסם ב־21 ביולי 2026. המחקר בוחן שילוב של פעילות גופנית ותזונה בקרב מבוגרים עם סוכרת מסוג 2 והשמנה, במסגרת טיפול בסמגלוטייד.',
-            'המידע למשתתפים, זמינות המרכז ומסלול פנייה מאובטח עדיין דורשים אישור של צוות המחקר. טיוטת האתר אינה מקבלת בקשות הרשמה.',
-          ],
-        },
-        {
-          id: 'hybrid-closed-loop',
-          title: 'מחקר מערכת הלולאה הסגורה — הושלם',
-          paragraphs: [
-            'ברישום הרשמי NCT06236256 מחקר מערכת הלולאה הסגורה ההיברידית במבוגרים עם סוכרת מסוג 1 מופיע כמחקר שהושלם. תאריך ההשלמה המדווח הוא 20 באוגוסט 2025; העדכון פורסם ב־21 ביולי 2026.',
-            'המידע מובא כהקשר מחקרי, ולא כהזדמנות להרשמה.',
-          ],
-        },
-      ],
-      sources: [
-        {
-          label: 'הרישום הרשמי של STAY-STRONG (באנגלית)',
-          url: 'https://clinicaltrials.gov/study/NCT06497595',
-        },
-        {
-          label: 'המחקר שהושלם: לולאה סגורה היברידית (באנגלית)',
-          url: 'https://clinicaltrials.gov/study/NCT06236256',
-        },
-      ],
+      sections: [],
     },
     about: {
       title: 'סקרנות משותפת. מחקר מחובר.',

@@ -19,6 +19,15 @@ be placed in this repository, its issues, or pull requests.
 - [Research, design references, and initial personas](docs/discovery.md)
 - [Participant-enquiry plan](docs/registration-plan.md)
 - [Agent workflow](AGENTS.md)
+- [Content editing](docs/content-editing.md)
+
+The application currently remains **local only**, at the owner's request. The
+public GitHub repository contains its initial seed; CI/workflow publication and
+feature PRs/merges are pending additional authorization. No Cloudflare deployment
+or live registration service has been created.
+
+The local preview, when running, is available in [English](http://127.0.0.1:4321/en/)
+and [Hebrew](http://127.0.0.1:4321/he/).
 
 Every feature is developed through a focused PR and squash-merged only when its
 checks pass. No additional paid services are authorized.

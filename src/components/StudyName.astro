@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  acronym?: string | undefined;
+}
+const { title, acronym } = Astro.props;
+const parts = acronym ? title.split(acronym) : [];
+---
+
+{acronym && parts.length === 2 ? (
+  <Fragment>
+    {parts[0]}
+    <bdi class="study-acronym" dir="ltr">
+      {acronym}
+    </bdi>
+    {parts[1]}
+  </Fragment>
+) : (
+  title
+)}

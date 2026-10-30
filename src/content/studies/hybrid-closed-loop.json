@@ -1,0 +1,37 @@
+{
+  "registryId": "NCT06236256",
+  "registryUrl": "https://clinicaltrials.gov/study/NCT06236256",
+  "registryStatus": "COMPLETED",
+  "registryUpdated": "2026-07-21",
+  "sourceChecked": "2026-10-30",
+  "approval": "draft",
+  "enquiriesAvailable": false,
+  "localized": {
+    "en": {
+      "title": "Hybrid closed-loop systems in older adults",
+      "summary": "A completed study of advanced hybrid closed-loop insulin delivery in older adults with type 1 diabetes, examining glucose measures, quality of life, cognition, and physical function.",
+      "population": "The registered study concerned adults over 60 with type 1 diabetes. This is archived study context, not an invitation for new participants.",
+      "location": "Sheba Medical Center, Ramat Gan, Israel. The official record lists the study as completed.",
+      "duration": "Approximately 12 months of follow-up. The registry reports completion on 20 August 2025.",
+      "activities": [
+        "Participants were assigned to a hybrid closed-loop system or their routine insulin-treatment approach within the research protocol.",
+        "The record describes glucose monitoring, clinical visits, physical-function and cognitive assessments, and questionnaires.",
+        "This summary describes the research question and procedures, not published results or a recommendation for a particular device."
+      ],
+      "caution": "This study is completed and is not offered for enrollment. A completed registry record does not itself establish study findings or product efficacy."
+    },
+    "he": {
+      "title": "מערכות לולאה סגורה היברידית בגיל המבוגר",
+      "summary": "מחקר שהושלם על מתן אינסולין באמצעות מערכת לולאה סגורה היברידית במבוגרים עם סוכרת מסוג 1, ובחינת מדדי סוכר, איכות חיים, קוגניציה ותפקוד גופני.",
+      "population": "המחקר הרשום עסק במבוגרים מעל גיל 60 עם סוכרת מסוג 1. זהו מידע ארכיוני, לא הזמנה למשתתפים חדשים.",
+      "location": "המרכז הרפואי שיבא, רמת גן, ישראל. ברישום הרשמי המחקר מופיע כמחקר שהושלם.",
+      "duration": "מעקב של כ־12 חודשים. הרישום מדווח על השלמה ב־20 באוגוסט 2025.",
+      "activities": [
+        "המשתתפים שויכו למערכת לולאה סגורה היברידית או להמשך גישת הטיפול הרגילה באינסולין, במסגרת פרוטוקול המחקר.",
+        "הרישום מתאר ניטור סוכר, ביקורים קליניים, הערכות תפקוד גופני וקוגניטיבי ושאלונים.",
+        "הסיכום מתאר את שאלת המחקר ואת הפעולות, לא תוצאות שפורסמו או המלצה על מכשיר מסוים."
+      ],
+      "caution": "המחקר הושלם ואינו מוצע להרשמה. רישום של מחקר שהושלם אינו מהווה בפני עצמו תוצאה מחקרית או הוכחה ליעילות מוצר."
+    }
+  }
+}

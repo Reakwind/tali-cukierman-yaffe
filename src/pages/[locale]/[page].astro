@@ -6,10 +6,12 @@ import { pages, pageKeys, type PageKey } from '../../data/pages';
 
 export function getStaticPaths() {
   return locales.flatMap((locale) =>
-    pageKeys.map((page) => ({
-      params: { locale, page },
-      props: { locale, page },
-    })),
+    pageKeys
+      .filter((page) => page !== 'studies')
+      .map((page) => ({
+        params: { locale, page },
+        props: { locale, page },
+      })),
   );
 }
 interface Props {

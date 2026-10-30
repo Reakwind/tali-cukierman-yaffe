@@ -37,6 +37,21 @@ const en = {
   sources: 'Sources & further reading',
   copyNote:
     'Editorial summary for review. Refer to the original source and the research team for current information.',
+  readStudy: 'Read study',
+  recruiting: 'Registry lists recruiting',
+  completed: 'Completed · archived study',
+  updated: 'Registry updated',
+  checked: 'Source checked',
+  record: 'Registry record',
+  population: 'Who the registry describes',
+  location: 'Where the research takes place',
+  duration: 'Time & practical commitment',
+  involves: 'What the registry describes',
+  enquiryPending: 'Participant enquiries are not available on this draft.',
+  enquiryClosed: 'This study is completed. It is not offered for enrollment.',
+  enquiryExplanation:
+    'The research team must approve current information and a secure enquiry route before applications can open. An enquiry is not consent or enrollment. Do not send personal or medical information through this site or GitHub.',
+  registryLink: 'View official registry record',
 };
 
 export const ui: Record<Locale, typeof en> = {
@@ -75,5 +90,20 @@ export const ui: Record<Locale, typeof en> = {
     sources: 'מקורות וקריאה נוספת',
     copyNote:
       'סיכום עריכתי המיועד לבדיקה. למידע עדכני יש לעיין במקור ולפנות לצוות המחקר.',
+    readStudy: 'לפרטי המחקר',
+    recruiting: 'ברישום הרשמי: מגייס משתתפים',
+    completed: 'הושלם · מחקר ארכיוני',
+    updated: 'עדכון הרישום',
+    checked: 'בדיקת המקור',
+    record: 'מזהה ברישום',
+    population: 'האוכלוסייה המתוארת ברישום',
+    location: 'היכן נערך המחקר',
+    duration: 'משך המחקר וההתחייבות המעשית',
+    involves: 'הפעולות המתוארות ברישום',
+    enquiryPending: 'עדיין לא ניתן לשלוח פניות להשתתפות בטיוטה זו.',
+    enquiryClosed: 'המחקר הושלם ואינו מוצע להרשמה.',
+    enquiryExplanation:
+      'לפני פתיחת פניות, על הצוות לאשר מידע עדכני ומסלול פנייה מאובטח. פנייה אינה הסכמה למחקר ואינה הרשמה. אין לשלוח מידע אישי או רפואי באתר או ב־GitHub.',
+    registryLink: 'לרישום הרשמי של המחקר (באנגלית)',
   },
 };

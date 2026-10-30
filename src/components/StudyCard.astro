@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui, type Locale } from '../i18n/ui';
+import StudyName from './StudyName.astro';
+
+interface Props {
+  study: CollectionEntry<'studies'>;
+  locale: Locale;
+}
+const { study, locale } = Astro.props;
+const t = ui[locale];
+const data = study.data;
+const content = data.localized[locale];
+const closed = data.registryStatus === 'COMPLETED';
+const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
+  dateStyle: 'long',
+  timeZone: 'UTC',
+}).format(new Date(`${data.registryUpdated}T00:00:00Z`));
+---
+
+<article
+  class="study-card"
+  id={study.id}
+  data-study={study.id}
+  data-status={data.registryStatus}
+>
+  <span class:list={['status', { 'status-closed': closed }]}>
+    {closed ? t.completed : t.recruiting}
+  </span>
+  <h2>
+    <StudyName title={content.title} acronym={data.acronym} />
+  </h2>
+  <p>{content.summary}</p>
+  <dl class="study-facts">
+    <div>
+      <dt>{t.record}</dt>
+      <dd>
+        <bdi dir="ltr">{data.registryId}</bdi>
+      </dd>
+    </div>
+    <div>
+      <dt>{t.updated}</dt>
+      <dd>
+        <time datetime={data.registryUpdated}>{updated}</time>
+      </dd>
+    </div>
+  </dl>
+  <a
+    class="text-link"
+    href={getRelativeLocaleUrl(locale, `studies/${study.id}/`)}
+  >
+    {t.readStudy}
+    <span class="arrow" aria-hidden="true">
+      ↗
+    </span>
+  </a>
+</article>

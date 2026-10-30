@@ -36,6 +36,10 @@ future changes through the API/settings interface; do not weaken safeguards to
 get a PR merged. After CI first runs, bind the required check to the GitHub Actions
 application rather than accepting a check posted by any integration.
 
+The account owner should use a passkey or two-factor authentication and store
+recovery codes securely. Account authentication and billing settings have not
+been changed by this project; never put recovery codes or tokens in the repo.
+
 CI uses standard Ubuntu runners and pinned Actions, without repository secrets.
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote

@@ -20,6 +20,9 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
   separately, with no health-data collection or pretend successful submission.
 - Tooling: owner approved installing Node.js LTS and GitHub CLI using Homebrew.
 - No new paid services or account upgrades.
+- Later decision: continue application development locally rather than grant the
+  additional GitHub workflow scope. Keep CI publishing, feature PRs, and merges
+  pending; do not work around that boundary.
 
 ## Updated journeys
 
@@ -36,6 +39,25 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
    approved opportunities/contact information when supplied.
 5. Industry/investor: digital-health work -> evidence and limitations -> 6 Vital
    or another appropriate institutional channel. Secondary to recruitment.
+
+### Primary recruitment personas (provisional)
+
+- **Potential participant or caregiver:** may be browsing on a phone and be new
+  to research terminology. Needs readable, non-promotional explanations of the
+  purpose, location, commitment, risks/limitations, and next step. Main barriers
+  are jargon, unclear status, a burdensome form, or an implied promise of benefit.
+  The site should support learning without forcing disclosure or commitment.
+- **Referring clinician:** time-constrained and needs a credible source quickly.
+  Needs a dated registry link, broad population description plus full source
+  criteria, site-specific status, practical commitment, and an approved referral
+  channel. Main barriers are stale recruitment badges and uncertainty about where
+  patient details would go. Shareable deep links should work in either language.
+- **Academic colleague:** needs scientific overlap, methods, publications, and
+  the correct institutional context. Source-based summaries and direct publication
+  links are more useful than promotional claims or unexplained affiliation lists.
+
+These remain desk-research hypotheses, not claims that interviews or usability
+sessions with actual patients/clinicians have taken place.
 
 ## Initial structure
 
@@ -79,6 +101,7 @@ topic; visitors should not have to identify themselves before seeing the site.
   information, accessibility, and ethics/institutional approval as applicable.
 - Approved public contact details; no personal mobile numbers copied automatically.
 - Permission-cleared photography and institutional/platform logos.
-- GitHub browser login and verification of repository protections/checks.
+- GitHub workflow publishing authorization and actual remote CI/PR verification
+  (initial login and repository protections are already in place).
 - Cloudflare account access and deployment choice; optional domain and code license.
 - Real-device/manual accessibility checks and final production smoke testing.

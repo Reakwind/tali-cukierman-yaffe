@@ -40,3 +40,30 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   their license; provenance is recorded in `third-party.md`.
 - Publishing/remote CI remain pending by the owner's choice. No feature PR was
   created or merged after the workflow-scope refusal.
+
+## Structured study discovery — 2026-10-30
+
+- Content-validation red: 12 safety cases failed against the initial permissive
+  schema, including missing translations, incorrect registry links, unsupported
+  status claims, unapproved recruitment, and unexpected personal-data fields.
+- Content-validation green: strict Astro/Zod validation now rejects those cases,
+  also checks source-date ordering, and accepts both source-backed study records.
+- Journey red: participant discovery failed because the structured study card did
+  not exist. Green: listing -> dated detail -> source/pending-enquiry explanation
+  works in both languages, including same-study language switching.
+- Visual regression red: a narrow Hebrew study heading did not isolate its English
+  acronym. Green: a shared native `bdi` rendering preserves the acronym on one line
+  without horizontal overflow, using the source record rather than hardcoded copy.
+- Final local `npm run verify`: zero formatting/lint/type diagnostics, **21 unit
+  tests and 90 browser tests passed**, with no skipped tests.
+- All 22 localized pages were checked across five browser/device projects for
+  metadata, heading structure, duplicate IDs, internal links/fragments, narrow/wide
+  overflow, no executable JavaScript/forms, third-party rendering requests, and
+  automated accessibility. The root language page and bilingual 404 have separate
+  coverage. Desktop and mobile study screenshots were inspected visually.
+- Production output: 24 HTML pages, zero JavaScript files, about 14 KB CSS, and
+  268 KB of total self-hosted font files (loaded as needed).
+- A clean `npm ci` completed successfully and reported zero known vulnerabilities.
+- Still pending: Linux/remote CI, Cloudflare response-header verification, real
+  devices/screen readers, actual patient/clinician usability sessions, approved
+  medical/translation copy, and an institution-approved enquiry service.
