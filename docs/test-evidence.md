@@ -241,3 +241,26 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **185 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Navigation and link-graph cleanup — 2026-10-31
+
+- Owner: navigation/links were confusing, with many links leading to the same
+  place; required clicking through every journey before declaring done.
+- Audit (scripted link inventory of `main` per page) found: registry record
+  linked twice and the studies index twice on the study page; a duplicate
+  "For clinicians & collaborators" hero CTA beside the header's "For clinicians";
+  "Tel Aviv University" linking to Tali's personal CRIS profile; a "Referrals &
+  collaboration" block on the studies index duplicating the header shortcut;
+  an "Explore studies" button on the Research page duplicating global nav; and
+  inconsistent internal/external arrow glyphs.
+- Red: two new journey/consistency tests failed (duplicate destinations; hero
+  duplication). Three click-through journeys (patient, clinician, academic) were
+  written and pass after the fixes; the desktop-header journeys needed an
+  explicit desktop viewport because the header collapses to a menu on mobile.
+- Green: one link per destination in page content everywhere; hero has one
+  primary action; institutional names are honest plain-text context; Research
+  gained a real STAY-STRONG link (its prose previously promised one it didn't
+  have); internal links use → and external links ↗.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **210 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

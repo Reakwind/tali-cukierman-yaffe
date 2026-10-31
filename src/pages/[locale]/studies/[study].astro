@@ -88,22 +88,6 @@ const date = (value: string) =>
             <li>{activity}</li>
           ))}
         </ul>
-        <details class="clinical-details">
-          <summary>{t.clinicalTitle}</summary>
-          <ul>
-            <li>
-              {t.record}: <bdi dir="ltr">{data.registryId}</bdi>
-            </li>
-            <li>
-              <a href={data.registryUrl}>
-                {t.registryLink}
-                <span class="arrow" aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </li>
-          </ul>
-        </details>
       </section>
       <section class="article-section" aria-labelledby="important-heading">
         <h2 id="important-heading">
@@ -125,7 +109,7 @@ const date = (value: string) =>
         >
           {t.participation}
           <span class="arrow" aria-hidden="true">
-            ↗
+            →
           </span>
         </a>
       </section>
@@ -149,9 +133,6 @@ const date = (value: string) =>
           </span>
         </a>
       </section>
-      <a class="text-link" href={getRelativeLocaleUrl(locale, 'studies/')}>
-        {t.back}
-      </a>
     </div>
   </div>
 </Layout>

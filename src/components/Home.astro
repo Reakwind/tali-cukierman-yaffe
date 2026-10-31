@@ -16,7 +16,6 @@ const content = he
       intro:
         'אנו חוקרים כיצד סוכרת קשורה לזיכרון, לחשיבה ולתפקוד גופני בגיל המבוגר.',
       role: 'אנדוקרינולוגית ואפידמיולוגית קלינית',
-      clinician: 'מידע לצוותים רפואיים',
       institutions: ['המרכז הרפואי שיבא', 'אוניברסיטת תל אביב'],
       research: 'תחומי המחקר',
       researchIntro:
@@ -51,7 +50,6 @@ const content = he
       intro:
         'We study how diabetes relates to memory, thinking, and physical function in older adults.',
       role: 'Endocrinologist & clinical epidemiologist',
-      clinician: 'For clinicians & collaborators',
       institutions: ['Sheba Medical Center', 'Tel Aviv University'],
       research: 'Research areas',
       researchIntro:
@@ -104,25 +102,15 @@ const content = he
           {t.explore}
           <span aria-hidden="true">→</span>
         </a>
-        <a
-          class="text-link"
-          href={getRelativeLocaleUrl(locale, 'for-clinicians/')}
-        >
-          {content.clinician}
-        </a>
       </div>
     </div>
     <div class="intro-visual">
       <AssessmentIllustration locale={locale} />
     </div>
     <div class="institution-links">
-      <a href="https://eng.sheba.co.il/Center-for-Treatment-and-Study-Diabetes-in-Old-Age">
-        {content.institutions[0]}
-      </a>
+      <span>{content.institutions[0]}</span>
       <span aria-hidden="true">/</span>
-      <a href="https://cris.tau.ac.il/en/persons/tali-cukierman-yaffe/">
-        {content.institutions[1]}
-      </a>
+      <span>{content.institutions[1]}</span>
     </div>
   </section>
 

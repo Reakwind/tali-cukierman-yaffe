@@ -48,7 +48,7 @@ const t = ui[locale];
         <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
           {t.explore}
           <span class="arrow" aria-hidden="true">
-            ↗
+            →
           </span>
         </a>
       </div>
@@ -71,6 +71,21 @@ const t = ui[locale];
               ))}
             </ul>
           )}
+          {section.links && (
+            <div class="section-links">
+              {section.links.map((link) => (
+                <a
+                  class="text-link"
+                  href={getRelativeLocaleUrl(locale, link.path)}
+                >
+                  {link.label}
+                  <span class="arrow" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
           {page === 'about' && section.id === 'people' && (
             <TeamProfiles locale={locale} />
           )}
@@ -92,25 +107,27 @@ const t = ui[locale];
           <p class="small">{t.copyNote}</p>
         </section>
       )}
-      {['research', 'for-clinicians'].includes(page) && (
+      {page === 'research' && (
+        <div class="actions">
+          <a
+            class="text-link"
+            href={getRelativeLocaleUrl(locale, 'publications/')}
+          >
+            {t.publications}
+            <span class="arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
+        </div>
+      )}
+      {page === 'for-clinicians' && (
         <div class="actions">
           <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
             {t.explore}
             <span class="arrow" aria-hidden="true">
-              ↗
+              →
             </span>
           </a>
-          {page === 'research' && (
-            <a
-              class="text-link"
-              href={getRelativeLocaleUrl(locale, 'publications/')}
-            >
-              {t.publications}
-              <span class="arrow" aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          )}
         </div>
       )}
     </div>

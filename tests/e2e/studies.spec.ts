@@ -32,9 +32,6 @@ test('a participant can discover a dated study without a fake registration flow'
   await expect(page.locator('.article-wrap h2').last()).toHaveText(
     'What happens next',
   );
-  await expect(page.locator('details.clinical-details')).toContainText(
-    'NCT06497595',
-  );
   await expect(
     page.locator('form, input, textarea, [data-live-enquiry]'),
   ).toHaveCount(0);
@@ -62,9 +59,11 @@ test('a completed study is clearly archived and never offered for enrollment', a
 test('the clinician journey leads to source information without collecting patient details', async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en/');
   await page
-    .getByRole('link', { name: 'For clinicians & collaborators', exact: true })
+    .getByRole('banner')
+    .getByRole('link', { name: 'For clinicians', exact: true })
     .click();
   await expect(page.getByRole('main')).toContainText('Do not send names');
   await page

@@ -16,6 +16,7 @@ interface Section {
   title: string;
   paragraphs: string[];
   bullets?: string[];
+  links?: { label: string; path: string }[];
 }
 interface Page {
   title: string;
@@ -44,7 +45,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Movement, strength & independence',
           paragraphs: [
             'Physical function is another part of the picture. Research includes muscle strength, frailty, and the practical challenges of managing diabetes in older age.',
-            'STAY-STRONG studies exercise and nutrition alongside semaglutide. See the study page for details and current status.',
+            'STAY-STRONG studies exercise and nutrition alongside semaglutide.',
+          ],
+          links: [
+            { label: 'STAY-STRONG study page', path: 'studies/stay-strong/' },
           ],
         },
         {
