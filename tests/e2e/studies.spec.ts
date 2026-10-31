@@ -17,8 +17,12 @@ test('a participant can discover a dated study without a fake registration flow'
   ).toHaveText('NCT06497595');
   await expect(page.locator('time[datetime="2026-07-21"]')).toBeVisible();
   await expect(page.locator('[data-enquiry-state]')).toContainText(
-    'cannot accept enquiries',
+    'Enquiries are not enabled',
   );
+  const consider = page.locator('[data-consider]');
+  await expect(consider.locator('li')).toHaveCount(4);
+  await expect(consider).toContainText('leave the study at any time');
+  await expect(consider).toContainText('not joining the study');
   await expect(
     page.locator('form, input, textarea, [data-live-enquiry]'),
   ).toHaveCount(0);

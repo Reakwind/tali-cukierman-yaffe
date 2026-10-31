@@ -174,3 +174,21 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Persona depth pass — 2026-10-31
+
+- Owner: personas were too shallow; enquiry-unavailable copy is build scaffolding
+  for the owner, not user copy. Deepened `docs/personas.md` with an evidence base
+  (CISCRP perceptions research, NIA clinical-trials guidance, NIHR patterns,
+  older-adult participation and clinician-referral literature) — full context,
+  two-reader decision model (patient + care partner), motivations/fears,
+  stage-by-stage journeys, per-page needs, and cross-persona rules.
+- Red: participant journey test failed on the missing "Things to consider"
+  decision-support block and the renamed enquiry state.
+- Green: study pages now carry a four-point consider list (voluntary/withdrawal,
+  family and doctor discussion, team-checked eligibility and consent, asking ≠
+  joining) beside the contact state; the enquiry-unavailable line is a terse
+  build-state note marked for removal at launch.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

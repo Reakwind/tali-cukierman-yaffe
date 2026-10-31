@@ -50,11 +50,17 @@ const en = {
   location: 'Where it takes place',
   duration: 'Time commitment',
   involves: 'What taking part involves',
-  enquiryPending:
-    'We cannot accept enquiries yet. The research team is preparing an approved way for people interested in taking part to get in touch.',
+  enquiryPending: 'Enquiries are not enabled on this draft.',
   enquiryClosed: 'This study is completed and no longer enrolling.',
   enquiryExplanation:
     'An enquiry is a question, not an application. The study team decides who is eligible and explains consent in person. Please do not send medical information through this website.',
+  considerTitle: 'Things to consider',
+  consider: [
+    'Taking part is voluntary — you can leave the study at any time.',
+    'You can discuss it with your family and your regular doctor before deciding.',
+    'The study team checks eligibility and explains risks and consent before anything starts.',
+    'Sending a question is not joining the study.',
+  ],
   registryLink: 'View the official study record',
 };
 
@@ -109,11 +115,17 @@ export const ui: Record<Locale, typeof en> = {
     location: 'היכן נערך המחקר',
     duration: 'משך ההשתתפות',
     involves: 'מה כולל ההשתתפות',
-    enquiryPending:
-      'עדיין לא ניתן להביע עניין. צוות המחקר מכין דרך מאושרת ליצור קשר למעוניינים להשתתף.',
+    enquiryPending: 'פניות אינן פעילות בטיוטה זו.',
     enquiryClosed: 'המחקר הסתיים ואינו מגייס משתתפים.',
     enquiryExplanation:
       'פנייה היא שאלה, לא בקשה להשתתף. צוות המחקר קובע מי מתאים ומסביר על ההסכמה מדעת במסגרת שיחה. אין לשלוח מידע רפואי דרך אתר זה.',
+    considerTitle: 'לפני שמחליטים',
+    consider: [
+      'ההשתתפות היא בהתנדבות — אפשר לפרוש מהמחקר בכל עת.',
+      'אפשר להתייעץ עם המשפחה ועם הרופא המטפל לפני שמחליטים.',
+      'צוות המחקר בודק התאמה ומסביר על הסיכונים ועל ההסכמה מדעת לפני הכול.',
+      'שליחת שאלה אינה הצטרפות למחקר.',
+    ],
     registryLink: 'לרשומה הרשמית של המחקר',
   },
 };

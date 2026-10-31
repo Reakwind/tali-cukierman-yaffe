@@ -78,6 +78,16 @@ const date = (value: string) =>
           {closed ? t.enquiryClosed : t.enquiryPending}
         </h2>
         {!closed && <p>{t.enquiryExplanation}</p>}
+        {!closed && (
+          <div data-consider>
+            <h3 class="notice-heading">{t.considerTitle}</h3>
+            <ul>
+              {t.consider.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <a class="text-link" href={data.registryUrl}>
           {t.registryLink}
           <span class="arrow" aria-hidden="true">
