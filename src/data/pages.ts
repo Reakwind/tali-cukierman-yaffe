@@ -52,7 +52,15 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Digital tools, carefully evaluated',
           paragraphs: [
             'Digital assessment may offer new ways to study cognition and physical function. A 2024 paper describes the development and first-stage validation of a digital Digit Symbol Substitution Test.',
-            'The authors call for further validation. Early findings are not evidence of regulatory approval or a replacement for clinical assessment. The 6 Vital platform describes related cognitive-measurement and patient/caregiver tools.',
+            'The authors call for further validation. Early findings are not evidence of regulatory approval or a replacement for clinical assessment.',
+          ],
+        },
+        {
+          id: 'six-vital',
+          title: '6 Vital',
+          paragraphs: [
+            '6 Vital is a digital-health platform created by Tali. Its public website describes digital cognitive measurement, caregiver/patient-management tools, and a patient app.',
+            'The platform’s relationship to individual studies, ownership, product status, and preferred web address should be confirmed before launch. It is not this website’s enrollment or medical-care service.',
           ],
         },
         {
@@ -84,31 +92,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       sections: [],
     },
     about: {
-      title: 'About the research group',
+      title: 'The team',
       intro:
-        'The research group brings together work led by Prof. Tali Cukierman-Yaffe across clinical, academic, and digital-health settings.',
+        'The people behind the studies: clinicians, researchers, coordinators, and students at Sheba Medical Center and Tel Aviv University.',
       sections: [
-        {
-          id: 'connections',
-          title: 'Institutional roles',
-          paragraphs: [
-            'Public institutional profiles describe the following connections. These are distinct roles, not a claim that this draft is an official website of any institution.',
-          ],
-          bullets: [
-            'Tel Aviv University: Associate Professor appointment in public health/epidemiology, as listed in CRIS.',
-            'Sheba Medical Center: clinical and research work in diabetes and aging.',
-            'PHRI: Senior International Fellow.',
-            'Cuenca Institute: listed on the board; Herczeg Institute on Aging: membership described in the TAU biography.',
-          ],
-        },
-        {
-          id: 'six-vital',
-          title: '6 Vital',
-          paragraphs: [
-            '6 Vital is a digital-health platform created by Tali. Its public website describes digital cognitive measurement, caregiver/patient-management tools, and a patient app.',
-            'The platform’s exact relationship to individual studies, ownership, product status, and preferred web address should be confirmed before launch. It is not this website’s enrollment or medical-care service.',
-          ],
-        },
         {
           id: 'people',
           title: 'The team',
@@ -357,7 +344,15 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'כלים דיגיטליים הנבחנים בזהירות',
           paragraphs: [
             'הערכה דיגיטלית עשויה לפתוח דרכים חדשות לחקר קוגניציה ותפקוד גופני. מאמר משנת 2024 מתאר פיתוח ותיקוף ראשוני של גרסה דיגיטלית למבחן החלפת סמלים בספרות.',
-            'המחברים מציינים צורך בתיקוף נוסף. ממצאים ראשוניים אינם אישור רגולטורי ואינם תחליף להערכה קלינית. אתר פלטפורמת 6 Vital מתאר כלי מדידה קוגניטיבית וכלים למטופלים ולמטפלים.',
+            'המחברים מציינים צורך בתיקוף נוסף. ממצאים ראשוניים אינם אישור רגולטורי ואינם תחליף להערכה קלינית.',
+          ],
+        },
+        {
+          id: 'six-vital',
+          title: '6 Vital',
+          paragraphs: [
+            '6 Vital היא פלטפורמה דיגיטלית שטלי יצרה. האתר הציבורי מתאר מדידה קוגניטיבית דיגיטלית, כלים לניהול ולתמיכה במטופלים ובמטפלים, ואפליקציה למטופלים.',
+            'הקשר המדויק למחקרים, הבעלות, סטטוס המוצרים וכתובת האתר המועדפת דורשים אישור לפני השקה. הפלטפורמה אינה שירות ההרשמה או הטיפול הרפואי של אתר זה.',
           ],
         },
         {
@@ -388,31 +383,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       sections: [],
     },
     about: {
-      title: 'על קבוצת המחקר',
+      title: 'הצוות',
       intro:
-        'הקבוצה מרכזת את המחקר בהובלת פרופ׳ טלי צוקרמן־יפה במסגרות קליניות, אקדמיות ודיגיטליות.',
+        'האנשים שמאחורי המחקרים: קלינאים, חוקרים, רכזי מחקר וסטודנטים במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
       sections: [
-        {
-          id: 'connections',
-          title: 'תפקידים מוסדיים',
-          paragraphs: [
-            'הקשרים הבאים מתוארים בפרופילים מוסדיים ציבוריים. אלו תפקידים נפרדים, ואין בכך טענה שטיוטה זו היא אתר רשמי של מוסד כלשהו.',
-          ],
-          bullets: [
-            'אוניברסיטת תל אביב: מינוי כפרופסור חבר בבריאות הציבור ובאפידמיולוגיה, לפי הפרופיל המוסדי.',
-            'המרכז הרפואי שיבא: עבודה קלינית ומחקרית בסוכרת ובהזדקנות.',
-            'PHRI: עמיתה בין־לאומית בכירה.',
-            'מכון קואנקה: מופיעה בחבר המנהלים; מכון הרצג לחקר ההזדקנות: חברות המתוארת בביוגרפיה באוניברסיטה.',
-          ],
-        },
-        {
-          id: 'six-vital',
-          title: '6 Vital',
-          paragraphs: [
-            '6 Vital היא פלטפורמה דיגיטלית שטלי יצרה. האתר הציבורי מתאר מדידה קוגניטיבית דיגיטלית, כלים לניהול ולתמיכה במטופלים ובמטפלים, ואפליקציה למטופלים.',
-            'הקשר המדויק למחקרים, הבעלות, סטטוס המוצרים וכתובת האתר המועדפת דורשים אישור לפני השקה. הפלטפורמה אינה שירות ההרשמה או הטיפול הרפואי של אתר זה.',
-          ],
-        },
         {
           id: 'people',
           title: 'הצוות',

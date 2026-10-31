@@ -114,3 +114,25 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Content remains draft: profiles and portraits await each person's review;
   photo permissions, credits, and higher-resolution originals remain launch gates.
   No contact details or recruitment routes were added; publishing is local-only.
+
+## UX refinement — 2026-10-31
+
+- Red: 8 of the updated/new behavior tests failed against the previous build —
+  new nav labels, audience utility shortcuts, team-page deduplication, home
+  routing strip, sticky header, smooth scrolling, and slim footer were all absent.
+  (Two reds initially included one strict-mode test-mechanics fix and one missing
+  `t.audience` index; the behaviors themselves were genuinely unimplemented.)
+- Green: nav separates four content destinations (Studies · Research · Team ·
+  Publications) from always-visible audience shortcuts (About participation ·
+  For clinicians), also grouped in the mobile menu; the Team page no longer
+  repeats institutional-role or 6 Vital copy (6 Vital now lives only under
+  Research); the homepage routes onward via `#home-team` and `#home-routes`
+  instead of duplicating the team page; the header is sticky; anchor jumps scroll
+  smoothly and revert to instant under reduced motion; the footer keeps only
+  support links.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **170 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.
+- Visually reviewed the English desktop and Hebrew mobile homepages. Navigation,
+  content, and publishing state otherwise unchanged: still a local, non-indexable
+  draft with enquiries disabled.

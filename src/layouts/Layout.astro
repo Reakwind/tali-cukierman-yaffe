@@ -51,13 +51,13 @@ const home = getRelativeLocaleUrl(locale);
     <a class="skip-link" href="#main">
       {t.skip}
     </a>
-    <header class="site-header">
-      <div class="draft-notice" data-draft-notice>
-        <div class="container draft-inner">
-          <strong>{t.draft}</strong>
-          <span>{t.draftText}</span>
-        </div>
+    <div class="draft-notice" data-draft-notice>
+      <div class="container draft-inner">
+        <strong>{t.draft}</strong>
+        <span>{t.draftText}</span>
       </div>
+    </div>
+    <header class="site-header">
       <div class="container header-row">
         <a href={home} class="brand" aria-label={t.groupName}>
           <span>
@@ -67,6 +67,16 @@ const home = getRelativeLocaleUrl(locale);
         </a>
         <nav class="desktop-nav" aria-label={t.mainNavigation}>
           {Object.entries(t.nav).map(([path, label]) => (
+            <a
+              href={getRelativeLocaleUrl(locale, `${path}/`)}
+              aria-current={section === path ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <nav class="utility-nav" aria-label={t.audienceNav}>
+          {Object.entries(t.audience).map(([path, label]) => (
             <a
               href={getRelativeLocaleUrl(locale, `${path}/`)}
               aria-current={section === path ? 'page' : undefined}
@@ -89,6 +99,16 @@ const home = getRelativeLocaleUrl(locale);
                 {label}
               </a>
             ))}
+            <div class="menu-audience">
+              {Object.entries(t.audience).map(([path, label]) => (
+                <a
+                  href={getRelativeLocaleUrl(locale, `${path}/`)}
+                  aria-current={section === path ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           </nav>
         </details>
         <a
@@ -111,16 +131,6 @@ const home = getRelativeLocaleUrl(locale);
           <p class="footer-group-name">{t.groupName}</p>
           <p class="footer-statement">{t.footerNote}</p>
           <p class="small muted">{t.medicalNote}</p>
-        </div>
-        <div>
-          <h2 class="footer-heading">{t.footerExplore}</h2>
-          <ul class="footer-links">
-            {Object.entries(t.nav).map(([path, label]) => (
-              <li>
-                <a href={getRelativeLocaleUrl(locale, `${path}/`)}>{label}</a>
-              </li>
-            ))}
-          </ul>
         </div>
         <div>
           <h2 class="footer-heading">{t.footerKnow}</h2>

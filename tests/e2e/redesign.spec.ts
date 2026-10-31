@@ -20,7 +20,7 @@ test('the root opens the research homepage directly, without a language gate', a
   ).toHaveAttribute('href', '/en/studies/');
 });
 
-test('desktop navigation exposes five real destinations consistently', async ({
+test('desktop navigation separates content destinations from audience shortcuts', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -34,12 +34,18 @@ test('desktop navigation exposes five real destinations consistently', async ({
     const navigation = page.locator('.desktop-nav');
     await expect(navigation.getByRole('link')).toHaveText([
       'Studies',
-      'Our research',
+      'Research',
+      'Team',
       'Publications',
-      'The group',
-      'For clinicians',
     ]);
     await expect(navigation.locator('details, button')).toHaveCount(0);
+    const banner = page.getByRole('banner');
+    await expect(
+      banner.getByRole('link', { name: 'About participation', exact: true }),
+    ).toBeVisible();
+    await expect(
+      banner.getByRole('link', { name: 'For clinicians', exact: true }),
+    ).toBeVisible();
   }
 });
 

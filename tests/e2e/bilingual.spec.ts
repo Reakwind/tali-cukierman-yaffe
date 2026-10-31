@@ -45,7 +45,7 @@ test('mobile navigation works with native keyboard controls', async ({
   await expect(page.locator('details[open]')).toBeVisible();
   await page
     .locator('details')
-    .getByRole('link', { name: 'Our research', exact: true })
+    .getByRole('link', { name: 'Research', exact: true })
     .click();
   await expect(page).toHaveURL(/\/en\/research\/$/);
 });
@@ -75,7 +75,7 @@ test('Hebrew navigation and language switching work without JavaScript', async (
   await page.locator('summary').click();
   await page
     .locator('details')
-    .getByRole('link', { name: 'המחקר שלנו', exact: true })
+    .getByRole('link', { name: 'מחקר', exact: true })
     .click();
   await expect(page).toHaveURL(/\/he\/research\/$/);
   await page.getByRole('link', { name: 'English', exact: true }).click();

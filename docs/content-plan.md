@@ -425,3 +425,5 @@ recruitment settings, publishing permissions or deployments.
 [yasmin]: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355376
 [ada]: https://doi.org/10.2337/db26-2613-p
 [clinic]: https://doi.org/10.1249/01.mss.0001057328.39036.f8
+
+Nav model implemented 2026-10-31: content destinations (Studies, Research, Team, Publications) in the main nav; About participation and For clinicians as always-visible audience shortcuts; footer slimmed to support links.

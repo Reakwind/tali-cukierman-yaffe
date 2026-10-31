@@ -34,30 +34,30 @@ const content = he
         {
           id: 'cognition',
           title: 'סוכרת ותפקוד קוגניטיבי',
-          text: 'שינויים בזיכרון ובחשיבה, והמשמעות שלהם לניהול סוכרת בגיל המבוגר.',
+          text: 'זיכרון וחשיבה בגיל המבוגר עם סוכרת.',
         },
         {
           id: 'movement',
           title: 'כוח שריר ותפקוד גופני',
-          text: 'מחקר על תפקוד, שבריריות ופעילות גופנית במבוגרים עם סוכרת.',
+          text: 'כוח שריר, תפקוד גופני ושבריריות.',
         },
         {
           id: 'technology',
           title: 'כלי הערכה דיגיטליים',
-          text: 'פיתוח ותיקוף של כלי הערכה קוגניטיביים, לרבות מחקר על מבחן החלפת סמלים בספרות.',
+          text: 'כלי הערכה קוגניטיביים, כולל DSST דיגיטלי.',
         },
       ],
-      about: 'על קבוצת המחקר',
-      aboutText:
-        'פרופ׳ טלי צוקרמן־יפה עוסקת במחקר ובטיפול בסוכרת, בקוגניציה ובהזדקנות. העשייה הקלינית והאקדמית כוללת תפקידים בשיבא ובאוניברסיטת תל אביב ושיתופי פעולה עם PHRI ופלטפורמת 6 Vital.',
-      profile: 'תפקידים ושיתופי פעולה',
+      teamTitle: 'הצוות',
+      teamText:
+        'קבוצה בהובלת פרופ׳ טלי צוקרמן־יפה: קלינאים, חוקרים, רכזי מחקר וסטודנטים במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
+      teamLink: 'הצוות',
       participant: 'למטופלים ולבני משפחה',
       participantText:
-        'קראו על מטרת המחקר, הביקורים והבדיקות הנדרשים ועל תהליך ההחלטה להשתתף. בשלב זה האתר אינו מקבל פניות או מידע רפואי.',
+        'מה כולל המחקר ומהי פנייה. טיוטה זו אינה מקבלת פניות או מידע רפואי.',
       participationLink: 'על השתתפות במחקר',
       professional: 'לצוותים רפואיים ולחוקרים',
       professionalText:
-        'עיינו במחקרים ובפרסומים ושתפו דפי מידע עם מטופלים. מסלול הפניה מקצועי יתווסף לאחר אישור המוסד.',
+        'עיון במחקרים ובפרסומים ושיתוף מידע על מחקרים. מסלול הפניה ממתין לאישור המוסד.',
       professionalLink: 'מידע על הפניות ושיתופי פעולה',
     }
   : {
@@ -79,30 +79,30 @@ const content = he
         {
           id: 'cognition',
           title: 'Diabetes & cognitive function',
-          text: 'Changes in memory and thinking, and their implications for managing diabetes in older age.',
+          text: 'Memory and thinking in older adults with diabetes.',
         },
         {
           id: 'movement',
           title: 'Muscle strength & physical function',
-          text: 'Research on physical function, frailty, and exercise in older adults with diabetes.',
+          text: 'Muscle strength, physical function, and frailty.',
         },
         {
           id: 'technology',
           title: 'Digital assessment tools',
-          text: 'Development and validation of cognitive assessment tools, including a digital Digit Symbol Substitution Test.',
+          text: 'Cognitive assessment tools, including a digital DSST.',
         },
       ],
-      about: 'About the research group',
-      aboutText:
-        'Prof. Tali Cukierman-Yaffe works in diabetes research and care, cognition, and aging. Her clinical and academic work includes roles at Sheba Medical Center and Tel Aviv University, with collaborations involving PHRI and the 6 Vital platform.',
-      profile: 'Roles & collaborations',
+      teamTitle: 'The team',
+      teamText:
+        'A group led by Prof. Tali Cukierman-Yaffe: clinicians, researchers, coordinators, and students at Sheba Medical Center and Tel Aviv University.',
+      teamLink: 'The team',
       participant: 'For patients & caregivers',
       participantText:
-        'Read about a study’s purpose, visits, assessments, and the decision to take part. This draft does not accept enquiries or medical information.',
+        'What studies involve, and what an enquiry means. This draft does not accept enquiries or medical information.',
       participationLink: 'About participation',
       professional: 'For clinicians & researchers',
       professionalText:
-        'Review studies and publications, or share study information with patients. A professional referral route will be added after institutional approval.',
+        'Review studies and publications, or share study information. A referral route is pending institutional approval.',
       professionalLink: 'Referral & collaboration information',
     };
 ---
@@ -201,38 +201,24 @@ const content = he
     </div>
   </section>
 
-  <section class="container group-section" aria-labelledby="group-title">
-    <div>
-      <h2 id="group-title">{content.about}</h2>
-      <p>{content.aboutText}</p>
-      <a class="text-link" href={getRelativeLocaleUrl(locale, 'about/')}>
-        {content.profile}
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
-    <div class="group-links">
-      <p>
-        {he
-          ? 'קשרים מוסדיים ותחום דיגיטלי'
-          : 'Institutional connections & digital work'}
-      </p>
-      <a
-        href="https://www.phri.ca/collaborations/phri-international-fellows/"
-        lang="en"
-        dir="ltr"
-      >
-        Population Health Research Institute
-      </a>
-      <a href="https://6-vital.com/" lang="en" dir="ltr">
-        6 Vital
-      </a>
-      <a href={getRelativeLocaleUrl(locale, 'publications/')}>
-        {t.publications}
-      </a>
-    </div>
+  <section
+    id="home-team"
+    class="container home-team"
+    aria-labelledby="home-team-title"
+  >
+    <h2 id="home-team-title">{content.teamTitle}</h2>
+    <p>{content.teamText}</p>
+    <a class="text-link" href={getRelativeLocaleUrl(locale, 'about/')}>
+      {content.teamLink}
+      <span aria-hidden="true">→</span>
+    </a>
   </section>
 
-  <section class="participant-section" aria-labelledby="participant-title">
+  <section
+    id="home-routes"
+    class="participant-section"
+    aria-labelledby="participant-title"
+  >
     <div class="container participant-layout">
       <div>
         <h2 id="participant-title">{content.participant}</h2>
@@ -382,31 +368,17 @@ const content = he
     margin-block-end: 0;
     max-inline-size: 52ch;
   }
-  .group-section {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 6rem;
-    padding-block: 4.5rem;
+  .home-team {
+    padding-block: 3.5rem;
+    border-block-start: 1px solid var(--line);
   }
-  .group-section > div > p {
+  .home-team h2 {
+    margin-block-end: 0.6rem;
+  }
+  .home-team p {
     color: var(--muted);
     max-inline-size: 59ch;
     font-size: 0.9rem;
-  }
-  .group-links {
-    border-inline-start: 1px solid var(--line);
-    padding-inline-start: 2rem;
-    align-self: center;
-  }
-  .group-links > p {
-    font-size: 0.72rem !important;
-    margin-block-end: 0.75rem;
-  }
-  .group-links a {
-    display: block;
-    inline-size: fit-content;
-    padding-block: 0.5rem;
-    font-size: 0.82rem;
   }
   .participant-section {
     background: var(--cyan);
@@ -441,7 +413,6 @@ const content = he
       gap: 0.75rem 1.25rem;
     }
     .research-layout,
-    .group-section,
     .participant-layout {
       gap: 3rem;
     }
@@ -476,7 +447,6 @@ const content = he
       padding-block: 2rem 2.75rem;
     }
     .research-layout,
-    .group-section,
     .participant-layout {
       grid-template-columns: 1fr;
       gap: 2rem;
