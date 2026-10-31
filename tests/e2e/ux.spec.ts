@@ -155,7 +155,6 @@ test('the footer keeps support links without repeating the main navigation', asy
   await page.goto('/en/');
   const footer = page.getByRole('contentinfo');
   await expect(footer.getByRole('link')).toHaveText([
-    'About participation',
     'Privacy',
     'Accessibility',
   ]);

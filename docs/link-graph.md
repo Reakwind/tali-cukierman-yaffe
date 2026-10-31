@@ -8,7 +8,7 @@ flowchart LR
   home["Home"] -->|HM| research["Research"]
   home["Home"] -->|HM| about["Team"]
   home["Home"] -->|H| publications["Publications"]
-  home["Home"] -->|HF| participation["Participation"]
+  home["Home"] -->|H| participation["Participation"]
   home["Home"] -->|H| for-clinicians["For clinicians"]
   home["Home"] -->|M| studies-hybrid-closed-loop["GRACE-780G"]
   home["Home"] -->|M| studies-stay-strong["STAY-STRONG"]
@@ -17,7 +17,7 @@ flowchart LR
   studies["Studies"] -->|H| research["Research"]
   studies["Studies"] -->|H| about["Team"]
   studies["Studies"] -->|H| publications["Publications"]
-  studies["Studies"] -->|HMF| participation["Participation"]
+  studies["Studies"] -->|HM| participation["Participation"]
   studies["Studies"] -->|H| for-clinicians["For clinicians"]
   studies["Studies"] -->|M| home["Home"]
   studies["Studies"] -->|M| studies-stay-strong["STAY-STRONG"]
@@ -28,7 +28,7 @@ flowchart LR
   studies-stay-strong["STAY-STRONG"] -->|H| research["Research"]
   studies-stay-strong["STAY-STRONG"] -->|H| about["Team"]
   studies-stay-strong["STAY-STRONG"] -->|H| publications["Publications"]
-  studies-stay-strong["STAY-STRONG"] -->|HMF| participation["Participation"]
+  studies-stay-strong["STAY-STRONG"] -->|HM| participation["Participation"]
   studies-stay-strong["STAY-STRONG"] -->|H| for-clinicians["For clinicians"]
   studies-stay-strong["STAY-STRONG"] -->|M| home["Home"]
   studies-stay-strong["STAY-STRONG"] -->|F| privacy["Privacy"]
@@ -37,7 +37,7 @@ flowchart LR
   studies-hybrid-closed-loop["GRACE-780G"] -->|H| research["Research"]
   studies-hybrid-closed-loop["GRACE-780G"] -->|H| about["Team"]
   studies-hybrid-closed-loop["GRACE-780G"] -->|H| publications["Publications"]
-  studies-hybrid-closed-loop["GRACE-780G"] -->|HMF| participation["Participation"]
+  studies-hybrid-closed-loop["GRACE-780G"] -->|HM| participation["Participation"]
   studies-hybrid-closed-loop["GRACE-780G"] -->|H| for-clinicians["For clinicians"]
   studies-hybrid-closed-loop["GRACE-780G"] -->|M| home["Home"]
   studies-hybrid-closed-loop["GRACE-780G"] -->|F| privacy["Privacy"]
@@ -45,7 +45,7 @@ flowchart LR
   research["Research"] -->|H| studies["Studies"]
   research["Research"] -->|H| about["Team"]
   research["Research"] -->|HM| publications["Publications"]
-  research["Research"] -->|HF| participation["Participation"]
+  research["Research"] -->|H| participation["Participation"]
   research["Research"] -->|H| for-clinicians["For clinicians"]
   research["Research"] -->|M| home["Home"]
   research["Research"] -->|M| studies-stay-strong["STAY-STRONG"]
@@ -54,7 +54,7 @@ flowchart LR
   about["Team"] -->|H| studies["Studies"]
   about["Team"] -->|H| research["Research"]
   about["Team"] -->|H| publications["Publications"]
-  about["Team"] -->|HF| participation["Participation"]
+  about["Team"] -->|H| participation["Participation"]
   about["Team"] -->|H| for-clinicians["For clinicians"]
   about["Team"] -->|M| home["Home"]
   about["Team"] -->|F| privacy["Privacy"]
@@ -62,7 +62,7 @@ flowchart LR
   publications["Publications"] -->|H| studies["Studies"]
   publications["Publications"] -->|H| research["Research"]
   publications["Publications"] -->|H| about["Team"]
-  publications["Publications"] -->|HF| participation["Participation"]
+  publications["Publications"] -->|H| participation["Participation"]
   publications["Publications"] -->|H| for-clinicians["For clinicians"]
   publications["Publications"] -->|M| home["Home"]
   publications["Publications"] -->|F| privacy["Privacy"]
@@ -71,7 +71,7 @@ flowchart LR
   for-clinicians["For clinicians"] -->|H| research["Research"]
   for-clinicians["For clinicians"] -->|H| about["Team"]
   for-clinicians["For clinicians"] -->|H| publications["Publications"]
-  for-clinicians["For clinicians"] -->|HF| participation["Participation"]
+  for-clinicians["For clinicians"] -->|H| participation["Participation"]
   for-clinicians["For clinicians"] -->|M| home["Home"]
   for-clinicians["For clinicians"] -->|F| privacy["Privacy"]
   for-clinicians["For clinicians"] -->|F| accessibility["Accessibility"]
@@ -87,7 +87,7 @@ flowchart LR
   privacy["Privacy"] -->|H| research["Research"]
   privacy["Privacy"] -->|H| about["Team"]
   privacy["Privacy"] -->|H| publications["Publications"]
-  privacy["Privacy"] -->|HF| participation["Participation"]
+  privacy["Privacy"] -->|H| participation["Participation"]
   privacy["Privacy"] -->|H| for-clinicians["For clinicians"]
   privacy["Privacy"] -->|M| home["Home"]
   privacy["Privacy"] -->|F| accessibility["Accessibility"]
@@ -95,7 +95,7 @@ flowchart LR
   accessibility["Accessibility"] -->|H| research["Research"]
   accessibility["Accessibility"] -->|H| about["Team"]
   accessibility["Accessibility"] -->|H| publications["Publications"]
-  accessibility["Accessibility"] -->|HF| participation["Participation"]
+  accessibility["Accessibility"] -->|H| participation["Participation"]
   accessibility["Accessibility"] -->|H| for-clinicians["For clinicians"]
   accessibility["Accessibility"] -->|M| home["Home"]
   accessibility["Accessibility"] -->|F| privacy["Privacy"]
@@ -105,10 +105,11 @@ flowchart LR
 
 - **No duplicate destinations inside any page’s main content.** Home’s three links to Research are distinct section anchors (`#cognition`, `#movement`, `#technology`), not repeats of one destination.
 - No self-links in main content.
-- **Header + footer both link to Participation on every page** — the one true global duplication. Footer support links (Privacy, Accessibility) are footer-only; header repeats no other footer destination.
-- **Reachable only through header/footer:** For clinicians, Privacy, Accessibility — expected for support/audience pages, worth noting.
+- **No header/footer duplication.** Participation is header-only (utility); the footer now carries Privacy and Accessibility only, neither of which repeats a header destination.
+- **Reachable only through header/footer:** For clinicians (header utility), Privacy and Accessibility (footer) — intentional for audience/support pages.
 - **Same destination, different labels:** Studies (Studies / Explore studies→); Research (Research / Diabetes & cognitive function↗ / Muscle strength & physical function↗ / Digital assessment tools↗); Team (Team / The team→); Publications (Publications / Selected publications→); Participation (About participation / About participation→); GRACE-780G (GRACE-780G→ / Read study→); STAY-STRONG (STAY-STRONG→ / Read study→ / STAY-STRONG study page→).
 
 ## Notes
+
 - Main-content fan-out shows each page’s real next steps.
 - Different labels for the same destination are only a problem when they compete on one page; contextual CTAs (“Read study”, “Explore studies”) are expected.
