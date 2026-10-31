@@ -52,9 +52,9 @@ later; do not fabricate it.
 
 ## Confirmed launch content scope
 
-- Begin with three studies/projects: STAY-STRONG, BIRAX, and the MiniMed 780 study.
-  Public records identify the older-adult MiniMed trial as GRACE-780G,
-  `NCT06236256`; confirm that this is the owner's intended study.
+- Begin with three studies/projects: STAY-STRONG, BIRAX, and GRACE-780G. The owner
+  confirmed (2026-10-31) that **GRACE-780G** is the official study name to showcase;
+  it is the completed MiniMed 780G trial, `NCT06236256`.
 - Core team supplied by the owner:
   - Prof. Tali Cukierman-Yaffe.
   - Dr. Naama Peltz-Sinvani — endocrinologist; head of the Sheba division's

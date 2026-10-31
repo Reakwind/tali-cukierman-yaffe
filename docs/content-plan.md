@@ -9,7 +9,8 @@ recommendations that still need agreement.
 
 - Research-group identity; participants/caregivers and referring clinicians first.
 - English and Hebrew together, with equivalent information and real RTL layouts.
-- Three initial studies/projects: STAY-STRONG, BIRAX, and MiniMed 780.
+- Three initial studies/projects: STAY-STRONG, BIRAX, and GRACE-780G. The owner
+  confirmed on 2026-10-31 that GRACE-780G is the official study name to showcase.
 - Five core people: Tali, Hagar Shimon, Yasmin Alt, Tal Yahalom, and Itay Cohen.
   Roles below come from the owner, not inferred publication affiliations.
 - A dedicated 6 Vital page under Research; talks/media and news/updates included.
@@ -110,7 +111,11 @@ summary and recruitment information if applicable; related outputs/funder credit
 Use a descriptive study title with a BIRAX funding credit rather than relying on
 the funding-program name alone.
 
-### MiniMed 780G / GRACE-780G — public record and abstract linked
+### GRACE-780G — name confirmed by the owner
+
+Owner confirmation 2026-10-31: **GRACE-780G** is the official study name to
+showcase on the site alongside STAY-STRONG and BIRAX. It is the completed MiniMed
+780G trial below; the device name is descriptive, not the study's public identity.
 
 - [ClinicalTrials.gov NCT06236256][minimed], protocol identifier `0205-23-SMC`.
   Last update posted **2026-07-21**; status **COMPLETED**, completion date
@@ -131,12 +136,11 @@ the funding-program name alone.
   reported glycaemic findings. No full GRACE-780G results paper was verified in
   this search; that does not establish that none exists.
 
-**Supply/confirm:** intended study identity and preferred public name; relevant
-published article/preprint/poster links if available; team-approved summary of
-findings and limitations; study-team contributions and funding wording; whether
-any distinct follow-on study exists. A follow-on needs its own identity/status,
-not a recruiting badge on this completed trial. Do not supply unpublished results
-or confidential manuscripts for the public repository.
+**Supply/confirm:** relevant published article/preprint/poster links if available;
+team-approved summary of findings and limitations; study-team contributions and
+funding wording; whether any distinct follow-on study exists. A follow-on needs its
+own identity/status, not a recruiting badge on this completed trial. Do not supply
+unpublished results or confidential manuscripts for the public repository.
 
 ## 4. Team evidence and profile gaps
 
@@ -312,11 +316,12 @@ for review. Do not make the team write polished web copy before drafting begins.
    or approved participant leaflet, formal identifier if available, design and
    current status. This is the largest factual gap.
 2. **Study updates:** confirm the STAY-STRONG site status and practical burden;
-   confirm GRACE-780G is the intended MiniMed study and identify approved outputs.
-3. **Each person:** English/Hebrew name and title; current affiliation/degree;
-   3–5 bullets about background, research focus and role in these studies; optional
-   ORCID/academic links; a portrait with permission and credit if available.
-   Hagar has one profile with both roles, not two duplicate team entries.
+   identify approved outputs for GRACE-780G (identity confirmed by the owner).
+3. **Each person:** review the bilingual drafts in
+   [the team-profile draft](drafts/team-profiles.md) and supply the **PENDING**
+   items listed under each profile — names/titles, bio corrections, and portraits
+   with permission. Hagar has one profile with both roles, not two duplicate team
+   entries.
 4. **Tali/group:** preferred group name, current role wording, biography corrections
    and any must-feature publications. An updated CV helps but is optional.
 5. **6 Vital:** a few approved capability/stage/relationship bullets, evidence links,
@@ -384,9 +389,10 @@ to copy biographies, photographs, publication figures or recruitment text.
 
 ## 7. Next content work, not implemented here
 
-1. Agree the page inventory; resolve BIRAX and name/identity questions.
-2. Draft concise study pages and team profiles in both languages, with unresolved
-   facts clearly marked for review, and curate publications/news/media.
+1. Agree the page inventory; resolve BIRAX identity (GRACE-780G name confirmed).
+2. Study-page drafts next; team profile drafts are in
+   [drafts/team-profiles.md](drafts/team-profiles.md) awaiting review. Curate
+   publications/news/media.
 3. Obtain factual, translation and applicable institutional approvals.
 4. Only then implement the agreed content and resume visual refinement.
 
