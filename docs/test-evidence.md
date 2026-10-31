@@ -153,3 +153,24 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## User-facing copy — 2026-10-31
+
+- Owner report: study copy read as registry metadata ("Registry lists
+  researched", "Who the registry describes"), not copy for people. Researched
+  participant-facing reference copy (NIHR Be Part of Research: "Who can take
+  part", "What to expect on a study") and lab-site tone (Ranade Lab), and wrote
+  two working personas in `docs/personas.md` (clinician/collaborator;
+  patient/caregiver).
+- Red: existing behavior tests pinned the old metadata strings ("Registry lists
+  recruiting", "not available", "View official registry record") and failed once
+  the labels changed — updated to the new user-facing behavior.
+- Green: plain status words ("Recruiting"/"Completed") with dated source notes;
+  task labels ("Who the study is for", "What taking part involves", "Time
+  commitment"); enquiry states written for people ("We cannot accept enquiries
+  yet…", "An enquiry is a question, not an application"); study JSON and research
+  copy rewritten out of registry voice. Honesty rules unchanged: dated sources,
+  eligibility by the study team, no recruitment claims.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

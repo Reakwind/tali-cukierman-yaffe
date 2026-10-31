@@ -9,7 +9,7 @@ test('a participant can discover a dated study without a fake registration flow'
     .last()
     .click();
   const study = page.locator('[data-study="stay-strong"]');
-  await expect(study).toContainText('Registry lists recruiting');
+  await expect(study.locator('.status')).toHaveText('Recruiting');
   await study.getByRole('link', { name: 'Read study', exact: true }).click();
   await expect(page).toHaveURL(/\/en\/studies\/stay-strong\/$/);
   await expect(
@@ -17,13 +17,13 @@ test('a participant can discover a dated study without a fake registration flow'
   ).toHaveText('NCT06497595');
   await expect(page.locator('time[datetime="2026-07-21"]')).toBeVisible();
   await expect(page.locator('[data-enquiry-state]')).toContainText(
-    'not available',
+    'cannot accept enquiries',
   );
   await expect(
     page.locator('form, input, textarea, [data-live-enquiry]'),
   ).toHaveCount(0);
   await expect(
-    page.getByRole('link', { name: 'View official registry record' }),
+    page.getByRole('link', { name: 'View the official study record' }),
   ).toHaveAttribute('href', 'https://clinicaltrials.gov/study/NCT06497595');
   await page.getByRole('link', { name: 'עברית', exact: true }).click();
   await expect(page).toHaveURL(/\/he\/studies\/stay-strong\/$/);

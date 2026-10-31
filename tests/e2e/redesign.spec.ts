@@ -61,7 +61,7 @@ test('the homepage leads with specific research and study information instead of
   );
   const studies = page.getByRole('region', { name: 'Studies', exact: true });
   await expect(studies).toContainText('STAY-STRONG');
-  await expect(studies).toContainText('Registry lists recruiting');
+  await expect(studies).toContainText('Recruiting');
   const sequence = await page
     .locator('main > section')
     .evaluateAll((nodes) => nodes.map((node) => node.id));

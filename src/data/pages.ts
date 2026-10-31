@@ -44,7 +44,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Movement, strength & independence',
           paragraphs: [
             'Physical function is another part of the picture. Research includes muscle strength, frailty, and the practical challenges of managing diabetes in older age.',
-            'The STAY-STRONG registry describes a study of exercise and nutrition alongside semaglutide. See the study information and original record for details and status.',
+            'STAY-STRONG studies exercise and nutrition alongside semaglutide. See the study page for details and current status.',
           ],
         },
         {
