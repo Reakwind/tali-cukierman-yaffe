@@ -83,6 +83,45 @@ test('anchor jumps scroll smoothly but respect reduced motion', async ({
   expect(await behavior()).toBe('auto');
 });
 
+test('wide desktop screens use the full canvas', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto('/en/');
+  const container = await page
+    .locator('main .container')
+    .first()
+    .evaluate((element) => element.getBoundingClientRect().width);
+  expect(container).toBeGreaterThanOrEqual(1300);
+
+  await page.goto('/en/about/');
+  const wrap = await page
+    .locator('.article-wrap')
+    .evaluate((element) => element.getBoundingClientRect());
+  const column = await page
+    .locator('main > .container')
+    .evaluate((element) => element.getBoundingClientRect());
+  // Long-form columns sit inside the canvas instead of clinging to one edge.
+  expect(wrap.left - column.left).toBeGreaterThan(100);
+  expect(column.right - wrap.right).toBeGreaterThan(100);
+});
+
+test('every page stays fluid from phone to wide desktop', async ({ page }) => {
+  for (const path of [
+    '/en/',
+    '/en/about/',
+    '/en/studies/stay-strong/',
+    '/he/',
+  ]) {
+    for (const width of [320, 390, 768, 1024, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`http://127.0.0.1:4173${path}`);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      );
+      expect(overflow, `${path} overflows at ${width}px`).toBe(false);
+    }
+  }
+});
+
 test('the footer keeps support links without repeating the main navigation', async ({
   page,
 }) => {

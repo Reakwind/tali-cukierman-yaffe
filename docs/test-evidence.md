@@ -136,3 +136,20 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Visually reviewed the English desktop and Hebrew mobile homepages. Navigation,
   content, and publishing state otherwise unchanged: still a local, non-indexable
   draft with enquiries disabled.
+
+## Fluid desktop canvas — 2026-10-31
+
+- Owner report: content looked "narrow like built for mobile" in desktop Chrome.
+  Diagnosis (measured, not guessed): at 1920px viewports the fixed 1140px
+  container left ~390px empty margins per side, so desktop screens rendered a
+  narrow strip; mobile/tablet widths were already fluid in Chromium and WebKit.
+- Red: "wide desktop screens use the full canvas" failed (container 1140px,
+  long-form column clinging to one edge). A no-overflow sweep across
+  320/390/768/1024/1440/1920px passed before and after.
+- Green: the container is fluid up to 1320px with balanced gutters, long-form
+  article columns are centered inside the canvas, and the homepage headline
+  scales up on large screens. Verified visually at 1920px (Chrome/WebKit),
+  1440px (WebKit), and 390px mobile.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

@@ -126,7 +126,13 @@ main {
   min-block-size: 50vh;
 }
 .container {
-  inline-size: min(1140px, calc(100% - 5rem));
+  inline-size: min(1320px, calc(100% - 5rem));
+  margin-inline: auto;
+}
+.article-page .breadcrumbs,
+.article-page .page-heading,
+.article-page .article-wrap {
+  max-inline-size: 900px;
   margin-inline: auto;
 }
 .muted {
