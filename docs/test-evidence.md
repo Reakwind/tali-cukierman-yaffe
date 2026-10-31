@@ -91,3 +91,26 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   and the owner's local-only publishing decision are unchanged.
 - A passing suite is not visual approval. This iteration remains a design draft
   for owner review; all manual, clinical, hosting, and publishing gates still apply.
+
+## Team profiles — 2026-10-31
+
+- Red (`npm run test:e2e -- --project=chromium tests/e2e/team.spec.ts`): four of
+  six new behavior tests failed against the placeholder group page — the roster
+  names (EN/HE), the four expected portraits (found 0), and the mixed-direction
+  `<bdi>` isolation were all absent. The no-contact and axe guard tests passed.
+- Green: the bilingual six-person roster with sourced bios renders on the group
+  page; four real portraits load with bilingual alt text and visible credits;
+  `GRACE-780G`/`STAY-STRONG` are isolated inside localized prose; no contact
+  details or forms appear; axe reports no violations in either language.
+- A first cross-browser run exposed a test-timing flaw: lazy portraits were
+  asserted before loading on non-Chromium engines. The assertion now scrolls each
+  portrait into view and waits for decode; the images themselves were never broken.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, **25 unit tests,
+  and 140 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari — no skipped checks.
+- Visually reviewed the rendered group page on English desktop, Hebrew desktop,
+  and Hebrew mobile. Portraits were identity-checked against official photos
+  before use (documented in `third-party.md`).
+- Content remains draft: profiles and portraits await each person's review;
+  photo permissions, credits, and higher-resolution originals remain launch gates.
+  No contact details or recruitment routes were added; publishing is local-only.

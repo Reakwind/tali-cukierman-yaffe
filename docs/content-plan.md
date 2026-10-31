@@ -390,9 +390,9 @@ to copy biographies, photographs, publication figures or recruitment text.
 ## 7. Next content work, not implemented here
 
 1. Agree the page inventory; resolve BIRAX identity (GRACE-780G name confirmed).
-2. Study-page drafts next; team profile drafts are in
-   [drafts/team-profiles.md](drafts/team-profiles.md) awaiting review. Curate
-   publications/news/media.
+2. Study-page drafts next; the team profile drafts are implemented on the draft
+   website (`src/data/team.ts`) with improved Hebrew and real portraits, awaiting
+   each person's review. Curate publications/news/media.
 3. Obtain factual, translation and applicable institutional approvals.
 4. Only then implement the agreed content and resume visual refinement.
 

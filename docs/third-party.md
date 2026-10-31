@@ -1,5 +1,24 @@
 # Third-party design materials
 
+## Team portraits (draft, 2026-10-31)
+
+Real photographs located at the owner's direction; no generated, stock, or
+invented people are shipped. The owner directed their use for this draft.
+Institutional permission, final photo credits, and higher-resolution originals
+remain launch gates — the Cuenca headshots are only 180px sources.
+
+| File                            | Person                     | Source                                                                                                                         | Credit shown            | SHA-256                                                          |
+| ------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | ---------------------------------------------------------------- |
+| `public/images/team/tali.jpg`   | Prof. Tali Cukierman-Yaffe | Cuenca 2nd-conference booklet p.8 (embedded image extracted; CMYK converted to RGB JPEG; verified against her Cuenca headshot) | Photo: Cuenca Institute | b7da2f35c3649c125d7e667e33d173f38e88b3ae162c958f11da1ccb45526423 |
+| `public/images/team/naama.webp` | Dr. Naama Peltz-Sinvani    | Sheba Longevity official staff page, unmodified                                                                                | Photo: Sheba Longevity  | 3c33e0e14a87bfeaf1426a22baf4de4a854567f0fac92c597f26ae5b3e6610b1 |
+| `public/images/team/tal.jpg`    | Tal Yahalom-Peri           | Cuenca booklet p.18 (identified by elimination against Orit Shdior's awardee photo on the same page)                           | Photo: Cuenca Institute | 397d680449c815771e81be34191584424eddcdebdb1fccaab4c39b7e6f40a996 |
+| `public/images/team/itay.png`   | Itay Cohen                 | Cuenca 2026 awardees page, unmodified                                                                                          | Photo: Cuenca Institute | 72c5d6f3d91cc17bdcb0526d9d6000342789762e1e1a1ccf900946583a710afd |
+
+The Cuenca booklet credits its conference photography to Ofer Amram; confirm the
+exact portrait credit before launch. No portrait was found for Hagar Shimon or
+Yasmin Alt, so their profiles render without a photo rather than with a
+substitute image.
+
 ## Shipped fonts
 
 Lexend (Latin, variable weights) and IBM Plex Sans Hebrew (regular/semibold) are

@@ -1,5 +1,11 @@
 # Team profile drafts — English and Hebrew
 
+> **Status 2026-10-31:** implemented into the draft website. `src/data/team.ts`
+> is now the source of truth for the profile copy (Hebrew further polished for
+> natural professional wording), rendered by `src/components/TeamProfiles.astro`
+> on the group page. This file records the drafting basis and the per-person
+> **PENDING** items, which remain open until each person reviews their profile.
+
 Drafted 2026-10-31 from official public sources only (TAU, Sheba, Cuenca Institute,
 registry/conference records). Every factual claim is sourced in section 7. These
 texts await the team's factual review and translation review before any use on the

@@ -1,0 +1,127 @@
+---
+import { team, type TeamMember } from '../data/team';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Mixed-direction identifiers inside localized prose need bidi isolation.
+const isolated = [
+  'STAY-STRONG',
+  'GRACE-780G',
+  'BIRAX',
+  'DSST',
+  'EASD',
+  'PHRI',
+  'Diabetes 360',
+];
+const escaped = isolated.map((token) =>
+  token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+);
+const tokenPattern = new RegExp(`(${escaped.join('|')})`, 'g');
+const segments = (text: string) =>
+  text.split(tokenPattern).filter((part) => part.length > 0);
+const isToken = (part: string) => isolated.includes(part);
+const hasPhoto = (member: TeamMember) => Boolean(member.photo);
+---
+
+<div class="team-list">
+  {team.map((member) => (
+    <article class="team-member" id={`team-${member.id}`}>
+      {hasPhoto(member) ? (
+        <figure class="team-photo">
+          <img
+            src={member.photo!.src}
+            alt={member.photo!.alt[locale]}
+            loading="lazy"
+            style={`object-position: ${member.photo!.position}`}
+          />
+          <figcaption>{member.photo!.credit[locale]}</figcaption>
+        </figure>
+      ) : (
+        <div class="team-photo" aria-hidden="true" />
+      )}
+      <div class="team-copy">
+        <h3>{member.name[locale]}</h3>
+        <p class="team-role">{member.role[locale]}</p>
+        <p class="team-bio">
+          {segments(member.bio[locale]).map((part) =>
+            isToken(part) ? <bdi dir="ltr">{part}</bdi> : part,
+          )}
+        </p>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .team-list {
+    margin-block-start: 1.5rem;
+  }
+  .team-member {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 1.25rem 1.75rem;
+    padding-block: 1.75rem;
+    border-block-start: 1px solid var(--line);
+  }
+  .team-member:first-child {
+    padding-block-start: 0.5rem;
+  }
+  .team-photo {
+    margin: 0;
+    inline-size: 132px;
+    text-align: center;
+  }
+  .team-photo img {
+    inline-size: 132px;
+    block-size: 132px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--mist);
+    display: block;
+  }
+  .team-photo figcaption {
+    margin-block-start: 0.5rem;
+    color: var(--muted);
+    font-size: 0.62rem;
+    line-height: 1.5;
+  }
+  .team-copy h3 {
+    font-size: 1.12rem;
+    margin-block-end: 0.35rem;
+  }
+  .team-role {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-block-end: 0.7rem;
+  }
+  .team-bio {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-block-end: 0;
+    max-inline-size: 68ch;
+  }
+  @media (max-width: 650px) {
+    .team-member {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 0.9rem 1.15rem;
+      padding-block: 1.35rem;
+    }
+    .team-photo,
+    .team-photo img {
+      inline-size: 96px;
+    }
+    .team-photo img {
+      block-size: 96px;
+    }
+    .team-copy h3 {
+      font-size: 1.02rem;
+    }
+    .team-role {
+      font-size: 0.74rem;
+    }
+  }
+</style>

@@ -89,14 +89,6 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         'The research group brings together work led by Prof. Tali Cukierman-Yaffe across clinical, academic, and digital-health settings.',
       sections: [
         {
-          id: 'tali',
-          title: 'Prof. Tali Cukierman-Yaffe',
-          paragraphs: [
-            'Tali is an endocrinologist and clinical epidemiologist whose publicly documented research focuses on diabetes, cognitive function, and the challenges of care in older age.',
-            'Her institutional biographies describe leadership of the Centre for Successful Aging with Diabetes at Sheba Medical Center and the Endocrinology and Diabetes Service for Women & in Pregnancy. Exact current titles and wording await her review.',
-          ],
-        },
-        {
           id: 'connections',
           title: 'Institutional roles',
           paragraphs: [
@@ -104,7 +96,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           ],
           bullets: [
             'Tel Aviv University: Associate Professor appointment in public health/epidemiology, as listed in CRIS.',
-            'Sheba Medical Center: clinical and research work in diabetes and aging, alongside women’s endocrine care.',
+            'Sheba Medical Center: clinical and research work in diabetes and aging.',
             'PHRI: Senior International Fellow.',
             'Cuenca Institute: listed on the board; Herczeg Institute on Aging: membership described in the TAU biography.',
           ],
@@ -119,9 +111,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'people',
-          title: 'Team information',
+          title: 'The team',
           paragraphs: [
-            'Team profiles, supervision information, and any open positions will be added after research-team review.',
+            'The group combines clinical research, epidemiology, and digital-health work at Sheba Medical Center and Tel Aviv University.',
+            'These profiles and portraits are drafted from official public sources and await each person’s final review. Contact details are deliberately not listed here.',
           ],
         },
       ],
@@ -400,14 +393,6 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         'הקבוצה מרכזת את המחקר בהובלת פרופ׳ טלי צוקרמן־יפה במסגרות קליניות, אקדמיות ודיגיטליות.',
       sections: [
         {
-          id: 'tali',
-          title: 'פרופ׳ טלי צוקרמן־יפה',
-          paragraphs: [
-            'טלי היא אנדוקרינולוגית ואפידמיולוגית קלינית. המחקר שלה, כפי שמתואר במקורות הציבוריים, מתמקד בסוכרת, בתפקוד קוגניטיבי ובאתגרי הטיפול בגיל המבוגר.',
-            'הביוגרפיות המוסדיות מתארות ניהול של המרכז להזדקנות מוצלחת עם סוכרת בשיבא ושל השירות לאנדוקרינולוגיה ולסוכרת בנשים ובהיריון. הניסוח והתארים העדכניים עדיין ממתינים לבדיקה שלה.',
-          ],
-        },
-        {
           id: 'connections',
           title: 'תפקידים מוסדיים',
           paragraphs: [
@@ -415,7 +400,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           ],
           bullets: [
             'אוניברסיטת תל אביב: מינוי כפרופסור חבר בבריאות הציבור ובאפידמיולוגיה, לפי הפרופיל המוסדי.',
-            'המרכז הרפואי שיבא: עבודה קלינית ומחקרית בסוכרת ובהזדקנות, לצד אנדוקרינולוגיה בנשים.',
+            'המרכז הרפואי שיבא: עבודה קלינית ומחקרית בסוכרת ובהזדקנות.',
             'PHRI: עמיתה בין־לאומית בכירה.',
             'מכון קואנקה: מופיעה בחבר המנהלים; מכון הרצג לחקר ההזדקנות: חברות המתוארת בביוגרפיה באוניברסיטה.',
           ],
@@ -430,9 +415,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'people',
-          title: 'מידע על הצוות',
+          title: 'הצוות',
           paragraphs: [
-            'פרופילים של חברי הצוות, מידע על הנחיה והזדמנויות יצורפו לאחר בדיקת צוות המחקר.',
+            'הקבוצה משלבת מחקר קליני, אפידמיולוגיה ובריאות דיגיטלית במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
+            'פרופילים אלה ותמונותיהם נערכו על סמך מקורות ציבוריים רשמיים וממתינים לבדיקה סופית של חברי הצוות. פרטי קשר אינם מוצגים כאן בכוונה.',
           ],
         },
       ],

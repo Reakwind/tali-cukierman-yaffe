@@ -66,8 +66,8 @@ later; do not fabricate it.
 - Preferred English/Hebrew names, credentials, biographies, and photos still need
   review. Do not add publication coauthors to the core team automatically.
 - Women's endocrinology and pregnancy are outside this site's scope, including
-  the research overview and curated content. Existing draft references in the
-  application need removal in a subsequent approved content change.
+  the research overview and curated content. Draft references were removed from
+  the application in the 2026-10-31 team-profile change.
 - Include talks/media and news/updates. Select real items rather than inventing
   an announcement schedule or filling empty pages.
 - A research coordinator will handle enquiries. The named coordinator/shared
