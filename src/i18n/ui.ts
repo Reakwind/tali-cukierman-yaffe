@@ -34,23 +34,16 @@ const en = {
   privacy: 'Privacy',
   accessibility: 'Accessibility',
   footerNote: 'Diabetes, cognitive function, and aging.',
-  medicalNote:
-    'Research information, not medical advice. This draft does not collect patient information or enroll participants.',
-  back: 'Back to studies',
   sources: 'Sources & further reading',
-  copyNote:
-    'Summaries are written from the cited sources. Check the original source or ask the research team for the latest information.',
   readStudy: 'Read study',
   recruiting: 'Recruiting',
   completed: 'Completed',
   updated: 'Last updated',
-  checked: 'Information checked',
   record: 'Study ID',
   population: 'Who the study is for',
   location: 'Where it takes place',
   duration: 'Time commitment',
   involves: 'What taking part involves',
-  enquiryPending: 'Enquiries are not enabled on this draft.',
   enquiryClosed: 'This study is completed and no longer enrolling.',
   enquiryExplanation:
     'An enquiry is a question, not an application. The study team decides who is eligible and explains consent in person. Please do not send medical information through this website.',
@@ -68,7 +61,6 @@ const en = {
     'If it still sounds right, the team checks eligibility with you and explains risks and consent — at the clinic, not on this website.',
     'You decide in your own time, with your family and your doctor. There is no pressure.',
   ],
-  clinicalTitle: 'Clinical details',
   registryLink: 'View the official study record',
 };
 
@@ -107,23 +99,16 @@ export const ui: Record<Locale, typeof en> = {
     privacy: 'פרטיות',
     accessibility: 'נגישות',
     footerNote: 'סוכרת, תפקוד קוגניטיבי והזדקנות.',
-    medicalNote:
-      'מידע מחקרי, לא ייעוץ רפואי. טיוטת האתר אינה אוספת מידע על מטופלים ואינה מבצעת הרשמה למחקרים.',
-    back: 'בחזרה למחקרים',
     sources: 'מקורות וקריאה נוספת',
-    copyNote:
-      'הסיכום נכתב על סמך המקורות המצוינים. למידע העדכני ביותר יש לעיין במקור המקורי או לפנות לצוות המחקר.',
     readStudy: 'לפרטי המחקר',
     recruiting: 'מגייס משתתפים',
     completed: 'המחקר הסתיים',
     updated: 'עודכן לאחרונה',
-    checked: 'המידע נבדק',
     record: 'מזהה המחקר',
     population: 'למי המחקר מיועד',
     location: 'היכן נערך המחקר',
     duration: 'משך ההשתתפות',
     involves: 'מה כולל ההשתתפות',
-    enquiryPending: 'פניות אינן פעילות בטיוטה זו.',
     enquiryClosed: 'המחקר הסתיים ואינו מגייס משתתפים.',
     enquiryExplanation:
       'פנייה היא שאלה, לא בקשה להשתתף. צוות המחקר קובע מי מתאים ומסביר על ההסכמה מדעת במסגרת שיחה. אין לשלוח מידע רפואי דרך אתר זה.',
@@ -141,7 +126,6 @@ export const ui: Record<Locale, typeof en> = {
       'אם זה עדיין מתאים, הצוות בודק התאמה ומסביר על הסיכונים ועל ההסכמה מדעת — במרפאה, לא באתר.',
       'מחליטים בקצב שלכם, עם המשפחה ועם הרופא. אין לחץ.',
     ],
-    clinicalTitle: 'פרטים קליניים',
     registryLink: 'לרשומה הרשמית של המחקר',
   },
 };

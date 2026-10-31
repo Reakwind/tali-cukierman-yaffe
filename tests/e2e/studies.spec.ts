@@ -17,7 +17,7 @@ test('a participant can discover a dated study without a fake registration flow'
   ).toHaveText('NCT06497595');
   await expect(page.locator('time[datetime="2026-07-21"]')).toBeVisible();
   await expect(page.locator('[data-enquiry-state]')).toContainText(
-    'Enquiries are not enabled',
+    'An enquiry is a question',
   );
   await expect(page.locator('[data-consider] li')).toHaveCount(4);
   await expect(page.locator('[data-consider]')).toContainText(

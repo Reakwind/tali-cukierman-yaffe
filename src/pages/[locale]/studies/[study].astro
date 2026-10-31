@@ -121,8 +121,13 @@ const date = (value: string) =>
             ))}
           </ol>
         )}
-        <p data-enquiry-state>{closed ? t.enquiryClosed : t.enquiryPending}</p>
-        {!closed && <p class="small">{t.enquiryExplanation}</p>}
+        {closed ? (
+          <p data-enquiry-state>{t.enquiryClosed}</p>
+        ) : (
+          <p class="small" data-enquiry-state>
+            {t.enquiryExplanation}
+          </p>
+        )}
         <a class="text-link" href={data.registryUrl}>
           {t.registryLink}
           <span class="arrow" aria-hidden="true">

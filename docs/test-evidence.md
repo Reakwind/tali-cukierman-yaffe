@@ -277,3 +277,16 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Also fixed a stray Russian word in the Hebrew "what happens next" heading.
 - Copy-only changes; no new interactions. Final `npm run verify`: formatting,
   ESLint, Astro/TypeScript, 25 unit tests, **210 Playwright checks passed**.
+
+## Disclaimer copy removed — 2026-10-31
+
+- Owner: remove defensive boilerplate such as "Research information, not medical
+  advice. This draft does not collect patient information or enroll participants."
+- Removed the footer medical disclaimer, the repeated sources disclaimer, the
+  per-page "Enquiries are not enabled on this draft" line (redundant with the
+  global draft banner), and the unused string keys behind them. The participant
+  explanation ("An enquiry is a question, not an application…") and the
+  completed-study notice remain where they serve a reader.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  **210 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.
