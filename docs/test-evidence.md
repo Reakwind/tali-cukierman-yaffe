@@ -226,3 +226,18 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Minimal participation page — 2026-10-31
+
+- Owner: the participation FAQ discussed too much (costs, placebo, medications)
+  for a public site; the page needs minimal information and one clear call to
+  action. Red: the new minimal/action-first test failed against the FAQ build
+  (and one assertion was initially too broad — it counted the intentional
+  sources section as content; narrowed to `.article-section:not(.sources)`).
+- Green: participation is now one line of reassurance (voluntary; asking is not
+  enrollment or consent) plus a primary "Explore studies" button placed directly
+  under the intro, above quiet sources. All speculative FAQ disclosure removed
+  in both languages. Decision details stay with the study team at consent.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **185 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

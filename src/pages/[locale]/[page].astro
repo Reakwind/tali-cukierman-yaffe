@@ -43,6 +43,16 @@ const t = ui[locale];
       <h1>{content.title}</h1>
       <p class="page-intro">{content.intro}</p>
     </div>
+    {page === 'participation' && (
+      <div class="actions">
+        <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
+          {t.explore}
+          <span class="arrow" aria-hidden="true">
+            ↗
+          </span>
+        </a>
+      </div>
+    )}
     <div class="article-wrap">
       {content.sections.map((section) => (
         <section
@@ -82,7 +92,7 @@ const t = ui[locale];
           <p class="small">{t.copyNote}</p>
         </section>
       )}
-      {['research', 'for-clinicians', 'participation'].includes(page) && (
+      {['research', 'for-clinicians'].includes(page) && (
         <div class="actions">
           <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
             {t.explore}

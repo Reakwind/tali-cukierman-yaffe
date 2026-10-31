@@ -166,32 +166,8 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'Participating in research',
       intro:
-        'Learning about a study does not commit you to anything. Asking a question is not enrollment or consent.',
-      sections: [
-        {
-          id: 'questions',
-          title: 'Questions people ask',
-          paragraphs: [
-            'These are the questions patients and families usually start with. The study team answers the rest in person.',
-          ],
-          bullets: [
-            'Can I stop? — Yes. Taking part is voluntary and you can leave at any time.',
-            'Will it cost me money? — The study team explains any costs or reimbursements before you decide. Do not assume anything is free.',
-            'Will my doctor know? — You can discuss the study with your regular doctor; the team explains what information is shared and when.',
-            'What about my other medicines? — Bring your medication list to the screening conversation. Eligibility and safety are checked by the study team.',
-            'Could I be given a placebo? — Some studies compare treatments at random. The team explains exactly how the study works before you consent.',
-            'What happens if I send a question? — Nothing is decided by it. The team replies, and you choose the next step.',
-          ],
-        },
-        {
-          id: 'decide',
-          title: 'Take time to decide',
-          paragraphs: [
-            'The study team explains what participation involves, possible risks and benefits, alternatives, and the consent process. You can ask questions and involve people you trust.',
-            'Participation is voluntary. No personal benefit or place in a study is guaranteed, and this website collects nothing about you.',
-          ],
-        },
-      ],
+        'Taking part in research is voluntary. Asking a question is not enrollment or consent — the study team explains the study and discusses risks and consent before you decide.',
+      sections: [],
       sources: [
         {
           label: 'Israel Ministry of Health: participating in clinical trials',
@@ -456,32 +432,8 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'השתתפות במחקר',
       intro:
-        'קריאה על מחקר אינה מחייבת אתכם בשום דבר. שליחת שאלה אינה הרשמה למחקר ואינה הסכמה מדעת.',
-      sections: [
-        {
-          id: 'questions',
-          title: 'שאלות ששואלים בדרך כלל',
-          paragraphs: [
-            'אלו השאלות שמטופלים ובני משפחות מתחילים בהן בדרך כלל. על השאר עונה צוות המחקר פנים אל פנים.',
-          ],
-          bullets: [
-            'אפשר לפרוש? — כן. ההשתתפות היא בהתנדבות ואפשר לעזוב בכל עת.',
-            'האם זה עולה כסף? — הצוות מסביר על עלויות ועל החזרים לפני שמחליטים. אין להניח שמשהו ניתן בחינם.',
-            'הרופא המטפל ידע? — אפשר להתייעץ עם הרופא המטפל; הצוות מסביר איזה מידע משותף ומתי.',
-            'ומה עם התרופות שלי? — הביאו את רשימת התרופות לשיחת בדיקת ההתאמה. התאמה ובטיחות נבדקות על ידי צוות המחקר.',
-            'יכול להיות שיתנו לי פלסבו? — במחקרים מסוימים משווים טיפולים בהגרלה. הצוות מסביר בדיוק איך המחקר עובד לפני שחותמים על הסכמה.',
-            'מה קורה אם אני שולח שאלה? — שום דבר לא מוחלט בזה. הצוות עונה, ואתם בוחרים את הצעד הבא.',
-          ],
-        },
-        {
-          id: 'decide',
-          title: 'קחו זמן להחליט',
-          paragraphs: [
-            'צוות המחקר מסביר את פרטי ההשתתפות, הסיכונים והתועלת האפשריים, החלופות ותהליך ההסכמה. אפשר לשאול שאלות ולהתייעץ עם אנשים שאתם סומכים עליהם.',
-            'ההשתתפות היא מרצון. אין הבטחה לתועלת אישית או למקום במחקר, והאתר אינו אוסף עליכם מידע.',
-          ],
-        },
-      ],
+        'השתתפות במחקר היא בהתנדבות. שליחת שאלה אינה הרשמה ואינה הסכמה מדעת — צוות המחקר מסביר על המחקר ודן בסיכונים ובהסכמה לפני שמחליטים.',
+      sections: [],
       sources: [
         {
           label: 'משרד הבריאות: השתתפות במחקרים קליניים',

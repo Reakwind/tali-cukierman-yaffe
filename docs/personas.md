@@ -133,6 +133,10 @@ evidence. Sources below are public reference material checked on 2026-10-31.
   discussion, eligibility by the team, asking ≠ joining) beside the contact
   state — the decision-support content Rivka and Dan look for.
 - Enquiry-unavailable copy simplified to a terse build-state note (rule 7).
+- The About-participation page was then cut to minimal reassurance plus one
+  clear CTA at the owner's direction: policy detail (costs, placebo,
+  medications) is consent-process conversation, not public copy. Decision
+  support lives on each study page, which is where the persona journeys use it.
 - Earlier label work ("Who the study is for", "What taking part involves", plain
   dated status) already implements rules 1–3; further page-level copy should be
   checked against rules 4–6 when the study pages are revised.

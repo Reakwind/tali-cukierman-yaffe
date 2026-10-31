@@ -119,6 +119,36 @@ test('every page stays fluid from phone to wide desktop', async ({ page }) => {
   }
 });
 
+test('the participation page is minimal and action-first', async ({ page }) => {
+  for (const [locale, button, forbidden] of [
+    ['en', 'Explore studies', ['placebo', 'cost', 'medicines']],
+    ['he', 'למחקרים שלנו', ['פלסבו', 'עלות', 'התרופות']],
+  ] as const) {
+    await page.goto(`/${locale}/participation/`);
+    const main = page.getByRole('main');
+    // No speculative disclosure about costs, placebo, or medication handling.
+    for (const term of forbidden) {
+      await expect(main).not.toContainText(term);
+    }
+    // Minimal: no FAQ sections — one short page of reassurance.
+    await expect(main.locator('.article-section:not(.sources)')).toHaveCount(0);
+    const buttonLink = main.getByRole('link', { name: button, exact: true });
+    await expect(buttonLink).toHaveAttribute('href', `/${locale}/studies/`);
+    // The call to action sits above the sources, not buried at the bottom.
+    const order = await page.evaluate(() => {
+      const action = document.querySelector('main .actions .button');
+      const sources = document.querySelector('main .sources');
+      return Boolean(
+        action &&
+        sources &&
+        sources.compareDocumentPosition(action) &
+          Node.DOCUMENT_POSITION_PRECEDING,
+      );
+    });
+    expect(order).toBe(true);
+  }
+});
+
 test('the footer keeps support links without repeating the main navigation', async ({
   page,
 }) => {
