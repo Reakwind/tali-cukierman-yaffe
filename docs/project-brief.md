@@ -1,6 +1,6 @@
 # Confirmed project direction
 
-Updated 2026-10-30 following the owner's discovery answers. This supersedes the
+Updated 2026-10-31 following the owner's discovery and content-scope answers. This supersedes the
 personal-hub recommendation and tentative audience priorities in `discovery.md`.
 
 ## Decisions
@@ -14,8 +14,8 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 - Stack: proceed with the lean static Astro/TypeScript/CSS recommendation.
 - Content: no current CV or approved portraits/team photos are available. Draft from
   attributed public sources, improve iteratively, and mark content pending review.
-- 6 Vital: the owner describes it as a platform Tali created. Present it as one
-  strand of the group's digital-health work, not as the website's main identity.
+- 6 Vital: the owner describes it as a platform Tali created. Give it a dedicated
+  page under Research, not the website's main identity or a major commercial section.
 - Registration: no approved route has been supplied; a solution is needed. Plan it
   separately, with no health-data collection or pretend successful submission.
 - Tooling: owner approved installing Node.js LTS and GitHub CLI using Homebrew.
@@ -44,9 +44,39 @@ catchphrases, arbitrary statistics, and repeated generic card grids. A scientifi
 illustration must describe an actual research method or question and must not
 pretend to be study data, a validated test, or an actual participant portrait.
 
-The next iteration begins with the bilingual homepage and shared visual system.
-Existing sourced study data, disabled enquiry routes, and local-only publishing
-remain unchanged. Cleared real photography can be added later; do not fabricate it.
+The owner accepted the revised draft as a much better direction, not as ready for
+production. Visual/application development is paused while content and its
+organization are agreed. Existing study data, disabled enquiry routes, and
+local-only publishing remain unchanged. Cleared real photography can be added
+later; do not fabricate it.
+
+## Confirmed launch content scope
+
+- Begin with three studies/projects: STAY-STRONG, BIRAX, and the MiniMed 780 study.
+  Public records identify the older-adult MiniMed trial as GRACE-780G,
+  `NCT06236256`; confirm that this is the owner's intended study.
+- Core team supplied by the owner:
+  - Prof. Tali Cukierman-Yaffe.
+  - Dr. Naama Peltz-Sinvani — endocrinologist; head of the Sheba division's
+    Clinical Research Unit per the Sheba Division's own post.
+  - Hagar Shimon — research coordinator and PhD candidate.
+  - Yasmin Alt — research coordinator.
+  - Tal Yahalom — PhD candidate; official Cuenca sources use "Tal Yahalom-Peri".
+  - Itay Cohen — MSc student; official Cuenca bio/photo found.
+- Preferred English/Hebrew names, credentials, biographies, and photos still need
+  review. Do not add publication coauthors to the core team automatically.
+- Women's endocrinology and pregnancy are outside this site's scope, including
+  the research overview and curated content. Existing draft references in the
+  application need removal in a subsequent approved content change.
+- Include talks/media and news/updates. Select real items rather than inventing
+  an announcement schedule or filling empty pages.
+- A research coordinator will handle enquiries. The named coordinator/shared
+  channel and institution-approved workflow remain unresolved.
+- The owner will approve factual content. This does not replace institutional
+  recruitment/privacy approval or review of the English/Hebrew wording.
+- Research findings, proposed page organization, and the material-request checklist
+  are recorded in [the content plan](content-plan.md). Its proposed navigation is
+  not yet approved or implemented.
 
 ## Updated journeys
 
@@ -83,15 +113,22 @@ remain unchanged. Cleared real photography can be added later; do not fabricate 
 These remain desk-research hypotheses, not claims that interviews or usability
 sessions with actual patients/clinicians have taken place.
 
-## Initial structure
+## Proposed structure for content review
 
 - Home, with a prominent "Explore studies" action and a clinician/referral route.
 - Studies, with readable detail pages and distinct registry-recruiting/completed
   states. No unapproved "Register now" button.
-- Research, including cognition, physical function, and digital-health work.
-- About the group, current sourced affiliations, and clinical roles.
+- Research, including cognition, physical function, diabetes technology, and a
+  dedicated 6 Vital page.
+- The team, including Tali's biography and the owner-supplied roster.
 - Selected publications, DOI links, and institutional full-publication profile.
-- For clinicians/collaborators, participation guidance, privacy, and accessibility.
+- News and media, including approved talks, interviews, presentations, and updates.
+- Contact/referrals, clinician guidance, participation information, privacy, and
+  accessibility remain directly discoverable support pages, not duplicated studies.
+
+The content plan proposes five main destinations: Studies, Research, Team,
+Publications, and News & media, with visible Contact and clinician shortcuts.
+Review that organization before changing the current header or routes.
 
 Keep navigation short and consistent. Information should remain discoverable by
 topic; visitors should not have to identify themselves before seeing the site.
@@ -111,6 +148,16 @@ topic; visitors should not have to identify themselves before seeing the site.
 - Official records read directly:
   - https://clinicaltrials.gov/api/v2/studies/NCT06497595
   - https://clinicaltrials.gov/api/v2/studies/NCT06236256
+- Both registry records were rechecked on 2026-10-31. STAY-STRONG's site listing
+  distinguishes Sheba (`RECRUITING`) from Hadassah (`NOT_YET_RECRUITING`).
+- EASD's GRACE-780G abstract LBA 19 explicitly names `NCT06236256`. Conference
+  findings are publicly available even though the registry has no posted results;
+  do not describe an abstract as a full trial-results paper. Source and limitations
+  are in the content plan.
+- Tali's TAU Cuenca biography confirms a BIRAX-funded physical-assessment ML
+  project. Diabetes UK describes a likely matching award led in the UK by Steve
+  Bain at Swansea, with listed dates October 2024–August 2027. The connection,
+  formal protocol, and recruitment status require team confirmation.
 - Participant information from Israel's Ministry of Health:
   https://me.health.gov.il/en/older-adult/services-rights/living-with-a-condition/treatments/clinical-trials/
 - Ministry procedure (including recruitment-advertising references):
