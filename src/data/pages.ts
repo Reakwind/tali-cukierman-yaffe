@@ -64,7 +64,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: '6 Vital',
           paragraphs: [
             '6 Vital is a digital-health platform created by Tali. Its public website describes digital cognitive measurement, caregiver/patient-management tools, and a patient app.',
-            'The platform’s relationship to individual studies, ownership, product status, and preferred web address should be confirmed before launch. It is not this website’s enrollment or medical-care service.',
+            '6 Vital is separate from this website and from the studies listed here. Its clinical claims and availability are described on its own site.',
           ],
         },
         {
@@ -72,7 +72,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'A starting point for collaboration',
           paragraphs: [
             'Our public research profile connects clinical epidemiology, endocrinology, cognitive assessment, and physical function. Explore the selected publications and institutional profile to assess scientific overlap.',
-            'A dedicated collaboration contact and student-opportunity information have not yet been approved for this draft. No vacancies or funding availability are implied.',
+            'Collaboration and supervision are considered case by case. Use the research themes and publications to assess fit; the institutional profile is the current contact route.',
           ],
         },
       ],
@@ -105,7 +105,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Profiles',
           paragraphs: [
             'The group combines clinical research, epidemiology, and digital-health work at Sheba Medical Center and Tel Aviv University.',
-            'These profiles and portraits are drafted from official public sources and await each person’s final review. Contact details are deliberately not listed here.',
+            'Profiles are based on official public sources. Contact details are not listed here.',
           ],
         },
       ],
@@ -135,7 +135,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Considering a referral?',
           paragraphs: [
             'Check three things before you act: the dated status on the study page, who the study is for, and the complete eligibility criteria in the official record. Broad summaries on this site are a starting point only.',
-            'With the patient’s permission, share the study page with them. The approved referral channel will be listed here when it opens; until then, current availability is confirmed through the official record.',
+            'With the patient’s permission, share the study page with them. Until the study referral route opens, contact the Sheba service through its official page (linked below); current availability is confirmed through the official record.',
           ],
           bullets: [
             'Do not send names, diagnoses, referrals, or medical documents through GitHub or this website.',
@@ -148,7 +148,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Working with us',
           paragraphs: [
             'Methods and themes: randomized controlled trials, clinical epidemiology, cognitive and physical-function assessment, wearables and imaging, and digital assessment tools. Start from the research pages, then the selected publications.',
-            'For collaboration or supervision enquiries, a professional contact route is pending approval. For clinical care, use the official hospital channels.',
+            'For collaboration or supervision, start from Tali’s TAU research profile (linked below); a dedicated professional contact route is being prepared. For clinical care, use the official hospital channels.',
           ],
         },
       ],
@@ -331,7 +331,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: '6 Vital',
           paragraphs: [
             '6 Vital היא פלטפורמה דיגיטלית שטלי יצרה. האתר הציבורי מתאר מדידה קוגניטיבית דיגיטלית, כלים לניהול ולתמיכה במטופלים ובמטפלים, ואפליקציה למטופלים.',
-            'הקשר המדויק למחקרים, הבעלות, סטטוס המוצרים וכתובת האתר המועדפת דורשים אישור לפני השקה. הפלטפורמה אינה שירות ההרשמה או הטיפול הרפואי של אתר זה.',
+            '6 Vital נפרדת מאתר זה ומהמחקרים המוצגים כאן. הטענות הקליניות והזמינות שלה מתוארות באתר שלה.',
           ],
         },
         {
@@ -339,7 +339,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'נקודת פתיחה לשיתוף פעולה',
           paragraphs: [
             'הפרופיל הציבורי של המחקר מחבר בין אפידמיולוגיה קלינית, אנדוקרינולוגיה, הערכה קוגניטיבית ותפקוד גופני. אפשר לעיין בפרסומים ובפרופיל המוסדי כדי לזהות תחומי עניין משותפים.',
-            'פרטי קשר ייעודיים ומידע על הזדמנויות לסטודנטים עדיין ממתינים לאישור. אין כאן הודעה על משרות או על מימון זמין.',
+            'שיתופי פעולה והנחיה נבחנים לגופו של עניין. אפשר להשתמש בתחומי המחקר ובפרסומים כדי להעריך התאמה; הפרופיל המוסדי הוא מסלול הקשר הנוכחי.',
           ],
         },
       ],
@@ -371,7 +371,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'פרופילים',
           paragraphs: [
             'הקבוצה משלבת מחקר קליני, אפידמיולוגיה ובריאות דיגיטלית במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
-            'פרופילים אלה ותמונותיהם נערכו על סמך מקורות ציבוריים רשמיים וממתינים לבדיקה סופית של חברי הצוות. פרטי קשר אינם מוצגים כאן בכוונה.',
+            'פרופילים אלה מבוססים על מקורות ציבוריים רשמיים. פרטי קשר אינם מוצגים כאן.',
           ],
         },
       ],
@@ -401,7 +401,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'שוקלים להפנות מטופל או מטופלת?',
           paragraphs: [
             'שלושה דברים שכדאי לבדוק לפני שפועלים: הסטטוס והתאריך בעמוד המחקר, למי המחקר מיועד, וקריטריוני ההתאמה המלאים ברישום הרשמי. הסיכומים באתר הם נקודת פתיחה בלבד.',
-            'בהסכמת המטופל או המטופלת, אפשר לשתף עמם את עמוד המחקר. מסלול הפניה המאושר יופיע כאן כשיפעל; עד אז, זמינות עדכנית נבדקת דרך הרישום הרשמי.',
+            'בהסכמת המטופל או המטופלת, אפשר לשתף עמם את עמוד המחקר. עד לפתיחת מסלול ההפניה, אפשר לפנות לשירות שיבא דרך העמוד הרשמי (מקושר למטה); זמינות עדכנית נבדקת דרך הרישום הרשמי.',
           ],
           bullets: [
             'אין להעביר שמות, אבחנות, הפניות או מסמכים רפואיים באתר או ב־GitHub.',
@@ -414,7 +414,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'עבודה משותפת',
           paragraphs: [
             'שיטות ותחומים: מחקרים אקראיים מבוקרים, אפידמיולוגיה קלינית, הערכת תפקוד קוגניטיבי וגופני, אביזרי לבישה ודימות, וכלי הערכה דיגיטליים. אפשר להתחיל מעמודי המחקר ומשם לפרסומים הנבחרים.',
-            'לשיתוף פעולה או למידע על הנחיה, מסלול קשר מקצועי ממתין לאישור. לקבלת טיפול רפואי יש להשתמש בערוצים הרשמיים של בית החולים.',
+            'לשיתוף פעולה או להנחיה, אפשר להתחיל מהפרופיל המחקרי של טלי באוניברסיטת תל אביב (מקושר למטה); מסלול קשר מקצועי ייעודי בהכנה. לקבלת טיפול רפואי יש להשתמש בערוצים הרשמיים של בית החולים.',
           ],
         },
       ],

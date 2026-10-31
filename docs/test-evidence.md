@@ -264,3 +264,16 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **210 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Persona copy pass 2 — 2026-10-31
+
+- Applied review items 1–3: study activities rewritten out of registry voice with
+  plain glosses (weekly weight-loss injection, groups by chance, body scans,
+  optional muscle sample) and a concrete visit count (about five clinic visits);
+  patient caution rewritten in user voice; removed the internal "Information
+  checked" line; removed per-page draft/TODO sentences (team profiles, 6 Vital,
+  collaboration); clinician referral and collaboration sections now point to the
+  official Sheba page and TAU profile as interim routes.
+- Also fixed a stray Russian word in the Hebrew "what happens next" heading.
+- Copy-only changes; no new interactions. Final `npm run verify`: formatting,
+  ESLint, Astro/TypeScript, 25 unit tests, **210 Playwright checks passed**.
