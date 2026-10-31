@@ -33,7 +33,6 @@ const initials: Record<string, string> = {
             alt={tali.photo.alt[locale]}
             style={`object-position: ${tali.photo.position}`}
           />
-          <figcaption>{tali.photo.credit[locale]}</figcaption>
         </>
       )}
     </figure>
@@ -56,7 +55,6 @@ const initials: Record<string, string> = {
               loading="lazy"
               style={`object-position: ${member.photo.position}`}
             />
-            <figcaption>{member.photo.credit[locale]}</figcaption>
           </figure>
         ) : (
           <span class="member-photo monogram" aria-hidden="true">
@@ -83,7 +81,6 @@ const initials: Record<string, string> = {
               loading="lazy"
               style={`object-position: ${member.photo.position}`}
             />
-            <figcaption>{member.photo.credit[locale]}</figcaption>
           </figure>
         ) : (
           <span class="member-photo monogram" aria-hidden="true">

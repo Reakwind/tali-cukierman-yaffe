@@ -8,7 +8,6 @@ export interface TeamMember {
   photo?: {
     src: string;
     alt: Record<Locale, string>;
-    credit: Record<Locale, string>;
     /** CSS object-position for framing the portrait in its circular crop. */
     position: string;
   };
@@ -40,10 +39,6 @@ export const team: TeamMember[] = [
         en: 'Portrait of Prof. Tali Cukierman-Yaffe',
         he: 'דיוקן של פרופ׳ טלי צוקרמן־יפה',
       },
-      credit: {
-        en: 'Photo: Cuenca Institute',
-        he: 'צילום: מכון קואנקה',
-      },
       position: '50% 18%',
     },
   },
@@ -66,10 +61,6 @@ export const team: TeamMember[] = [
       alt: {
         en: 'Portrait of Dr. Naama Peltz-Sinvani',
         he: 'דיוקן של ד״ר נעמה פלץ סינואני',
-      },
-      credit: {
-        en: 'Photo: Sheba Longevity',
-        he: 'צילום: שיבא לונג׳ביטי',
       },
       position: '45% 35%',
     },
@@ -124,10 +115,6 @@ export const team: TeamMember[] = [
         en: 'Portrait of Tal Yahalom-Peri',
         he: 'דיוקן של טל יהלום פרי',
       },
-      credit: {
-        en: 'Photo: Cuenca Institute',
-        he: 'צילום: מכון קואנקה',
-      },
       position: '50% 22%',
     },
   },
@@ -150,10 +137,6 @@ export const team: TeamMember[] = [
       alt: {
         en: 'Portrait of Itay Cohen',
         he: 'דיוקן של איתי כהן',
-      },
-      credit: {
-        en: 'Photo: Cuenca Institute',
-        he: 'צילום: מכון קואנקה',
       },
       position: '50% 50%',
     },

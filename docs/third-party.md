@@ -66,3 +66,7 @@ generated abstractions (pastel teal/magenta on cream), produced offline from a
 seeded painterly algorithm. They are decorative, not study data, measurements,
 or participant imagery. No p5.js runtime is shipped; replace the files at the
 same paths with owner-generated art if preferred.
+
+Photo credit captions were removed on 2026-10-31 at the owner's request: the
+portraits are the team's own photographs. The provenance table above is retained
+for internal reference only.

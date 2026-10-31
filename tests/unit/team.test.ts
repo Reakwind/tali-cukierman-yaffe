@@ -46,7 +46,7 @@ test('profiles contain no contact details, raw links, or recruitment claims', ()
   }
 });
 
-test('four shipped portraits exist with bilingual alt text and credits', async () => {
+test('four shipped portraits exist with bilingual alt text', async () => {
   const photographed = team.filter((member) => member.photo);
   assert.equal(photographed.length, 4);
   for (const member of photographed) {
@@ -55,7 +55,6 @@ test('four shipped portraits exist with bilingual alt text and credits', async (
     await access(new URL(`../../public${photo.src}`, import.meta.url));
     for (const locale of ['en', 'he'] as const) {
       assert.ok(photo.alt[locale].trim(), `${member.id} alt ${locale}`);
-      assert.ok(photo.credit[locale].trim(), `${member.id} credit ${locale}`);
     }
     assert.ok(
       /^\d+% \d+%$/.test(photo.position),
