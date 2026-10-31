@@ -1,0 +1,35 @@
+Pastel spot illustration examples
+
+Generated with the built-in image-generation tool.
+User-supplied art-direction reference: https://dribbble.com/shots/7442007-Diabetes-prevention-icon-set-part-2
+The first example was generated from a textual style brief. That generated image was the visual style reference for the other two examples. The Dribbble image itself was not passed into the image-generation tool.
+
+COGNITION
+
+Use case: stylized-concept.
+Asset type: one small editorial healthcare spot illustration for a university research website, isolated on pure white.
+Primary request: cognition and memory represented by a pair of gently cupped, simplified peach-colored hands supporting a small pink-and-lavender brain. Show the entire compact silhouette in the center of a landscape 9:7 canvas, with plenty of white margin on every side.
+Art direction: refined 2D digital illustration, like a carefully designed health icon. Clean rounded shapes, elegantly simplified hands, minimal visible linework. The brain is a stylized readable symbol with a few rounded lobes and subtle mauve grooves. The hands are graphic shapes with naturally arranged fingers and soft coral cuffs. Apply smooth pastel gradients and very fine, restrained grain in the shaded areas, creating gentle volume within an essentially flat graphic illustration. Palette: blush pink, soft lilac, peach, a little powder aqua, small deeper mauve accents. Saturation is moderate and cheerful; the overall image stays light and airy.
+Treat the user's supplied art direction as soft graphic editorial icon art: recognizable objects, limited detail, smooth gradient shading, compact composition, and ample white space. Create an original drawing.
+Constraints: one illustration only, no surrounding icon sheet. No photorealism, no fully rendered 3D, no clay or plastic look, no thick outlines, no scenic environment, no elderly people or portraits, no watercolor wash, no flowers, no paper texture across the background, no floating decorative symbols, no borders, no lettering, no labels, no logo or watermark. Crisp graphic silhouettes with softness inside the forms.
+
+------------------------------------------------------------
+
+MOVEMENT
+
+Use case: stylized-concept.
+Asset type: one healthcare research spot illustration, centered on pure white, landscape 9:7.
+Input image: STYLE REFERENCE ONLY. Generate a new subject in the same family. Match the reference's softly shaded 2D digital illustration, clean rounded silhouettes, subtle fine grain inside colored shapes, light pink/lilac/peach/powder-aqua palette, simplified hand anatomy and coral cuffs. Keep an airy compact composition with generous white margins, no scenic background. Softer graphic icon shading rather than photorealistic materials.
+Subject: physical function and muscle strength. One simplified peach-colored hand with a short coral cuff gently but securely gripping the center handle of a small dumbbell. The dumbbell is slightly diagonal, with rounded powder-aqua weights, lilac shaded edges, and a pale lavender handle. Fingers naturally wrap around the handle with the thumb positioned correctly; keep the entire hand, cuff and both ends of the dumbbell inside the canvas. Clear, restrained shapes and a small number of smooth color transitions make the object readable at thumbnail size.
+Constraints: one single isolated illustration. No brain, no extra hands or limbs, no detailed musculature, no gym or scenery, no visualized data, no dramatic cast shadow, no glossy highlights or plastic/clay rendering, no watercolor or paper background, no thick outlines, no text, numbers, labels, border, logo or watermark. Create an original composition.
+
+------------------------------------------------------------
+
+TECHNOLOGY
+
+Use case: stylized-concept.
+Asset type: one healthcare research spot illustration, centered on pure white, landscape 9:7.
+Input image: STYLE REFERENCE ONLY. Generate a new subject in the same family. Match the reference's softly shaded 2D digital illustration, clean rounded silhouettes, subtle fine grain inside colored shapes, light pink/lilac/peach/powder-aqua palette, simplified hand anatomy and coral cuffs. Keep an airy compact composition with generous white margins, no scenic background. Softer graphic icon shading rather than photorealistic materials.
+Subject: digital cognitive assessment. A softly rounded small tablet with a pale lilac frame, nearly front-facing with a gentle tilt. Its off-white screen contains a neat grid of six simple pastel symbols: a pink circle, aqua square, pale yellow triangle, lavender arch, pink diamond, and aqua circle. A single simplified peach-colored hand with a coral cuff approaches from the lower right, with its index finger naturally touching one of the shapes. The complete tablet and hand remain inside the image with comfortable white margins. Keep the physical screen and finger interaction very clear, and the design minimal and softly graphic.
+Constraints: one isolated spot illustration. No readable letters or numerals, no invented clinical scores, no realistic app chrome, no brain, no extra hands or fingers, no floating digital decorations, no scenery, no dramatic cast shadows, no glossy highlights or plastic/clay rendering, no watercolor or paper texture across the background, no thick outlines, no borders, logo, signature or watermark. Original composition.
+
