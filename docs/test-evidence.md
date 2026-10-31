@@ -210,3 +210,19 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari. Deferred: publication type labels and team↔study
   chips (need BIRAX/GRACE page identities first).
+
+## Homepage reorder — 2026-10-31
+
+- Owner direction: home runs hero → research areas → the team, with research-area
+  study links leading to study detail pages. Red: the two homepage structure
+  tests failed against the old studies-first order.
+- Green: home studies/routes bands removed (study discovery now flows through
+  research areas: GRACE-780G under cognitive function, STAY-STRONG under muscle
+  strength, plus the hero's "Explore studies" → studies index). The completed
+  study record now leads with its official name, GRACE-780G, per owner decision.
+  One pre-existing assertion targeting the removed studies region was updated to
+  the new gateway. A cleanup script briefly broke two CSS media rules (dangling
+  selectors); caught by Prettier and repaired before verification.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari.

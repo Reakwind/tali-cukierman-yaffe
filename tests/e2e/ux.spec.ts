@@ -55,11 +55,8 @@ test('the homepage routes visitors onward without repeating the team page', asyn
   );
   const sequence = await page
     .locator('main > section')
-    .evaluateAll((nodes) => nodes.map((node) => node.id));
-  const order = ['home-studies', 'home-research', 'home-team', 'home-routes'];
-  const indexes = order.map((id) => sequence.indexOf(id));
-  expect(indexes.every((index) => index >= 0)).toBe(true);
-  expect([...indexes].sort((a, b) => a - b)).toEqual(indexes);
+    .evaluateAll((nodes) => nodes.map((node) => node.id).filter(Boolean));
+  expect(sequence).toEqual(['home-research', 'home-team']);
 });
 
 test('the header remains available while scrolling', async ({ page }) => {

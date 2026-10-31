@@ -49,7 +49,7 @@ test('desktop navigation separates content destinations from audience shortcuts'
   }
 });
 
-test('the homepage leads with specific research and study information instead of slogans', async ({
+test('the homepage leads with research areas and the team instead of slogans', async ({
   page,
 }) => {
   await page.goto('/en/');
@@ -59,15 +59,18 @@ test('the homepage leads with specific research and study information instead of
   await expect(page.getByRole('main')).toContainText(
     'Prof. Tali Cukierman-Yaffe',
   );
-  const studies = page.getByRole('region', { name: 'Studies', exact: true });
-  await expect(studies).toContainText('STAY-STRONG');
-  await expect(studies).toContainText('Recruiting');
+  const research = page.locator('#home-research');
+  await expect(research).toContainText('STAY-STRONG');
+  await expect(
+    research.getByRole('link', { name: 'STAY-STRONG', exact: true }),
+  ).toHaveAttribute('href', '/en/studies/stay-strong/');
+  await expect(
+    research.getByRole('link', { name: 'GRACE-780G', exact: true }),
+  ).toHaveAttribute('href', '/en/studies/hybrid-closed-loop/');
   const sequence = await page
     .locator('main > section')
-    .evaluateAll((nodes) => nodes.map((node) => node.id));
-  expect(sequence.indexOf('home-studies')).toBeLessThan(
-    sequence.indexOf('home-research'),
-  );
+    .evaluateAll((nodes) => nodes.map((node) => node.id).filter(Boolean));
+  expect(sequence).toEqual(['home-research', 'home-team']);
   await expect(page.locator('.hero-panel, .orbit, .path-card')).toHaveCount(0);
   const text = await page.locator('body').innerText();
   expect(text).not.toMatch(
@@ -83,9 +86,13 @@ test('the Hebrew revision has the same factual content and study access', async 
     /סוכרת,\s*קוגניציה\s*והזדקנות\./,
   );
   await expect(page.getByRole('main')).toContainText('פרופ׳ טלי צוקרמן־יפה');
+  await expect(page.locator('#home-research')).toContainText('STAY-STRONG');
   await expect(
-    page.getByRole('region', { name: 'מחקרים', exact: true }),
-  ).toContainText('STAY-STRONG');
+    page.locator('#home-research').getByRole('link', {
+      name: 'STAY-STRONG',
+      exact: true,
+    }),
+  ).toHaveAttribute('href', '/he/studies/stay-strong/');
   await expect(page.locator('body')).not.toContainText('שלוש נקודות מבט');
   await expect(page.locator('form, [data-live-enquiry]')).toHaveCount(0);
 });
