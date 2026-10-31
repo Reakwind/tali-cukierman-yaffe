@@ -61,7 +61,9 @@
   a recruitment advertisement or confirmation that a particular site has openings.
 - Use official records and record their dates. Separate completed projects from
   studies that may be recruiting. Never display a completed study as open.
-- Keep drafts visibly marked and non-indexable until the team approves launch.
+- Keep drafts non-indexable until the team approves launch. The owner removed the
+  visible "Website draft" banner on 2026-10-31; content review status stays
+  tracked in the project docs.
 - Do not activate registration without an approved destination and reviewed
   participant information in both languages. Enquiry is not informed consent or
   enrollment. No eligibility scoring, implied benefit, or automatic matching.

@@ -290,3 +290,12 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   **210 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Draft banner removed — 2026-10-31
+
+- Owner removed the visible "Website draft" banner. Removed the banner markup,
+  strings, and styles; the noindex/nofollow meta and robots policy remain, and
+  content review status stays tracked in the docs. A pre-existing test now
+  asserts the banner is absent while indexing protection stays on.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  **210 Playwright checks passed**.

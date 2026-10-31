@@ -18,7 +18,7 @@ test('English and Hebrew homepages have real localized document semantics', asyn
       'content',
       /noindex/,
     );
-    await expect(page.locator('[data-draft-notice]')).toBeVisible();
+    await expect(page.locator('[data-draft-notice]')).toHaveCount(0);
   }
 });
 

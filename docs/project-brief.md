@@ -23,6 +23,8 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 - Later decision: continue application development locally rather than grant the
   additional GitHub workflow scope. Keep CI publishing, feature PRs, and merges
   pending; do not work around that boundary.
+- Owner removed the visible "Website draft" banner on 2026-10-31. The site stays
+  noindex/nofollow and content remains unreviewed; this is not launch approval.
 
 ## Design revision agreed with the owner
 

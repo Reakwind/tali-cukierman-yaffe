@@ -8,9 +8,6 @@ const en = {
   groupName: 'The Cukierman-Yaffe research group',
   description:
     'Research on diabetes, cognitive function, and aging led by Prof. Tali Cukierman-Yaffe.',
-  draft: 'Website draft',
-  draftText:
-    'Content and translations are under review. Study enquiries are not yet enabled.',
   skip: 'Skip to main content',
   menu: 'Menu',
   mainNavigation: 'Main navigation',
@@ -73,9 +70,6 @@ export const ui: Record<Locale, typeof en> = {
     groupName: 'קבוצת המחקר של פרופ׳ טלי צוקרמן־יפה',
     description:
       'מחקר על סוכרת, תפקוד קוגניטיבי והזדקנות בהובלת פרופ׳ טלי צוקרמן־יפה.',
-    draft: 'טיוטת אתר',
-    draftText:
-      'התוכן והתרגומים בבדיקה. עדיין לא ניתן לשלוח פניות להשתתפות במחקרים.',
     skip: 'דילוג לתוכן הראשי',
     menu: 'תפריט',
     mainNavigation: 'ניווט ראשי',

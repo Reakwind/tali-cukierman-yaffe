@@ -251,21 +251,6 @@ main {
   transform: translateY(0);
 }
 
-.draft-notice {
-  background: var(--mist);
-  border-block-end: 1px solid #e7eded;
-  color: var(--muted);
-  font-size: 0.68rem;
-}
-.draft-inner {
-  display: flex;
-  gap: 0.8rem;
-  padding-block: 0.5rem;
-}
-.draft-inner strong {
-  color: var(--ink);
-  flex-shrink: 0;
-}
 .site-header {
   position: sticky;
   inset-block-start: 0;
@@ -690,17 +675,6 @@ main {
   .mobile-menu summary {
     font-size: 0.73rem;
     gap: 0.3rem;
-  }
-  .draft-inner {
-    display: block;
-    padding-block: 0.5rem;
-  }
-  .draft-inner strong {
-    margin-inline-end: 0.5rem;
-  }
-  .draft-notice {
-    font-size: 0.64rem;
-    line-height: 1.65;
   }
   .section-heading {
     display: block;
