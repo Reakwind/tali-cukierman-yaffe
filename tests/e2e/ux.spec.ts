@@ -18,7 +18,7 @@ test('audience shortcuts stay reachable from deep pages and small screens', asyn
   for (const nav of await banner.locator('.desktop-nav, .utility-nav').all()) {
     await expect(nav).toBeHidden();
   }
-  await page.locator('summary').click();
+  await page.locator('.mobile-menu summary').click();
   const panel = page.locator('.menu-panel');
   await expect(
     panel.getByRole('link', { name: 'About participation', exact: true }),

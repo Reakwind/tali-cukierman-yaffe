@@ -192,3 +192,21 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome, and mobile Safari.
+
+## Persona-driven copy and journeys — 2026-10-31
+
+- Implemented the approved plan from `docs/personas.md`. Red: the participant
+  journey test failed on the missing "What happens next" roadmap and clinical
+  details. Green: study pages now run relevance → burden → decision support →
+  action (roadmap: ask a question → team replies → eligibility/consent at the
+  clinic → decide in your own time), with a collapsible "Clinical details" strip
+  for Maya. Studies index leads with "who they are for and what they involve";
+  About participation is a "Questions people ask" FAQ (costs, stopping, placebo,
+  other medicines, doctor); For clinicians splits into "Considering a referral?"
+  (3-check flow) and "Working with us" (methods/collaboration). Two test failures
+  were strict-mode collisions from the new markup (duplicate study ID, second
+  `<details>` summary) — selectors fixed, behavior unchanged.
+- Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
+  and **180 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome, and mobile Safari. Deferred: publication type labels and team↔study
+  chips (need BIRAX/GRACE page identities first).

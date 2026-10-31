@@ -61,6 +61,14 @@ const en = {
     'The study team checks eligibility and explains risks and consent before anything starts.',
     'Sending a question is not joining the study.',
   ],
+  nextTitle: 'What happens next',
+  nextSteps: [
+    'You send a question — that is all it is.',
+    'The study team replies and answers your questions.',
+    'If it still sounds right, the team checks eligibility with you and explains risks and consent — at the clinic, not on this website.',
+    'You decide in your own time, with your family and your doctor. There is no pressure.',
+  ],
+  clinicalTitle: 'Clinical details',
   registryLink: 'View the official study record',
 };
 
@@ -126,6 +134,14 @@ export const ui: Record<Locale, typeof en> = {
       'צוות המחקר בודק התאמה ומסביר על הסיכונים ועל ההסכמה מדעת לפני הכול.',
       'שליחת שאלה אינה הצטרפות למחקר.',
     ],
+    nextTitle: 'מה קורה дальше',
+    nextSteps: [
+      'שולחים שאלה — זה הכול.',
+      'צוות המחקר חוזר עם תשובות.',
+      'אם זה עדיין מתאים, הצוות בודק התאמה ומסביר על הסיכונים ועל ההסכמה מדעת — במרפאה, לא באתר.',
+      'מחליטים בקצב שלכם, עם המשפחה ועם הרופא. אין לחץ.',
+    ],
+    clinicalTitle: 'פרטים קליניים',
     registryLink: 'לרשומה הרשמית של המחקר',
   },
 };

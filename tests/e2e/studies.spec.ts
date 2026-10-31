@@ -13,16 +13,28 @@ test('a participant can discover a dated study without a fake registration flow'
   await study.getByRole('link', { name: 'Read study', exact: true }).click();
   await expect(page).toHaveURL(/\/en\/studies\/stay-strong\/$/);
   await expect(
-    page.locator('bdi').filter({ hasText: 'NCT06497595' }),
+    page.locator('bdi').filter({ hasText: 'NCT06497595' }).first(),
   ).toHaveText('NCT06497595');
   await expect(page.locator('time[datetime="2026-07-21"]')).toBeVisible();
   await expect(page.locator('[data-enquiry-state]')).toContainText(
     'Enquiries are not enabled',
   );
-  const consider = page.locator('[data-consider]');
-  await expect(consider.locator('li')).toHaveCount(4);
-  await expect(consider).toContainText('leave the study at any time');
-  await expect(consider).toContainText('not joining the study');
+  await expect(page.locator('[data-consider] li')).toHaveCount(4);
+  await expect(page.locator('[data-consider]')).toContainText(
+    'leave the study at any time',
+  );
+  await expect(page.locator('[data-consider]')).toContainText(
+    'not joining the study',
+  );
+  await expect(page.locator('[data-next]')).toContainText(
+    'You send a question',
+  );
+  await expect(page.locator('.article-wrap h2').last()).toHaveText(
+    'What happens next',
+  );
+  await expect(page.locator('details.clinical-details')).toContainText(
+    'NCT06497595',
+  );
   await expect(
     page.locator('form, input, textarea, [data-live-enquiry]'),
   ).toHaveCount(0);

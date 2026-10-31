@@ -87,7 +87,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     studies: {
       title: 'Studies',
       intro:
-        'A first look at publicly registered studies. A registry status is not a promise of current availability; the research team must confirm next steps.',
+        'Our studies — who they are for and what they involve. Each page explains the study in plain language and shows when the information was last updated. The research team confirms who can take part.',
       // Individual study content comes from the validated Astro collection.
       sections: [],
     },
@@ -124,27 +124,27 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     'for-clinicians': {
       title: 'For clinicians & collaborators',
       intro:
-        'For clinicians and collaborators helping people learn about research. Share information, not patient details, through this draft.',
+        'For clinicians, researchers, and collaborators. Share study information with patients — never patient details.',
       sections: [
         {
           id: 'referrals',
-          title: 'Considering a patient referral?',
+          title: 'Considering a referral?',
           paragraphs: [
-            'Start with the relevant study’s official record and its complete eligibility criteria. Published broad criteria are only a starting point, not an eligibility determination.',
-            'With the patient’s permission, share the study information with them. The research team must confirm current site availability and use its approved screening and consent process.',
+            'Check three things before you act: the dated status on the study page, who the study is for, and the complete eligibility criteria in the official record. Broad summaries on this site are a starting point only.',
+            'With the patient’s permission, share the study page with them. The approved referral channel will be listed here when it opens; until then, current availability is confirmed through the official record.',
           ],
           bullets: [
             'Do not send names, diagnoses, referrals, or medical documents through GitHub or this website.',
-            'An institution-approved secure referral channel and professional contact are still pending.',
             'A completed study is not a referral opportunity.',
+            'Every study page links to its official record — the safest link to verify and share.',
           ],
         },
         {
           id: 'partners',
-          title: 'Academic & research partnerships',
+          title: 'Working with us',
           paragraphs: [
-            'The research connects clinical epidemiology, diabetes, cognition, physical function, and digital assessment. Selected publications and institutional profiles provide a source-based starting point for collaboration.',
-            'Dedicated collaborator contact details will be added after approval. For clinical services, use the official hospital channel rather than this informational draft.',
+            'Methods and themes: randomized controlled trials, clinical epidemiology, cognitive and physical-function assessment, wearables and imaging, and digital assessment tools. Start from the research pages, then the selected publications.',
+            'For collaboration or supervision enquiries, a professional contact route is pending approval. For clinical care, use the official hospital channels.',
           ],
         },
       ],
@@ -166,30 +166,29 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'Participating in research',
       intro:
-        'Learning about a study does not commit you to taking part. An enquiry is not enrollment or informed consent.',
+        'Learning about a study does not commit you to anything. Asking a question is not enrollment or consent.',
       sections: [
         {
-          id: 'learn',
-          title: '1. Get to know the study',
+          id: 'questions',
+          title: 'Questions people ask',
           paragraphs: [
-            'Read about its purpose, location, practical commitment, and current source information. A short website summary cannot replace the full approved participant information, risks, and eligibility criteria.',
-            'If you are helping a family member, discuss their preferences and permission. Do not submit someone else’s medical details here.',
+            'These are the questions patients and families usually start with. The study team answers the rest in person.',
           ],
-        },
-        {
-          id: 'ask',
-          title: '2. Talk with the research team',
-          paragraphs: [
-            'An approved enquiry route is not available on this draft yet. Once it is ready, the team can explain the study, answer questions, and discuss whether an approved screening process is appropriate.',
-            'Please do not use GitHub issues for participant enquiries. No contact or health information is collected by this website.',
+          bullets: [
+            'Can I stop? — Yes. Taking part is voluntary and you can leave at any time.',
+            'Will it cost me money? — The study team explains any costs or reimbursements before you decide. Do not assume anything is free.',
+            'Will my doctor know? — You can discuss the study with your regular doctor; the team explains what information is shared and when.',
+            'What about my other medicines? — Bring your medication list to the screening conversation. Eligibility and safety are checked by the study team.',
+            'Could I be given a placebo? — Some studies compare treatments at random. The team explains exactly how the study works before you consent.',
+            'What happens if I send a question? — Nothing is decided by it. The team replies, and you choose the next step.',
           ],
         },
         {
           id: 'decide',
-          title: '3. Take time to decide',
+          title: 'Take time to decide',
           paragraphs: [
-            'The study team explains participation, possible risks and benefits, alternatives, and the consent process. You may ask questions and discuss the decision with people you trust.',
-            'Participation is voluntary. A website enquiry is not consent to research, and no personal benefit or place in a study is guaranteed.',
+            'The study team explains what participation involves, possible risks and benefits, alternatives, and the consent process. You can ask questions and involve people you trust.',
+            'Participation is voluntary. No personal benefit or place in a study is guaranteed, and this website collects nothing about you.',
           ],
         },
       ],
@@ -379,7 +378,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     studies: {
       title: 'מחקרים',
       intro:
-        'היכרות ראשונית עם מחקרים הרשומים במקורות ציבוריים. סטטוס ברישום אינו מבטיח זמינות נוכחית; הצוות צריך לאשר את הצעד הבא.',
+        'המחקרים שלנו — למי הם מיועדים ומה הם כוללים. כל עמוד מסביר את המחקר בשפה פשוטה ומראה מתי המידע עודכן לאחרונה. צוות המחקר מאשר מי יכול להשתתף.',
       sections: [],
     },
     about: {
@@ -415,27 +414,27 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     'for-clinicians': {
       title: 'לצוותים רפואיים ולחוקרים',
       intro:
-        'לצוותים רפואיים ולשותפים המסייעים לאנשים להכיר מחקרים. דרך טיוטה זו משתפים מידע על המחקר, לא מידע על מטופלים.',
+        'לצוותים רפואיים, לחוקרים ולשותפים. משתפים מידע על מחקרים — לעולם לא מידע על מטופלים.',
       sections: [
         {
           id: 'referrals',
           title: 'שוקלים להפנות מטופל או מטופלת?',
           paragraphs: [
-            'מומלץ להתחיל ברישום הרשמי ובקריטריונים המלאים של המחקר הרלוונטי. קריטריונים כלליים המופיעים באתר הם נקודת פתיחה בלבד, לא קביעה של התאמה.',
-            'בהסכמת המטופל או המטופלת, אפשר לשתף עמם את המידע על המחקר. צוות המחקר צריך לאשר זמינות עדכנית ולהשתמש בתהליך המאושר לבדיקת התאמה ולהסכמה מדעת.',
+            'שלושה דברים שכדאי לבדוק לפני שפועלים: הסטטוס והתאריך בעמוד המחקר, למי המחקר מיועד, וקריטריוני ההתאמה המלאים ברישום הרשמי. הסיכומים באתר הם נקודת פתיחה בלבד.',
+            'בהסכמת המטופל או המטופלת, אפשר לשתף עמם את עמוד המחקר. מסלול הפניה המאושר יופיע כאן כשיפעל; עד אז, זמינות עדכנית נבדקת דרך הרישום הרשמי.',
           ],
           bullets: [
             'אין להעביר שמות, אבחנות, הפניות או מסמכים רפואיים באתר או ב־GitHub.',
-            'מסלול הפניה מאובטח ופרטי קשר מקצועיים עדיין ממתינים לאישור המוסד.',
             'מחקר שהושלם אינו פתוח להפניות לצורך השתתפות.',
+            'כל עמוד מחקר מקשר לרישום הרשמי — זהו הקישור הבטוח ביותר לאימות ולשיתוף.',
           ],
         },
         {
           id: 'partners',
-          title: 'שותפויות אקדמיות ומחקריות',
+          title: 'עבודה משותפת',
           paragraphs: [
-            'העשייה מחברת בין אפידמיולוגיה קלינית, סוכרת, קוגניציה, תפקוד גופני והערכה דיגיטלית. הפרסומים והפרופילים המוסדיים הם נקודת פתיחה מבוססת מקורות לשיתוף פעולה.',
-            'פרטי קשר ייעודיים יתווספו לאחר אישור. לקבלת שירות רפואי יש להשתמש בערוץ הרשמי של בית החולים, ולא בטיוטת אתר המידע.',
+            'שיטות ותחומים: מחקרים אקראיים מבוקרים, אפידמיולוגיה קלינית, הערכת תפקוד קוגניטיבי וגופני, אביזרי לבישה ודימות, וכלי הערכה דיגיטליים. אפשר להתחיל מעמודי המחקר ומשם לפרסומים הנבחרים.',
+            'לשיתוף פעולה או למידע על הנחיה, מסלול קשר מקצועי ממתין לאישור. לקבלת טיפול רפואי יש להשתמש בערוצים הרשמיים של בית החולים.',
           ],
         },
       ],
@@ -457,30 +456,29 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'השתתפות במחקר',
       intro:
-        'קריאה על מחקר אינה מחייבת השתתפות. פנייה אינה הרשמה למחקר ואינה הסכמה מדעת.',
+        'קריאה על מחקר אינה מחייבת אתכם בשום דבר. שליחת שאלה אינה הרשמה למחקר ואינה הסכמה מדעת.',
       sections: [
         {
-          id: 'learn',
-          title: '1. להכיר את המחקר',
+          id: 'questions',
+          title: 'שאלות ששואלים בדרך כלל',
           paragraphs: [
-            'קראו על מטרת המחקר, המיקום, הזמן והפעולות הנדרשים והמידע העדכני במקור. סיכום קצר באתר אינו מחליף את המידע המאושר המלא, הסיכונים וקריטריוני ההתאמה.',
-            'אם אתם מסייעים לבן או לבת משפחה, שוחחו על רצונם וקבלו את רשותם. אין לשלוח כאן מידע רפואי על אדם אחר.',
+            'אלו השאלות שמטופלים ובני משפחות מתחילים בהן בדרך כלל. על השאר עונה צוות המחקר פנים אל פנים.',
           ],
-        },
-        {
-          id: 'ask',
-          title: '2. לדבר עם צוות המחקר',
-          paragraphs: [
-            'בטיוטה זו עדיין אין מסלול פנייה מאושר. כאשר יופעל מסלול כזה, הצוות יוכל להסביר על המחקר, לענות על שאלות ולדון בתהליך המאושר לבדיקת התאמה.',
-            'אין להשתמש בפניות GitHub לצורך השתתפות. האתר אינו אוסף פרטי קשר או מידע רפואי.',
+          bullets: [
+            'אפשר לפרוש? — כן. ההשתתפות היא בהתנדבות ואפשר לעזוב בכל עת.',
+            'האם זה עולה כסף? — הצוות מסביר על עלויות ועל החזרים לפני שמחליטים. אין להניח שמשהו ניתן בחינם.',
+            'הרופא המטפל ידע? — אפשר להתייעץ עם הרופא המטפל; הצוות מסביר איזה מידע משותף ומתי.',
+            'ומה עם התרופות שלי? — הביאו את רשימת התרופות לשיחת בדיקת ההתאמה. התאמה ובטיחות נבדקות על ידי צוות המחקר.',
+            'יכול להיות שיתנו לי פלסבו? — במחקרים מסוימים משווים טיפולים בהגרלה. הצוות מסביר בדיוק איך המחקר עובד לפני שחותמים על הסכמה.',
+            'מה קורה אם אני שולח שאלה? — שום דבר לא מוחלט בזה. הצוות עונה, ואתם בוחרים את הצעד הבא.',
           ],
         },
         {
           id: 'decide',
-          title: '3. לקחת זמן להחליט',
+          title: 'קחו זמן להחליט',
           paragraphs: [
             'צוות המחקר מסביר את פרטי ההשתתפות, הסיכונים והתועלת האפשריים, החלופות ותהליך ההסכמה. אפשר לשאול שאלות ולהתייעץ עם אנשים שאתם סומכים עליהם.',
-            'ההשתתפות היא מרצון. פנייה באתר אינה הסכמה למחקר, ואין הבטחה לתועלת אישית או למקום במחקר.',
+            'ההשתתפות היא מרצון. אין הבטחה לתועלת אישית או למקום במחקר, והאתר אינו אוסף עליכם מידע.',
           ],
         },
       ],
