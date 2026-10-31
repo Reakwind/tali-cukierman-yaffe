@@ -149,6 +149,23 @@ test('the participation page is minimal and action-first', async ({ page }) => {
   }
 });
 
+test('the team page leads with Tali, lists students by degree, and invites applicants', async ({
+  page,
+}) => {
+  await page.goto('/en/about/');
+  const people = page.locator('#people');
+  await expect(people.locator('.pi')).toContainText(
+    'Prof. Tali Cukierman-Yaffe',
+  );
+  await expect(people).toContainText('Current students');
+  const students = people.locator('.member-grid').nth(1);
+  await expect(students).toContainText('MSc');
+  await expect(students).toContainText('PhD');
+  await expect(
+    people.getByRole('link', { name: 'tcukierm@gmail.com' }),
+  ).toHaveAttribute('href', 'mailto:tcukierm@gmail.com');
+});
+
 test('the footer keeps support links without repeating the main navigation', async ({
   page,
 }) => {

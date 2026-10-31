@@ -60,13 +60,10 @@ test('the homepage leads with research areas and the team instead of slogans', a
     'Prof. Tali Cukierman-Yaffe',
   );
   const research = page.locator('#home-research');
-  await expect(research).toContainText('STAY-STRONG');
   await expect(
-    research.getByRole('link', { name: 'STAY-STRONG', exact: true }),
-  ).toHaveAttribute('href', '/en/studies/stay-strong/');
-  await expect(
-    research.getByRole('link', { name: 'GRACE-780G', exact: true }),
-  ).toHaveAttribute('href', '/en/studies/hybrid-closed-loop/');
+    research.getByRole('link', { name: 'Diabetes & cognitive function' }),
+  ).toHaveAttribute('href', '/en/research/#cognition');
+  await expect(research.locator('.area-art')).toHaveCount(3);
   const sequence = await page
     .locator('main > section')
     .evaluateAll((nodes) => nodes.map((node) => node.id).filter(Boolean));
@@ -86,13 +83,12 @@ test('the Hebrew revision has the same factual content and study access', async 
     /סוכרת,\s*קוגניציה\s*והזדקנות\./,
   );
   await expect(page.getByRole('main')).toContainText('פרופ׳ טלי צוקרמן־יפה');
-  await expect(page.locator('#home-research')).toContainText('STAY-STRONG');
   await expect(
-    page.locator('#home-research').getByRole('link', {
-      name: 'STAY-STRONG',
-      exact: true,
-    }),
-  ).toHaveAttribute('href', '/he/studies/stay-strong/');
+    page
+      .locator('#home-research')
+      .getByRole('link', { name: 'סוכרת ותפקוד קוגניטיבי' }),
+  ).toHaveAttribute('href', '/he/research/#cognition');
+  await expect(page.locator('#home-research .area-art')).toHaveCount(3);
   await expect(page.locator('body')).not.toContainText('שלוש נקודות מבט');
   await expect(page.locator('form, [data-live-enquiry]')).toHaveCount(0);
 });

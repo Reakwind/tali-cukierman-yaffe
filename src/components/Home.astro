@@ -1,7 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../layouts/Layout.astro';
-import AssessmentIllustration from './AssessmentIllustration.astro';
 import { ui, type Locale } from '../i18n/ui';
 
 interface Props {
@@ -16,7 +15,6 @@ const content = he
       intro:
         'אנו חוקרים כיצד סוכרת קשורה לזיכרון, לחשיבה ולתפקוד גופני בגיל המבוגר.',
       role: 'אנדוקרינולוגית ואפידמיולוגית קלינית',
-      institutions: ['המרכז הרפואי שיבא', 'אוניברסיטת תל אביב'],
       research: 'תחומי המחקר',
       researchIntro:
         'המחקר משלב אנדוקרינולוגיה, אפידמיולוגיה קלינית והערכת תפקוד.',
@@ -25,13 +23,11 @@ const content = he
           id: 'cognition',
           title: 'סוכרת ותפקוד קוגניטיבי',
           text: 'זיכרון וחשיבה בגיל המבוגר עם סוכרת.',
-          studies: [{ id: 'hybrid-closed-loop', label: 'GRACE-780G' }],
         },
         {
           id: 'movement',
           title: 'כוח שריר ותפקוד גופני',
           text: 'כוח שריר, תפקוד גופני ושבריריות.',
-          studies: [{ id: 'stay-strong', label: 'STAY-STRONG' }],
         },
         {
           id: 'technology',
@@ -39,7 +35,6 @@ const content = he
           text: 'כלי הערכה קוגניטיביים, כולל DSST דיגיטלי.',
         },
       ],
-      relatedLabel: 'מחקר קשור',
       teamTitle: 'הצוות',
       teamText:
         'קבוצה בהובלת פרופ׳ טלי צוקרמן־יפה: קלינאים, חוקרים, רכזי מחקר וסטודנטים במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
@@ -50,7 +45,6 @@ const content = he
       intro:
         'We study how diabetes relates to memory, thinking, and physical function in older adults.',
       role: 'Endocrinologist & clinical epidemiologist',
-      institutions: ['Sheba Medical Center', 'Tel Aviv University'],
       research: 'Research areas',
       researchIntro:
         'Our work combines endocrinology, clinical epidemiology, and functional assessment.',
@@ -59,13 +53,11 @@ const content = he
           id: 'cognition',
           title: 'Diabetes & cognitive function',
           text: 'Memory and thinking in older adults with diabetes.',
-          studies: [{ id: 'hybrid-closed-loop', label: 'GRACE-780G' }],
         },
         {
           id: 'movement',
           title: 'Muscle strength & physical function',
           text: 'Muscle strength, physical function, and frailty.',
-          studies: [{ id: 'stay-strong', label: 'STAY-STRONG' }],
         },
         {
           id: 'technology',
@@ -73,7 +65,6 @@ const content = he
           text: 'Cognitive assessment tools, including a digital DSST.',
         },
       ],
-      relatedLabel: 'Related study',
       teamTitle: 'The team',
       teamText:
         'A group led by Prof. Tali Cukierman-Yaffe: clinicians, researchers, coordinators, and students at Sheba Medical Center and Tel Aviv University.',
@@ -105,12 +96,13 @@ const content = he
       </div>
     </div>
     <div class="intro-visual">
-      <AssessmentIllustration locale={locale} />
-    </div>
-    <div class="institution-links">
-      <span>{content.institutions[0]}</span>
-      <span aria-hidden="true">/</span>
-      <span>{content.institutions[1]}</span>
+      <img
+        class="hero-art"
+        src="/images/art/hero.webp"
+        alt=""
+        width="1600"
+        height="1000"
+      />
     </div>
   </section>
 
@@ -127,29 +119,25 @@ const content = he
       <div class="research-list">
         {content.areas.map((area) => (
           <article>
-            <h3>
-              <a
-                href={`${getRelativeLocaleUrl(locale, 'research/')}#${area.id}`}
-              >
-                {area.title}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </h3>
-            <p>{area.text}</p>
-            {area.studies && (
-              <p class="area-studies">
-                <span>{content.relatedLabel}</span>
-                {area.studies.map((s) => (
-                  <a
-                    class="study-link"
-                    href={getRelativeLocaleUrl(locale, `studies/${s.id}/`)}
-                  >
-                    {s.label}
-                    <span aria-hidden="true">→</span>
-                  </a>
-                ))}
-              </p>
-            )}
+            <img
+              class="area-art"
+              src={`/images/art/${area.id}.webp`}
+              alt=""
+              width="900"
+              height="700"
+              loading="lazy"
+            />
+            <div>
+              <h3>
+                <a
+                  href={`${getRelativeLocaleUrl(locale, 'research/')}#${area.id}`}
+                >
+                  {area.title}
+                  <span aria-hidden="true">→</span>
+                </a>
+              </h3>
+              <p>{area.text}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -218,6 +206,11 @@ const content = he
     align-self: center;
     padding-block-start: 2rem;
   }
+  .hero-art {
+    inline-size: 100%;
+    block-size: auto;
+    display: block;
+  }
   .institution-links {
     grid-column: 1 / -1;
     display: flex;
@@ -249,8 +242,18 @@ const content = he
     font-size: 0.9rem;
   }
   .research-list article {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
     padding-block: 1.3rem;
     border-block-start: 1px solid var(--line-strong);
+  }
+  .area-art {
+    inline-size: 120px;
+    block-size: 120px;
+    object-fit: cover;
+    display: block;
   }
   .research-list article:first-child {
     padding-block-start: 0;
@@ -282,28 +285,6 @@ const content = he
     color: var(--muted);
     margin-block-end: 0;
     max-inline-size: 52ch;
-  }
-  .area-studies {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 1rem;
-    margin-block-start: 0.85rem;
-    font-size: 0.78rem;
-  }
-  .area-studies > span {
-    color: var(--muted);
-  }
-  .area-studies .study-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    min-block-size: 44px;
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .area-studies .study-link:hover {
-    text-decoration: underline;
   }
   .home-team {
     padding-block: 3.5rem;

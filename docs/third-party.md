@@ -58,3 +58,11 @@ wordmark/favicon is a draft site identity, not an institutional logo.
 
 See `discovery.md` for the source links and license research. Dependencies retain
 their own package licenses; the project has no blanket content/code license yet.
+
+## Generative artwork (draft, 2026-10-31)
+
+`public/images/art/{hero,cognition,movement,technology}.webp` are original
+generated abstractions (pastel teal/magenta on cream), produced offline from a
+seeded painterly algorithm. They are decorative, not study data, measurements,
+or participant imagery. No p5.js runtime is shipped; replace the files at the
+same paths with owner-generated art if preferred.

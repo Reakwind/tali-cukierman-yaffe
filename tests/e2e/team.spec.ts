@@ -93,7 +93,7 @@ test('team profiles include no contact details or forms', async ({ page }) => {
     await page.goto(`/${locale}/about/`);
     await expect(
       page
-        .locator('#people')
+        .locator('#people .member')
         .locator('a[href^="mailto:"], a[href^="tel:"], form, input, textarea'),
     ).toHaveCount(0);
   }

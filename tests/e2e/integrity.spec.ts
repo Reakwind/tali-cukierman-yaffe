@@ -77,7 +77,10 @@ for (const locale of ['en', 'he']) {
       expect(href, `Empty link on ${from}`).not.toBe('');
       const url = new URL(href, `http://127.0.0.1:4173${from}`);
       if (url.origin !== 'http://127.0.0.1:4173') {
-        expect(url.protocol, `Unsafe external link on ${from}`).toBe('https:');
+        expect(
+          ['https:', 'mailto:'],
+          `Unsafe external link on ${from}`,
+        ).toContain(url.protocol);
         continue;
       }
       if (!checked.has(url.pathname)) {

@@ -1,127 +1,246 @@
 ---
-import { team, type TeamMember } from '../data/team';
+import { team } from '../data/team';
+import TeamBio from './TeamBio.astro';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-
-// Mixed-direction identifiers inside localized prose need bidi isolation.
-const isolated = [
-  'STAY-STRONG',
-  'GRACE-780G',
-  'BIRAX',
-  'DSST',
-  'EASD',
-  'PHRI',
-  'Diabetes 360',
-];
-const escaped = isolated.map((token) =>
-  token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-);
-const tokenPattern = new RegExp(`(${escaped.join('|')})`, 'g');
-const segments = (text: string) =>
-  text.split(tokenPattern).filter((part) => part.length > 0);
-const isToken = (part: string) => isolated.includes(part);
-const hasPhoto = (member: TeamMember) => Boolean(member.photo);
+const he = locale === 'he';
+const byId = (id: string) => team.find((member) => member.id === id)!;
+const tali = byId('tali');
+const staff = [byId('naama'), byId('yasmin')];
+const students = [byId('hagar'), byId('tal'), byId('itay')];
+const degrees: Record<string, string> = {
+  hagar: he ? 'דוקטורט' : 'PhD',
+  tal: he ? 'דוקטורט' : 'PhD',
+  itay: he ? 'תואר שני' : 'MSc',
+};
+const initials: Record<string, string> = {
+  hagar: he ? 'הש' : 'HS',
+  yasmin: he ? 'יא' : 'YA',
+};
 ---
 
-<div class="team-list">
-  {team.map((member) => (
-    <article class="team-member" id={`team-${member.id}`}>
-      {hasPhoto(member) ? (
-        <figure class="team-photo">
+<div class="team-wrap">
+  <article class="pi" id={`team-${tali.id}`}>
+    <figure class="pi-photo">
+      {tali.photo && (
+        <>
           <img
-            src={member.photo!.src}
-            alt={member.photo!.alt[locale]}
-            loading="lazy"
-            style={`object-position: ${member.photo!.position}`}
+            src={tali.photo.src}
+            alt={tali.photo.alt[locale]}
+            style={`object-position: ${tali.photo.position}`}
           />
-          <figcaption>{member.photo!.credit[locale]}</figcaption>
-        </figure>
-      ) : (
-        <div class="team-photo" aria-hidden="true" />
+          <figcaption>{tali.photo.credit[locale]}</figcaption>
+        </>
       )}
-      <div class="team-copy">
+    </figure>
+    <div class="pi-copy">
+      <h2>{tali.name[locale]}</h2>
+      <p class="member-role">{tali.role[locale]}</p>
+      <TeamBio member={tali} locale={locale} />
+    </div>
+  </article>
+
+  <h2 class="team-section-title">{he ? 'צוות המחקר' : 'Research staff'}</h2>
+  <div class="member-grid">
+    {staff.map((member) => (
+      <article class="member" id={`team-${member.id}`}>
+        {member.photo ? (
+          <figure class="member-photo">
+            <img
+              src={member.photo.src}
+              alt={member.photo.alt[locale]}
+              loading="lazy"
+              style={`object-position: ${member.photo.position}`}
+            />
+            <figcaption>{member.photo.credit[locale]}</figcaption>
+          </figure>
+        ) : (
+          <span class="member-photo monogram" aria-hidden="true">
+            {initials[member.id]}
+          </span>
+        )}
         <h3>{member.name[locale]}</h3>
-        <p class="team-role">{member.role[locale]}</p>
-        <p class="team-bio">
-          {segments(member.bio[locale]).map((part) =>
-            isToken(part) ? <bdi dir="ltr">{part}</bdi> : part,
-          )}
-        </p>
-      </div>
-    </article>
-  ))}
+        <p class="member-role">{member.role[locale]}</p>
+        <TeamBio member={member} locale={locale} />
+      </article>
+    ))}
+  </div>
+
+  <h2 class="team-section-title">
+    {he ? 'סטודנטים וסטודנטיות' : 'Current students'}
+  </h2>
+  <div class="member-grid">
+    {students.map((member) => (
+      <article class="member" id={`team-${member.id}`}>
+        {member.photo ? (
+          <figure class="member-photo">
+            <img
+              src={member.photo.src}
+              alt={member.photo.alt[locale]}
+              loading="lazy"
+              style={`object-position: ${member.photo.position}`}
+            />
+            <figcaption>{member.photo.credit[locale]}</figcaption>
+          </figure>
+        ) : (
+          <span class="member-photo monogram" aria-hidden="true">
+            {initials[member.id]}
+          </span>
+        )}
+        <p class="degree">{degrees[member.id]}</p>
+        <h3>{member.name[locale]}</h3>
+        <p class="member-role">{member.role[locale]}</p>
+        <TeamBio member={member} locale={locale} />
+      </article>
+    ))}
+  </div>
+
+  <section class="join" aria-labelledby="join-title">
+    <h2 id="join-title">{he ? 'מעוניינים להצטרף?' : 'Prospective students'}</h2>
+    <p>
+      {he
+        ? 'אנו מקבלים פניות מסטודנטים וסטודנטיות לתואר שני ולדוקטורט בתחומי האפידמיולוגיה, הסוכרת וההזדקנות. כתבו לפרופ׳ צוקרמן־יפה:'
+        : 'We welcome enquiries from prospective MSc and PhD students in epidemiology, diabetes, and aging. Write to Prof. Cukierman-Yaffe:'}
+    </p>
+    <a class="button" href="mailto:tcukierm@gmail.com">
+      tcukierm@gmail.com
+    </a>
+  </section>
 </div>
 
 <style>
-  .team-list {
+  .team-wrap {
     margin-block-start: 1.5rem;
   }
-  .team-member {
+  .pi {
     display: grid;
-    grid-template-columns: 132px minmax(0, 1fr);
-    gap: 1.25rem 1.75rem;
-    padding-block: 1.75rem;
-    border-block-start: 1px solid var(--line);
+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+    gap: 2rem 2.5rem;
+    padding-block-end: 2.5rem;
+    border-block-end: 1px solid var(--line-strong);
   }
-  .team-member:first-child {
-    padding-block-start: 0.5rem;
-  }
-  .team-photo {
+  .pi-photo {
     margin: 0;
-    inline-size: 132px;
-    text-align: center;
   }
-  .team-photo img {
-    inline-size: 132px;
-    block-size: 132px;
-    border-radius: 50%;
+  .pi-photo img {
+    inline-size: 100%;
+    max-inline-size: 280px;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
     background: var(--mist);
-    display: block;
   }
-  .team-photo figcaption {
+  .pi-photo figcaption,
+  .member-photo figcaption {
     margin-block-start: 0.5rem;
     color: var(--muted);
     font-size: 0.62rem;
     line-height: 1.5;
   }
-  .team-copy h3 {
-    font-size: 1.12rem;
-    margin-block-end: 0.35rem;
+  .pi-copy h2 {
+    font-size: 1.9rem;
+    margin-block: 0.2rem 0.5rem;
   }
-  .team-role {
+  :global(.pi .member-bio) {
+    font-size: 0.92rem;
+    max-inline-size: 72ch;
+  }
+  .team-section-title {
+    font-size: 1.35rem;
+    margin-block: 2.5rem 1.25rem;
+  }
+  .member-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .member {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  .member-photo {
+    margin: 0 0 0.9rem;
+    inline-size: 112px;
+  }
+  .member-photo img {
+    inline-size: 112px;
+    block-size: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--mist);
+    display: block;
+  }
+  .monogram {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 112px;
+    block-size: 112px;
+    border-radius: 50%;
+    background: var(--cyan);
+    color: var(--ink);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  .member h3 {
+    font-size: 1.08rem;
+    margin-block-end: 0.25rem;
+  }
+  .degree {
+    margin-block: 0 0.35rem;
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .member-role {
     color: var(--muted);
-    font-size: 0.8rem;
-    margin-block-end: 0.7rem;
+    font-size: 0.78rem;
+    margin-block-end: 0.6rem;
   }
-  .team-bio {
-    font-size: 0.88rem;
+  .member-bio {
+    font-size: 0.85rem;
     color: var(--muted);
     margin-block-end: 0;
-    max-inline-size: 68ch;
+    max-inline-size: 52ch;
+  }
+  .join {
+    margin-block-start: 3rem;
+    padding: 2rem;
+    background: var(--mist);
+    border-block-start: 3px solid var(--accent);
+  }
+  .join h2 {
+    font-size: 1.35rem;
+    margin-block-end: 0.6rem;
+  }
+  .join p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-inline-size: 62ch;
+  }
+  @media (max-width: 950px) {
+    .pi {
+      grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    }
+    .member-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
   @media (max-width: 650px) {
-    .team-member {
-      grid-template-columns: 96px minmax(0, 1fr);
-      gap: 0.9rem 1.15rem;
-      padding-block: 1.35rem;
+    .pi {
+      grid-template-columns: 1fr;
     }
-    .team-photo,
-    .team-photo img {
-      inline-size: 96px;
+    .pi-photo img {
+      max-inline-size: 220px;
     }
-    .team-photo img {
-      block-size: 96px;
-    }
-    .team-copy h3 {
-      font-size: 1.02rem;
-    }
-    .team-role {
-      font-size: 0.74rem;
+    .member-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
