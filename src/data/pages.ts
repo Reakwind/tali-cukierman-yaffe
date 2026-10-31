@@ -98,7 +98,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       sections: [
         {
           id: 'people',
-          title: 'The team',
+          title: 'Profiles',
           paragraphs: [
             'The group combines clinical research, epidemiology, and digital-health work at Sheba Medical Center and Tel Aviv University.',
             'These profiles and portraits are drafted from official public sources and await each person’s final review. Contact details are deliberately not listed here.',
@@ -388,7 +388,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
       sections: [
         {
           id: 'people',
-          title: 'הצוות',
+          title: 'פרופילים',
           paragraphs: [
             'הקבוצה משלבת מחקר קליני, אפידמיולוגיה ובריאות דיגיטלית במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
             'פרופילים אלה ותמונותיהם נערכו על סמך מקורות ציבוריים רשמיים וממתינים לבדיקה סופית של חברי הצוות. פרטי קשר אינם מוצגים כאן בכוונה.',
