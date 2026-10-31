@@ -65,7 +65,6 @@ const initials: Record<string, string> = {
         )}
         <h3>{member.name[locale]}</h3>
         <p class="member-role">{member.role[locale]}</p>
-        <TeamBio member={member} locale={locale} />
       </article>
     ))}
   </div>
@@ -94,7 +93,6 @@ const initials: Record<string, string> = {
         <p class="degree">{degrees[member.id]}</p>
         <h3>{member.name[locale]}</h3>
         <p class="member-role">{member.role[locale]}</p>
-        <TeamBio member={member} locale={locale} />
       </article>
     ))}
   </div>
