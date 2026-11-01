@@ -9,7 +9,7 @@ const headers = await readFile(
 
 for (const header of [
   "Content-Security-Policy: default-src 'self'",
-  "form-action 'none'",
+  "form-action 'self'",
   "frame-ancestors 'none'",
   'X-Content-Type-Options: nosniff',
   'Referrer-Policy: no-referrer',

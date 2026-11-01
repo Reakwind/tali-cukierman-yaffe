@@ -8,10 +8,10 @@ test('audience shortcuts stay reachable from deep pages and small screens', asyn
   const banner = page.getByRole('banner');
   await expect(
     banner.getByRole('link', { name: 'About participation', exact: true }),
-  ).toHaveAttribute('href', '/en/participation/');
+  ).toHaveAttribute('href', '/en/#taking-part');
   await expect(
     banner.getByRole('link', { name: 'For clinicians', exact: true }),
-  ).toHaveAttribute('href', '/en/for-clinicians/');
+  ).toHaveAttribute('href', '/en/#home-clinicians');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
@@ -22,10 +22,10 @@ test('audience shortcuts stay reachable from deep pages and small screens', asyn
   const panel = page.locator('.menu-panel');
   await expect(
     panel.getByRole('link', { name: 'About participation', exact: true }),
-  ).toHaveAttribute('href', '/en/participation/');
+  ).toHaveAttribute('href', '/en/#taking-part');
   await expect(
     panel.getByRole('link', { name: 'For clinicians', exact: true }),
-  ).toHaveAttribute('href', '/en/for-clinicians/');
+  ).toHaveAttribute('href', '/en/#home-clinicians');
 });
 
 test('the group page is the team page, without duplicated role and platform sections', async ({
@@ -41,22 +41,26 @@ test('the group page is the team page, without duplicated role and platform sect
   );
 });
 
-test('the homepage routes visitors onward without repeating the team page', async ({
+test('the homepage gives collaborators and prospective students a direct contact', async ({
   page,
 }) => {
-  await page.goto('/en/');
-  const team = page.locator('#home-team');
-  await expect(team.getByRole('link', { name: /the team/i })).toHaveAttribute(
-    'href',
-    '/en/about/',
-  );
-  await expect(page.getByRole('main')).not.toContainText(
-    'Population Health Research Institute',
-  );
+  for (const locale of ['en', 'he']) {
+    await page.goto(`/${locale}/`);
+    const contact = page.locator('.professional-contact');
+    await expect(
+      contact.getByRole('link', {
+        name:
+          locale === 'en'
+            ? 'Email Prof. Cukierman-Yaffe'
+            : 'כתבו לפרופ׳ צוקרמן־יפה',
+        exact: true,
+      }),
+    ).toHaveAttribute('href', 'mailto:tcukierm@gmail.com');
+  }
   const sequence = await page
     .locator('main > section')
     .evaluateAll((nodes) => nodes.map((node) => node.id).filter(Boolean));
-  expect(sequence).toEqual(['home-research', 'home-team']);
+  expect(sequence).toEqual(['home-research', 'home-studies', 'home-contact']);
 });
 
 test('the header remains available while scrolling', async ({ page }) => {
@@ -121,8 +125,8 @@ test('every page stays fluid from phone to wide desktop', async ({ page }) => {
 
 test('the participation page is minimal and action-first', async ({ page }) => {
   for (const [locale, button, forbidden] of [
-    ['en', 'Explore studies', ['placebo', 'cost', 'medicines']],
-    ['he', 'למחקרים שלנו', ['פלסבו', 'עלות', 'התרופות']],
+    ['en', 'Send my details', ['placebo', 'cost', 'medicines']],
+    ['he', 'שלחו את הפרטים שלי', ['פלסבו', 'עלות', 'התרופות']],
   ] as const) {
     await page.goto(`/${locale}/participation/`);
     const main = page.getByRole('main');
@@ -130,22 +134,17 @@ test('the participation page is minimal and action-first', async ({ page }) => {
     for (const term of forbidden) {
       await expect(main).not.toContainText(term);
     }
-    // Minimal: no FAQ sections — one short page of reassurance.
+    // Visitors can enquire without choosing a study or answering medical questions.
     await expect(main.locator('.article-section:not(.sources)')).toHaveCount(0);
-    const buttonLink = main.getByRole('link', { name: button, exact: true });
-    await expect(buttonLink).toHaveAttribute('href', `/${locale}/studies/`);
-    // The call to action sits above the sources, not buried at the bottom.
-    const order = await page.evaluate(() => {
-      const action = document.querySelector('main .actions .button');
-      const sources = document.querySelector('main .sources');
-      return Boolean(
-        action &&
-        sources &&
-        sources.compareDocumentPosition(action) &
-          Node.DOCUMENT_POSITION_PRECEDING,
-      );
-    });
-    expect(order).toBe(true);
+    const form = main.locator('form[data-enquiry-form]');
+    await expect(
+      form.getByRole('button', { name: button, exact: true }),
+    ).toBeVisible();
+    await expect(form.locator('input[name="study"]')).toHaveValue('general');
+    await expect(form.locator('input:not([type="hidden"])')).toHaveCount(2);
+    await expect(
+      main.locator('select, textarea, input[type="file"], .sources'),
+    ).toHaveCount(0);
   }
 });
 
@@ -162,7 +161,7 @@ test('the team page leads with Tali, lists students by degree, and invites appli
   await expect(students).toContainText('MSc');
   await expect(students).toContainText('PhD');
   await expect(
-    people.getByRole('link', { name: 'tcukierm@gmail.com' }),
+    people.getByRole('link', { name: 'Email Prof. Cukierman-Yaffe' }),
   ).toHaveAttribute('href', 'mailto:tcukierm@gmail.com');
 });
 
@@ -171,7 +170,7 @@ test('the footer keeps support links without repeating the main navigation', asy
 }) => {
   await page.goto('/en/');
   const footer = page.getByRole('contentinfo');
-  await expect(footer.getByRole('link')).toHaveText([
+  await expect(footer.locator('.footer-links').getByRole('link')).toHaveText([
     'Privacy',
     'Accessibility',
   ]);

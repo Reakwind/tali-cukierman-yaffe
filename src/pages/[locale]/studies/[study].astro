@@ -3,6 +3,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../../layouts/Layout.astro';
 import StudyName from '../../../components/StudyName.astro';
+import ResearchText from '../../../components/ResearchText.astro';
+import PublicationList from '../../../components/PublicationList.astro';
+import ParticipationInvite from '../../../components/ParticipationInvite.astro';
 import { locales, ui, type Locale } from '../../../i18n/ui';
 
 export async function getStaticPaths() {
@@ -23,6 +26,8 @@ const t = ui[locale];
 const data = study.data;
 const content = data.localized[locale];
 const closed = data.registryStatus === 'COMPLETED';
+const recruiting = Boolean(data.recruitment);
+const project = data.kind === 'project';
 const date = (value: string) =>
   new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
     dateStyle: 'long',
@@ -49,91 +54,142 @@ const date = (value: string) =>
     </nav>
     <div class="page-heading">
       <p class="eyebrow">
-        {t.record} · <bdi dir="ltr">{data.registryId}</bdi>
+        {data.kind === 'trial' ? (
+          <>
+            {t.record} · <bdi dir="ltr">{data.registryId}</bdi>
+          </>
+        ) : (
+          t.project
+        )}
       </p>
-      <span class:list={['status', { 'status-closed': closed }]}>
-        {closed ? t.completed : t.recruiting}
-      </span>
+      {recruiting && <span class="status">{t.recruiting}</span>}
       <h1 class="study-detail-title">
         <StudyName title={content.title} acronym={data.acronym} />
       </h1>
-      <p class="page-intro">{content.summary}</p>
+      <p class="page-intro">
+        <ResearchText text={content.summary} />
+      </p>
       <p class="small muted">
-        {t.updated}:{' '}
-        <time datetime={data.registryUpdated}>
-          {date(data.registryUpdated)}
-        </time>
+        {data.kind === 'trial' && (
+          <>
+            {t.updated}:{' '}
+            <time datetime={data.registryUpdated}>
+              {date(data.registryUpdated)}
+            </time>{' '}
+            ·{' '}
+          </>
+        )}
+        {t.sourceChecked}:{' '}
+        <time datetime={data.sourceChecked}>{date(data.sourceChecked)}</time>
       </p>
     </div>
     <div class="article-wrap">
+      {recruiting && <ParticipationInvite locale={locale} studyId={study.id} />}
       <section class="article-section" aria-labelledby="population-heading">
-        <h2 id="population-heading">{t.population}</h2>
-        <p>{content.population}</p>
+        <h2 id="population-heading">
+          {closed
+            ? t.completedPopulation
+            : project
+              ? t.projectPopulation
+              : t.population}
+        </h2>
+        <p>
+          <ResearchText text={content.population} />
+        </p>
       </section>
       <section class="article-section" aria-labelledby="location-heading">
-        <h2 id="location-heading">{t.location}</h2>
-        <p>{content.location}</p>
+        <h2 id="location-heading">
+          {closed
+            ? t.completedLocation
+            : project
+              ? t.projectLocation
+              : t.location}
+        </h2>
+        <p>
+          <ResearchText text={content.location} />
+        </p>
       </section>
       <section class="article-section" aria-labelledby="duration-heading">
-        <h2 id="duration-heading">{t.duration}</h2>
-        <p>{content.duration}</p>
+        <h2 id="duration-heading">
+          {closed
+            ? t.completedDuration
+            : project
+              ? t.projectDuration
+              : t.duration}
+        </h2>
+        <p>
+          <ResearchText text={content.duration} />
+        </p>
       </section>
       <section class="article-section" aria-labelledby="involves-heading">
-        <h2 id="involves-heading">{t.involves}</h2>
+        <h2 id="involves-heading">
+          {closed
+            ? t.completedInvolves
+            : project
+              ? t.projectInvolves
+              : t.involves}
+        </h2>
         <ul>
           {content.activities.map((activity) => (
-            <li>{activity}</li>
+            <li>
+              <ResearchText text={activity} />
+            </li>
           ))}
         </ul>
-      </section>
-      <section class="article-section" aria-labelledby="important-heading">
-        <h2 id="important-heading">
-          {locale === 'he' ? 'לפני שמחליטים' : 'Before making a decision'}
-        </h2>
-        <p>{content.caution}</p>
-        {!closed && (
-          <div data-consider>
-            <ul>
-              {t.consider.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
+        {recruiting && (
+          <a
+            class="text-link"
+            href={getRelativeLocaleUrl(locale, 'participation/')}
+          >
+            {t.participation}
+            <span class="arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
         )}
+      </section>
+      {closed && (
+        <section class="article-section" aria-labelledby="important-heading">
+          <h2 id="important-heading">
+            {closed
+              ? locale === 'he'
+                ? 'כיצד לקרוא את הממצאים'
+                : 'Interpreting the findings'
+              : locale === 'he'
+                ? 'לפני שמחליטים'
+                : 'Before making a decision'}
+          </h2>
+          <p>
+            <ResearchText text={content.caution} />
+          </p>
+        </section>
+      )}
+      <div class="article-section">
         <a
           class="text-link"
-          href={getRelativeLocaleUrl(locale, 'participation/')}
+          href={data.kind === 'trial' ? data.registryUrl : data.sourceUrl}
         >
-          {t.participation}
-          <span class="arrow" aria-hidden="true">
-            →
-          </span>
-        </a>
-      </section>
-      <section class="notice" data-next aria-labelledby="next-heading">
-        <h2 id="next-heading" class="notice-heading">
-          {t.nextTitle}
-        </h2>
-        {!closed && (
-          <ol class="next-steps">
-            {t.nextSteps.map((step) => (
-              <li>{step}</li>
-            ))}
-          </ol>
-        )}
-        {closed ? (
-          <p data-enquiry-state>{t.enquiryClosed}</p>
-        ) : (
-          <p class="small" data-enquiry-state>
-            {t.enquiryExplanation}
-          </p>
-        )}
-        <a class="text-link" href={data.registryUrl}>
-          {t.registryLink}
+          {project ? t.projectLink : t.registryLink}
           <span class="arrow" aria-hidden="true">
             ↗
           </span>
         </a>
+      </div>
+      <section class="article-section" aria-labelledby="research-heading">
+        <h2 id="research-heading">{t.researchDetails}</h2>
+        {content.research.map((paragraph) => (
+          <p>
+            <ResearchText text={paragraph} />
+          </p>
+        ))}
+      </section>
+      <section
+        id="outputs"
+        class="article-section"
+        aria-labelledby="outputs-heading"
+      >
+        <h2 id="outputs-heading">{t.relatedPublications}</h2>
+        <PublicationList locale={locale} studyId={study.id} />
       </section>
     </div>
   </div>

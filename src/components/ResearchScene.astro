@@ -1,0 +1,88 @@
+---
+import DiabetesIcon from './DiabetesIcon.astro';
+import type { Locale } from '../i18n/ui';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 900 800"
+  width="900"
+  height="800"
+  class="research-scene"
+  role="img"
+  aria-labelledby="research-scene-title"
+>
+  <title id="research-scene-title">{locale === 'he' ? 'סמלים גאומטריים להערכה קוגניטיבית, מכשירי מדידה וטכנולוגיות סוכרת' : 'Geometric assessment symbols, measurement instruments and diabetes devices'}</title>
+  <g class="parallax-layer layer-far" data-parallax-layer="far">
+    <rect
+      x="100"
+      y="130"
+      width="660"
+      height="560"
+      rx="32"
+      fill="var(--teal-soft)"
+    />
+    <path
+      d="M160 190H700M160 630H700M160 190V630M700 190V630"
+      fill="none"
+      stroke="var(--teal)"
+      stroke-opacity=".2"
+      stroke-dasharray="3 12"
+    />
+    <path
+      d="M260 350H500V500H660"
+      fill="none"
+      stroke="var(--magenta)"
+      stroke-width="2"
+    />
+  </g>
+  <g class="parallax-layer layer-middle" data-parallax-layer="middle">
+    <g class="area-art focus-cognition">
+      <DiabetesIcon name="cognition" x={120} y={75} size={330} />
+    </g>
+    <g class="area-art focus-movement">
+      <DiabetesIcon name="strength" x={95} y={420} size={220} />
+      <DiabetesIcon name="balance" x={300} y={440} size={150} />
+    </g>
+  </g>
+  <g class="parallax-layer layer-near" data-parallax-layer="near">
+    <g class="area-art focus-technology">
+      <DiabetesIcon name="pump" x={480} y={290} size={300} />
+      <DiabetesIcon name="sensor" x={640} y={560} size={150} />
+    </g>
+  </g>
+</svg>
+<style>
+  .research-scene {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    overflow: visible;
+  }
+  .area-art {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 0.45s ease,
+      transform 0.6s cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  :global([data-research-focus='cognition']) .focus-movement,
+  :global([data-research-focus='cognition']) .focus-technology,
+  :global([data-research-focus='movement']) .focus-cognition,
+  :global([data-research-focus='movement']) .focus-technology,
+  :global([data-research-focus='technology']) .focus-cognition,
+  :global([data-research-focus='technology']) .focus-movement {
+    opacity: 0.2;
+    transform: scale(0.94);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .area-art {
+      transition: none;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

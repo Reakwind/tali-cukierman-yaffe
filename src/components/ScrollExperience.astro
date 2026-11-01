@@ -1,0 +1,284 @@
+<script>
+  const language = document.querySelector<HTMLAnchorElement>('.language-link');
+  const otherLanguage = document.documentElement.lang === 'he' ? 'en' : 'he';
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]'),
+  ];
+  const sections = [
+    ...document.querySelectorAll<HTMLElement>('[data-scroll-section]'),
+  ];
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+
+  function orient(id: string) {
+    const destination = id === 'home-contact' ? 'taking-part' : id;
+    for (const link of links) {
+      if (link.dataset['sectionLink'] === destination)
+        link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+    if (language) language.href = `/${otherLanguage}/#${destination}`;
+  }
+
+  // Anchors and history remain native. Only close the menu and place focus.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>(
+      'a[href]',
+    );
+    if (
+      !link ||
+      event.defaultPrevented ||
+      (event as MouseEvent).metaKey ||
+      (event as MouseEvent).ctrlKey
+    )
+      return;
+    const url = new URL(link.href);
+    if (
+      url.origin !== location.origin ||
+      url.pathname !== location.pathname ||
+      !url.hash
+    )
+      return;
+    const target = document.getElementById(url.hash.slice(1));
+    if (!target) return;
+    const menu = link.closest<HTMLDetailsElement>('.mobile-menu');
+    if (menu) menu.open = false;
+    requestAnimationFrame(() => target.focus({ preventScroll: true }));
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const menu =
+      document.querySelector<HTMLDetailsElement>('.mobile-menu[open]');
+    if (menu) {
+      menu.open = false;
+      menu.querySelector<HTMLElement>('summary')?.focus();
+    }
+  });
+  window.addEventListener('hashchange', () => {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) target.focus({ preventScroll: true });
+  });
+
+  if ('IntersectionObserver' in window) {
+    const visible = new Set<HTMLElement>();
+    let orientation: IntersectionObserver;
+    function observeSections() {
+      orientation?.disconnect();
+      visible.clear();
+      const header = document
+        .querySelector('.site-header')!
+        .getBoundingClientRect().height;
+      const top = Math.min(
+        Math.max(header + 16, innerHeight * 0.18),
+        innerHeight - 32,
+      );
+      const bottom = Math.max(
+        0,
+        innerHeight - top - Math.min(160, innerHeight * 0.25),
+      );
+      orientation = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const section = entry.target as HTMLElement;
+            if (entry.isIntersecting) visible.add(section);
+            else visible.delete(section);
+          }
+          const current = [...visible].sort(
+            (a, b) =>
+              b.getBoundingClientRect().top - a.getBoundingClientRect().top,
+          )[0];
+          if (current) orient(current.id);
+          else {
+            links.forEach((link) => link.removeAttribute('aria-current'));
+            if (language) language.href = `/${otherLanguage}/`;
+          }
+        },
+        { rootMargin: `-${top}px 0px -${bottom}px 0px`, threshold: 0 },
+      );
+      sections.forEach((section) => orientation.observe(section));
+    }
+    observeSections();
+    window.addEventListener('resize', observeSections, { passive: true });
+
+    const research = document.querySelector<HTMLElement>('.research-story');
+    const topics = [
+      ...document.querySelectorAll<HTMLElement>('[data-research-step]'),
+    ];
+    let topicObserver: IntersectionObserver;
+    function observeTopics() {
+      topicObserver?.disconnect();
+      if (!research) return;
+      const visible = new Set<HTMLElement>();
+      const art = research.querySelector<HTMLElement>('.research-visual')!;
+      const phoneScene =
+        innerWidth <= 650 && getComputedStyle(art).position === 'sticky';
+      const inset =
+        parseFloat(
+          getComputedStyle(document.documentElement).scrollPaddingTop,
+        ) || 0;
+      const top = Math.min(
+        innerHeight - 140,
+        phoneScene
+          ? inset + art.getBoundingClientRect().height + 24
+          : Math.max(inset + 32, innerHeight * 0.3),
+      );
+      const bottom = phoneScene ? 32 : Math.max(32, innerHeight * 0.25);
+      const readingPoint = (top + innerHeight - bottom) / 2;
+      topicObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) visible.add(entry.target as HTMLElement);
+            else visible.delete(entry.target as HTMLElement);
+          }
+          const current = [...visible].sort((a, b) => {
+            const aRect = a.getBoundingClientRect();
+            const bRect = b.getBoundingClientRect();
+            return (
+              Math.abs(aRect.top + aRect.height / 2 - readingPoint) -
+              Math.abs(bRect.top + bRect.height / 2 - readingPoint)
+            );
+          })[0];
+          if (current)
+            research.dataset['researchFocus'] = current.dataset['researchStep'];
+        },
+        {
+          rootMargin: `-${top}px 0px -${bottom}px 0px`,
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        },
+      );
+      topics.forEach((topic) => topicObserver.observe(topic));
+    }
+    observeTopics();
+    addEventListener('resize', observeTopics, { passive: true });
+    motion.addEventListener('change', observeTopics);
+  }
+
+  const nativeTimelines =
+    CSS.supports('animation-timeline', '--scene') &&
+    CSS.supports('animation-range', 'contain 0% contain 100%');
+  document.documentElement.dataset['parallaxEngine'] = nativeTimelines
+    ? 'css'
+    : 'js';
+
+  // Older browsers use paused Web Animations. No inline styles, scroll interception,
+  // permanent render loop or layout writes; only visible SVG layers are updated.
+  if (
+    !nativeTimelines &&
+    'IntersectionObserver' in window &&
+    typeof Element.prototype.animate === 'function'
+  ) {
+    const scenes = [
+      ...document.querySelectorAll<HTMLElement>('.parallax-scene'),
+    ];
+    const active = new Set<HTMLElement>();
+    const animations = new Map<HTMLElement, Animation[]>();
+    let observer: IntersectionObserver;
+    let frame = 0;
+    function renderDepth() {
+      frame = 0;
+      const inset =
+        parseFloat(
+          getComputedStyle(document.documentElement).scrollPaddingTop,
+        ) || 0;
+      const positions = [...active].map((scene) => {
+        const rect = scene.getBoundingClientRect();
+        return {
+          scene,
+          progress: Math.max(
+            0,
+            Math.min(
+              1,
+              (inset - rect.top) /
+                Math.max(1, rect.height - innerHeight + inset),
+            ),
+          ),
+        };
+      });
+      for (const { scene, progress } of positions) {
+        for (const animation of animations.get(scene) ?? [])
+          animation.currentTime = progress * 1000;
+      }
+    }
+    function scheduleDepth() {
+      if (!frame && !motion.matches && active.size)
+        frame = requestAnimationFrame(renderDepth);
+    }
+    function configureDepth() {
+      observer?.disconnect();
+      cancelAnimationFrame(frame);
+      frame = 0;
+      for (const list of animations.values())
+        list.forEach((animation) => animation.cancel());
+      animations.clear();
+      active.clear();
+      if (motion.matches) return;
+      for (const scene of scenes) {
+        const research = scene.classList.contains('research-story');
+        const ranges = research
+          ? [
+              [30, -40],
+              [50, -120],
+              [160, -40],
+            ]
+          : [
+              [60, -100],
+              [40, -210],
+              [80, -360],
+            ];
+        const scale = innerWidth <= 650 && !research ? 0.6 : 1;
+        const list = [
+          ...scene.querySelectorAll<SVGElement>('[data-parallax-layer]'),
+        ].map((layer, index) => {
+          const [start, end] = ranges[index]!;
+          const animation = layer.animate(
+            [
+              { transform: `translateY(${start! * scale}px)` },
+              { transform: `translateY(${end! * scale}px)` },
+            ],
+            { duration: 1000, fill: 'both', easing: 'linear' },
+          );
+          animation.pause();
+          animation.currentTime = 0;
+          return animation;
+        });
+        const detailFrames: Record<string, Keyframe[]> = {
+          pen: [{ transform: 'rotate(-2deg)' }, { transform: 'rotate(2deg)' }],
+          symbols: [
+            { transform: 'translate(10px, 16px) rotate(3deg)' },
+            { transform: 'translate(-12px, -8px) rotate(-2deg)' },
+          ],
+          signal: [{ strokeDashoffset: '.7' }, { strokeDashoffset: '0' }],
+        };
+        for (const detail of scene.querySelectorAll<SVGElement>(
+          '[data-scroll-detail]',
+        )) {
+          const frames = detailFrames[detail.dataset['scrollDetail'] ?? ''];
+          if (!frames) continue;
+          const animation = detail.animate(frames, {
+            duration: 1000,
+            fill: 'both',
+            easing: 'cubic-bezier(.3,0,.25,1)',
+          });
+          animation.pause();
+          animation.currentTime = 0;
+          list.push(animation);
+        }
+        animations.set(scene, list);
+      }
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) active.add(entry.target as HTMLElement);
+            else active.delete(entry.target as HTMLElement);
+          }
+          scheduleDepth();
+        },
+        { rootMargin: '100px' },
+      );
+      scenes.forEach((scene) => observer.observe(scene));
+    }
+    configureDepth();
+    addEventListener('scroll', scheduleDepth, { passive: true });
+    addEventListener('resize', configureDepth, { passive: true });
+    motion.addEventListener('change', configureDepth);
+  }
+</script>

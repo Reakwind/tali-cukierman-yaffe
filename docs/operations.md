@@ -67,22 +67,21 @@ fresh output and refuses to reuse an unrelated or stale server.
 
 ## Cloudflare deployment (not connected yet)
 
-Recommended starting destination: a Cloudflare Pages Git-integrated static site.
+The owner's 2026-11-01 request for contact-form email delivery gives a concrete
+need for one Worker endpoint. The current recommendation is **Workers Static
+Assets plus the small enquiry Worker**, while Astro continues to generate static
+HTML. See [architecture and setup order](architecture.md); the earlier Pages-only
+recommendation is superseded for this feature.
 
-1. Sign into the intended Cloudflare account. Stay on the free tier.
-2. Authorize the official Cloudflare GitHub App for **only this repository**.
-3. Create a Pages project, production branch `main`, build command `npm run build`,
-   build output `dist`, and the Node version specified in `.node-version`.
-4. Set `ASTRO_TELEMETRY_DISABLED=1` in the build environment. No site secrets or
-   database bindings are needed for this static draft.
-5. Review a branch preview and verify actual HTTP headers, draft/noindex behavior,
-   deep links, Hebrew routes, and 404s. `_headers` is interpreted by Cloudflare;
-   Astro's local preview does not emulate all Cloudflare response-header behavior.
-6. Do not connect/change DNS or add a custom domain without the owner's approval.
+Run `npm run dev:worker` for a local Cloudflare preview and `npm run check:worker`
+for a bundle/configuration dry-run. Sending defaults to off. The static-only
+`npm run preview` remains useful for content review; it does not serve the API.
 
-Workers Static Assets is also supported for generated files, but do not add a
-Worker script or SSR adapter without a concrete need. Reevaluate build/free-tier
-limits before choosing a different deployment service.
+When connecting the account, use the pinned Wrangler CLI, the selected domain,
+four verified email destinations and Turnstile configuration. Review a hosted
+preview, headers, bilingual routes, error states and an authorized delivery test
+before enabling email. Do not connect/change DNS, billing or account permissions
+without the owner's approval. Keep any Git integration scoped to this repository.
 
 No production deployment, domain, billing control, or Cloudflare account permission
 has been configured by this project yet.

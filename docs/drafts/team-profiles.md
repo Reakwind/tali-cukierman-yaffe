@@ -185,7 +185,7 @@ conference gallery, credited to photographer Ofer Amram).
 
 ### English draft
 
-Itay Cohen is an expert rehabilitation psychologist and an MSc student in
+Itay Cohen is an MSc student in
 epidemiology at the School of Public Health, Tel Aviv University, supervised by
 Prof. Tali Cukierman-Yaffe. His thesis, conducted at the Centre for Successful
 Aging with Diabetes at Sheba Medical Center, validates a digital self-administered
@@ -198,7 +198,7 @@ posters at two Cuenca Institute conferences.
 
 ### Hebrew draft
 
-איתי כהן הוא פסיכולוג שיקומי מומחה וסטודנט לתואר שני באפידמיולוגיה בבית הספר
+איתי כהן הוא סטודנט לתואר שני באפידמיולוגיה בבית הספר
 לבריאות הציבור באוניברסיטת תל אביב, בהנחיית פרופ׳ טלי צוקרמן־יפה. עבודת
 התזה שלו, במרכז להזדקנות מוצלחת עם סוכרת במרכז הרפואי שיבא, מתקפת גרסה
 דיגיטלית למילוי עצמי של מבחן ה־DSST ‏(Digit Symbol Substitution Test) ככלי סקר

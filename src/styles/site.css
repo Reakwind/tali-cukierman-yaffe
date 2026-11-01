@@ -22,14 +22,21 @@
 
 :root {
   color-scheme: light;
-  --ink: #23353e;
-  --muted: #52636c;
-  --line: #d6dfe2;
-  --line-strong: #a9c0c7;
-  --accent: #185e70;
-  --cyan: #e1f3f5;
-  --mist: #f4f7f7;
+  --ink: #243b45;
+  --muted: #4b646b;
+  --line: #d4e0dd;
+  --line-strong: #98b8b2;
+  --teal: #17686a;
+  --teal-soft: #d7efe9;
+  --teal-paper: #edf8f4;
+  --magenta: #94315f;
+  --magenta-soft: #f5d9e7;
+  --rose-paper: #fff3f8;
+  --accent: var(--teal);
+  --cyan: var(--teal-soft);
+  --mist: #f3f8f5;
   --paper: #ffffff;
+  --header-clearance: 6.5rem;
   font-family: 'Lexend', Arial, sans-serif;
   font-size: 18px;
   font-synthesis: none;
@@ -42,7 +49,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-block-start: 6rem;
+  scroll-padding-block-start: var(--header-clearance);
 }
 body {
   margin: 0;
@@ -54,6 +61,8 @@ html[lang='he'],
 h1,
 h2,
 h3,
+h4,
+h5,
 p {
   margin-block-start: 0;
 }
@@ -128,6 +137,162 @@ main {
 .container {
   inline-size: min(1320px, calc(100% - 5rem));
   margin-inline: auto;
+}
+/* Scene timelines follow the native document scroll; text never transforms. */
+.parallax-scene {
+  view-timeline-name: --scene;
+  view-timeline-axis: block;
+  view-timeline-inset: var(--header-clearance) 0;
+}
+.parallax-layer {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+.hero-detail {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes pen-settle {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2deg);
+  }
+}
+@keyframes symbols-settle {
+  from {
+    transform: translate(10px, 16px) rotate(3deg);
+  }
+  to {
+    transform: translate(-12px, -8px) rotate(-2deg);
+  }
+}
+@keyframes signal-resolve {
+  from {
+    stroke-dashoffset: 0.7;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes far-depth {
+  from {
+    transform: translateY(60px);
+  }
+  to {
+    transform: translateY(-100px);
+  }
+}
+@keyframes middle-depth {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(-210px);
+  }
+}
+@keyframes near-depth {
+  from {
+    transform: translateY(80px);
+  }
+  to {
+    transform: translateY(-360px);
+  }
+}
+@keyframes research-far {
+  from {
+    transform: translateY(30px);
+  }
+  to {
+    transform: translateY(-40px);
+  }
+}
+@keyframes research-middle {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(-120px);
+  }
+}
+@keyframes research-near {
+  from {
+    transform: translateY(160px);
+  }
+  to {
+    transform: translateY(-40px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: --scene) and
+    (animation-range: contain 0% contain 100%) {
+    html:not([data-parallax-engine='js']) .parallax-layer {
+      animation: far-depth 1ms linear both;
+      /* Keep Lightning CSS from folding this into unsupported animation shorthand. */
+      animation-timeline: --scene !important;
+      animation-range: contain 0% contain 100%;
+    }
+    html:not([data-parallax-engine='js']) .layer-middle {
+      animation-name: middle-depth;
+    }
+    html:not([data-parallax-engine='js']) .layer-near {
+      animation-name: near-depth;
+    }
+    html:not([data-parallax-engine='js']) .research-story .layer-far {
+      animation-name: research-far;
+    }
+    html:not([data-parallax-engine='js']) .research-story .layer-middle {
+      animation-name: research-middle;
+    }
+    html:not([data-parallax-engine='js']) .research-story .layer-near {
+      animation-name: research-near;
+    }
+    html:not([data-parallax-engine='js']) .hero-detail {
+      animation: pen-settle 1ms cubic-bezier(0.3, 0, 0.25, 1) both;
+      animation-timeline: --scene !important;
+      animation-range: contain 0% contain 100%;
+    }
+    html:not([data-parallax-engine='js']) [data-scroll-detail='symbols'] {
+      animation-name: symbols-settle;
+    }
+    html:not([data-parallax-engine='js']) [data-scroll-detail='signal'] {
+      animation-name: signal-resolve;
+    }
+  }
+}
+@media (max-width: 650px) {
+  @keyframes far-depth {
+    from {
+      transform: translateY(36px);
+    }
+    to {
+      transform: translateY(-60px);
+    }
+  }
+  @keyframes middle-depth {
+    from {
+      transform: translateY(24px);
+    }
+    to {
+      transform: translateY(-126px);
+    }
+  }
+  @keyframes near-depth {
+    from {
+      transform: translateY(48px);
+    }
+    to {
+      transform: translateY(-216px);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer,
+  .hero-detail {
+    animation: none;
+    transform: none;
+  }
 }
 .article-page .breadcrumbs,
 .article-page .page-heading,
@@ -301,7 +466,7 @@ main {
 .desktop-nav a:hover {
   text-decoration: underline;
 }
-.desktop-nav [aria-current='page'] {
+.desktop-nav [aria-current] {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.5em;
@@ -333,7 +498,7 @@ main {
   white-space: nowrap;
 }
 .utility-nav a:hover,
-.utility-nav a[aria-current='page'] {
+.utility-nav a[aria-current] {
   color: var(--ink);
   text-decoration: underline;
 }
@@ -405,36 +570,27 @@ main {
 }
 .study-card--compact {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.65fr) auto;
-  grid-template-areas: 'status facts link' 'title facts link' 'summary facts link';
-  gap: 0.1rem 3rem;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-areas: 'title summary';
+  gap: 0.75rem 3rem;
   padding: 1.75rem 0;
   border-inline: none;
   border-block: 1px solid var(--line-strong);
   border-radius: 0;
 }
-.study-card--compact > .status {
-  grid-area: status;
-  justify-self: start;
+.study-card--compact + .study-card--compact {
+  border-block-start: 0;
 }
 .study-card--compact > h3 {
   grid-area: title;
-  font-size: 1.55rem;
-  margin-block: 0.9rem 0.6rem;
+  font-size: 1.35rem;
+  margin: 0;
 }
 .study-card--compact > p {
   grid-area: summary;
-  font-size: 0.84rem;
-  margin-block-end: 0;
-}
-.study-card--compact > dl {
-  grid-area: facts;
+  font-size: 0.9rem;
   margin: 0;
-}
-.study-card--compact > .text-link {
-  grid-area: link;
-  margin: 0;
-  align-self: center;
+  max-inline-size: 65ch;
 }
 .study-acronym {
   white-space: nowrap;
@@ -453,7 +609,7 @@ main {
   line-height: 1.6;
   color: var(--muted);
 }
-.breadcrumbs [aria-current='page'] {
+.breadcrumbs [aria-current] {
   text-decoration: none;
 }
 .page-heading {
@@ -635,20 +791,13 @@ main {
     font-size: 0.9rem;
     text-decoration: none;
   }
-  .menu-panel [aria-current='page'] {
+  .menu-panel [aria-current] {
     text-decoration: underline;
   }
   .menu-audience {
     border-block-start: 1px solid var(--line);
     margin-block-start: 0.35rem;
     padding-block-start: 0.5rem;
-  }
-  .study-card--compact {
-    grid-template-columns: minmax(0, 1.3fr) minmax(160px, 0.7fr);
-    grid-template-areas: 'status facts' 'title facts' 'summary facts' 'link facts';
-  }
-  .study-card--compact > .text-link {
-    margin-block-start: 0.75rem;
   }
   .footer-grid {
     gap: 2rem;
@@ -695,20 +844,11 @@ main {
   }
   .study-card--compact {
     grid-template-columns: 1fr;
-    grid-template-areas: 'status' 'title' 'summary' 'facts' 'link';
+    grid-template-areas: 'title' 'summary';
     padding: 1.5rem 0;
   }
   .study-card--compact > h3 {
     font-size: 1.3rem;
-  }
-  .study-card--compact > dl {
-    margin-block-start: 0.8rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .study-card--compact > .text-link {
-    margin-block-start: 0.9rem;
   }
   .page-heading {
     padding-block: 0.75rem 1.75rem;

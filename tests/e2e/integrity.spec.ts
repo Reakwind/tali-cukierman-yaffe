@@ -41,9 +41,23 @@ for (const locale of ['en', 'he']) {
         'content',
         /noindex/,
       );
-      await expect(page.locator('script, form, input, textarea')).toHaveCount(
-        0,
-      );
+      const participantPage =
+        path === `/${locale}/` ||
+        /\/(?:studies\/(birax|stay-strong)|participation)\/$/.test(path);
+      await expect(
+        page.locator('textarea, input[type="file"], input[type="password"]'),
+      ).toHaveCount(0);
+      await expect(page.locator('form')).toHaveCount(participantPage ? 1 : 0);
+      if (participantPage) {
+        await expect(page.locator('form')).toHaveAttribute('method', 'post');
+        await expect(page.locator('form')).toHaveAttribute(
+          'action',
+          '/api/participation',
+        );
+        await expect(page.locator('input:not([type="hidden"])')).toHaveCount(2);
+      } else {
+        await expect(page.locator('script, input')).toHaveCount(0);
+      }
       const ids = await page
         .locator('[id]')
         .evaluateAll((nodes) => nodes.map((node) => node.id));
@@ -110,5 +124,6 @@ test('static CSS and font payloads stay within modest asset budgets', () => {
     );
   expect(bytes('**/*.css')).toBeLessThan(50 * 1024);
   expect(bytes('**/*.woff2')).toBeLessThan(300 * 1024);
-  expect([...globSync('**/*.js', { cwd: 'dist' })]).toEqual([]);
+  expect(bytes('**/*.js')).toBeLessThan(10 * 1024);
+  expect([...globSync('**/*.js', { cwd: 'dist' })]).toHaveLength(2);
 });

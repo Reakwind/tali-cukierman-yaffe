@@ -1,4 +1,5 @@
 ---
+import ResearchText from './ResearchText.astro';
 interface Props {
   title: string;
   acronym?: string | undefined;
@@ -9,12 +10,12 @@ const parts = acronym ? title.split(acronym) : [];
 
 {acronym && parts.length === 2 ? (
   <Fragment>
-    {parts[0]}
+    <ResearchText text={parts[0] ?? ''} />
     <bdi class="study-acronym" dir="ltr">
       {acronym}
     </bdi>
-    {parts[1]}
+    <ResearchText text={parts[1] ?? ''} />
   </Fragment>
 ) : (
-  title
+  <ResearchText text={title} />
 )}

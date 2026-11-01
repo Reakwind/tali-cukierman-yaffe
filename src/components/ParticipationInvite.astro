@@ -1,0 +1,222 @@
+---
+import { ui, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  studyId?: string;
+  embedded?: boolean;
+}
+const { locale, studyId = 'general', embedded = false } = Astro.props;
+const t = ui[locale];
+const Heading = embedded ? 'h3' : 'h2';
+const he = locale === 'he';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const teamMail =
+  'mailto:reakwind@gmail.com,hagarshimon@gmail.com,yasminshtig@gmail.com,tcukierm@gmail.com';
+---
+
+<section
+  id="taking-part"
+  class="participation-invite"
+  aria-labelledby="taking-part-title"
+  data-scroll-section
+  tabindex="-1"
+>
+  <Heading id="taking-part-title">
+    {studyId === 'general' ? t.contactDetails : t.invitationTitle}
+  </Heading>
+  {studyId !== 'general' && <p>{t.invitationIntro}</p>}
+  <form
+    data-enquiry-form
+    method="post"
+    action="/api/participation"
+    data-error={
+      he
+        ? 'לא הצלחנו לשלוח את הפרטים כרגע. אפשר לנסות שוב או לפנות לצוות באימייל.'
+        : 'We couldn’t send your details right now. Please try again or email the team.'
+    }
+    data-sending={he ? 'שולחים…' : 'Sending…'}
+  >
+    <input type="hidden" name="study" value={studyId} />
+    <input type="hidden" name="locale" value={locale} />
+    <div class="contact-fields">
+      <label>
+        {he ? 'שם פרטי (לא חובה)' : 'First name (optional)'}
+        <input
+          type="text"
+          name="firstName"
+          maxlength="80"
+          autocomplete="given-name"
+          dir="auto"
+        />
+      </label>
+      <label>
+        {he ? 'טלפון או אימייל' : 'Phone or email'}
+        <input
+          type="text"
+          name="contact"
+          required
+          minlength="5"
+          maxlength="254"
+          autocomplete="off"
+          dir="ltr"
+        />
+      </label>
+    </div>
+    {siteKey && (
+      <div
+        class="cf-turnstile"
+        data-sitekey={siteKey}
+        data-action="participation"
+        data-language={locale}
+      />
+    )}
+    <button class="button" type="submit" data-participation-cta>
+      {he ? 'שלחו את הפרטים שלי' : 'Send my details'}
+    </button>
+    <p
+      class="form-status"
+      data-form-status
+      role="status"
+      aria-live="polite"
+      hidden
+    ></p>
+  </form>
+  <p data-form-success role="status" hidden>
+    {he
+      ? 'תודה! הפרטים שלכם נשלחו לצוות המחקר.'
+      : 'Thank you! Your details have been sent to the research team.'}
+  </p>
+  <a class="text-link contact-alternative" href={teamMail}>
+    {he ? 'מעדיפים לפנות באימייל?' : 'Prefer to email the team?'}
+  </a>
+  <noscript>
+    <p>
+      {he
+        ? 'אפשר לפנות לצוות דרך קישור האימייל.'
+        : 'You can reach the team using the email link.'}
+    </p>
+  </noscript>
+</section>
+
+{siteKey && (
+  <script
+    is:inline
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+  ></script>
+)}
+
+<script>
+  type TurnstileWindow = Window & { turnstile?: { reset: () => void } };
+  for (const form of document.querySelectorAll<HTMLFormElement>(
+    '[data-enquiry-form]',
+  )) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const button = form.querySelector<HTMLButtonElement>(
+        'button[type="submit"]',
+      )!;
+      const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+      const success = form.parentElement!.querySelector<HTMLElement>(
+        '[data-form-success]',
+      )!;
+      const label = button.textContent;
+      button.disabled = true;
+      button.textContent = form.dataset['sending'] ?? '';
+      status.hidden = true;
+      try {
+        const body = new URLSearchParams();
+        new FormData(form).forEach((value, key) => {
+          if (typeof value === 'string') body.append(key, value);
+        });
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body,
+        });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true) throw new Error('Not accepted');
+        form.reset();
+        form.hidden = true;
+        success.hidden = false;
+      } catch {
+        status.textContent = form.dataset['error'] ?? '';
+        status.hidden = false;
+        (window as TurnstileWindow).turnstile?.reset();
+      } finally {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  }
+</script>
+
+<style>
+  .participation-invite {
+    padding: 1.75rem;
+    margin-block-end: 2rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-block-start: 3px solid var(--accent);
+    scroll-margin-block-start: 8rem;
+  }
+  .participation-invite :is(h2, h3) {
+    font-size: 1.4rem;
+    margin-block-end: 0.75rem;
+  }
+  .participation-invite p {
+    max-inline-size: 62ch;
+  }
+  .participation-invite p:last-child {
+    margin-block-end: 0;
+  }
+  .contact-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-block: 1.25rem;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+  }
+  input {
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 48px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    background: white;
+    color: var(--ink);
+    padding: 0.65rem;
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: progress;
+  }
+  .form-status {
+    margin-block: 0.85rem 0;
+  }
+  .contact-alternative {
+    margin-block-start: 0.75rem;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  @media (max-width: 650px) {
+    .contact-fields {
+      grid-template-columns: 1fr;
+    }
+    .participation-invite {
+      padding: 1.25rem;
+    }
+  }
+</style>

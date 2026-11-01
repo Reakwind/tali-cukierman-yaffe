@@ -1,0 +1,52 @@
+{
+  "kind": "project",
+  "acronym": "BIRAX",
+  "registryStatus": "NOT_VERIFIED",
+  "sourceUrl": "https://www.diabetes.org.uk/our-research/about-our-research/our-funded-projects/wales/personalising-care-type-2-age-well",
+  "sourceChecked": "2026-11-01",
+  "recruitment": {
+    "status": "recruiting",
+    "confirmedOn": "2026-11-01",
+    "source": "owner"
+  },
+  "approval": "draft",
+  "enquiriesAvailable": false,
+  "localized": {
+    "en": {
+      "title": "BIRAX: assessing physical capacity in older adults with diabetes",
+      "homepageSummary": "For older adults with type 2 diabetes. BIRAX is developing ways to assess fitness, strength, and balance using machine learning.",
+      "summary": "Can machine learning help assess physical function? This UK–Israel collaboration is developing methods to assess fitness, strength, and balance in older adults with type 2 diabetes. It is co-funded by BIRAX and Diabetes UK.",
+      "population": "We are welcoming older adults with type 2 diabetes. The research team can explain who the study is suitable for and answer your questions about taking part.",
+      "location": "A collaboration between Tali Cukierman-Yaffe’s group in Israel and Steve Bain at Swansea University Medical School in the UK. The study team can explain where visits take place.",
+      "duration": "The funded project runs from October 2024 to August 2027. Your individual participation may cover a shorter period. Ask the team about the visit schedule and time involved.",
+      "activities": [
+        "The project develops technology and data-science methods for assessing physical capacity.",
+        "The funder describes a focus on fitness, physical strength, and balance, with the aim of characterizing differences in physical function.",
+        "The team will talk you through the visits and assessments before you decide whether to take part."
+      ],
+      "caution": "Taking part is voluntary. The research team will explain the study, answer your questions, and discuss consent before you decide.",
+      "research": [
+        "The funded project is titled A Technology- and Data-Science-Based Model for Physical Capacity Assessment in Older people with Diabetes. The collaboration connects clinical research in older-adult diabetes with machine-learning approaches to functional assessment.",
+        "Related earlier work used wearable accelerometers to characterize movement in older adults with type 2 diabetes. That 2023 publication is background to the research area, not a report of results or procedures from this BIRAX project."
+      ]
+    },
+    "he": {
+      "title": "BIRAX: הערכת תפקוד גופני במבוגרים עם סוכרת",
+      "homepageSummary": "מחקר במבוגרים עם סוכרת מסוג 2, המפתח דרכים להערכת כושר, כוח ושיווי משקל באמצעות למידת מכונה.",
+      "summary": "האם למידת מכונה יכולה לסייע בהערכת תפקוד גופני? שיתוף פעולה בריטי־ישראלי מפתח שיטות להערכת כושר, כוח ושיווי משקל במבוגרים עם סוכרת מסוג 2, במימון משותף של BIRAX ו־Diabetes UK.",
+      "population": "אנו מזמינים מבוגרים עם סוכרת מסוג 2 לשמוע על השתתפות במחקר. צוות המחקר יוכל להסביר למי המחקר מתאים ולענות על השאלות שלכם.",
+      "location": "שיתוף פעולה בין קבוצתה של טלי צוקרמן־יפה בישראל לבין סטיב ביין בבית הספר לרפואה של אוניברסיטת סוונסי בבריטניה. צוות המחקר יוכל להסביר היכן נערכים הביקורים.",
+      "duration": "המיזם ממומן מאוקטובר 2024 עד אוגוסט 2027. ההשתתפות האישית עשויה להיות קצרה יותר. אפשר לשאול את הצוות על לוח הביקורים ועל הזמן הנדרש.",
+      "activities": [
+        "המיזם מפתח שיטות טכנולוגיות ושיטות ממדעי הנתונים להערכת יכולת גופנית.",
+        "תיאור המימון מתמקד בכושר, בכוח שריר ובשיווי משקל, במטרה לאפיין הבדלים בתפקוד הגופני.",
+        "הצוות יסביר על הביקורים ועל ההערכות לפני שתחליטו אם להשתתף."
+      ],
+      "caution": "ההשתתפות היא בהתנדבות. צוות המחקר יסביר על המחקר, יענה על השאלות שלכם וידון בתהליך ההסכמה לפני שתחליטו.",
+      "research": [
+        "המיזם הממומן עוסק במודל המבוסס על טכנולוגיה ומדעי הנתונים להערכת יכולת גופנית במבוגרים עם סוכרת. שיתוף הפעולה מחבר מחקר קליני בסוכרת בגיל המבוגר עם שיטות למידת מכונה להערכה תפקודית.",
+        "עבודה קודמת בתחום השתמשה במד תאוצה לביש לאפיון תנועה במבוגרים עם סוכרת מסוג 2. מאמר זה משנת 2023 הוא רקע לתחום, ואינו דיווח על תוצאות או על הליכי המיזם הנוכחי במימון BIRAX."
+      ]
+    }
+  }
+}

@@ -16,8 +16,10 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
   attributed public sources, improve iteratively, and mark content pending review.
 - 6 Vital: the owner describes it as a platform Tali created. Give it a dedicated
   page under Research, not the website's main identity or a major commercial section.
-- Registration: no approved route has been supplied; a solution is needed. Plan it
-  separately, with no health-data collection or pretend successful submission.
+- Participant enquiries: on 2026-11-01 the owner requested an optional first name
+  and one phone/email contact, sent to the four specified team inboxes. Prepare
+  Cloudflare Worker delivery; account/domain setup is still pending. No medical
+  intake, website consent flow or pretend successful submission.
 - Tooling: owner approved installing Node.js LTS and GitHub CLI using Homebrew.
 - No new paid services or account upgrades.
 - Later decision: continue application development locally rather than grant the
@@ -72,8 +74,14 @@ later; do not fabricate it.
   the application in the 2026-10-31 team-profile change.
 - Include talks/media and news/updates. Select real items rather than inventing
   an announcement schedule or filling empty pages.
-- A research coordinator will handle enquiries. The named coordinator/shared
-  channel and institution-approved workflow remain unresolved.
+- Participant enquiries go to Itay, Hagar, Yasmin and Tali at the exact addresses
+  supplied on 2026-11-01; student/collaborator links open Tali's blank email draft.
+- Give visitors the essential information on the site. The owner removed the
+  team page's "Sources & further reading" section on 2026-11-01; retain source
+  provenance in editorial docs rather than restoring that public section.
+- Each copy block should provide useful information or help visitors take a
+  relevant next step. The homepage's closing section now offers direct contact
+  for collaboration and graduate research; avoid generic team-description filler.
 - The owner will approve factual content. This does not replace institutional
   recruitment/privacy approval or review of the English/Hebrew wording.
 - Research findings, proposed page organization, and the material-request checklist
@@ -132,8 +140,47 @@ The content plan proposes five main destinations: Studies, Research, Team,
 Publications, and News & media, with visible Contact and clinician shortcuts.
 Review that organization before changing the current header or routes.
 
+### Content iteration — 2026-11-01
+
+The owner asked to continue with content and copy, focusing on BIRAX, STAY-STRONG,
+and the MiniMed 780G study (GRACE-780G). The owner confirmed that BIRAX is the
+Steve Bain/Swansea physical-capacity project co-funded by Diabetes UK for
+2024–2027. The owner subsequently confirmed active recruitment for both BIRAX
+and STAY-STRONG. BIRAX's detailed participant procedures still need to be supplied.
+
+The local bilingual draft now gives all three a study/project page and homepage
+visibility, and connects them to sourced outputs and achievements. This resumes
+content implementation within the established design and navigation. It is not
+approval to launch or expand the visual/application direction. See the
+[study-content review](drafts/study-content.md) for sources, wording decisions,
+and the exact remaining factual gaps. All content still needs review.
+
+The next owner direction removes public completion labels for other studies and
+legal/consent copy from participation flows, and adds a minimal contact form.
+The local draft now prepares Cloudflare-native delivery without connecting the
+account or enabling sending. See [the architecture](architecture.md) and the
+updated [enquiry plan](registration-plan.md).
+
 Keep navigation short and consistent. Information should remain discoverable by
 topic; visitors should not have to identify themselves before seeing the site.
+
+### Continuous page and scroll hierarchy — 2026-11-01
+
+The owner's latest order supersedes the earlier study-first homepage proposal:
+sticky title/menu, hero, research areas, current studies, then one shared
+participation section. All core information is readable by scrolling. Menu
+shortcuts jump to sections rather than requiring a new page.
+
+Publications sit within the research section, clinician information within the
+study section, and team/professional contact within the final contact section.
+Website information remains in the footer. Existing deep URLs are preserved for
+bookmarks. The shared enquiry accepts general interest without choosing a study.
+
+Use restrained parallax on research diagrams, stable reading text and form
+controls, sticky section context on wide screens, and an active menu location.
+Keep native scrolling/history, keyboard focus, no-JavaScript access and reduced
+motion. The diagrams explain research categories; they contain no study data or
+invented measurements. See [the researched scroll plan](scrolling-plan.md).
 
 ## New source checks
 
@@ -178,3 +225,30 @@ topic; visitors should not have to identify themselves before seeing the site.
   (initial login and repository protections are already in place).
 - Cloudflare account access and deployment choice; optional domain and code license.
 - Real-device/manual accessibility checks and final production smoke testing.
+
+## Latest visual direction — 2026-11-01
+
+The owner resumed visual development and requested a continuous, visually led
+homepage: title/menu, hero, research areas, current studies, shared participation,
+then footer. The earlier paused-visual-work and muted-palette directions above
+are superseded for this local draft. Use pastel magenta and teal, substantial
+layered parallax, and the 40% text / 60% visual meaning constraint as an editorial
+guide. Do not claim that understanding has been quantitatively measured.
+
+The owner then rejected the anatomical SVG illustrations. Do not draw people,
+brains, limbs or anatomical scan silhouettes. Use code-native device forms,
+measurement instruments, symbol grids, study diagrams and timelines. Keep real
+team photography. No added paid service, asset subscription or image API.
+See [visual direction](visual-direction.md) and [scroll behavior](scrolling-plan.md).
+Source metadata remains in versioned records; content/translations remain drafts.
+
+## White canvas and refinement — 2026-11-01
+
+The owner described the geometric art as a promising direction and requested
+further SVG/motion refinement. Keep the website background pure white and let
+magenta/teal live in the illustrations, diagrams and selected interface details.
+Refine the existing direction rather than replace it. Preserve the non-anatomical
+art restriction, six-part structure, bilingual copy, native scrolling, and one
+shared participant form. The new tall-phone research composition must reserve
+readable space for each topic below its sticky illustration and collapse to
+normal flow with reduced motion or a short viewport.

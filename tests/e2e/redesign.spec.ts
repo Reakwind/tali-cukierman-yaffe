@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('the root opens the research homepage directly, without a language gate', async ({
+test('the root opens the research homepage without a language gate', async ({
   page,
 }) => {
   await page.goto('/');
@@ -13,14 +13,10 @@ test('the root opens the research homepage directly, without a language gate', a
       exact: true,
     }),
   ).toBeVisible();
-  await expect(
-    page
-      .getByRole('main')
-      .getByRole('link', { name: 'Explore studies', exact: true }),
-  ).toHaveAttribute('href', '/en/studies/');
+  await expect(page.locator('main form')).toHaveCount(1);
 });
 
-test('desktop navigation separates content destinations from audience shortcuts', async ({
+test('desktop navigation keeps short content and audience shortcuts', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -39,56 +35,52 @@ test('desktop navigation separates content destinations from audience shortcuts'
       'Publications',
     ]);
     await expect(navigation.locator('details, button')).toHaveCount(0);
-    const banner = page.getByRole('banner');
     await expect(
-      banner.getByRole('link', { name: 'About participation', exact: true }),
-    ).toBeVisible();
+      page
+        .getByRole('banner')
+        .getByRole('link', { name: 'About participation', exact: true }),
+    ).toHaveAttribute('href', '/en/#taking-part');
     await expect(
-      banner.getByRole('link', { name: 'For clinicians', exact: true }),
-    ).toBeVisible();
+      page
+        .getByRole('banner')
+        .getByRole('link', { name: 'For clinicians', exact: true }),
+    ).toHaveAttribute('href', '/en/#home-clinicians');
   }
 });
 
-test('the homepage leads with research areas and the team instead of slogans', async ({
+test('the homepage has the requested research, studies, contact sequence', async ({
   page,
 }) => {
   await page.goto('/en/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     /Diabetes,\s*cognition\s*& aging\./,
   );
-  await expect(page.getByRole('main')).toContainText(
-    'Prof. Tali Cukierman-Yaffe',
-  );
-  const research = page.locator('#home-research');
-  await expect(
-    research.getByRole('link', { name: 'Diabetes & cognitive function' }),
-  ).toHaveAttribute('href', '/en/research/#cognition');
-  await expect(research.locator('.area-art')).toHaveCount(3);
   const sequence = await page
-    .locator('main > section')
-    .evaluateAll((nodes) => nodes.map((node) => node.id).filter(Boolean));
-  expect(sequence).toEqual(['home-research', 'home-team']);
-  await expect(page.locator('.hero-panel, .orbit, .path-card')).toHaveCount(0);
-  const text = await page.locator('body').innerText();
-  expect(text).not.toMatch(
+    .locator('main > section[id]')
+    .evaluateAll((sections) => sections.map((section) => section.id));
+  expect(sequence).toEqual(['home-research', 'home-studies', 'home-contact']);
+  await expect(page.locator('#home-research .area-art')).toHaveCount(3);
+  await expect(page.locator('#home-studies [data-study]')).toHaveCount(2);
+  await expect(
+    page.locator('.hero-panel, .orbit, .path-card, #home-updates'),
+  ).toHaveCount(0);
+  expect(await page.locator('body').innerText()).not.toMatch(
     /Aging well|Living fully|Three perspectives|The next question starts here|Science, with people at its heart|Room for shared questions/i,
   );
 });
 
-test('the Hebrew revision has the same factual content and study access', async ({
+test('the Hebrew page carries the same content and study information', async ({
   page,
 }) => {
   await page.goto('/he/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     /סוכרת,\s*קוגניציה\s*והזדקנות\./,
   );
-  await expect(page.getByRole('main')).toContainText('פרופ׳ טלי צוקרמן־יפה');
-  await expect(
-    page
-      .locator('#home-research')
-      .getByRole('link', { name: 'סוכרת ותפקוד קוגניטיבי' }),
-  ).toHaveAttribute('href', '/he/research/#cognition');
   await expect(page.locator('#home-research .area-art')).toHaveCount(3);
-  await expect(page.locator('body')).not.toContainText('שלוש נקודות מבט');
-  await expect(page.locator('form, [data-live-enquiry]')).toHaveCount(0);
+  await expect(page.locator('#home-studies [data-study]')).toHaveCount(2);
+  await expect(page.locator('#study-hybrid-closed-loop')).toContainText(
+    'GRACE-780G',
+  );
+  await expect(page.locator('main form')).toHaveCount(1);
+  await expect(page.locator('[data-live-enquiry]')).toHaveCount(0);
 });

@@ -30,33 +30,40 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     research: {
       title: 'Our research',
       intro:
-        'Research connecting metabolic health, cognition, and physical function — from clinical questions to digital assessment tools.',
+        'We study how to measure and support physical and cognitive function in older adults with diabetes. Our featured work spans exercise and nutrition, machine-learning assessment, and automated insulin delivery.',
       sections: [
         {
           id: 'cognition',
           title: 'Diabetes & cognitive health',
           paragraphs: [
-            'How does diabetes relate to thinking and memory? Publicly documented work includes cognitive analyses within ORIGIN, ACCORD-MIND, and REWIND, and research on cognitive assessment in older adults with diabetes.',
-            'Selected publications are linked below. Findings from a particular study should not be read as personal treatment advice.',
+            'Thinking, memory, and processing speed can affect the demands of diabetes self-management. Our research includes cognitive analyses within ORIGIN, ACCORD-MIND, and REWIND, alongside work on cognitive assessment in older adults.',
+            'The digital Digit Symbol Substitution Test is one example: a 2024 paper describes its development and first-stage validation. Further validation is needed for self-administration and different clinical settings.',
           ],
         },
         {
           id: 'movement',
           title: 'Movement, strength & independence',
           paragraphs: [
-            'Physical function is another part of the picture. Research includes muscle strength, frailty, and the practical challenges of managing diabetes in older age.',
-            'STAY-STRONG studies exercise and nutrition alongside semaglutide.',
+            'STAY-STRONG tests whether exercise and nutritional support alongside semaglutide help preserve muscle mass, strength, and physical function in older adults with type 2 diabetes and overweight or obesity.',
+            'The BIRAX collaboration with Swansea University asks a different question: how can machine learning help assess physical capacity? It focuses on measurement, while STAY-STRONG tests an intervention.',
           ],
           links: [
             { label: 'STAY-STRONG study page', path: 'studies/stay-strong/' },
+            { label: 'BIRAX project page', path: 'studies/birax/' },
           ],
         },
         {
           id: 'technology',
-          title: 'Digital tools, carefully evaluated',
+          title: 'Diabetes technology and assessment',
           paragraphs: [
-            'Digital assessment may offer new ways to study cognition and physical function. A 2024 paper describes the development and first-stage validation of a digital Digit Symbol Substitution Test.',
-            'The authors call for further validation. Early findings are not evidence of regulatory approval or a replacement for clinical assessment.',
+            'GRACE-780G compared the MiniMed 780G automated insulin-delivery system with standard care in 42 older adults with type 1 diabetes. The trial followed participants for 12 months, including people with cognitive impairment.',
+            'The EASD 2026 abstract reports glucose-control findings. It should be read as a conference output from a small trial, without inferring that cognition or physical function improved.',
+          ],
+          links: [
+            {
+              label: 'GRACE-780G study and results',
+              path: 'studies/hybrid-closed-loop/',
+            },
           ],
         },
         {
@@ -69,10 +76,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'collaboration',
-          title: 'A starting point for collaboration',
+          title: 'Clinical and research collaboration',
           paragraphs: [
-            'Our public research profile connects clinical epidemiology, endocrinology, cognitive assessment, and physical function. Explore the selected publications and institutional profile to assess scientific overlap.',
-            'Collaboration and supervision are considered case by case. Use the research themes and publications to assess fit; the institutional profile is the current contact route.',
+            'Our work combines randomized trials, clinical epidemiology, body-composition imaging, functional testing, wearables, and digital cognitive assessment. Study pages link the research design to its related publications.',
+            'For clinicians considering a referral, the relevant starting point is the study’s participant information and current site status. For academic collaboration, explore the methods, outputs, and team’s research interests.',
           ],
         },
       ],
@@ -91,7 +98,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     studies: {
       title: 'Studies',
       intro:
-        'Our studies — who they are for and what they involve. Each page explains the study in plain language and shows when the information was last updated. The research team confirms who can take part.',
+        'BIRAX and STAY-STRONG are welcoming participants. Find out who each study is for and what taking part involves, or explore our other research and findings.',
       // Individual study content comes from the validated Astro collection.
       sections: [],
     },
@@ -109,21 +116,6 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           ],
         },
       ],
-      sources: [
-        {
-          label: 'TAU biography and institute roles',
-          url: 'https://en-cuenca-institute.tau.ac.il/board-of-directors',
-        },
-        {
-          label: 'PHRI international fellows',
-          url: 'https://www.phri.ca/collaborations/phri-international-fellows/',
-        },
-        {
-          label: 'Sheba older-adult diabetes service',
-          url: 'https://eng.sheba.co.il/Center-for-Treatment-and-Study-Diabetes-in-Old-Age',
-        },
-        { label: '6 Vital platform', url: 'https://6-vital.com/' },
-      ],
     },
     'for-clinicians': {
       title: 'For clinicians & collaborators',
@@ -135,20 +127,20 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Considering a referral?',
           paragraphs: [
             'Check three things before you act: the dated status on the study page, who the study is for, and the complete eligibility criteria in the official record. Broad summaries on this site are a starting point only.',
-            'With the patient’s permission, share the study page with them. Until the study referral route opens, contact the Sheba service through its official page (linked below); current availability is confirmed through the official record.',
+            'BIRAX and STAY-STRONG are actively recruiting. With the patient’s permission, share the relevant study page with them. The participation section explains the next step; the study team can discuss eligibility, visit arrangements, and which site is suitable.',
           ],
           bullets: [
             'Do not send names, diagnoses, referrals, or medical documents through GitHub or this website.',
-            'A completed study is not a referral opportunity.',
-            'Every study page links to its official record — the safest link to verify and share.',
+            'Look for the participation invitation on studies that are recruiting.',
+            'Study pages link to an official trial record or project source, with the date it was checked. A registry or funding listing does not confirm current openings.',
           ],
         },
         {
           id: 'partners',
           title: 'Working with us',
           paragraphs: [
-            'Methods and themes: randomized controlled trials, clinical epidemiology, cognitive and physical-function assessment, wearables and imaging, and digital assessment tools. Start from the research pages, then the selected publications.',
-            'For collaboration or supervision, start from Tali’s TAU research profile (linked below); a dedicated professional contact route is being prepared. For clinical care, use the official hospital channels.',
+            'STAY-STRONG brings together exercise, nutritional support, and body-composition and functional assessment. BIRAX develops machine-learning approaches to physical-capacity assessment with Swansea. GRACE-780G evaluates automated insulin delivery in older adults with type 1 diabetes.',
+            'Study pages include research design and related outputs. The selected publications distinguish trial results, conference abstracts, related methodological work, and reviews. Tali’s institutional profile provides the wider research record. For clinical care, use the official hospital channels.',
           ],
         },
       ],
@@ -170,58 +162,15 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'Participating in research',
       intro:
-        'Taking part in research is voluntary. Asking a question is not enrollment or consent — the study team explains the study and discusses risks and consent before you decide.',
+        'BIRAX and STAY-STRONG are welcoming participants. Leave your contact details below to speak with our research team about taking part.',
       sections: [],
-      sources: [
-        {
-          label: 'Israel Ministry of Health: participating in clinical trials',
-          url: 'https://me.health.gov.il/en/older-adult/services-rights/living-with-a-condition/treatments/clinical-trials/',
-        },
-      ],
     },
     publications: {
       title: 'Selected publications',
       intro:
-        'A small selection of source-verified publications, not a complete bibliography. Visit the institutional profile for the full record.',
-      sections: [
-        {
-          id: 'digital-assessment',
-          title: 'Digital cognitive assessment · 2024',
-          paragraphs: [
-            'Development and first-stage validation of a digital version of the Digit Symbol Substitution test for use in assessing cognitive function in older people with diabetes. Diabetes, Obesity and Metabolism. DOI: 10.1111/dom.15657.',
-            'This reports first-stage validation; the authors call for further studies, particularly self-administration and different clinical settings.',
-          ],
-        },
-        {
-          id: 'rewind',
-          title: 'Cognitive outcomes in REWIND · 2020',
-          paragraphs: [
-            'Effect of dulaglutide on cognitive impairment in type 2 diabetes: an exploratory analysis of the REWIND trial. The Lancet Neurology. DOI: 10.1016/S1474-4422(20)30173-3.',
-            'An exploratory analysis should not be presented as a personal treatment recommendation.',
-          ],
-        },
-        {
-          id: 'technology-review',
-          title: 'Technology & older-adult diabetes care · 2023',
-          paragraphs: [
-            'The Growing Role of Technology in the Care of Older Adults With Diabetes. Diabetes Care. PubMed: 37471606.',
-            'A review of the developing evidence, barriers, and research needs for technology in older-adult diabetes care.',
-          ],
-        },
-      ],
+        'Selected research articles and conference outputs, including GRACE-780G results and work related to STAY-STRONG and BIRAX. Each entry explains its relationship to the studies; related work is not presented as a study result. This is a curated selection, not a complete bibliography.',
+      sections: [],
       sources: [
-        {
-          label: 'Digital assessment paper · DOI',
-          url: 'https://doi.org/10.1111/dom.15657',
-        },
-        {
-          label: 'REWIND exploratory analysis · DOI',
-          url: 'https://doi.org/10.1016/S1474-4422(20)30173-3',
-        },
-        {
-          label: 'Technology review · PubMed',
-          url: 'https://pubmed.ncbi.nlm.nih.gov/37471606/',
-        },
         {
           label: 'Full institutional publication profile',
           url: 'https://cris.tau.ac.il/en/persons/tali-cukierman-yaffe/',
@@ -231,14 +180,14 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     privacy: {
       title: 'Privacy',
       intro:
-        'This draft is an informational website, not a place to submit medical or contact information.',
+        'The participation form asks for a first name and a phone number or email address so the research team can get in touch.',
       sections: [
         {
           id: 'collection',
-          title: 'What this website does — and does not do',
+          title: 'Study enquiries',
           paragraphs: [
-            'No submission forms, accounts, analytics, advertising trackers, or browser-storage features have been added. The draft does not accept participant applications or referrals.',
-            'If hosted online, the hosting provider may process technical access data such as IP addresses and request logs to deliver and protect the site. A lack of application forms does not mean the hosting provider processes no data.',
+            'Enquiries are addressed to Itay Cohen, Hagar Shimon, Yasmin Alt, and Prof. Tali Cukierman-Yaffe. The form includes the study you are asking about and your chosen contact details.',
+            'The website has no participant database, accounts, advertising trackers, or browser-storage features. Enquiry messages are handled in the research team’s email inboxes.',
           ],
         },
         {
@@ -246,15 +195,14 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'When you follow an external link',
           paragraphs: [
             'Institutional websites, registries, publication providers, and the 6 Vital platform operate separately and have their own privacy practices. They are linked, not embedded.',
-            'An approved enquiry platform will need its own clear controller, purpose, contact, access, and retention information before registration can be activated. Those decisions are still pending.',
+            'The contact form does not ask for medical histories, patient documents, or file uploads.',
           ],
         },
         {
           id: 'public-repo',
-          title: 'Keep personal information out of GitHub',
+          title: 'The website source',
           paragraphs: [
-            'The source repository and its issues are public. Do not post medical histories, contact details, patient documents, or study applications there.',
-            'This draft privacy explanation is not a claim of legal certification or an institution-approved privacy notice.',
+            'The public source repository contains website code and public research information. Contact-form enquiries are not sent to GitHub.',
           ],
         },
       ],
@@ -300,30 +248,40 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     research: {
       title: 'המחקר שלנו',
       intro:
-        'מחקר המחבר בין בריאות מטבולית, קוגניציה ותפקוד גופני — משאלות קליניות ועד כלי הערכה דיגיטליים.',
+        'אנו חוקרים כיצד למדוד תפקוד גופני וקוגניטיבי במבוגרים עם סוכרת וכיצד לתמוך בו. המחקרים המוצגים עוסקים בפעילות גופנית ותזונה, בהערכה באמצעות למידת מכונה ובמתן אינסולין אוטומטי.',
       sections: [
         {
           id: 'cognition',
           title: 'סוכרת ובריאות קוגניטיבית',
           paragraphs: [
-            'כיצד סוכרת קשורה לחשיבה ולזיכרון? העבודות המתועדות במקורות הציבוריים כוללות ניתוחים קוגניטיביים במסגרת מחקרי ORIGIN, ACCORD-MIND ו־REWIND, ומחקר על הערכה קוגניטיבית במבוגרים עם סוכרת.',
-            'פרסומים נבחרים מקושרים בהמשך. אין לראות בממצאי מחקר מסוים המלצה טיפולית אישית.',
+            'חשיבה, זיכרון ומהירות עיבוד עשויים להשפיע על הדרישות הכרוכות בניהול עצמי של סוכרת. המחקר כולל ניתוחים קוגניטיביים במסגרת ORIGIN, ACCORD-MIND ו־REWIND, לצד מחקר בהערכה קוגניטיבית בגיל המבוגר.',
+            'מבחן החלפת סמלים בספרות בגרסה דיגיטלית הוא דוגמה לכך: מאמר משנת 2024 מתאר את פיתוחו ואת התיקוף הראשוני שלו. נדרש תיקוף נוסף לשימוש עצמאי ובמסגרות קליניות שונות.',
           ],
         },
         {
           id: 'movement',
           title: 'תנועה, כוח ועצמאות',
           paragraphs: [
-            'תפקוד גופני הוא חלק נוסף בתמונה. תחומי המחקר כוללים כוח שריר, שבריריות ואת האתגרים המעשיים של ניהול סוכרת בגיל המבוגר.',
-            'הרישום של מחקר STAY-STRONG מתאר בחינה של פעילות גופנית ותזונה לצד טיפול בסמגלוטייד. לפרטים ולסטטוס יש לעיין בדף המחקר וברישום המקורי.',
+            'מחקר STAY-STRONG בוחן אם פעילות גופנית ותמיכה תזונתית לצד סמגלוטייד מסייעות בשמירה על מסת השריר, הכוח והתפקוד הגופני במבוגרים עם סוכרת מסוג 2 ועודף משקל או השמנה.',
+            'שיתוף הפעולה במימון BIRAX עם אוניברסיטת סוונסי שואל שאלה אחרת: כיצד למידת מכונה יכולה לסייע בהערכת יכולת גופנית? הוא מתמקד במדידה, בעוד STAY-STRONG בוחן התערבות.',
+          ],
+          links: [
+            { label: 'למחקר STAY-STRONG', path: 'studies/stay-strong/' },
+            { label: 'למיזם BIRAX', path: 'studies/birax/' },
           ],
         },
         {
           id: 'technology',
-          title: 'כלים דיגיטליים הנבחנים בזהירות',
+          title: 'טכנולוגיות סוכרת והערכה',
           paragraphs: [
-            'הערכה דיגיטלית עשויה לפתוח דרכים חדשות לחקר קוגניציה ותפקוד גופני. מאמר משנת 2024 מתאר פיתוח ותיקוף ראשוני של גרסה דיגיטלית למבחן החלפת סמלים בספרות.',
-            'המחברים מציינים צורך בתיקוף נוסף. ממצאים ראשוניים אינם אישור רגולטורי ואינם תחליף להערכה קלינית.',
+            'מחקר GRACE-780G השווה את מערכת MiniMed 780G למתן אינסולין אוטומטי לטיפול הרגיל ב־42 מבוגרים עם סוכרת מסוג 1. המחקר כלל מעקב של 12 חודשים, גם אחר משתתפים עם פגיעה קוגניטיבית.',
+            'תקציר EASD לשנת 2026 מדווח על מדדי איזון סוכר. יש לקרוא אותו כתוצר כנס ממחקר קטן, בלי להסיק שקוגניציה או תפקוד גופני השתפרו.',
+          ],
+          links: [
+            {
+              label: 'למחקר GRACE-780G ולתוצאותיו',
+              path: 'studies/hybrid-closed-loop/',
+            },
           ],
         },
         {
@@ -336,10 +294,10 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
         },
         {
           id: 'collaboration',
-          title: 'נקודת פתיחה לשיתוף פעולה',
+          title: 'שיתוף פעולה קליני ומחקרי',
           paragraphs: [
-            'הפרופיל הציבורי של המחקר מחבר בין אפידמיולוגיה קלינית, אנדוקרינולוגיה, הערכה קוגניטיבית ותפקוד גופני. אפשר לעיין בפרסומים ובפרופיל המוסדי כדי לזהות תחומי עניין משותפים.',
-            'שיתופי פעולה והנחיה נבחנים לגופו של עניין. אפשר להשתמש בתחומי המחקר ובפרסומים כדי להעריך התאמה; הפרופיל המוסדי הוא מסלול הקשר הנוכחי.',
+            'העבודה משלבת מחקרים אקראיים, אפידמיולוגיה קלינית, דימות של הרכב הגוף, בדיקות תפקוד, חיישנים לבישים והערכה קוגניטיבית דיגיטלית. עמודי המחקרים מחברים בין תכנון המחקר לפרסומים הקשורים אליו.',
+            'לצוותים רפואיים השוקלים הפניה, נקודת ההתחלה היא המידע למשתתפים ומצב הגיוס העדכני במרכז הרלוונטי. לקראת שיתוף פעולה אקדמי אפשר לעיין בשיטות, בתוצרים ובתחומי העניין של הצוות.',
           ],
         },
       ],
@@ -358,7 +316,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     studies: {
       title: 'מחקרים',
       intro:
-        'המחקרים שלנו — למי הם מיועדים ומה הם כוללים. כל עמוד מסביר את המחקר בשפה פשוטה ומראה מתי המידע עודכן לאחרונה. צוות המחקר מאשר מי יכול להשתתף.',
+        'מחקרי BIRAX ו־STAY-STRONG מגייסים משתתפים. קראו למי כל מחקר מיועד ומה כוללת ההשתתפות, או הכירו מחקרים נוספים ואת ממצאיהם.',
       sections: [],
     },
     about: {
@@ -375,21 +333,6 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           ],
         },
       ],
-      sources: [
-        {
-          label: 'ביוגרפיה ותפקידים במכוני האוניברסיטה (באנגלית)',
-          url: 'https://en-cuenca-institute.tau.ac.il/board-of-directors',
-        },
-        {
-          label: 'העמיתים הבין־לאומיים של PHRI (באנגלית)',
-          url: 'https://www.phri.ca/collaborations/phri-international-fellows/',
-        },
-        {
-          label: 'השירות לסוכרת בגיל המבוגר בשיבא (באנגלית)',
-          url: 'https://eng.sheba.co.il/Center-for-Treatment-and-Study-Diabetes-in-Old-Age',
-        },
-        { label: 'פלטפורמת 6 Vital (באנגלית)', url: 'https://6-vital.com/' },
-      ],
     },
     'for-clinicians': {
       title: 'לצוותים רפואיים ולחוקרים',
@@ -401,20 +344,20 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'שוקלים להפנות מטופל או מטופלת?',
           paragraphs: [
             'שלושה דברים שכדאי לבדוק לפני שפועלים: הסטטוס והתאריך בעמוד המחקר, למי המחקר מיועד, וקריטריוני ההתאמה המלאים ברישום הרשמי. הסיכומים באתר הם נקודת פתיחה בלבד.',
-            'בהסכמת המטופל או המטופלת, אפשר לשתף עמם את עמוד המחקר. עד לפתיחת מסלול ההפניה, אפשר לפנות לשירות שיבא דרך העמוד הרשמי (מקושר למטה); זמינות עדכנית נבדקת דרך הרישום הרשמי.',
+            'מחקרי BIRAX ו־STAY-STRONG מגייסים משתתפים. בהסכמת המטופל או המטופלת, אפשר לשתף עמם את עמוד המחקר הרלוונטי. אזור ההשתתפות מסביר מה הצעד הבא; הצוות יוכל לדון בתנאי ההתאמה, בביקורים ובמרכז המתאים.',
           ],
           bullets: [
             'אין להעביר שמות, אבחנות, הפניות או מסמכים רפואיים באתר או ב־GitHub.',
-            'מחקר שהושלם אינו פתוח להפניות לצורך השתתפות.',
-            'כל עמוד מחקר מקשר לרישום הרשמי — זהו הקישור הבטוח ביותר לאימות ולשיתוף.',
+            'חפשו את ההזמנה להשתתפות במחקרים שמגייסים משתתפים.',
+            'עמודי המחקרים מקשרים לרישום הרשמי או למקור המיזם, בציון מועד הבדיקה. רישום מחקר או מימון אינם מאשרים שיש כרגע מקומות פנויים.',
           ],
         },
         {
           id: 'partners',
           title: 'עבודה משותפת',
           paragraphs: [
-            'שיטות ותחומים: מחקרים אקראיים מבוקרים, אפידמיולוגיה קלינית, הערכת תפקוד קוגניטיבי וגופני, אביזרי לבישה ודימות, וכלי הערכה דיגיטליים. אפשר להתחיל מעמודי המחקר ומשם לפרסומים הנבחרים.',
-            'לשיתוף פעולה או להנחיה, אפשר להתחיל מהפרופיל המחקרי של טלי באוניברסיטת תל אביב (מקושר למטה); מסלול קשר מקצועי ייעודי בהכנה. לקבלת טיפול רפואי יש להשתמש בערוצים הרשמיים של בית החולים.',
+            'מחקר STAY-STRONG משלב פעילות גופנית, תמיכה תזונתית והערכת הרכב גוף ותפקוד. BIRAX מפתח שיטות למידת מכונה להערכת יכולת גופנית בשיתוף סוונסי. GRACE-780G בוחן מתן אינסולין אוטומטי במבוגרים עם סוכרת מסוג 1.',
+            'עמודי המחקרים כוללים תכנון מחקר ותוצרים קשורים. הפרסומים הנבחרים מבחינים בין תוצאות מחקר, תקצירי כנס, עבודה מתודולוגית קשורה וסקירות. הפרופיל המוסדי של טלי מציג את רשימת המחקר הרחבה. לקבלת טיפול רפואי יש לפנות בערוצי בית החולים הרשמיים.',
           ],
         },
       ],
@@ -436,58 +379,15 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     participation: {
       title: 'השתתפות במחקר',
       intro:
-        'השתתפות במחקר היא בהתנדבות. שליחת שאלה אינה הרשמה ואינה הסכמה מדעת — צוות המחקר מסביר על המחקר ודן בסיכונים ובהסכמה לפני שמחליטים.',
+        'מחקרי BIRAX ו־STAY-STRONG מגייסים משתתפים. השאירו פרטי קשר כדי לשוחח עם צוות המחקר על השתתפות.',
       sections: [],
-      sources: [
-        {
-          label: 'משרד הבריאות: השתתפות במחקרים קליניים',
-          url: 'https://me.health.gov.il/older-adult/services-rights/living-with-a-condition/treatments/clinical-trials/',
-        },
-      ],
     },
     publications: {
       title: 'פרסומים נבחרים',
       intro:
-        'מבחר קטן של פרסומים שנבדקו מול המקורות, לא רשימת פרסומים מלאה. לרשימה המלאה אפשר לעיין בפרופיל המוסדי.',
-      sections: [
-        {
-          id: 'digital-assessment',
-          title: 'הערכה קוגניטיבית דיגיטלית · 2024',
-          paragraphs: [
-            'פיתוח ותיקוף ראשוני של גרסה דיגיטלית למבחן החלפת סמלים בספרות, לצורך הערכת תפקוד קוגניטיבי במבוגרים עם סוכרת. פורסם ב־Diabetes, Obesity and Metabolism. מזהה DOI: 10.1111/dom.15657.',
-            'מדובר בתיקוף ראשוני. המחברים מציינים צורך במחקרים נוספים, במיוחד בשימוש עצמאי ובמסגרות קליניות שונות.',
-          ],
-        },
-        {
-          id: 'rewind',
-          title: 'תוצאות קוגניטיביות במחקר REWIND · 2020',
-          paragraphs: [
-            'השפעת דולגלוטייד על פגיעה קוגניטיבית בסוכרת מסוג 2: ניתוח חקרני של מחקר REWIND. פורסם ב־The Lancet Neurology. מזהה DOI: 10.1016/S1474-4422(20)30173-3.',
-            'אין להציג ניתוח חקרני כהמלצה לטיפול אישי.',
-          ],
-        },
-        {
-          id: 'technology-review',
-          title: 'טכנולוגיה וטיפול בסוכרת בגיל המבוגר · 2023',
-          paragraphs: [
-            'סקירה על תפקידה המתפתח של טכנולוגיה בטיפול במבוגרים עם סוכרת. פורסמה ב־Diabetes Care. מזהה PubMed: 37471606.',
-            'הסקירה עוסקת בראיות המתפתחות, בחסמים ובצורכי המחקר בתחום.',
-          ],
-        },
-      ],
+        'מבחר מאמרים ותוצרי כנס, ובהם תוצאות GRACE-780G ועבודות הקשורות ל־STAY-STRONG ול־BIRAX. כל רשומה מסבירה את הקשר למחקרים; עבודה קשורה אינה מוצגת כתוצאת המחקר עצמו. זהו מבחר ערוך, ולא רשימת פרסומים מלאה.',
+      sections: [],
       sources: [
-        {
-          label: 'מאמר ההערכה הדיגיטלית — מקור (באנגלית)',
-          url: 'https://doi.org/10.1111/dom.15657',
-        },
-        {
-          label: 'הניתוח החקרני של REWIND — מקור (באנגלית)',
-          url: 'https://doi.org/10.1016/S1474-4422(20)30173-3',
-        },
-        {
-          label: 'סקירת הטכנולוגיה — PubMed (באנגלית)',
-          url: 'https://pubmed.ncbi.nlm.nih.gov/37471606/',
-        },
         {
           label: 'פרופיל הפרסומים המלא באוניברסיטה (באנגלית)',
           url: 'https://cris.tau.ac.il/en/persons/tali-cukierman-yaffe/',
@@ -496,14 +396,15 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     },
     privacy: {
       title: 'פרטיות',
-      intro: 'זוהי טיוטת אתר מידע, לא מקום למסירת פרטים רפואיים או פרטי קשר.',
+      intro:
+        'טופס הפנייה מבקש שם פרטי וטלפון או כתובת אימייל כדי שצוות המחקר יוכל ליצור קשר.',
       sections: [
         {
           id: 'collection',
-          title: 'מה האתר עושה — ומה לא',
+          title: 'פניות בנוגע למחקרים',
           paragraphs: [
-            'לא נוספו טפסי שליחה, חשבונות משתמשים, שירותי ניתוח גלישה, מעקב פרסומי או שמירה בדפדפן. הטיוטה אינה מקבלת בקשות להשתתפות או הפניות.',
-            'אם האתר יאוחסן ברשת, ספק האחסון עשוי לעבד מידע טכני כמו כתובות IP ויומני גישה לצורך הפעלת האתר והגנתו. היעדר טפסים אינו מבטיח שספק האחסון אינו מעבד מידע.',
+            'הפניות ממוענות לאיתי כהן, הגר שמעון, יסמין אלט ופרופ׳ טלי צוקרמן־יפה. הטופס כולל את המחקר שעליו שאלתם ואת פרטי הקשר שבחרתם למסור.',
+            'אין באתר מאגר משתתפים, חשבונות משתמשים, מעקב פרסומי או שמירה בדפדפן. הודעות הפנייה מטופלות בתיבות האימייל של צוות המחקר.',
           ],
         },
         {
@@ -511,15 +412,14 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'כשעוברים לאתר אחר',
           paragraphs: [
             'אתרי מוסדות, מאגרי מחקרים, ספקי פרסומים ופלטפורמת 6 Vital פועלים בנפרד ולפי מדיניות הפרטיות שלהם. הם מקושרים, לא מוטמעים באתר.',
-            'לפני הפעלת פניות, מערכת מאושרת תצטרך להציג מידע ברור על הגוף האחראי, מטרת האיסוף, פרטי קשר, גישה ושמירה. ההחלטות האלה עדיין ממתינות לאישור.',
+            'טופס הפנייה אינו מבקש היסטוריה רפואית, מסמכי מטופלים או העלאת קבצים.',
           ],
         },
         {
           id: 'public-repo',
-          title: 'לא משתפים מידע אישי ב־GitHub',
+          title: 'קוד האתר',
           paragraphs: [
-            'מאגר הקוד והפניות אליו ציבוריים. אין לפרסם בהם היסטוריה רפואית, פרטי קשר, מסמכים או בקשות להשתתפות.',
-            'הסבר טיוטה זה אינו אישור משפטי ואינו הודעת פרטיות שאושרה בידי מוסד רפואי.',
+            'המאגר הציבורי מכיל את קוד האתר ומידע מחקרי ציבורי. פניות דרך הטופס אינן נשלחות ל־GitHub.',
           ],
         },
       ],

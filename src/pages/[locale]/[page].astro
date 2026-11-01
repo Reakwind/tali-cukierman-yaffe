@@ -2,6 +2,9 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../layouts/Layout.astro';
 import TeamProfiles from '../../components/TeamProfiles.astro';
+import PublicationList from '../../components/PublicationList.astro';
+import ResearchText from '../../components/ResearchText.astro';
+import ParticipationInvite from '../../components/ParticipationInvite.astro';
 import { locales, ui, type Locale } from '../../i18n/ui';
 import { pages, pageKeys, type PageKey } from '../../data/pages';
 
@@ -43,17 +46,9 @@ const t = ui[locale];
       <h1>{content.title}</h1>
       <p class="page-intro">{content.intro}</p>
     </div>
-    {page === 'participation' && (
-      <div class="actions">
-        <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
-          {t.explore}
-          <span class="arrow" aria-hidden="true">
-            →
-          </span>
-        </a>
-      </div>
-    )}
     <div class="article-wrap">
+      {page === 'participation' && <ParticipationInvite locale={locale} />}
+      {page === 'publications' && <PublicationList locale={locale} />}
       {content.sections.map((section) => (
         <section
           class="article-section"
@@ -62,7 +57,9 @@ const t = ui[locale];
         >
           <h2 id={`${section.id}-title`}>{section.title}</h2>
           {section.paragraphs.map((paragraph) => (
-            <p>{paragraph}</p>
+            <p>
+              <ResearchText text={paragraph} />
+            </p>
           ))}
           {section.bullets && (
             <ul>
@@ -88,6 +85,17 @@ const t = ui[locale];
           )}
           {page === 'about' && section.id === 'people' && (
             <TeamProfiles locale={locale} />
+          )}
+          {((page === 'research' && section.id === 'collaboration') ||
+            (page === 'for-clinicians' && section.id === 'partners')) && (
+            <a class="button" href="mailto:tcukierm@gmail.com">
+              {locale === 'he'
+                ? 'ליצירת קשר עם טלי'
+                : 'Email Tali about collaboration'}
+              <span class="arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
           )}
         </section>
       ))}

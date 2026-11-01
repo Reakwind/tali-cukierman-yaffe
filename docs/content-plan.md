@@ -11,7 +11,7 @@ recommendations that still need agreement.
 - English and Hebrew together, with equivalent information and real RTL layouts.
 - Three initial studies/projects: STAY-STRONG, BIRAX, and GRACE-780G. The owner
   confirmed on 2026-10-31 that GRACE-780G is the official study name to showcase.
-- Five core people: Tali, Hagar Shimon, Yasmin Alt, Tal Yahalom, and Itay Cohen.
+- Six core people: Tali, Naama Peltz-Sinvani, Hagar Shimon, Yasmin Alt, Tal Yahalom, and Itay Cohen.
   Roles below come from the owner, not inferred publication affiliations.
 - A dedicated 6 Vital page under Research; talks/media and news/updates included.
 - Women's endocrinology and pregnancy stay outside this site's curated content.
@@ -80,6 +80,11 @@ Public-facing documents or factual bullets are enough—do not send confidential
 protocol correspondence or participant records.
 
 ### BIRAX — project confirmed, formal match still provisional
+
+**Resolved 2026-11-01:** the owner confirmed that the Steve Bain/Swansea project
+below is the intended BIRAX collaboration. The original source findings below
+remain a dated research record. Recruitment status, criteria, and participant
+procedures still need confirmation; see [the current content draft](drafts/study-content.md).
 
 - [Tali's TAU Cuenca biography][cuenca] identifies her as PI of a BIRAX-funded
   project developing a machine-learning platform to assess physical function in
@@ -387,21 +392,20 @@ to copy biographies, photographs, publication figures or recruitment text.
   v2 API, with all three returned records inspected at title/summary level. Search
   and absence of a result are not exhaustive verification across registries.
 
-## 7. Next content work, not implemented here
+## 7. Content implementation update — 2026-11-01
 
-1. Agree the page inventory; resolve BIRAX identity (GRACE-780G name confirmed).
-2. Study-page drafts next; the team profile drafts are implemented on the draft
-   website (`src/data/team.ts`) with improved Hebrew and real portraits, awaiting
-   each person's review. Curate publications/news/media.
-3. Obtain factual, translation and applicable institutional approvals.
-4. Only then implement the agreed content and resume visual refinement.
+The owner requested a content iteration centered on the three studies and
+confirmed BIRAX's partnership. The local application now includes three bilingual
+study/project records, related publications and sourced highlights. The schema
+distinguishes NCT-backed trials from a project with unconfirmed participation
+details. Completed GRACE-780G links to the conference abstract without offering
+enrollment. Women's/pregnancy content had already been removed from the site.
 
-The existing application still contains out-of-scope women's/pregnancy copy and
-only two study records. Its study schema assumes NCT-backed trials; BIRAX must
-not be given an invented NCT ID or recruitment status to satisfy that schema.
-Any later change needs tests for non-trial projects/unknown status and completed
-study behavior. This documentation-only change does not update the application,
-recruitment settings, publishing permissions or deployments.
+The [study-content review](drafts/study-content.md) records this iteration and its
+remaining gaps. Study availability, participant material and both translations
+still need review. News/media as a separate destination, 6 Vital expansion, and
+further visual changes remain outside this iteration. Recruitment stays disabled;
+publishing permissions and deployments are unchanged.
 
 [stay]: https://clinicaltrials.gov/study/NCT06497595
 [stay-api]: https://clinicaltrials.gov/api/v2/studies/NCT06497595

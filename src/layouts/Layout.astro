@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui, type Locale } from '../i18n/ui';
 import '../styles/site.css';
+import { sectionHref, sectionTargets } from '../lib/section-navigation';
 
 interface Props {
   locale: Locale;
@@ -18,7 +19,6 @@ const {
 } = Astro.props;
 const t = ui[locale];
 const other = locale === 'en' ? 'he' : 'en';
-const section = pagePath.split('/')[0];
 const home = getRelativeLocaleUrl(locale);
 ---
 
@@ -51,7 +51,7 @@ const home = getRelativeLocaleUrl(locale);
     <a class="skip-link" href="#main">
       {t.skip}
     </a>
-    <header class="site-header">
+    <header class="site-header" data-content-part="menu">
       <div class="container header-row">
         <a href={home} class="brand" aria-label={t.groupName}>
           <span>
@@ -62,8 +62,8 @@ const home = getRelativeLocaleUrl(locale);
         <nav class="desktop-nav" aria-label={t.mainNavigation}>
           {Object.entries(t.nav).map(([path, label]) => (
             <a
-              href={getRelativeLocaleUrl(locale, `${path}/`)}
-              aria-current={section === path ? 'page' : undefined}
+              href={sectionHref(locale, path)}
+              data-section-link={sectionTargets[path]}
             >
               {label}
             </a>
@@ -72,8 +72,8 @@ const home = getRelativeLocaleUrl(locale);
         <nav class="utility-nav" aria-label={t.audienceNav}>
           {Object.entries(t.audience).map(([path, label]) => (
             <a
-              href={getRelativeLocaleUrl(locale, `${path}/`)}
-              aria-current={section === path ? 'page' : undefined}
+              href={sectionHref(locale, path)}
+              data-section-link={sectionTargets[path]}
             >
               {label}
             </a>
@@ -87,8 +87,8 @@ const home = getRelativeLocaleUrl(locale);
           <nav class="menu-panel" aria-label={t.mainNavigation}>
             {Object.entries(t.nav).map(([path, label]) => (
               <a
-                href={getRelativeLocaleUrl(locale, `${path}/`)}
-                aria-current={section === path ? 'page' : undefined}
+                href={sectionHref(locale, path)}
+                data-section-link={sectionTargets[path]}
               >
                 {label}
               </a>
@@ -96,8 +96,8 @@ const home = getRelativeLocaleUrl(locale);
             <div class="menu-audience">
               {Object.entries(t.audience).map(([path, label]) => (
                 <a
-                  href={getRelativeLocaleUrl(locale, `${path}/`)}
-                  aria-current={section === path ? 'page' : undefined}
+                  href={sectionHref(locale, path)}
+                  data-section-link={sectionTargets[path]}
                 >
                   {label}
                 </a>
@@ -119,7 +119,8 @@ const home = getRelativeLocaleUrl(locale);
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <footer class="site-footer">
+    <footer class="site-footer" data-content-part="footer">
+      <slot name="footer-content" />
       <div class="container footer-grid">
         <div class="footer-intro">
           <p class="footer-group-name">{t.groupName}</p>
@@ -129,10 +130,18 @@ const home = getRelativeLocaleUrl(locale);
           <h2 class="footer-heading">{t.footerKnow}</h2>
           <ul class="footer-links">
             <li>
-              <a href={getRelativeLocaleUrl(locale, 'privacy/')}>{t.privacy}</a>
+              <a
+                href={sectionHref(locale, 'privacy')}
+                data-section-link="privacy"
+              >
+                {t.privacy}
+              </a>
             </li>
             <li>
-              <a href={getRelativeLocaleUrl(locale, 'accessibility/')}>
+              <a
+                href={sectionHref(locale, 'accessibility')}
+                data-section-link="accessibility"
+              >
                 {t.accessibility}
               </a>
             </li>

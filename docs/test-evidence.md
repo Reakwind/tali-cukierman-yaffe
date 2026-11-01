@@ -299,3 +299,257 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   asserts the banner is absent while indexing protection stays on.
 - Final `npm run verify`: formatting, ESLint, Astro/TypeScript, 25 unit tests,
   **210 Playwright checks passed**.
+
+## Three-study content refresh — 2026-11-01
+
+- Owner focus: BIRAX, STAY-STRONG, and MiniMed 780G (GRACE-780G); the owner
+  confirmed the Swansea/Steve Bain BIRAX partnership during this iteration.
+  See [content and source review](drafts/study-content.md). All wording remains
+  draft, and publishing remains local-only.
+- **Red, unit:** the new project representation test failed with `false !== true`
+  because the previous schema required a trial registry record. Project fixtures
+  now validate without an NCT ID or registry-update date; recruiting claims,
+  invented IDs, unsafe URLs, and live enquiries are rejected for these projects.
+- **Red, browser:**
+  `npm run test:e2e -- --project=chromium tests/e2e/content.spec.ts --grep 'en:'`
+  loaded the old site and failed four assertions: no homepage study entries,
+  no structured publication entries, no GRACE output section, and no sourced
+  highlights. The initial publication expectation was seven during broad source
+  discovery; it was narrowed to six after the owner centered the work on the
+  three studies. No unrelated 2026 dementia paper was added.
+- The first sandboxed browser command could not bind localhost, and an intermediate
+  build found that strict JSON collection schemas needed the file loader's `id`
+  field. Neither is counted as behavior-test red evidence. Both were resolved
+  before the successful browser journeys.
+- **Green:** 37 unit tests; formatting, ESLint, and Astro/TypeScript checks; and
+  the production static build. The initial focused Chromium run passed all
+  18 content/study/journey checks.
+- The full five-project Playwright run recorded **205 passed and 50 Firefox
+  launch failures**. Firefox failed before loading a page with
+  `Could not find profile folder`. A dedicated explicit profile and a fresh
+  matching Firefox 157.0 / revision 1555 downloaded to a task-only temporary
+  directory reproduced the same launch problem. No Firefox test was skipped or
+  weakened, and Firefox coverage is not claimed.
+- After screenshot review, Latin study/device identifiers were kept together,
+  a long GRACE heading was shortened, publication-link wrapping was corrected,
+  and completed/project section labels were made accurate. A further screenshot
+  check exposed a reversed Hebrew glucose-range display. A focused browser test
+  failed because `70–180` had no LTR isolation; numeric ranges and the BIRAX
+  project-year label were then isolated as well. Final
+  `npm run test:e2e -- --project=chromium --project=webkit --project=mobile-chrome --project=mobile-safari`
+  passed **204 checks** on the final application content. The test server ran
+  the production build first.
+- Those checks cover every English/Hebrew built page, internal links/fragments,
+  unique metadata and IDs, noindex, no runtime scripts/forms/third-party requests,
+  automated accessibility, 320px layouts, keyboard navigation, reduced motion,
+  and no-JavaScript navigation. Mobile profiles are emulations.
+- Rendered English/Hebrew homepage study rows, GRACE outputs, Hebrew publication
+  citations and DOI links, and all three Hebrew mobile study pages were inspected.
+  Local review captures are in `/private/tmp/vital-content-review/`; no screenshot
+  baselines were changed. Manual screen-reader and physical-device checks were
+  not performed. Content/translation review and Firefox verification remain open;
+  this is not merge or launch approval. No remote CI, PR, merge, or deployment
+  was created or claimed.
+
+## Recruitment CTAs and Cloudflare enquiry preparation — 2026-11-01
+
+- Owner confirmed active BIRAX/STAY-STRONG recruitment, requested inviting CTAs,
+  removed public completion labels for other studies, and specified a first-name
+  and phone/email form sent to four team inboxes. Student/collaborator CTAs are
+  plain Tali mail links. No legal/consent step is shown in the participation flow.
+- Red: the owner-confirmed project-recruitment schema test failed; three new
+  Chromium recruitment journeys failed against the previous copy and badges.
+  Separate form-success, form-error and collaborator-mail tests failed before
+  those behaviors were implemented.
+- Red, API: four Worker tests failed with 503 instead of the required success,
+  validation failure, provider failure and native-form redirect. Green tests now
+  verify the exact four recipients, Reply-To behavior, request restrictions,
+  disabled delivery, provider failures and server-side bot verification. Email
+  and Turnstile are mocked; no messages or real contact data were sent.
+- A browser test using the actual production CSP exposed Astro inlining the
+  small form script. It failed before `assetsInlineLimit: 0` kept the handler in
+  a same-origin file. The form then passed under the real CSP without unsafe
+  inline scripts. Same-origin form submission and Turnstile script/frame origins
+  are explicitly allowed; arbitrary form destinations remain blocked.
+- Wrangler 4.156.0 is pinned as a development dependency; no existing dependency
+  version changed. Its dry-run successfully bundled the Worker and validated the
+  static-asset/email bindings without deploying. The first local start rejected
+  today's compatibility date because bundled workerd supports 2026-10-30; pinning
+  that supported date resolved the startup failure.
+- The native local Cloudflare runtime served English/Hebrew pages with the
+  configured security headers, returned a real 404 for an unknown path, and
+  returned 503 for a dummy enquiry with delivery disabled. This does not claim
+  real recipient verification or inbox delivery.
+- Verification covers formatting, lint, Astro/TypeScript, unit tests, production
+  build, and the bilingual/browser journeys. The final run passed all 47 unit
+  tests and 252 browser checks across Chromium, WebKit, mobile Chrome and mobile
+  Safari. The prior Firefox profile-startup limitation remains open.
+  English desktop recruitment rows/contact form and the Hebrew mobile contact
+  form were inspected in the native local Cloudflare preview; review captures
+  are in `/private/tmp/vital-content-review/recruitment/`. No screenshot
+  baselines were changed.
+  Manual screen-reader/physical-device checks and live Turnstile/inbox verification
+  have not been performed. No cloud account, DNS, billing, publishing or deployment
+  change was made. The email-enable flag remains false.
+
+## Team-page copy corrections — 2026-11-01
+
+- Removed Itay's rehabilitation-psychologist wording from the English/Hebrew
+  role and draft biography. The student email button now uses a translated
+  descriptive label and retains the blank `mailto:tcukierm@gmail.com` destination.
+- Formatting, lint, Astro/TypeScript, 47 unit tests and production build passed.
+  The existing team journeys passed 12 checks after the profile edit; eight
+  focused contact/team/accessibility checks passed after the button-label edit
+  across Chromium and mobile Safari. Both languages were visually inspected in
+  the local Cloudflare preview. No new behavior tests or deployment were added.
+- Subsequent review removed the team page's "Sources & further reading" section
+  in both languages. Formatting, lint, Astro/TypeScript, 47 unit tests, production
+  build and all 12 existing Chromium/mobile Safari team checks passed again.
+  Native preview inspection confirmed no sources section and checked the page
+  ending in English desktop and Hebrew mobile layouts.
+
+## Continuous page and parallax — 2026-11-01
+
+- Implemented the owner's final order: sticky title/menu, hero, research areas,
+  current studies, then one shared participant contact section. Publications,
+  team and clinician information remain reachable by scrolling; menu shortcuts
+  use native fragment navigation. Existing deep URLs remain available.
+- Red: the new general-enquiry Worker test received 400 instead of 200. The
+  shared form now accepts general interest and sends only to the fixed four
+  recipients in mocked tests. Delivery stays disabled in local configuration.
+- Red: English/Hebrew continuous-page tests found missing inline study details
+  and page navigation instead of section anchors. The final-order test then
+  caught the previous section sequence. These now pass with the full content
+  in static HTML and a single homepage participant form.
+- Red: the parallax test found `animation-timeline: auto`. Production CSS had
+  combined the timeline into shorthand that the browser rejected. Preserving
+  the timeline declaration separately fixed the actual browser output. Tests
+  verify transform changes during native scrolling while the menu stays fixed,
+  and verify reduced motion removes the effect.
+- Red: applying the real production CSP exposed four blocked portrait inline
+  styles. Crop positions now use stylesheet rules; the policy was not weakened.
+  The final native Cloudflare preview reported no console/page errors.
+- Final verification: formatting, lint, Astro/TypeScript (50 files), all **48
+  unit tests**, production build, Worker dry-run, and **292 browser checks**
+  passed across Chromium, WebKit, mobile Chrome and mobile Safari profiles.
+  Coverage includes both languages, links/fragments, metadata, automated
+  accessibility, responsive layouts, native Back, keyboard focus, mobile menu
+  closing, section/language orientation, reduced motion and disabled JavaScript.
+- Mobile WebKit's driver does not implement mouse-wheel input. That profile
+  verifies the same native document-scroll/parallax path with `scrollBy`;
+  desktop profiles use wheel input. This is not a physical touch-device test.
+  The earlier Firefox profile-startup failure remains unresolved; Firefox
+  coverage, manual screen-reader checks and eye-tracking tests are not claimed.
+- English desktop and Hebrew mobile hero/research/study/contact renders were
+  inspected in the actual Cloudflare runtime. The header remained at viewport
+  y=0 (92px desktop, 80px mobile); the native view timeline was active. Captures:
+  `/private/tmp/vital-content-review/final-scroll-*.png`. No baselines changed.
+- The Worker dry-run bundled 4.46 KiB, retained the four-address allowlist and
+  `ENQUIRIES_ENABLED=false`, and did not deploy. No messages, account changes,
+  DNS changes, billing changes, PR, merge or public launch occurred.
+
+## Visual communication, deeper parallax and art correction — 2026-11-01
+
+- Owner requested a visually led six-part page, pastel magenta/teal, diabetes
+  graphics and a much stronger depth effect. After viewing the initial drawings,
+  the owner rejected SVG anatomy and human figures. The final draft uses original
+  device/instrument geometry, a sensor/pen/symbol-grid hero, real team photos and
+  initials for missing photos. No new dependency, paid service, image API or
+  purchased asset was introduced.
+- Read the primary Firewatch example, Keith Clark's layered CSS demonstration,
+  Chrome's scroll-animation documentation, Anthropic's frontend guidance,
+  Lucide's icon-design guidance and MDN's SVG pattern API. Working URLs and
+  access failures are recorded in `visual-direction.md`. Live Firewatch layer
+  motion was inspected before/after scrolling; no artwork or code was copied.
+- Red: the new EN/HE six-part tests found no part markers, and the visual-layout
+  test found no hero visual. Red: the forced-unsupported-browser fallback test
+  found no fallback engine. Red after owner review: EN/HE checks found the rejected
+  brain/person drawings. All now pass with the geometric hero and no SVG people
+  or anatomy. The content-order and actual depth tests were written before the
+  corresponding implementation, not after screenshot-baseline changes.
+- Red/green, data: the initial permissive visual-data schema accepted an impossible
+  percentage. The strict discriminated schema now validates both languages,
+  icon names, ordered visits within duration and percentages from 0 to 100.
+  Tests preserve STAY-STRONG's 0/8/16/26-week visits and the sourced GRACE figures.
+  An intermediate import-extension error was fixed but is not counted as a
+  behavioral red result.
+- The first full browser run caught horizontal overflow at 320px from the footer
+  subject-icon row (18 failed checks). The row now scales down; timeline labels
+  are larger on phones. All responsive checks then passed without hiding page
+  overflow or changing screenshot baselines.
+- The desktop hero dedicates 65% of its two-column layout to the illustration.
+  Actual layer translations over a 600px scroll were approximately −118px at
+  the back and −323px at the front, a separation of about 206px. Tests require
+  over 100px of relative layer travel. Native scroll, stable copy/controls,
+  sticky header, same-section language switching and Back remain intact.
+  The 40/60 meaning budget is an editorial design constraint, not a measured
+  percentage of reader comprehension or eye-tracking result.
+- Native CSS timelines drive the three SVG layers. The forced fallback test
+  verifies paused WAAPI animations also separate the layers and cancel completely
+  when reduced motion is enabled during the session. HTML starts visible and
+  no-JavaScript navigation still works. JavaScript is 4,565 bytes in two files;
+  CSS is 35,928 bytes; local fonts are 108,104 bytes in the final build.
+- Final checks passed: formatting, lint, Astro/TypeScript (60 files, no diagnostics),
+  all **50 unit tests**, production build and **308 browser checks** across
+  Chromium, WebKit, mobile Chrome and mobile Safari. These include automated
+  accessibility, both languages, RTL, all built-page links/metadata, 320–1920px
+  layouts, keyboard navigation, native anchors/Back, strict CSP, reduced motion,
+  no JavaScript, one shared participant form, and success/error handling with
+  mocked delivery. Mobile coverage uses emulation, not physical devices.
+- Rechecked Firefox separately: the bundled firefox-1555 process still exits
+  with “Could not find profile folder” before opening a page. This is not a
+  passing Firefox test or application failure; Firefox coverage remains open.
+  Manual screen-reader, physical-device and eye-tracking checks were not done.
+- Inspected the actual 8787 Cloudflare preview in English desktop and Hebrew
+  mobile, including hero before/after scroll, topic focus, study timeline and
+  participation. Chromium/WebKit reported no application console, page or CSP
+  errors in either language. WebKit screenshot instrumentation itself injects
+  a blocked inline stylesheet; a separate check proved that occurs only on the
+  screenshot call. The page's policy was not weakened to accommodate that tool.
+  Captures are local in `/private/tmp/vital-content-review/`; no baselines changed.
+- Worker dry-run passed (4.46 KiB). `ENQUIRIES_ENABLED=false` and the existing fixed
+  recipient allowlist remain unchanged. No messages, cloud deployment, account,
+  DNS, billing, PR, merge or launch occurred. This is a local visual-review draft;
+  source/content/translation review and production delivery setup remain open.
+
+## White canvas and motion refinement — 2026-11-01
+
+- Owner accepted the geometric direction and requested white backgrounds plus
+  further SVG/transition refinement. Page, header, hero, research, studies,
+  participation, form and footer now all compute to `rgb(255, 255, 255)`.
+  Color remains in the original graphics, meaningful protocol arms and selected
+  borders/controls. No content, study values or enquiry delivery settings changed.
+- Refined the sensor rim, background-grid density, pen and symbol-sheet detail.
+  Scroll adds small opposing foreground rotations and resolves the magenta signal
+  trace over an always-visible connector. Strong three-layer depth remains.
+  All drawings remain geometric, with no SVG people or anatomy and no invented
+  patient readings or scores.
+- Red: both new phone-reading journeys failed because the illustration did not
+  stay in its intended viewport area alongside the topic (English/Hebrew).
+  Green: tall phones now reserve space below the sticky illustration for the
+  heading and paragraph. The topic observer's pixel margins use the actual art
+  and header dimensions and update after resize/preference changes. Short screens
+  and reduced motion return to normal flow. Initial focused verification passed
+  32 checks across Chromium and mobile Safari.
+- Native CSS and forced WAAPI fallback were inspected under the real Cloudflare
+  CSP. At scroll 0/600/0, the signal offset was approximately .69743/.027202/.69743
+  and foreground matrices returned exactly to their initial values; native and
+  fallback values matched. No application console/page/CSP errors were reported.
+  Reduced-motion tests verify cancellation of both depth layers and detail motion.
+- Inspected white-background English desktop and Hebrew phone renders, including
+  all three research topics, hero before/after scrolling and backward restoration.
+  Phone headings remain below the graphic, within the viewport. Captures and
+  computed-style reports are in `/private/tmp/vital-content-review/refinement/`.
+  The local 8787 runtime was restarted after it was found stopped; it is serving
+  the current production build. No screenshot baselines were changed.
+- Final formatting, lint, Astro/TypeScript (60 files, no diagnostics), **50 unit
+  tests**, production build and **316 browser checks** passed across Chromium,
+  WebKit, mobile Chrome and mobile Safari. Coverage includes both languages,
+  RTL, actual motion, fallback, keyboard/Back, no JavaScript, reduced motion,
+  automated accessibility, CSP and responsive layouts. Assets remain small:
+  CSS 37,571 bytes; JavaScript 5,595 bytes in two files.
+- The previously reproduced Firefox launcher failure remains an open coverage
+  limitation and was not rerun in this refinement. No manual screen-reader or
+  physical-device checks are claimed. No new dependency, paid service, external
+  asset/API, message, cloud deployment, account/DNS/billing change, PR or merge.
+  Participant email delivery remains disabled; this is a local review draft.

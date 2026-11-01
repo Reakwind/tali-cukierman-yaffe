@@ -15,7 +15,7 @@ test('the draft identifies the group and stays out of search results', async ({
     'content',
     /noindex/,
   );
-  await expect(page.locator('form')).toHaveCount(0);
+  await expect(page.locator('form')).toHaveCount(1);
 });
 
 test('the foundation has no automatically detectable accessibility violations', async ({

@@ -15,11 +15,9 @@ interface Props {
 const { locale } = Astro.props;
 const t = ui[locale];
 const content = pages[locale].studies;
-const studies = (await getCollection('studies')).sort(
-  (a, b) =>
-    Number(b.data.registryStatus === 'RECRUITING') -
-    Number(a.data.registryStatus === 'RECRUITING'),
-);
+const studies = await getCollection('studies');
+const recruiting = studies.filter((study) => study.data.recruitment);
+const research = studies.filter((study) => !study.data.recruitment);
 ---
 
 <Layout
@@ -41,8 +39,15 @@ const studies = (await getCollection('studies')).sort(
       <h1>{content.title}</h1>
       <p class="page-intro">{content.intro}</p>
     </div>
-    <div class="study-grid">
-      {studies.map((study) => (
+    <h2>{t.recruitingStudies}</h2>
+    <div class="study-grid" data-recruiting-studies>
+      {recruiting.map((study) => (
+        <StudyCard study={study} locale={locale} />
+      ))}
+    </div>
+    <h2>{t.researchStudies}</h2>
+    <div class="study-grid" data-research-studies>
+      {research.map((study) => (
         <StudyCard study={study} locale={locale} />
       ))}
     </div>

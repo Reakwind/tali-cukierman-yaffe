@@ -1,354 +1,534 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import HeroGraphic from './HeroGraphic.astro';
+import ResearchScene from './ResearchScene.astro';
+import DiabetesIcon from './DiabetesIcon.astro';
+import VisualStudy from './VisualStudy.astro';
+import VisualResult from './VisualResult.astro';
+import VisualFooter from './VisualFooter.astro';
+import ParticipationInvite from './ParticipationInvite.astro';
+import ScrollExperience from './ScrollExperience.astro';
 import { ui, type Locale } from '../i18n/ui';
-
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const t = ui[locale];
 const he = locale === 'he';
-const content = he
-  ? {
-      title: ['סוכרת,', 'קוגניציה והזדקנות.'],
-      intro:
-        'אנו חוקרים כיצד סוכרת קשורה לזיכרון, לחשיבה ולתפקוד גופני בגיל המבוגר.',
-      role: 'אנדוקרינולוגית ואפידמיולוגית קלינית',
-      research: 'תחומי המחקר',
-      researchIntro:
-        'המחקר משלב אנדוקרינולוגיה, אפידמיולוגיה קלינית והערכת תפקוד.',
-      areas: [
-        {
-          id: 'cognition',
-          title: 'סוכרת ותפקוד קוגניטיבי',
-          text: 'זיכרון וחשיבה בגיל המבוגר עם סוכרת.',
-        },
-        {
-          id: 'movement',
-          title: 'כוח שריר ותפקוד גופני',
-          text: 'כוח שריר, תפקוד גופני ושבריריות.',
-        },
-        {
-          id: 'technology',
-          title: 'כלי הערכה דיגיטליים',
-          text: 'כלי הערכה קוגניטיביים, כולל DSST דיגיטלי.',
-        },
-      ],
-      teamTitle: 'הצוות',
-      teamText:
-        'קבוצה בהובלת פרופ׳ טלי צוקרמן־יפה: קלינאים, חוקרים, רכזי מחקר וסטודנטים במרכז הרפואי שיבא ובאוניברסיטת תל אביב.',
-      teamLink: 'הצוות',
-    }
-  : {
-      title: ['Diabetes,', 'cognition & aging.'],
-      intro:
-        'We study how diabetes relates to memory, thinking, and physical function in older adults.',
-      role: 'Endocrinologist & clinical epidemiologist',
-      research: 'Research areas',
-      researchIntro:
-        'Our work combines endocrinology, clinical epidemiology, and functional assessment.',
-      areas: [
-        {
-          id: 'cognition',
-          title: 'Diabetes & cognitive function',
-          text: 'Memory and thinking in older adults with diabetes.',
-        },
-        {
-          id: 'movement',
-          title: 'Muscle strength & physical function',
-          text: 'Muscle strength, physical function, and frailty.',
-        },
-        {
-          id: 'technology',
-          title: 'Digital assessment tools',
-          text: 'Cognitive assessment tools, including a digital DSST.',
-        },
-      ],
-      teamTitle: 'The team',
-      teamText:
-        'A group led by Prof. Tali Cukierman-Yaffe: clinicians, researchers, coordinators, and students at Sheba Medical Center and Tel Aviv University.',
-      teamLink: 'The team',
-    };
+const t = ui[locale];
+const studies = (await getCollection('studies')).filter(
+  (study) => study.data.recruitment,
+);
+const visuals = await getCollection('visualStudies');
+const visualById = new Map(visuals.map((visual) => [visual.id, visual]));
+const result = visuals.find((visual) => visual.data.kind === 'result')!;
+const topics = he
+  ? [
+      {
+        id: 'cognition',
+        title: 'סוכרת וקוגניציה',
+        text: 'חשיבה, זיכרון ומהירות עיבוד — והדרכים למדוד אותם בגיל המבוגר.',
+      },
+      {
+        id: 'movement',
+        title: 'כוח ותפקוד גופני',
+        text: 'כושר, כוח ושיווי משקל. הערכה תפקודית, פעילות גופנית ותזונה.',
+      },
+      {
+        id: 'technology',
+        title: 'טכנולוגיות סוכרת',
+        text: 'מתן אינסולין אוטומטי וכלים דיגיטליים להערכה קוגניטיבית וגופנית.',
+      },
+    ]
+  : [
+      {
+        id: 'cognition',
+        title: 'Diabetes & cognition',
+        text: 'Thinking, memory and processing speed — and how to measure them in older age.',
+      },
+      {
+        id: 'movement',
+        title: 'Strength & physical function',
+        text: 'Fitness, strength and balance. Functional assessment, exercise and nutrition.',
+      },
+      {
+        id: 'technology',
+        title: 'Diabetes technology',
+        text: 'Automated insulin delivery and digital tools for cognitive and physical assessment.',
+      },
+    ];
+const steps = he
+  ? [
+      { icon: 'phone' as const, text: 'משאירים פרטי קשר' },
+      { icon: 'conversation' as const, text: 'משוחחים עם הצוות' },
+      { icon: 'paper' as const, text: 'מכירים את המחקרים' },
+    ]
+  : [
+      { icon: 'phone' as const, text: 'Leave your contact' },
+      { icon: 'conversation' as const, text: 'Talk with the team' },
+      { icon: 'paper' as const, text: 'Learn about the studies' },
+    ];
 ---
 
 <Layout
   locale={locale}
   title={he ? 'סוכרת, קוגניציה והזדקנות' : 'Diabetes, cognition & aging'}
 >
-  <section class="container home-intro" aria-labelledby="home-title">
-    <div class="intro-copy">
-      <p class="group-byline">
-        {t.fullName}
-        <span>{content.role}</span>
-      </p>
-      <h1 id="home-title">
-        {content.title.map((line) => (
-          <span>{line}</span>
-        ))}
-      </h1>
-      <p class="intro-text">{content.intro}</p>
-      <div class="intro-actions">
-        <a class="button" href={getRelativeLocaleUrl(locale, 'studies/')}>
-          {t.explore}
-          <span aria-hidden="true">→</span>
-        </a>
+  <section
+    class="home-intro parallax-scene"
+    data-content-part="hero"
+    aria-labelledby="home-title"
+  >
+    <div class="container hero-pin">
+      <div class="intro-copy">
+        <p class="group-byline">
+          {t.fullName}
+          <span>
+            {he ? 'שיבא · אוניברסיטת תל אביב' : 'Sheba · Tel Aviv University'}
+          </span>
+        </p>
+        <h1 id="home-title">
+          {he ? (
+            <>
+              <span>סוכרת,</span>
+              <span>קוגניציה</span>
+              <span>והזדקנות.</span>
+            </>
+          ) : (
+            <>
+              <span>Diabetes,</span>
+              <span>cognition</span>
+              <span>& aging.</span>
+            </>
+          )}
+        </h1>
+        <p class="intro-text">
+          {he
+            ? 'אנו חוקרים חשיבה, תנועה ואיזון סוכר במבוגרים עם סוכרת.'
+            : 'We study thinking, movement and glucose management in older adults with diabetes.'}
+        </p>
+      </div>
+      <div class="hero-art" data-hero-visual data-visual>
+        <HeroGraphic locale={locale} />
       </div>
     </div>
-    <div class="intro-visual">
-      <img
-        class="hero-art"
-        src="/images/art/hero.webp"
-        alt=""
-        width="1600"
-        height="1000"
-      />
-    </div>
   </section>
-
   <section
     id="home-research"
     class="research-section"
+    data-content-part="research"
+    data-scroll-section
+    tabindex="-1"
     aria-labelledby="research-title"
   >
-    <div class="container research-layout">
-      <div class="research-intro">
-        <h2 id="research-title">{content.research}</h2>
-        <p>{content.researchIntro}</p>
+    <div class="container">
+      <h2 id="research-title">{he ? 'תחומי המחקר' : 'Research areas'}</h2>
+      <div class="research-story parallax-scene">
+        <div class="research-visual" data-visual>
+          <ResearchScene locale={locale} />
+        </div>
+        <div class="research-steps">
+          {topics.map((topic) => (
+            <article
+              class="research-step"
+              data-research-step={topic.id}
+              id={`research-${topic.id}`}
+              aria-labelledby={`research-${topic.id}-title`}
+            >
+              <h3 id={`research-${topic.id}-title`}>{topic.title}</h3>
+              <p>{topic.text}</p>
+            </article>
+          ))}
+        </div>
       </div>
-      <div class="research-list">
-        {content.areas.map((area) => (
-          <article>
-            <img
-              class="area-art"
-              src={`/images/art/${area.id}.webp`}
-              alt=""
-              width="900"
-              height="700"
-              loading="lazy"
-            />
-            <div>
-              <h3>
-                <a
-                  href={`${getRelativeLocaleUrl(locale, 'research/')}#${area.id}`}
-                >
-                  {area.title}
-                  <span aria-hidden="true">→</span>
-                </a>
-              </h3>
-              <p>{area.text}</p>
-            </div>
-          </article>
-        ))}
+      <VisualResult visual={result} locale={locale} />
+      <div class="platform-note">
+        <DiabetesIcon name="computer" size={80} />
+        <p>
+          <bdi dir="ltr">6 Vital</bdi> —{' '}
+          {he
+            ? 'פלטפורמה להערכה קוגניטיבית דיגיטלית שיצרה טלי.'
+            : 'A digital cognitive-assessment platform created by Tali.'}
+        </p>
       </div>
     </div>
   </section>
-
   <section
-    id="home-team"
-    class="container home-team"
-    aria-labelledby="home-team-title"
+    id="home-studies"
+    class="studies-section"
+    data-content-part="studies"
+    data-scroll-section
+    tabindex="-1"
+    aria-labelledby="home-studies-title"
   >
-    <h2 id="home-team-title">{content.teamTitle}</h2>
-    <p>{content.teamText}</p>
-    <a class="text-link" href={getRelativeLocaleUrl(locale, 'about/')}>
-      {content.teamLink}
-      <span aria-hidden="true">→</span>
-    </a>
+    <div class="container">
+      <header class="section-lead">
+        <h2 id="home-studies-title">
+          {he ? 'המחקרים שלנו' : 'Current studies'}
+        </h2>
+        <p>
+          {he
+            ? 'מחקרי BIRAX ו־STAY-STRONG מגייסים משתתפים. הצוות בודק התאמה להשתתפות.'
+            : 'BIRAX and STAY-STRONG are recruiting. The team confirms study suitability.'}
+        </p>
+      </header>
+      {studies.map((study) => (
+        <VisualStudy
+          study={study}
+          visual={visualById.get(study.id)!}
+          locale={locale}
+        />
+      ))}
+      <section
+        id="home-clinicians"
+        class="clinician-route"
+        data-scroll-section
+        tabindex="-1"
+        aria-labelledby="home-clinicians-title"
+      >
+        <h3 id="home-clinicians-title">
+          {he ? 'לצוותים רפואיים' : 'For clinicians'}
+        </h3>
+        <div class="referral-flow">
+          <DiabetesIcon name="paper" size={100} />
+          <p>{he ? 'משתפים מידע על המחקר' : 'Share study information'}</p>
+          <span aria-hidden="true">→</span>
+          <DiabetesIcon name="contact" size={100} />
+          <p>{he ? 'המטופל פונה לצוות' : 'The patient contacts the team'}</p>
+          <span aria-hidden="true">→</span>
+          <DiabetesIcon name="conversation" size={100} />
+          <p>{he ? 'הצוות בודק התאמה' : 'The team discusses suitability'}</p>
+        </div>
+      </section>
+    </div>
   </section>
+  <section
+    id="home-contact"
+    class="contact-section"
+    data-content-part="participation"
+    data-scroll-section
+    tabindex="-1"
+    aria-labelledby="home-contact-title"
+  >
+    <div class="container contact-layout">
+      <div class="contact-story">
+        <h2 id="home-contact-title">{t.takePart}</h2>
+        <div class="contact-steps">
+          {steps.map((step) => (
+            <figure>
+              <DiabetesIcon name={step.icon} size={140} />
+              <figcaption>{step.text}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p>
+          {he
+            ? 'הצוות יחזור אליכם ויספר עוד על המחקרים.'
+            : 'Our team will get in touch to tell you more.'}
+        </p>
+      </div>
+      <ParticipationInvite locale={locale} embedded />
+    </div>
+    <p class="container professional-contact">
+      {he
+        ? 'לשיתופי פעולה קליניים או מחקריים:'
+        : 'For clinical or research collaboration:'}{' '}
+      <a href="mailto:tcukierm@gmail.com">
+        {he ? 'כתבו לפרופ׳ צוקרמן־יפה' : 'Email Prof. Cukierman-Yaffe'}
+      </a>
+    </p>
+  </section>
+  <VisualFooter slot="footer-content" locale={locale} />
+  <ScrollExperience />
 </Layout>
-
 <style>
   .home-intro {
-    padding-block: 4.5rem 1.5rem;
+    min-block-size: 170svh;
+    background: var(--paper);
+    position: relative;
+  }
+  .hero-pin {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    column-gap: 3.5rem;
+    grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
+    gap: 2rem;
     align-items: center;
+    position: sticky;
+    inset-block-start: var(--header-clearance);
+    block-size: calc(100svh - var(--header-clearance));
+    overflow: clip;
+  }
+  .intro-copy {
+    z-index: 2;
+    padding-block: 1rem;
   }
   .group-byline {
-    font-size: 0.78rem;
-    line-height: 1.6;
-    font-weight: 600;
-    margin-block-end: 1.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-block-end: 1.5rem;
   }
   .group-byline span {
     display: block;
     color: var(--muted);
-    font-weight: 400;
+    font-size: 0.75rem;
+    margin-block-start: 0.3rem;
   }
   h1 {
-    font-size: clamp(2.7rem, 4.4vw, 4rem);
-    line-height: 1.09;
-    letter-spacing: -0.045em;
-    margin-block-end: 1.75rem;
-    font-weight: 500;
+    font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+    line-height: 1.07;
+    letter-spacing: -0.05em;
+    margin-block-end: 1.5rem;
   }
   h1 span {
     display: block;
   }
   .intro-text {
-    font-size: 1.07rem;
-    max-inline-size: 40ch;
-    line-height: 1.6;
-  }
-  .intro-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem 1.75rem;
-    margin-block: 1.8rem 1rem;
-  }
-  .intro-actions .text-link {
-    font-size: 0.78rem;
-  }
-  .intro-visual {
-    align-self: center;
-    padding-block-start: 2rem;
+    max-inline-size: 29ch;
+    font-size: 1rem;
+    margin: 0;
   }
   .hero-art {
     inline-size: 100%;
-    block-size: auto;
-    display: block;
-  }
-  .institution-links {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem 1rem;
-    border-block-end: 1px solid var(--line);
-    padding-block: 2.25rem 1.4rem;
-    font-size: 0.76rem;
-    color: var(--muted);
-  }
-  .institution-links a {
-    text-decoration: none;
-  }
-  .institution-links a:hover {
-    text-decoration: underline;
+    min-inline-size: 0;
   }
   .research-section {
-    background: var(--mist);
     padding-block: 4rem;
+    border-block-start: 1px solid var(--line);
+    background: var(--paper);
   }
-  .research-layout {
+  .research-section h2,
+  .section-lead h2,
+  .contact-story h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  .research-story {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 6rem;
-  }
-  .research-intro p {
-    max-inline-size: 32ch;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-  .research-list article {
-    display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: minmax(0, 0.64fr) minmax(0, 0.36fr);
+    gap: 2.5rem;
     align-items: start;
-    padding-block: 1.3rem;
-    border-block-start: 1px solid var(--line-strong);
   }
-  .area-art {
-    inline-size: 120px;
-    block-size: 120px;
-    object-fit: cover;
-    display: block;
+  .research-visual {
+    position: sticky;
+    inset-block-start: var(--header-clearance);
+    overflow: clip;
   }
-  .research-list article:first-child {
-    padding-block-start: 0;
-    border-block-start: none;
-  }
-  .research-list article:last-child {
-    padding-block-end: 0;
-  }
-  .research-list h3 {
-    font-size: 1.1rem;
-    margin-block-end: 0.6rem;
-  }
-  .research-list h3 a {
+  .research-step {
+    min-block-size: 75svh;
     display: flex;
-    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .research-step h3 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--magenta);
+    margin-block-end: 1rem;
+  }
+  .research-step p {
+    font-size: 1rem;
+    max-inline-size: 28ch;
+  }
+  .platform-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-block: 2.5rem 0;
+    font-size: 0.85rem;
+  }
+  .platform-note p {
+    margin: 0;
+  }
+  .studies-section {
+    padding-block: 4rem;
+    background: var(--paper);
+  }
+  .section-lead {
+    margin-block-end: 2rem;
+    max-inline-size: 65ch;
+  }
+  .section-lead p {
+    color: var(--muted);
+  }
+  .clinician-route {
+    margin-block-start: 3rem;
+    padding: 2rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  .referral-flow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .referral-flow p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .referral-flow :global(svg) {
+    flex: 0 0 70px;
+  }
+  .contact-section {
+    padding-block: 4rem 2rem;
+    border-block-start: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
+    gap: 3rem;
+    align-items: center;
+  }
+  .contact-steps {
+    display: flex;
     justify-content: space-between;
     gap: 1rem;
-    text-decoration: none;
+    margin-block: 2rem;
   }
-  .research-list h3 a:hover {
-    text-decoration: underline;
+  .contact-steps figure {
+    margin: 0;
+    flex: 1 1 0;
+    min-inline-size: 0;
+    text-align: center;
+    max-inline-size: 150px;
   }
-  .research-list h3 span {
-    font-weight: 400;
-    font-family: Arial, sans-serif;
+  .contact-steps figcaption {
+    font-size: 0.8rem;
+    margin-block-start: 1rem;
   }
-  .research-list p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    margin-block-end: 0;
-    max-inline-size: 52ch;
-  }
-  .home-team {
-    padding-block: 3.5rem;
-    border-block-start: 1px solid var(--line);
-  }
-  .home-team h2 {
-    margin-block-end: 0.6rem;
-  }
-  .home-team p {
-    color: var(--muted);
-    max-inline-size: 59ch;
+  .contact-story > p {
     font-size: 0.9rem;
   }
-  :global([dir='rtl']) .research-list h3 span {
-    transform: scaleX(-1);
+  .professional-contact {
+    font-size: 0.85rem;
+    margin-block-start: 2rem;
   }
-  @media (max-width: 950px) {
-    .home-intro {
-      gap: 2rem;
-      padding-block-start: 3rem;
+  @media (max-width: 1099px) {
+    .referral-flow {
+      flex-wrap: wrap;
     }
-    .intro-actions {
-      gap: 0.75rem 1.25rem;
+    .contact-layout {
+      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr;
     }
-    .research-layout {
-      gap: 3rem;
+    .contact-steps :global(svg) {
+      inline-size: 90px;
+      block-size: 90px;
     }
   }
   @media (max-width: 650px) {
     .home-intro {
-      grid-template-columns: 1fr;
-      padding-block-start: 2rem;
+      min-block-size: 160svh;
     }
-    h1 {
-      font-size: clamp(2.8rem, 12vw, 3.7rem);
+    .hero-pin {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 0.5rem;
+      align-content: start;
+    }
+    .intro-copy {
+      padding-block: 0.5rem 0;
     }
     .group-byline {
-      margin-block-end: 1.25rem;
+      margin-block-end: 0.7rem;
+      font-size: 0.75rem;
+    }
+    .group-byline span {
+      font-size: 0.7rem;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 10vw, 3rem);
+      margin-block-end: 0.7rem;
+      line-height: 1.02;
     }
     .intro-text {
-      font-size: 1rem;
+      font-size: 0.9rem;
+      max-inline-size: 34ch;
     }
-    .intro-actions {
-      margin-block-end: 0;
+    .hero-art {
+      inline-size: calc(100% + 2rem);
+      margin-inline: -1rem;
+      max-inline-size: none;
+      align-self: center;
     }
-    .intro-visual {
-      max-inline-size: 410px;
-      inline-size: 100%;
-      margin-inline: auto;
-      padding-block-start: 0.5rem;
+    .research-section,
+    .studies-section,
+    .contact-section {
+      padding-block: 2.5rem;
     }
-    .institution-links {
-      padding-block-start: 0.5rem;
-    }
-    .research-layout {
+    .research-story {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 0;
     }
-    .research-section {
-      padding-block: 2.75rem;
+    .research-visual {
+      position: relative;
+      inset-block-start: auto;
+      max-inline-size: 420px;
     }
-    .research-list article:first-child {
-      border-block-start: 1px solid var(--line-strong);
-      padding-block-start: 1.3rem;
+    .research-step {
+      min-block-size: 0;
+      padding-block: 1.25rem;
+    }
+    .research-step p {
+      max-inline-size: 40ch;
+    }
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+    .referral-flow {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+    }
+    .referral-flow > span {
+      display: none;
+    }
+    .clinician-route {
+      padding: 1.25rem;
+    }
+    .contact-steps {
+      gap: 0.5rem;
+    }
+  }
+  @media (max-width: 650px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+    .research-story {
+      --research-scene-height: min(40svh, 340px);
+    }
+    .research-visual {
+      grid-area: 1 / 1;
+      position: sticky;
+      inset-block-start: var(--header-clearance);
+      block-size: var(--research-scene-height);
+      inline-size: 100%;
+      z-index: 2;
+      background: var(--paper);
+    }
+    .research-visual :global(.research-scene) {
+      block-size: 100%;
+    }
+    .research-steps {
+      grid-area: 1 / 1;
+      padding-block-start: calc(var(--research-scene-height) + 2rem);
+    }
+    .research-step {
+      min-block-size: 60svh;
+      padding-block: 2rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-intro {
+      min-block-size: 0;
+    }
+    .hero-pin {
+      position: relative;
+      inset-block-start: auto;
+      block-size: auto;
+      padding-block: 2rem;
+    }
+    .research-step {
+      min-block-size: 0;
+      padding-block: 2rem;
+    }
+    .research-visual {
+      position: relative;
+      inset-block-start: auto;
     }
   }
 </style>

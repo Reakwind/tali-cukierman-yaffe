@@ -1,0 +1,210 @@
+---
+import type { DiabetesIconName } from '../lib/diabetes-icons';
+interface Props {
+  name: DiabetesIconName;
+  size?: number;
+  x?: number;
+  y?: number;
+}
+const { name, size = 120, x = 0, y = 0 } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 120 120"
+  width={size}
+  height={size}
+  x={x}
+  y={y}
+  class="diabetes-icon"
+  data-diabetes-icon={name}
+  aria-hidden="true"
+  focusable="false"
+>
+  <g class="icon-lines">
+    {name === 'cognition' && (
+      <>
+        <rect class="teal" x="16" y="16" width="88" height="88" rx="12" />
+        <circle class="pink" cx="38" cy="38" r="8" />
+        <rect x="60" y="30" width="16" height="16" rx="2" />
+        <path d="M30 68H46M38 60V76M60 68L68 60L76 68L68 76Z" />
+      </>
+    )}
+    {name === 'strength' && (
+      <>
+        <rect class="teal" x="24" y="30" width="16" height="60" rx="4" />
+        <rect class="pink" x="80" y="30" width="16" height="60" rx="4" />
+        <path d="M40 54H80V66H40M24 44H14V76H24M96 44H106V76H96" />
+      </>
+    )}
+    {name === 'balance' && (
+      <>
+        <path d="M60 22V98M36 98H84M22 34H98M30 34L16 66H44ZM90 34L76 66H104Z" />
+        <path class="teal" d="M16 66A14 14 0 0 0 44 66Z" />
+        <path class="pink" d="M76 66A14 14 0 0 0 104 66Z" />
+        <circle class="paper" cx="60" cy="34" r="7" />
+      </>
+    )}
+    {name === 'fitness' && (
+      <>
+        <circle class="teal" cx="60" cy="66" r="36" />
+        <path class="pink" d="M48 12H72V24H48Z" />
+        <path d="M60 42V66L78 76M32 28L24 36M88 28L96 36" />
+        <circle class="paper" cx="60" cy="66" r="4" />
+      </>
+    )}
+    {name === 'glucose' && (
+      <>
+        <path
+          class="pink"
+          d="M60 14C48 34 28 51 28 72A32 32 0 0 0 92 72C92 51 72 34 60 14Z"
+        />
+        <path d="M44 76A16 16 0 0 0 60 92" />
+      </>
+    )}
+    {name === 'sensor' && (
+      <>
+        <circle class="teal" cx="60" cy="64" r="40" />
+        <rect class="paper" x="36" y="50" width="48" height="28" rx="14" />
+        <path d="M48 16Q60 8 72 16M42 6Q60 -4 78 6" />
+        <circle class="pink" cx="60" cy="64" r="6" />
+      </>
+    )}
+    {name === 'pump' && (
+      <>
+        <rect class="teal" x="28" y="12" width="60" height="96" rx="12" />
+        <rect class="paper" x="38" y="26" width="40" height="42" rx="4" />
+        <path class="pink" d="M45 54L54 46L63 50L72 38" />
+        <circle cx="58" cy="88" r="7" />
+        <path d="M88 22H96Q106 22 106 32V82" />
+      </>
+    )}
+    {name === 'injection' && (
+      <g transform="rotate(30 60 60)">
+        <rect class="teal" x="44" y="28" width="32" height="64" rx="5" />
+        <path class="pink" d="M44 28V16H76V28M44 68H76" />
+        <path d="M52 92V102H68V92M60 102V112M54 40H66M54 50H66" />
+      </g>
+    )}
+    {name === 'nutrition' && (
+      <>
+        <circle class="teal" cx="62" cy="62" r="34" />
+        <circle cx="62" cy="62" r="22" />
+        <path d="M12 22V48Q12 58 20 58V100M20 22V46M28 22V48Q28 58 20 58M106 22V100M106 22Q94 42 106 52" />
+        <path class="pink" d="M48 68Q48 46 74 46Q74 68 48 68ZM48 68L66 52" />
+      </>
+    )}
+    {name === 'calendar' && (
+      <>
+        <rect class="teal" x="16" y="24" width="88" height="80" rx="8" />
+        <path class="pink" d="M16 44H104V32Q104 24 96 24H24Q16 24 16 32Z" />
+        <path d="M36 14V32M84 14V32M34 64H44M56 64H66M78 64H88M34 84H44M56 84H66" />
+      </>
+    )}
+    {name === 'contact' && (
+      <>
+        <rect class="teal" x="14" y="28" width="92" height="64" rx="8" />
+        <path class="pink" d="M18 34L60 66L102 34" />
+        <path d="M18 86L44 62M102 86L76 62" />
+      </>
+    )}
+    {name === 'phone' && (
+      <>
+        <rect class="teal" x="30" y="12" width="60" height="96" rx="12" />
+        <rect class="paper" x="40" y="30" width="40" height="54" rx="4" />
+        <path d="M52 22H68M54 96H66" />
+        <path class="pink" d="M50 48H70V62H60L50 70Z" />
+      </>
+    )}
+    {name === 'conversation' && (
+      <>
+        <path class="teal" d="M14 22H82V74H46L28 90V74H14Z" />
+        <path class="pink" d="M82 44H106V96H88L74 108V96H58V74" />
+        <path d="M28 40H68M28 54H56" />
+      </>
+    )}
+    {name === 'paper' && (
+      <>
+        <path class="paper" d="M28 12H76L100 36V108H28Z" />
+        <path class="pink" d="M76 12V36H100" />
+        <path d="M44 54H84M44 70H84M44 86H68" />
+      </>
+    )}
+    {name === 'scan' && (
+      <>
+        <path class="teal" d="M24 92V24Q24 16 32 16H86V36H44V92Z" />
+        <rect class="pink" x="14" y="82" width="92" height="18" rx="4" />
+        <path d="M32 100V108M88 100V108M66 36V68M78 36V68M90 36V68" />
+      </>
+    )}
+    {name === 'sample' && (
+      <>
+        <path
+          class="teal"
+          d="M28 28H52V92A12 12 0 0 1 28 92ZM72 16H96V80A12 12 0 0 1 72 80Z"
+        />
+        <path
+          class="pink"
+          d="M28 64H52V92A12 12 0 0 1 28 92ZM72 52H96V80A12 12 0 0 1 72 80Z"
+        />
+        <path d="M24 18H56V28H24ZM68 6H100V16H68Z" />
+      </>
+    )}
+    {name === 'app' && (
+      <>
+        <rect class="teal" x="28" y="10" width="64" height="100" rx="12" />
+        <rect class="paper" x="38" y="28" width="44" height="60" rx="4" />
+        <path class="pink" d="M54 44L70 58L54 72Z" />
+        <path d="M52 100H68" />
+      </>
+    )}
+    {name === 'computer' && (
+      <>
+        <rect class="teal" x="12" y="18" width="96" height="66" rx="8" />
+        <path d="M46 84V102M74 84V102M32 104H88" />
+        <rect class="pink" x="32" y="38" width="16" height="24" rx="2" />
+        <path d="M62 40H88M62 52H88M62 64H76" />
+      </>
+    )}
+    {name === 'keyboard' && (
+      <>
+        <rect class="teal" x="10" y="32" width="100" height="60" rx="8" />
+        <path d="M24 48H30M44 48H50M64 48H70M84 48H94M24 64H30M44 64H50M64 64H70M84 64H94M36 80H84" />
+      </>
+    )}
+    {name === 'language' && (
+      <>
+        <circle class="teal" cx="60" cy="60" r="44" />
+        <ellipse cx="60" cy="60" rx="20" ry="44" />
+        <path d="M16 60H104M24 36H96M24 84H96" />
+      </>
+    )}
+    {name === 'motion' && (
+      <>
+        <rect class="teal" x="16" y="24" width="88" height="72" rx="12" />
+        <path d="M48 44V76M72 44V76" />
+      </>
+    )}
+  </g>
+</svg>
+<style>
+  .diabetes-icon {
+    display: block;
+    overflow: visible;
+  }
+  .icon-lines {
+    stroke: var(--teal);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+  .pink {
+    fill: var(--magenta-soft);
+  }
+  .teal {
+    fill: var(--teal-soft);
+  }
+  .paper {
+    fill: var(--paper);
+  }
+</style>

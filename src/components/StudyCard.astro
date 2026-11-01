@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui, type Locale } from '../i18n/ui';
 import StudyName from './StudyName.astro';
+import ResearchText from './ResearchText.astro';
 
 interface Props {
   study: CollectionEntry<'studies'>;
@@ -13,12 +14,17 @@ const { study, locale, compact = false } = Astro.props;
 const t = ui[locale];
 const data = study.data;
 const content = data.localized[locale];
-const closed = data.registryStatus === 'COMPLETED';
+const recruiting = Boolean(data.recruitment);
+const project = data.kind === 'project';
 const Heading = compact ? 'h3' : 'h2';
 const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
   dateStyle: 'long',
   timeZone: 'UTC',
-}).format(new Date(`${data.registryUpdated}T00:00:00Z`));
+}).format(
+  new Date(
+    `${data.recruitment?.confirmedOn ?? (data.kind === 'trial' ? data.registryUpdated : data.sourceChecked)}T00:00:00Z`,
+  ),
+);
 ---
 
 <article
@@ -27,40 +33,65 @@ const updated = new Intl.DateTimeFormat(locale === 'he' ? 'he-IL' : 'en-GB', {
   data-study={study.id}
   data-status={data.registryStatus}
 >
-  <span class:list={['status', { 'status-closed': closed }]}>
-    {closed ? t.completed : t.recruiting}
-  </span>
+  {recruiting && !compact && <span class="status">{t.recruiting}</span>}
   <Heading>
-    <StudyName title={content.title} acronym={data.acronym} />
+    {compact ? (
+      <a href={getRelativeLocaleUrl(locale, `studies/${study.id}/`)}>
+        <ResearchText text={data.acronym ?? content.title} />
+      </a>
+    ) : (
+      <StudyName title={content.title} acronym={data.acronym} />
+    )}
   </Heading>
-  <p>{content.summary}</p>
-  <dl class="study-facts">
-    <div>
-      <dt>
-        {compact
-          ? locale === 'he'
-            ? 'משך המחקר'
-            : 'Study duration'
-          : t.record}
-      </dt>
-      <dd>
-        {compact ? content.duration : <bdi dir="ltr">{data.registryId}</bdi>}
-      </dd>
-    </div>
-    <div>
-      <dt>{t.updated}</dt>
-      <dd>
-        <time datetime={data.registryUpdated}>{updated}</time>
-      </dd>
-    </div>
-  </dl>
-  <a
-    class="text-link"
-    href={getRelativeLocaleUrl(locale, `studies/${study.id}/`)}
-  >
-    {t.readStudy}
-    <span class="arrow" aria-hidden="true">
-      →
-    </span>
-  </a>
+  <p>
+    <ResearchText
+      text={
+        compact ? (content.homepageSummary ?? content.summary) : content.summary
+      }
+    />
+  </p>
+  {!compact && (
+    <dl class="study-facts">
+      {!compact && data.kind === 'trial' && (
+        <div>
+          <dt>{t.record}</dt>
+          <dd>
+            <bdi dir="ltr">{data.registryId}</bdi>
+          </dd>
+        </div>
+      )}
+      <div>
+        <dt>
+          {recruiting
+            ? t.recruitmentConfirmed
+            : project
+              ? t.sourceChecked
+              : t.updated}
+        </dt>
+        <dd>
+          <time
+            datetime={
+              data.recruitment?.confirmedOn ??
+              (data.kind === 'trial'
+                ? data.registryUpdated
+                : data.sourceChecked)
+            }
+          >
+            {updated}
+          </time>
+        </dd>
+      </div>
+    </dl>
+  )}
+  {!compact && (
+    <a
+      class:list={['text-link', { button: recruiting }]}
+      href={`${getRelativeLocaleUrl(locale, `studies/${study.id}/`)}${recruiting ? '#taking-part' : ''}`}
+    >
+      {recruiting ? t.learnParticipation : t.readStudy}
+      <span class="arrow" aria-hidden="true">
+        →
+      </span>
+    </a>
+  )}
 </article>

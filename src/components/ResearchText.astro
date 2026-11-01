@@ -1,0 +1,25 @@
+---
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const identifiers =
+  /((?:MiniMed 780G|GRACE-780G|STAY-STRONG|Diabetes UK|BIRAX|EASD|DSST|MoCA|REWIND|ACCORD-MIND|ORIGIN|GLP-1|BMI|MRI|DXA|BIA|6 Vital|\d+(?:\.\d+)?[–-]\d+(?:\.\d+)?|\d+(?:\.\d+)?%))/g;
+const segments = text.split(identifiers);
+---
+
+{segments.map((segment, index) =>
+  index % 2 ? (
+    <bdi class="research-identifier" dir="ltr">
+      {segment}
+    </bdi>
+  ) : (
+    segment
+  ),
+)}
+
+<style>
+  .research-identifier {
+    white-space: nowrap;
+  }
+</style>

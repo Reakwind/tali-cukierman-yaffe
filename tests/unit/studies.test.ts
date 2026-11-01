@@ -18,10 +18,75 @@ const completed = JSON.parse(
     'utf8',
   ),
 );
+const birax = JSON.parse(
+  await readFile(
+    new URL('../../src/content/studies/birax.json', import.meta.url),
+    'utf8',
+  ),
+);
 
-test('the two sourced bilingual study records are valid', () => {
+const project = {
+  kind: 'project',
+  acronym: 'BIRAX',
+  registryStatus: 'NOT_VERIFIED',
+  sourceUrl: 'https://en-cuenca-institute.tau.ac.il/board-of-directors',
+  sourceChecked: '2026-11-01',
+  approval: 'draft',
+  enquiriesAvailable: false,
+  localized: recruiting.localized,
+};
+
+const confirmedRecruitment = {
+  status: 'recruiting',
+  confirmedOn: '2026-11-01',
+  source: 'owner',
+};
+
+test('owner-confirmed project recruitment is distinct from registry status', () => {
+  const result = studySchema.safeParse({
+    ...project,
+    recruitment: confirmedRecruitment,
+  });
+  assert.equal(result.success, true);
+  if (result.success) assert.equal('registryId' in result.data, false);
+});
+
+test('a completed trial cannot acquire a participant recruitment invitation', () => {
+  assert.equal(
+    studySchema.safeParse({ ...completed, recruitment: confirmedRecruitment })
+      .success,
+    false,
+  );
+});
+
+test('a research project can be described without an invented trial ID or recruitment claim', () => {
+  const result = studySchema.safeParse(project);
+  assert.equal(result.success, true);
+  if (result.success) {
+    assert.equal('registryId' in result.data, false);
+    assert.equal('registryUpdated' in result.data, false);
+  }
+});
+
+for (const change of [
+  { registryStatus: 'RECRUITING' },
+  { registryId: 'NCT00000000' },
+  { registryUpdated: '2026-11-01' },
+  { sourceUrl: 'javascript:alert(1)' },
+  { enquiriesAvailable: true },
+]) {
+  test(`a project rejects unsupported facts: ${JSON.stringify(change)}`, () => {
+    assert.equal(
+      studySchema.safeParse({ ...project, ...change }).success,
+      false,
+    );
+  });
+}
+
+test('all three sourced bilingual study and project records are valid', () => {
   assert.equal(studySchema.safeParse(recruiting).success, true);
   assert.equal(studySchema.safeParse(completed).success, true);
+  assert.equal(studySchema.safeParse(birax).success, true);
 });
 
 const unsafeRecords = [

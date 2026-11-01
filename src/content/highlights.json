@@ -1,0 +1,68 @@
+[
+  {
+    "id": "grace-results",
+    "study": "hybrid-closed-loop",
+    "year": 2026,
+    "sourceUrl": "https://easddistribute.m-anage.com/from.storage?image=DRQMKAdip9FzW2MCANbX49w3an0Yo0TbAUx61uf-MLE8Lc6YRYFPblGBhJ7f6xIH0",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "localized": {
+      "en": {
+        "dateLabel": "2026",
+        "title": "GRACE-780G results at EASD",
+        "summary": "A late-breaking abstract reports glucose-control findings from the MiniMed 780G trial. Hagar Shimon is first author.",
+        "sourceLabel": "Read the EASD conference abstract (PDF)"
+      },
+      "he": {
+        "dateLabel": "2026",
+        "title": "תוצאות GRACE-780G בכנס EASD",
+        "summary": "תקציר בכנס מדווח על מדדי איזון סוכר ממחקר MiniMed 780G. הגר שמעון היא המחברת הראשונה.",
+        "sourceLabel": "לקריאת תקציר EASD באנגלית (PDF)"
+      }
+    }
+  },
+  {
+    "id": "cuenca-scholarships",
+    "study": "stay-strong",
+    "year": 2026,
+    "sourceUrl": "https://cuenca-institute.tau.ac.il/2nd-conference?tab=2",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "localized": {
+      "en": {
+        "dateLabel": "2026",
+        "title": "Cuenca recognition for STAY-STRONG research",
+        "summary": "Tal Yahalom-Peri received a Cuenca Excellence Scholarship for her research on exercise and nutrition alongside semaglutide in STAY-STRONG.",
+        "sourceLabel": "See the Cuenca scholarship recipients (Hebrew)"
+      },
+      "he": {
+        "dateLabel": "2026",
+        "title": "מלגת הצטיינות מקואנקה למחקר STAY-STRONG",
+        "summary": "טל יהלום פרי קיבלה מלגת הצטיינות ממכון קואנקה על מחקרה בפעילות גופנית ותזונה לצד סמגלוטייד במסגרת STAY-STRONG.",
+        "sourceLabel": "לרשימת זוכי המלגות של מכון קואנקה"
+      }
+    }
+  },
+  {
+    "id": "birax-collaboration",
+    "study": "birax",
+    "year": 2024,
+    "sourceUrl": "https://www.diabetes.org.uk/our-research/about-our-research/our-funded-projects/wales/personalising-care-type-2-age-well",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "localized": {
+      "en": {
+        "dateLabel": "2024–2027 project period",
+        "title": "A UK–Israel collaboration on physical assessment",
+        "summary": "The BIRAX and Diabetes UK project connects our group with Steve Bain at Swansea to develop data-based assessment of physical capacity in older adults with diabetes.",
+        "sourceLabel": "Read the Diabetes UK project description"
+      },
+      "he": {
+        "dateLabel": "תקופת המיזם: 2024–2027",
+        "title": "שיתוף פעולה בריטי־ישראלי בהערכה גופנית",
+        "summary": "המיזם במימון BIRAX ו־Diabetes UK מחבר את הקבוצה עם סטיב ביין מסוונסי לפיתוח הערכת יכולת גופנית מבוססת נתונים במבוגרים עם סוכרת.",
+        "sourceLabel": "לתיאור המיזם באתר Diabetes UK באנגלית"
+      }
+    }
+  }
+]

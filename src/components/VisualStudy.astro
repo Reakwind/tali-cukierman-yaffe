@@ -1,0 +1,446 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/ui';
+import DiabetesIcon from './DiabetesIcon.astro';
+import ResearchText from './ResearchText.astro';
+interface Props {
+  study: CollectionEntry<'studies'>;
+  visual: CollectionEntry<'visualStudies'>;
+  locale: Locale;
+}
+const { study, visual, locale } = Astro.props;
+const data = visual.data;
+if (data.kind === 'result')
+  throw new Error('Research results cannot be a recruitment protocol.');
+const copy = data.localized[locale];
+const he = locale === 'he';
+---
+
+<article
+  id={`study-${study.id}`}
+  class:list={['visual-study', `visual-study--${data.kind}`]}
+  data-study={study.id}
+  tabindex="-1"
+  aria-labelledby={`study-${study.id}-title`}
+>
+  <header class="study-heading">
+    <span class="study-recruiting">
+      {he ? 'מגייסים משתתפים' : 'Now recruiting'}
+    </span>
+    <h3 id={`study-${study.id}-title`}>
+      <bdi dir="ltr">{study.data.acronym}</bdi>
+    </h3>
+    <p class="study-lead">
+      <ResearchText text={copy.lead} />
+    </p>
+  </header>
+  <div class="study-audience">
+    <DiabetesIcon name="contact" size={58} />
+    <p>
+      <ResearchText text={copy.audience} />
+    </p>
+  </div>
+  <div data-study-details>
+    {data.kind === 'assessment' ? (
+      <>
+        <div
+          class="capacity-map"
+          role="group"
+          aria-label={he ? 'תחומי הערכה' : 'Assessment domains'}
+        >
+          <div class="capacity-center">
+            <DiabetesIcon name="computer" size={180} />
+            <p>{he ? 'למידת מכונה' : 'Machine learning'}</p>
+          </div>
+          <div class="capacity-domains">
+            {data.localized[locale].features.map((feature) => (
+              <figure data-capacity={feature.icon}>
+                <DiabetesIcon name={feature.icon} size={130} />
+                <figcaption>{feature.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div class="study-caption">
+          <DiabetesIcon name="conversation" size={64} />
+          <p>{copy.visitNote}</p>
+        </div>
+        <p class="study-partners">
+          <ResearchText text={data.localized[locale].partnership} /> ·{' '}
+          <ResearchText text={data.localized[locale].funding} />
+        </p>
+      </>
+    ) : (
+      <>
+        <div class="shared-treatment">
+          <DiabetesIcon name="injection" size={76} />
+          <p>{data.localized[locale].treatment}</p>
+        </div>
+        <div class="allocation">
+          <span>{data.localized[locale].allocation}</span>
+          <svg viewBox="0 0 600 60" aria-hidden="true">
+            <path d="M300 0V25H105V59M300 25H495V59" />
+          </svg>
+        </div>
+        <div class="trial-arms">
+          <div class="trial-arm intervention">
+            <div class="paired-icons">
+              <DiabetesIcon name="fitness" size={135} />
+              <DiabetesIcon name="nutrition" size={135} />
+            </div>
+            <h4>{data.localized[locale].intervention}</h4>
+          </div>
+          <div class="trial-arm control">
+            <DiabetesIcon name="conversation" size={160} />
+            <h4>{data.localized[locale].control}</h4>
+          </div>
+        </div>
+        <div class="visit-roadmap" data-study-timeline>
+          <h4>
+            <bdi>{data.durationWeeks}</bdi> {he ? 'שבועות' : 'weeks'}
+          </h4>
+          <svg
+            viewBox="0 0 820 130"
+            role="img"
+            aria-label={
+              he
+                ? 'ביקורי הערכה בתחילת המחקר ובשבועות 8, 16 ו־26'
+                : 'Assessment visits at the start and weeks 8, 16 and 26'
+            }
+          >
+            <path d="M40 45H780" />
+            {data.assessmentWeeks.map((week) => {
+              const x =
+                40 +
+                ((he ? data.durationWeeks - week : week) / data.durationWeeks) *
+                  740;
+              return (
+                <g data-visit-week={week}>
+                  <circle cx={x} cy="45" r="19" />
+                  <text x={x} y="105" text-anchor="middle" direction="ltr">
+                    {week}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+          <p>{copy.visitNote}</p>
+        </div>
+        <h4 class="routine-heading">{data.localized[locale].weeklyTitle}</h4>
+        <div class="weekly-rhythm">
+          <figure>
+            <DiabetesIcon name="fitness" size={110} />
+            <figcaption>
+              <strong>
+                <bdi>
+                  {data.weekly.guided} × {data.weekly.guidedMinutes}
+                </bdi>{' '}
+                {he ? 'דקות' : 'min'}
+              </strong>
+              {data.localized[locale].guided}
+            </figcaption>
+          </figure>
+          <figure>
+            <DiabetesIcon name="strength" size={110} />
+            <figcaption>
+              <strong>
+                <bdi>{data.weekly.home}</bdi>
+              </strong>
+              {data.localized[locale].home}
+            </figcaption>
+          </figure>
+          <figure>
+            <DiabetesIcon name="phone" size={110} />
+            <figcaption>
+              <strong>
+                <bdi>{data.weekly.calls}</bdi>
+              </strong>
+              {data.localized[locale].calls}
+            </figcaption>
+          </figure>
+        </div>
+        <p class="dietitian-note">
+          <DiabetesIcon name="nutrition" size={58} />
+          {data.localized[locale].dietitian}
+        </p>
+        <ul class="study-tools">
+          {data.localized[locale].features.map((feature) => (
+            <li>
+              <DiabetesIcon name={feature.icon} size={70} />
+              <span>{feature.label}</span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+    <p class="study-reference">
+      {study.data.kind === 'trial' && (
+        <>
+          <bdi dir="ltr">{study.data.registryId}</bdi> ·{' '}
+        </>
+      )}
+      {he ? 'המידע נבדק' : 'Information checked'}{' '}
+      <time datetime={data.sourceChecked}>
+        {new Intl.DateTimeFormat(he ? 'he-IL' : 'en-GB', {
+          dateStyle: 'long',
+          timeZone: 'UTC',
+        }).format(new Date(`${data.sourceChecked}T00:00:00Z`))}
+      </time>
+    </p>
+  </div>
+</article>
+<style>
+  .visual-study {
+    padding: 3rem;
+    background: var(--paper);
+    border-block-start: 3px solid var(--teal);
+  }
+  .visual-study + .visual-study {
+    margin-block-start: 3rem;
+  }
+  .study-heading {
+    max-inline-size: 58ch;
+  }
+  .study-heading h3 {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    margin-block: 0.5rem;
+  }
+  .study-recruiting {
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .study-lead {
+    font-size: 1.1rem;
+    margin-block-end: 1rem;
+  }
+  .study-audience {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--muted);
+    margin-block-end: 2rem;
+  }
+  .study-audience p {
+    margin: 0;
+  }
+  figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.7rem;
+  }
+  figcaption {
+    font-size: 0.9rem;
+  }
+  .capacity-map {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    align-items: center;
+    gap: 2rem;
+    padding-block: 2.5rem;
+    background: var(--paper);
+    border-block: 1px solid var(--line);
+  }
+  .capacity-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-inline-end: 2px solid var(--teal-soft);
+  }
+  .capacity-center p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .capacity-domains {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .study-caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+  .study-caption p {
+    margin: 0;
+  }
+  .study-partners {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .shared-treatment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .shared-treatment p {
+    margin: 0;
+    font-weight: 500;
+  }
+  .allocation {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .allocation svg {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 600px;
+    margin-inline: auto;
+    block-size: 60px;
+    stroke: var(--teal);
+    stroke-width: 2;
+    fill: none;
+  }
+  .trial-arms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .trial-arm {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    text-align: center;
+  }
+  .intervention {
+    background: var(--teal-soft);
+  }
+  .control {
+    background: var(--magenta-soft);
+  }
+  .trial-arm h4 {
+    margin-block: 1rem 0;
+  }
+  .paired-icons {
+    display: flex;
+    justify-content: center;
+  }
+  .visit-roadmap {
+    margin-block: 2.5rem;
+  }
+  .visit-roadmap h4 {
+    font-size: 1.4rem;
+  }
+  .visit-roadmap svg {
+    inline-size: 100%;
+    block-size: auto;
+    overflow: visible;
+  }
+  .visit-roadmap path {
+    stroke: var(--teal);
+    stroke-width: 3;
+  }
+  .visit-roadmap circle {
+    fill: var(--magenta-soft);
+    stroke: var(--magenta);
+    stroke-width: 3;
+  }
+  .visit-roadmap text {
+    fill: var(--ink);
+    font:
+      28px 'Lexend',
+      sans-serif;
+  }
+  .visit-roadmap p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .routine-heading {
+    font-size: 1rem;
+    margin-block: 2rem 1rem;
+  }
+  .weekly-rhythm {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-block: 1px solid var(--line);
+  }
+  .weekly-rhythm strong {
+    display: block;
+    font-size: 1.15rem;
+    color: var(--teal);
+  }
+  .dietitian-note {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    margin-block: 1.5rem;
+  }
+  .study-tools {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 2rem;
+    padding: 0;
+    list-style: none;
+  }
+  .study-tools li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+  .study-reference {
+    color: var(--muted);
+    font-size: 0.7rem;
+    margin-block: 2rem 0;
+  }
+  @media (max-width: 650px) {
+    .visual-study {
+      padding: 1.25rem;
+    }
+    .visit-roadmap text {
+      font-size: 56px;
+    }
+    .weekly-rhythm figure {
+      flex: 1 1 0;
+      min-inline-size: 0;
+    }
+    .capacity-map {
+      grid-template-columns: 1fr;
+    }
+    .capacity-center {
+      border-inline-end: 0;
+    }
+    .capacity-domains :global(svg) {
+      inline-size: 74px;
+      block-size: 74px;
+    }
+    .trial-arms {
+      gap: 0.65rem;
+    }
+    .trial-arm {
+      padding: 1rem 0.5rem;
+    }
+    .trial-arm :global(svg) {
+      inline-size: 90px;
+      block-size: 90px;
+    }
+    .paired-icons {
+      flex-direction: column;
+    }
+    .weekly-rhythm :global(svg) {
+      inline-size: 75px;
+      block-size: 75px;
+    }
+    .weekly-rhythm figcaption {
+      font-size: 0.75rem;
+    }
+    .study-tools {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

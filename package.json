@@ -13,6 +13,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "dev:worker": "npm run build && wrangler dev --local",
+    "check:worker": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "check": "astro check",
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
@@ -34,6 +36,7 @@
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.1"
+    "typescript-eslint": "8.72.1",
+    "wrangler": "4.156.0"
   }
 }

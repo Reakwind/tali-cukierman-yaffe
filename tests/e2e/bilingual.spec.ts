@@ -47,7 +47,7 @@ test('mobile navigation works with native keyboard controls', async ({
     .locator('details')
     .getByRole('link', { name: 'Research', exact: true })
     .click();
-  await expect(page).toHaveURL(/\/en\/research\/$/);
+  await expect(page).toHaveURL(/\/en\/#home-research$/);
 });
 
 test('a keyboard skip link reaches the main content', async ({
@@ -77,9 +77,10 @@ test('Hebrew navigation and language switching work without JavaScript', async (
     .locator('details')
     .getByRole('link', { name: 'מחקר', exact: true })
     .click();
-  await expect(page).toHaveURL(/\/he\/research\/$/);
+  await expect(page).toHaveURL(/\/he\/#home-research$/);
+  await page.locator('.mobile-menu summary').click();
   await page.getByRole('link', { name: 'English', exact: true }).click();
-  await expect(page).toHaveURL(/\/en\/research\/$/);
+  await expect(page).toHaveURL(/\/en\/$/);
   await context.close();
 });
 
@@ -87,10 +88,12 @@ test('research-theme links reach a real section, not an altered fragment', async
   page,
 }) => {
   await page.goto('/en/');
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page
-    .getByRole('link', { name: /Diabetes & cognitive function/ })
+    .locator('.desktop-nav')
+    .getByRole('link', { name: 'Research', exact: true })
     .click();
-  await expect(page.locator(':target')).toHaveAttribute('id', 'cognition');
+  await expect(page.locator(':target')).toHaveAttribute('id', 'home-research');
 });
 
 for (const locale of ['en', 'he']) {

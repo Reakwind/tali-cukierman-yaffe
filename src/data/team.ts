@@ -125,12 +125,12 @@ export const team: TeamMember[] = [
       he: 'איתי כהן',
     },
     role: {
-      en: 'MSc student in epidemiology · Expert rehabilitation psychologist',
-      he: 'סטודנט לתואר שני באפידמיולוגיה · פסיכולוג שיקומי מומחה',
+      en: 'MSc student in epidemiology',
+      he: 'סטודנט לתואר שני באפידמיולוגיה',
     },
     bio: {
-      en: 'Itay Cohen is an expert rehabilitation psychologist and an MSc student in epidemiology at the School of Public Health, Tel Aviv University, supervised by Prof. Tali Cukierman-Yaffe. His thesis, conducted at the Centre for Successful Aging with Diabetes at Sheba Medical Center, validates a digital self-administered version of the Digit Symbol Substitution Test (DSST) as an accessible screening tool for identifying cognitive decline among older adults with type 1 diabetes. His work combines neuropsychological assessment, clinical research, and digital health, with the aim of enabling routine cognitive screening in diabetes clinics. He received the Cuenca Institute Research Scholarship in 2026 and has presented posters at two Cuenca Institute conferences.',
-      he: 'איתי כהן הוא פסיכולוג שיקומי מומחה וסטודנט לתואר שני באפידמיולוגיה בבית הספר לבריאות הציבור באוניברסיטת תל אביב, בהנחיית פרופ׳ טלי צוקרמן־יפה. עבודת התזה שלו, המתבצעת במרכז להזדקנות מוצלחת עם סוכרת בשיבא, מתקפת גרסה דיגיטלית למילוי עצמי של מבחן ה־DSST ככלי סקר נגיש לאיתור ירידה קוגניטיבית בקרב מבוגרים עם סוכרת סוג 1 — סיבוך שכיח שלרוב אינו מאובחן ופוגע ביכולת הטיפול העצמי. עבודתו משלבת אבחון נוירופסיכולוגי, מחקר קליני ובריאות דיגיטלית, מתוך כוונה לאפשר סקר קוגניטיבי שגרתי במרפאות סוכרת. הוא זכה במלגת המחקר של מכון קואנקה לשנת 2026 והציג פוסטרים בשני כנסי המכון.',
+      en: 'Itay Cohen is an MSc student in epidemiology at the School of Public Health, Tel Aviv University, supervised by Prof. Tali Cukierman-Yaffe. His thesis, conducted at the Centre for Successful Aging with Diabetes at Sheba Medical Center, validates a digital self-administered version of the Digit Symbol Substitution Test (DSST) as an accessible screening tool for identifying cognitive decline among older adults with type 1 diabetes. His work combines neuropsychological assessment, clinical research, and digital health, with the aim of enabling routine cognitive screening in diabetes clinics. He received the Cuenca Institute Research Scholarship in 2026 and has presented posters at two Cuenca Institute conferences.',
+      he: 'איתי כהן הוא סטודנט לתואר שני באפידמיולוגיה בבית הספר לבריאות הציבור באוניברסיטת תל אביב, בהנחיית פרופ׳ טלי צוקרמן־יפה. עבודת התזה שלו, המתבצעת במרכז להזדקנות מוצלחת עם סוכרת בשיבא, מתקפת גרסה דיגיטלית למילוי עצמי של מבחן ה־DSST ככלי סקר נגיש לאיתור ירידה קוגניטיבית בקרב מבוגרים עם סוכרת סוג 1 — סיבוך שכיח שלרוב אינו מאובחן ופוגע ביכולת הטיפול העצמי. עבודתו משלבת אבחון נוירופסיכולוגי, מחקר קליני ובריאות דיגיטלית, מתוך כוונה לאפשר סקר קוגניטיבי שגרתי במרפאות סוכרת. הוא זכה במלגת המחקר של מכון קואנקה לשנת 2026 והציג פוסטרים בשני כנסי המכון.',
     },
     photo: {
       src: '/images/team/itay.png',
