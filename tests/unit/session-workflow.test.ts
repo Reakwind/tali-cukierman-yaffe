@@ -215,6 +215,29 @@ describe('session worktrees and the daily pull request', () => {
     assert.doesNotMatch(branches, /session\/|day\//);
   });
 
+  it('trims sessions whose conflict was resolved on the day branch', () => {
+    assert.equal(session(root, 'start', 'left').status, 0);
+    assert.equal(session(root, 'start', 'right').status, 0);
+    const left = path.join(worktrees, `${DATE}-left`);
+    const right = path.join(worktrees, `${DATE}-right`);
+    commitFile(left, 'README.md', 'left\n', 'docs: say left');
+    commitFile(right, 'README.md', 'right\n', 'docs: say right');
+    const conflicted = session(root, 'finish');
+    assert.notEqual(conflicted.status, 0);
+    assert.match(conflicted.stderr, /conflict/i);
+    const day = path.join(worktrees, `day-${DATE}`);
+    commitFile(day, 'README.md', 'left and right\n', 'docs: combine both');
+    assert.equal(session(root, 'finish').status, 0);
+    squashMerge(`day/${DATE}`);
+
+    const res = session(root, 'cleanup');
+    assert.equal(res.status, 0, res.stderr);
+    assert.equal(existsSync(left), false);
+    assert.equal(existsSync(right), false);
+    const branches = git(root, 'branch', '--format=%(refname:short)');
+    assert.doesNotMatch(branches, /session\/|day\//);
+  });
+
   it('keeps a branch that gained commits after its squash merge', () => {
     assert.equal(session(root, 'start', 'ongoing').status, 0);
     const wt = path.join(worktrees, `${DATE}-ongoing`);
