@@ -238,6 +238,31 @@ describe('session worktrees and the daily pull request', () => {
     assert.doesNotMatch(branches, /session\/|day\//);
   });
 
+  it('trims a conflict-resolved session once its temporary changes are gone', () => {
+    assert.equal(session(root, 'start', 'left').status, 0);
+    assert.equal(session(root, 'start', 'right').status, 0);
+    const left = path.join(worktrees, `${DATE}-left`);
+    const right = path.join(worktrees, `${DATE}-right`);
+    commitFile(left, 'README.md', 'left\n', 'docs: say left');
+    commitFile(right, 'README.md', 'right\n', 'docs: say right');
+    assert.notEqual(session(root, 'finish').status, 0);
+    const day = path.join(worktrees, `day-${DATE}`);
+    commitFile(day, 'README.md', 'left and right\n', 'docs: combine both');
+    assert.equal(session(root, 'finish').status, 0);
+    squashMerge(`day/${DATE}`);
+
+    writeFileSync(path.join(right, 'scratch.txt'), 'temporary\n');
+    assert.equal(session(root, 'cleanup').status, 0);
+    assert.ok(existsSync(right), 'a dirty worktree is kept');
+    rmSync(path.join(right, 'scratch.txt'));
+
+    const res = session(root, 'cleanup');
+    assert.equal(res.status, 0, res.stderr);
+    assert.equal(existsSync(right), false);
+    const branches = git(root, 'branch', '--format=%(refname:short)');
+    assert.doesNotMatch(branches, /session\/|day\//);
+  });
+
   it('keeps a branch that gained commits after its squash merge', () => {
     assert.equal(session(root, 'start', 'ongoing').status, 0);
     const wt = path.join(worktrees, `${DATE}-ongoing`);
