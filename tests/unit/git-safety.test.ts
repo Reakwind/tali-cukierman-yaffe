@@ -181,4 +181,37 @@ describe('multi-agent repo structure and destructive git protections', () => {
     );
     assert.equal(pushFeature.status, 0, pushFeature.stderr);
   });
+
+  it('refuses a push when the remote tip has not been fetched, but allows fast-forwards', () => {
+    const push = (input: string) =>
+      spawnSync(
+        'sh',
+        [prePushHook, 'origin', 'https://github.com/Reakwind/x.git'],
+        { input, encoding: 'utf8' },
+      );
+    const rev = (ref: string) =>
+      spawnSync('git', ['rev-parse', ref], { encoding: 'utf8' }).stdout.trim();
+
+    // Someone else's commit we have never fetched: the ancestry check cannot
+    // run, so a force push could silently overwrite their work.
+    const unknown = push(
+      `refs/heads/feat/x ${rev('HEAD')} refs/heads/feat/x 3333333333333333333333333333333333333333\n`,
+    );
+    assert.notEqual(unknown.status, 0);
+    assert.match(unknown.stderr, /fetch/i);
+
+    const fastForward = push(
+      `refs/heads/feat/x ${rev('HEAD')} refs/heads/feat/x ${rev('HEAD~1')}\n`,
+    );
+    assert.equal(fastForward.status, 0, fastForward.stderr);
+  });
+
+  it('keeps the memory plugin state file out of git', () => {
+    const ignored = spawnSync(
+      'git',
+      ['check-ignore', '--quiet', '.anchor/session-state.md'],
+      { encoding: 'utf8' },
+    );
+    assert.equal(ignored.status, 0, '.anchor/ should be in .gitignore');
+  });
 });
