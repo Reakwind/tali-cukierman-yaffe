@@ -5,14 +5,21 @@
 Repository: https://github.com/Reakwind/tali-cukierman-yaffe
 
 The full codebase is published on `main` for cloud and multi-agent development
-(including Claude Code in the cloud). Every feature or fix is developed on a
-`<type>/<slug>` branch cut from `origin/main`, committed in short (`<= 72` char)
-conventional commits, verified with `npm run verify`, and squash-merged through a
-pull request. Do not force-push a shared branch or push directly to `main`.
+(including Claude Code in the cloud). Each local session works in its own git
+worktree on a `session/<date>-<slug>` branch and commits every change. At the end
+of the day `npm run day:finish` merges the sessions into `day/<date>` and opens one
+PR, verified with `npm run verify` and squash-merged. GitHub deletes the merged
+branch; the next `npm run session:start` (or `day:cleanup`) removes local worktrees
+and branches already on `origin/main` and fast-forwards the root `main` checkout.
+Do not force-push a shared branch or push directly to `main`.
 
 Applied and read back through GitHub's API on 2026-10-30:
 
 - Public visibility; squash-only merges; merged branches automatically deleted.
+- Requested 2026-11-02, not yet applied or verified: squash commits use the PR
+  title and list each commit's message (`squash_merge_commit_title: PR_TITLE`,
+  `squash_merge_commit_message: COMMIT_MESSAGES`), so `main` history names every
+  change in the day's PR.
 - `main` requires PRs, the `quality` check, up-to-date branches, resolved
   conversations, and linear history. Administrators are covered. Force pushes
   and branch deletion are disabled.
