@@ -76,16 +76,34 @@ function localBranches(pattern: string) {
   return out ? out.split('\n') : [];
 }
 
-/** True when merging `ref` into origin/main would change nothing. */
-function onMain(ref: string) {
+/** True when merging `ref` into `commit` would change nothing. */
+function containedIn(commit: string, ref: string) {
   const merged = run(
     root,
     'git',
-    ['merge-tree', '--write-tree', 'origin/main', ref],
+    ['merge-tree', '--write-tree', commit, ref],
     true,
   );
   const tree = merged.out.split('\n')[0];
-  return merged.ok && tree === git(root, 'rev-parse', 'origin/main^{tree}');
+  return merged.ok && tree === git(root, 'rev-parse', `${commit}^{tree}`);
+}
+
+/**
+ * True when some commit on origin/main since `ref` branched off already held
+ * all of its changes, such as the squash merge of its PR. Checking each commit
+ * rather than only the tip means later edits to the same files on main do not
+ * hide a merge; commits added to `ref` after its merge still keep it.
+ */
+function onMain(ref: string) {
+  const base = git(root, 'merge-base', 'origin/main', ref);
+  const commits = git(
+    root,
+    'rev-list',
+    '--first-parent',
+    '--max-count=500',
+    `${base}..origin/main`,
+  );
+  return commits !== '' && commits.split('\n').some((c) => containedIn(c, ref));
 }
 
 const ahead = (ref: string) =>
@@ -103,12 +121,23 @@ function cleanup() {
   git(root, 'fetch', '--prune', '--quiet', 'origin');
   const attached = worktrees();
   const here = git(process.cwd(), 'rev-parse', '--show-toplevel');
+  const mergedDays = localBranches('day/**').filter(
+    (day) => ahead(day) > 0 && onMain(day),
+  );
+  // A session is merged when its content reached main, or when it is part of
+  // a merged day branch (for example after a conflict was resolved there).
+  const merged = (branch: string) =>
+    onMain(branch) ||
+    mergedDays.some((day) =>
+      gitOk(root, 'merge-base', '--is-ancestor', branch, day),
+    );
+  // Sessions first, so their day branches still exist for the ancestry check.
   for (const branch of [
     ...localBranches('session/**'),
     ...localBranches('day/**'),
   ]) {
     // A branch with no commits of its own is a session that has not started.
-    if (ahead(branch) === 0 || !onMain(branch)) continue;
+    if (ahead(branch) === 0 || !merged(branch)) continue;
     const wt = attached.find((w) => w.branch === branch);
     if (wt) {
       if (wt.path === here) {
