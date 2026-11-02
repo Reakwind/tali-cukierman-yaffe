@@ -11,6 +11,9 @@
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks || true",
+    "session:start": "node scripts/session.ts start",
+    "day:finish": "node scripts/session.ts finish",
+    "day:cleanup": "node scripts/session.ts cleanup",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
