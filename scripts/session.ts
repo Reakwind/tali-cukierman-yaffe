@@ -138,6 +138,18 @@ function cleanup() {
   ]) {
     // A branch with no commits of its own is a session that has not started.
     if (ahead(branch) === 0 || !merged(branch)) continue;
+    // Keep a day branch while a session that was kept (for example because of
+    // uncommitted changes) still depends on it as evidence of its merge.
+    if (branch.startsWith('day/')) {
+      const dependent = localBranches('session/**').find(
+        (s) =>
+          ahead(s) > 0 && gitOk(root, 'merge-base', '--is-ancestor', s, branch),
+      );
+      if (dependent) {
+        console.warn(`session: kept ${branch} while ${dependent} remains.`);
+        continue;
+      }
+    }
     const wt = attached.find((w) => w.branch === branch);
     if (wt) {
       if (wt.path === here) {
