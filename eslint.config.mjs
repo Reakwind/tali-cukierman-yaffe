@@ -12,6 +12,8 @@ export default [
       '.wrangler/**',
       'test-results/**',
       'playwright-report/**',
+      'coverage/**',
+      'blob-report/**',
     ],
   },
   js.configs.recommended,
