@@ -221,8 +221,6 @@ invented measurements. See [the researched scroll plan](scrolling-plan.md).
   information, accessibility, and ethics/institutional approval as applicable.
 - Approved public contact details; no personal mobile numbers copied automatically.
 - Permission-cleared photography and institutional/platform logos.
-- Bind the required `quality` check to the GitHub Actions app (CI first ran and
-  passed on 2026-11-02; repository protections are already in place).
 - Cloudflare account access and deployment choice; optional domain and code license.
 - Real-device/manual accessibility checks and final production smoke testing.
 

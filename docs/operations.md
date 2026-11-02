@@ -36,8 +36,9 @@ Applied and read back through GitHub's API on 2026-10-30:
 The JSON files in `.github/` document the settings submitted to GitHub. They are
 **not** automatically applied by GitHub when edited. Apply and verify deliberate
 future changes through the API/settings interface; do not weaken safeguards to
-get a PR merged. After CI first runs, bind the required check to the GitHub Actions
-application rather than accepting a check posted by any integration.
+get a PR merged. The required `quality` check is bound to the GitHub Actions app
+(`app_id` 15368, applied by the owner and read back on 2026-11-02), so a check of
+the same name posted by any other integration does not satisfy it.
 
 The account owner should use a passkey or two-factor authentication and store
 recovery codes securely. Account authentication and billing settings have not
