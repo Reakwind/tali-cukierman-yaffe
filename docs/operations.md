@@ -43,7 +43,11 @@ The account owner should use a passkey or two-factor authentication and store
 recovery codes securely. Account authentication and billing settings have not
 been changed by this project; never put recovery codes or tokens in the repo.
 
-CI uses standard Ubuntu runners and pinned Actions, without repository secrets.
+CI (`.github/workflows/ci.yml`) runs on every PR and push to `main`: the
+dependency audit, `npm run verify` on all five browser projects, and dependency
+review. It first ran on 2026-11-02 and passed (415 browser checks). It uses
+standard Ubuntu runners, which are free for public repositories, and pinned
+Actions, without repository secrets. Do not add larger or paid runners.
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote
 verification step after analyzable source is on the default branch.

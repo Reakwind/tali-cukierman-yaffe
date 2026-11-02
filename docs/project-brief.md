@@ -22,9 +22,9 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
   intake, website consent flow or pretend successful submission.
 - Tooling: owner approved installing Node.js LTS and GitHub CLI using Homebrew.
 - No new paid services or account upgrades.
-- Later decision: continue application development locally rather than grant the
-  additional GitHub workflow scope. Keep CI publishing, feature PRs, and merges
-  pending; do not work around that boundary.
+- Superseded 2026-11-02: CI now runs from `.github/workflows/ci.yml` at the
+  owner's request. The owner chose to keep it because GitHub Actions standard
+  runners are free for this public repository; Codex reviews PRs in addition.
 - Owner removed the visible "Website draft" banner on 2026-10-31. The site stays
   noindex/nofollow and content remains unreviewed; this is not launch approval.
 
@@ -221,8 +221,8 @@ invented measurements. See [the researched scroll plan](scrolling-plan.md).
   information, accessibility, and ethics/institutional approval as applicable.
 - Approved public contact details; no personal mobile numbers copied automatically.
 - Permission-cleared photography and institutional/platform logos.
-- GitHub workflow publishing authorization and actual remote CI/PR verification
-  (initial login and repository protections are already in place).
+- Bind the required `quality` check to the GitHub Actions app (CI first ran and
+  passed on 2026-11-02; repository protections are already in place).
 - Cloudflare account access and deployment choice; optional domain and code license.
 - Real-device/manual accessibility checks and final production smoke testing.
 
