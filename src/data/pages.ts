@@ -56,12 +56,12 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           id: 'technology',
           title: 'Diabetes technology and assessment',
           paragraphs: [
-            'GRACE-780G compared the MiniMed 780G automated insulin-delivery system with standard care in 42 older adults with type 1 diabetes. The trial followed participants for 12 months, including people with cognitive impairment.',
-            'The EASD 2026 abstract reports glucose-control findings. It should be read as a conference output from a small trial, without inferring that cognition or physical function improved.',
+            'GRACE-780G evaluated the MiniMed 780G automated insulin-delivery system alongside standard care in 42 older adults with type 1 diabetes. The trial followed participants for 12 months, including people with cognitive impairment.',
+            'Our digital methods use the 6 Vital smartphone app to capture movement data from phone sensors and cognitive data from our digital cognitive test, combined with machine learning to identify frailty.',
           ],
           links: [
             {
-              label: 'GRACE-780G study and results',
+              label: 'GRACE-780G study page',
               path: 'studies/hybrid-closed-loop/',
             },
           ],
@@ -140,7 +140,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'Working with us',
           paragraphs: [
             'STAY-STRONG brings together exercise, nutritional support, and body-composition and functional assessment. BIRAX develops machine-learning approaches to physical-capacity assessment with Swansea. GRACE-780G evaluates automated insulin delivery in older adults with type 1 diabetes.',
-            'Study pages include research design and related outputs. The selected publications distinguish trial results, conference abstracts, related methodological work, and reviews. Tali’s institutional profile provides the wider research record. For clinical care, use the official hospital channels.',
+            'Study pages include research design and related outputs. The selected publications include conference abstracts, methodological work, clinical proposals, and reviews. Tali’s institutional profile provides the wider research record. For clinical care, use the official hospital channels.',
           ],
         },
       ],
@@ -168,7 +168,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     publications: {
       title: 'Selected publications',
       intro:
-        'Selected research articles and conference outputs, including GRACE-780G results and work related to STAY-STRONG and BIRAX. Each entry explains its relationship to the studies; related work is not presented as a study result. This is a curated selection, not a complete bibliography.',
+        'Selected research articles, clinical proposals, and conference outputs related to our methods and studies, including STAY-STRONG, BIRAX, and GRACE-780G. This is a curated selection, not a complete bibliography.',
       sections: [],
       sources: [
         {
@@ -274,12 +274,12 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           id: 'technology',
           title: 'טכנולוגיות סוכרת והערכה',
           paragraphs: [
-            'מחקר GRACE-780G השווה את מערכת MiniMed 780G למתן אינסולין אוטומטי לטיפול הרגיל ב־42 מבוגרים עם סוכרת מסוג 1. המחקר כלל מעקב של 12 חודשים, גם אחר משתתפים עם פגיעה קוגניטיבית.',
-            'תקציר EASD לשנת 2026 מדווח על מדדי איזון סוכר. יש לקרוא אותו כתוצר כנס ממחקר קטן, בלי להסיק שקוגניציה או תפקוד גופני השתפרו.',
+            'מחקר GRACE-780G בחן את מערכת MiniMed 780G למתן אינסולין אוטומטי לצד הטיפול הרגיל ב־42 מבוגרים עם סוכרת מסוג 1. המחקר כלל מעקב של 12 חודשים, גם אחר משתתפים עם פגיעה קוגניטיבית.',
+            'השיטות הדיגיטליות שלנו עושות שימוש באפליקציית 6 Vital בטלפון לאיסוף נתוני תנועה מחיישני המכשיר ונתונים קוגניטיביים ממבחן דיגיטלי שפיתחנו, בשילוב למידת מכונה לזיהוי שבריריות.',
           ],
           links: [
             {
-              label: 'למחקר GRACE-780G ולתוצאותיו',
+              label: 'לעמוד מחקר GRACE-780G',
               path: 'studies/hybrid-closed-loop/',
             },
           ],
@@ -357,7 +357,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
           title: 'עבודה משותפת',
           paragraphs: [
             'מחקר STAY-STRONG משלב פעילות גופנית, תמיכה תזונתית והערכת הרכב גוף ותפקוד. BIRAX מפתח שיטות למידת מכונה להערכת יכולת גופנית בשיתוף סוונסי. GRACE-780G בוחן מתן אינסולין אוטומטי במבוגרים עם סוכרת מסוג 1.',
-            'עמודי המחקרים כוללים תכנון מחקר ותוצרים קשורים. הפרסומים הנבחרים מבחינים בין תוצאות מחקר, תקצירי כנס, עבודה מתודולוגית קשורה וסקירות. הפרופיל המוסדי של טלי מציג את רשימת המחקר הרחבה. לקבלת טיפול רפואי יש לפנות בערוצי בית החולים הרשמיים.',
+            'עמודי המחקרים כוללים תכנון מחקר ותוצרים קשורים. הפרסומים הנבחרים כוללים תקצירי כנס, עבודה מתודולוגית, הצעות קליניות וסקירות. הפרופיל המוסדי של טלי מציג את רשימת המחקר הרחבה. לקבלת טיפול רפואי יש לפנות בערוצי בית החולים הרשמיים.',
           ],
         },
       ],
@@ -385,7 +385,7 @@ export const pages: Record<Locale, Record<PageKey, Page>> = {
     publications: {
       title: 'פרסומים נבחרים',
       intro:
-        'מבחר מאמרים ותוצרי כנס, ובהם תוצאות GRACE-780G ועבודות הקשורות ל־STAY-STRONG ול־BIRAX. כל רשומה מסבירה את הקשר למחקרים; עבודה קשורה אינה מוצגת כתוצאת המחקר עצמו. זהו מבחר ערוך, ולא רשימת פרסומים מלאה.',
+        'מבחר מאמרי מחקר, הצעות קליניות ותוצרי כנס הקשורים לשיטות ולמחקרים שלנו, ובהם STAY-STRONG,‏ BIRAX ו־GRACE-780G. זהו מבחר ערוך, ולא רשימת פרסומים מלאה.',
       sections: [],
       sources: [
         {

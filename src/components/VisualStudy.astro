@@ -2,445 +2,474 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/ui';
 import DiabetesIcon from './DiabetesIcon.astro';
-import ResearchText from './ResearchText.astro';
 interface Props {
   study: CollectionEntry<'studies'>;
   visual: CollectionEntry<'visualStudies'>;
   locale: Locale;
 }
 const { study, visual, locale } = Astro.props;
-const data = visual.data;
-if (data.kind === 'result')
-  throw new Error('Research results cannot be a recruitment protocol.');
-const copy = data.localized[locale];
 const he = locale === 'he';
+const data = visual.data;
+if (data.kind === 'methods') {
+  throw new Error('Methods record cannot be rendered as a study card.');
+}
+const copy = data.localized[locale];
+const checked = new Intl.DateTimeFormat(he ? 'he-IL' : 'en-GB', {
+  dateStyle: 'long',
+  timeZone: 'UTC',
+}).format(new Date(`${data.sourceChecked}T00:00:00Z`));
+const trialCopy = data.kind === 'trial' ? data.localized[locale] : null;
+const assessmentCopy =
+  data.kind === 'assessment' ? data.localized[locale] : null;
 ---
 
 <article
   id={`study-${study.id}`}
-  class:list={['visual-study', `visual-study--${data.kind}`]}
+  class={`visual-study parallax-scene visual-study--${data.kind}`}
   data-study={study.id}
-  tabindex="-1"
   aria-labelledby={`study-${study.id}-title`}
 >
-  <header class="study-heading">
-    <span class="study-recruiting">
-      {he ? 'מגייסים משתתפים' : 'Now recruiting'}
-    </span>
-    <h3 id={`study-${study.id}-title`}>
-      <bdi dir="ltr">{study.data.acronym}</bdi>
-    </h3>
-    <p class="study-lead">
-      <ResearchText text={copy.lead} />
-    </p>
-  </header>
-  <div class="study-audience">
-    <DiabetesIcon name="contact" size={58} />
-    <p>
-      <ResearchText text={copy.audience} />
-    </p>
-  </div>
-  <div data-study-details>
-    {data.kind === 'assessment' ? (
-      <>
-        <div
-          class="capacity-map"
-          role="group"
-          aria-label={he ? 'תחומי הערכה' : 'Assessment domains'}
-        >
-          <div class="capacity-center">
-            <DiabetesIcon name="computer" size={180} />
-            <p>{he ? 'למידת מכונה' : 'Machine learning'}</p>
-          </div>
-          <div class="capacity-domains">
-            {data.localized[locale].features.map((feature) => (
-              <figure data-capacity={feature.icon}>
-                <DiabetesIcon name={feature.icon} size={130} />
-                <figcaption>{feature.label}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-        <div class="study-caption">
-          <DiabetesIcon name="conversation" size={64} />
-          <p>{copy.visitNote}</p>
-        </div>
-        <p class="study-partners">
-          <ResearchText text={data.localized[locale].partnership} /> ·{' '}
-          <ResearchText text={data.localized[locale].funding} />
-        </p>
-      </>
-    ) : (
-      <>
-        <div class="shared-treatment">
-          <DiabetesIcon name="injection" size={76} />
-          <p>{data.localized[locale].treatment}</p>
-        </div>
-        <div class="allocation">
-          <span>{data.localized[locale].allocation}</span>
-          <svg viewBox="0 0 600 60" aria-hidden="true">
-            <path d="M300 0V25H105V59M300 25H495V59" />
-          </svg>
-        </div>
-        <div class="trial-arms">
-          <div class="trial-arm intervention">
-            <div class="paired-icons">
-              <DiabetesIcon name="fitness" size={135} />
-              <DiabetesIcon name="nutrition" size={135} />
-            </div>
-            <h4>{data.localized[locale].intervention}</h4>
-          </div>
-          <div class="trial-arm control">
-            <DiabetesIcon name="conversation" size={160} />
-            <h4>{data.localized[locale].control}</h4>
-          </div>
-        </div>
-        <div class="visit-roadmap" data-study-timeline>
-          <h4>
-            <bdi>{data.durationWeeks}</bdi> {he ? 'שבועות' : 'weeks'}
-          </h4>
-          <svg
-            viewBox="0 0 820 130"
-            role="img"
-            aria-label={
-              he
-                ? 'ביקורי הערכה בתחילת המחקר ובשבועות 8, 16 ו־26'
-                : 'Assessment visits at the start and weeks 8, 16 and 26'
-            }
-          >
-            <path d="M40 45H780" />
-            {data.assessmentWeeks.map((week) => {
-              const x =
-                40 +
-                ((he ? data.durationWeeks - week : week) / data.durationWeeks) *
-                  740;
-              return (
-                <g data-visit-week={week}>
-                  <circle cx={x} cy="45" r="19" />
-                  <text x={x} y="105" text-anchor="middle" direction="ltr">
-                    {week}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-          <p>{copy.visitNote}</p>
-        </div>
-        <h4 class="routine-heading">{data.localized[locale].weeklyTitle}</h4>
-        <div class="weekly-rhythm">
-          <figure>
-            <DiabetesIcon name="fitness" size={110} />
-            <figcaption>
-              <strong>
-                <bdi>
-                  {data.weekly.guided} × {data.weekly.guidedMinutes}
-                </bdi>{' '}
-                {he ? 'דקות' : 'min'}
-              </strong>
-              {data.localized[locale].guided}
-            </figcaption>
-          </figure>
-          <figure>
-            <DiabetesIcon name="strength" size={110} />
-            <figcaption>
-              <strong>
-                <bdi>{data.weekly.home}</bdi>
-              </strong>
-              {data.localized[locale].home}
-            </figcaption>
-          </figure>
-          <figure>
-            <DiabetesIcon name="phone" size={110} />
-            <figcaption>
-              <strong>
-                <bdi>{data.weekly.calls}</bdi>
-              </strong>
-              {data.localized[locale].calls}
-            </figcaption>
-          </figure>
-        </div>
-        <p class="dietitian-note">
-          <DiabetesIcon name="nutrition" size={58} />
-          {data.localized[locale].dietitian}
-        </p>
-        <ul class="study-tools">
-          {data.localized[locale].features.map((feature) => (
-            <li>
-              <DiabetesIcon name={feature.icon} size={70} />
-              <span>{feature.label}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    )}
-    <p class="study-reference">
-      {study.data.kind === 'trial' && (
+  <div class="study-layout">
+    <header class="study-lead">
+      <p class="status">{he ? 'מגייסים משתתפים' : 'Now recruiting'}</p>
+      <h3 id={`study-${study.id}-title`}>
+        <bdi dir="ltr">{study.data.acronym}</bdi>
+      </h3>
+      <p class="study-question">{copy.lead}</p>
+      <div class="audience-Fact">
+        <DiabetesIcon name="contact" size={44} />
+        <span>{copy.audience}</span>
+      </div>
+      {trialCopy && (
         <>
-          <bdi dir="ltr">{study.data.registryId}</bdi> ·{' '}
+          <p class="dietitian-note">
+            <DiabetesIcon name="nutrition" size={44} />
+            <span>{trialCopy.dietitian}</span>
+          </p>
+          <ul class="feature-grid feature-grid--compact">
+            {trialCopy.features.map((feature) => (
+              <li>
+                <DiabetesIcon name={feature.icon} size={42} />
+                <span>{feature.label}</span>
+              </li>
+            ))}
+          </ul>
         </>
       )}
-      {he ? 'המידע נבדק' : 'Information checked'}{' '}
-      <time datetime={data.sourceChecked}>
-        {new Intl.DateTimeFormat(he ? 'he-IL' : 'en-GB', {
-          dateStyle: 'long',
-          timeZone: 'UTC',
-        }).format(new Date(`${data.sourceChecked}T00:00:00Z`))}
-      </time>
-    </p>
+      {assessmentCopy && (
+        <>
+          <div class="visit-note">
+            <DiabetesIcon name="conversation" size={44} />
+            <p>{copy.visitNote}</p>
+          </div>
+          <p class="study-partnership">
+            {assessmentCopy.partnership} ·{' '}
+            <bdi dir="ltr">{assessmentCopy.funding}</bdi>
+          </p>
+        </>
+      )}
+      <p class="source-stamp">
+        {'registryId' in study.data && (
+          <>
+            <bdi dir="ltr">{study.data.registryId}</bdi>
+            {' · '}
+          </>
+        )}
+        {he ? 'המידע נבדק' : 'Information checked'}{' '}
+        <time datetime={data.sourceChecked}>{checked}</time>
+      </p>
+    </header>
+
+    <div class="study-figure" data-study-details>
+      <div
+        class="study-plate-far parallax-layer layer-far"
+        data-parallax-layer="far"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="study-plate-mid parallax-layer layer-middle"
+        data-parallax-layer="middle"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="study-diagram-surface parallax-layer layer-near"
+        data-parallax-layer="near"
+      >
+        {data.kind === 'trial' && trialCopy && (
+          <div class="trial-diagram">
+            <div class="study-shared">
+              <DiabetesIcon name="injection" size={56} />
+              <strong>{trialCopy.treatment}</strong>
+              <span>{trialCopy.allocation}</span>
+              <svg class="branch-lines" viewBox="0 0 360 36" aria-hidden="true">
+                <path d="M180 2V18M65 18H295M65 18V34M295 18V34" />
+              </svg>
+            </div>
+            <div class="study-branches">
+              <div class="study-arm study-arm--active">
+                <div class="arm-icons">
+                  <DiabetesIcon name="fitness" size={68} />
+                  <DiabetesIcon name="nutrition" size={68} />
+                </div>
+                <strong>{trialCopy.intervention}</strong>
+              </div>
+              <div class="study-arm">
+                <DiabetesIcon name="conversation" size={68} />
+                <strong>{trialCopy.control}</strong>
+              </div>
+            </div>
+            <div
+              class="study-timeline"
+              aria-label={he ? 'ביקורי הערכה' : 'Assessment visits'}
+            >
+              <div class="timeline-head">
+                <strong>
+                  {data.durationWeeks} {he ? 'שבועות' : 'weeks'}
+                </strong>
+              </div>
+              <ol class="visit-track">
+                {data.assessmentWeeks.map((week) => (
+                  <li data-visit-week={week}>
+                    <span class="visit-dot" aria-hidden="true" />
+                    <strong>{week}</strong>
+                  </li>
+                ))}
+              </ol>
+              <p class="timeline-note">{copy.visitNote}</p>
+            </div>
+            <div class="weekly-plan">
+              <h4>{trialCopy.weeklyTitle}</h4>
+              <div class="weekly-items">
+                <div>
+                  <DiabetesIcon name="fitness" size={58} />
+                  <strong>
+                    <bdi dir="ltr">
+                      {data.weekly.guided} × {data.weekly.guidedMinutes} min
+                    </bdi>
+                  </strong>
+                  <span>{trialCopy.guided}</span>
+                </div>
+                <div>
+                  <DiabetesIcon name="strength" size={58} />
+                  <strong>{data.weekly.home}</strong>
+                  <span>{trialCopy.home}</span>
+                </div>
+                <div>
+                  <DiabetesIcon name="phone" size={58} />
+                  <strong>{data.weekly.calls}</strong>
+                  <span>{trialCopy.calls}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {data.kind === 'assessment' && assessmentCopy && (
+          <div class="assessment-diagram">
+            <div class="assessment-hub">
+              <DiabetesIcon name="computer" size={140} />
+              <span>{he ? 'למידת מכונה' : 'Machine learning'}</span>
+            </div>
+            <ul class="feature-grid feature-grid--assessment">
+              {assessmentCopy.features.map((feature) => (
+                <li>
+                  <DiabetesIcon name={feature.icon} size={96} />
+                  <span>{feature.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
   </div>
 </article>
 <style>
   .visual-study {
-    padding: 3rem;
-    background: var(--paper);
-    border-block-start: 3px solid var(--teal);
+    padding-block: 3rem;
+    border-block-start: 2px solid var(--teal);
   }
-  .visual-study + .visual-study {
-    margin-block-start: 3rem;
-  }
-  .study-heading {
-    max-inline-size: 58ch;
-  }
-  .study-heading h3 {
-    font-size: clamp(2rem, 4vw, 3.4rem);
-    margin-block: 0.5rem;
-  }
-  .study-recruiting {
-    color: var(--teal);
-    font-size: 0.8rem;
-    font-weight: 600;
+  .study-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+    gap: 2.5rem;
+    align-items: start;
   }
   .study-lead {
-    font-size: 1.1rem;
-    margin-block-end: 1rem;
-  }
-  .study-audience {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--muted);
-    margin-block-end: 2rem;
-  }
-  .study-audience p {
-    margin: 0;
-  }
-  figure {
-    margin: 0;
+    position: sticky;
+    inset-block-start: calc(var(--header-clearance) + 1.5rem);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.7rem;
+    gap: 0.9rem;
   }
-  figcaption {
-    font-size: 0.9rem;
-  }
-  .capacity-map {
-    display: grid;
-    grid-template-columns: 0.7fr 1.3fr;
-    align-items: center;
-    gap: 2rem;
-    padding-block: 2.5rem;
-    background: var(--paper);
-    border-block: 1px solid var(--line);
-  }
-  .capacity-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-inline-end: 2px solid var(--teal-soft);
-  }
-  .capacity-center p {
-    margin: 0;
-    font-size: 0.9rem;
-  }
-  .capacity-domains {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  .study-caption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-block: 1.5rem;
-  }
-  .study-caption p {
+  .status {
+    color: var(--teal);
+    font-size: 0.75rem;
+    font-weight: 600;
     margin: 0;
   }
-  .study-partners {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-  .shared-treatment {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .shared-treatment p {
+  h3 {
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
     margin: 0;
+    line-height: 1.02;
+  }
+  .study-question {
+    font-size: 1rem;
     font-weight: 500;
+    margin: 0;
   }
-  .allocation {
+  .audience-Fact,
+  .visit-note,
+  .dietitian-note {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0;
+    font-size: 0.82rem;
+  }
+  .visit-note p {
+    margin: 0;
+  }
+  .study-figure {
+    position: relative;
+    padding: 1.75rem;
+    min-inline-size: 0;
+  }
+  .study-plate-far {
+    position: absolute;
+    inset: 0.5rem 0.5rem 1.5rem 0.5rem;
+    border-radius: 26px;
+    background: var(--teal-paper);
+    z-index: 0;
+  }
+  .study-plate-mid {
+    position: absolute;
+    inset: 1.25rem 1.25rem 0.75rem 1.25rem;
+    border-radius: 22px;
+    border: 1.5px dashed var(--line-strong);
+    z-index: 1;
+  }
+  .study-diagram-surface {
+    position: relative;
+    z-index: 2;
+  }
+  .trial-diagram {
+    display: grid;
+    gap: 1.15rem;
+  }
+  .study-shared {
+    display: grid;
+    justify-items: center;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem 0.25rem;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
     text-align: center;
-    color: var(--muted);
-    font-size: 0.8rem;
   }
-  .allocation svg {
-    display: block;
-    inline-size: 100%;
-    max-inline-size: 600px;
-    margin-inline: auto;
-    block-size: 60px;
+  .study-shared strong {
+    font-size: 0.88rem;
+  }
+  .study-shared span {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .branch-lines {
+    inline-size: min(320px, 82%);
+    block-size: 26px;
+  }
+  .branch-lines path {
     stroke: var(--teal);
     stroke-width: 2;
     fill: none;
   }
-  .trial-arms {
+  .study-branches {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
-  .trial-arm {
-    padding: 1.5rem;
+  .study-arm {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.9rem;
+    background: var(--magenta-soft);
+    border-radius: 16px;
     text-align: center;
   }
-  .intervention {
+  .study-arm strong {
+    font-size: 0.85rem;
+  }
+  .study-arm--active {
     background: var(--teal-soft);
   }
-  .control {
-    background: var(--magenta-soft);
-  }
-  .trial-arm h4 {
-    margin-block: 1rem 0;
-  }
-  .paired-icons {
+  .arm-icons {
     display: flex;
-    justify-content: center;
+    gap: 0.35rem;
   }
-  .visit-roadmap {
-    margin-block: 2.5rem;
+  .study-timeline {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    background: var(--paper);
   }
-  .visit-roadmap h4 {
-    font-size: 1.4rem;
-  }
-  .visit-roadmap svg {
-    inline-size: 100%;
-    block-size: auto;
-    overflow: visible;
-  }
-  .visit-roadmap path {
-    stroke: var(--teal);
-    stroke-width: 3;
-  }
-  .visit-roadmap circle {
-    fill: var(--magenta-soft);
-    stroke: var(--magenta);
-    stroke-width: 3;
-  }
-  .visit-roadmap text {
-    fill: var(--ink);
-    font:
-      28px 'Lexend',
-      sans-serif;
-  }
-  .visit-roadmap p {
+  .timeline-head {
+    margin-block-end: 0.65rem;
     font-size: 0.85rem;
-    color: var(--muted);
   }
-  .routine-heading {
-    font-size: 1rem;
-    margin-block: 2rem 1rem;
+  .visit-track {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
   }
-  .weekly-rhythm {
+  .visit-track::before {
+    content: '';
+    position: absolute;
+    inset-inline: 12%;
+    inset-block-start: 9px;
+    border-block-start: 2px solid var(--teal);
+  }
+  .visit-track li {
+    position: relative;
     display: flex;
-    justify-content: space-around;
-    gap: 1rem;
-    padding-block: 1.5rem;
-    border-block: 1px solid var(--line);
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.72rem;
   }
-  .weekly-rhythm strong {
-    display: block;
-    font-size: 1.15rem;
+  .visit-dot {
+    inline-size: 18px;
+    block-size: 18px;
+    border-radius: 50%;
+    background: var(--magenta-soft);
+    border: 2px solid var(--magenta);
+  }
+  .timeline-note {
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin: 0.7rem 0 0;
+  }
+  .weekly-plan {
+    padding: 1rem 1.25rem;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+  }
+  .weekly-plan h4 {
+    font-size: 0.82rem;
+    margin-block: 0 0.65rem;
+  }
+  .weekly-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .weekly-items div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+    padding: 0.65rem;
+    background: var(--teal-paper);
+    border-radius: 12px;
+  }
+  .weekly-items strong {
+    font-size: 0.82rem;
     color: var(--teal);
   }
-  .dietitian-note {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.85rem;
-    margin-block: 1.5rem;
+  .weekly-items span {
+    font-size: 0.72rem;
   }
-  .study-tools {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem 2rem;
-    padding: 0;
+  .feature-grid {
     list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
   }
-  .study-tools li {
+  .feature-grid li {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5rem;
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.76rem;
   }
-  .study-reference {
+  .feature-grid :global(svg) {
+    flex: 0 0 auto;
+  }
+  .assessment-diagram {
+    display: grid;
+    grid-template-columns: 0.95fr 1.25fr;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1rem;
+  }
+  .assessment-hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--teal);
+    border-radius: 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .feature-grid--assessment {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .feature-grid--assessment li {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.15rem 0.75rem;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+  }
+  .study-partnership,
+  .source-stamp {
+    font-size: 0.74rem;
     color: var(--muted);
-    font-size: 0.7rem;
-    margin-block: 2rem 0;
+    margin: 0;
+  }
+  @media (max-width: 950px) {
+    .study-layout,
+    .assessment-diagram {
+      grid-template-columns: 1fr;
+    }
+    .study-lead {
+      position: relative;
+      inset-block-start: auto;
+    }
   }
   @media (max-width: 650px) {
     .visual-study {
-      padding: 1.25rem;
+      padding-block: 2rem;
     }
-    .visit-roadmap text {
-      font-size: 56px;
+    .study-figure {
+      padding: 0.75rem;
     }
-    .weekly-rhythm figure {
-      flex: 1 1 0;
-      min-inline-size: 0;
-    }
-    .capacity-map {
+    .study-branches,
+    .weekly-items,
+    .feature-grid,
+    .feature-grid--assessment {
       grid-template-columns: 1fr;
     }
-    .capacity-center {
-      border-inline-end: 0;
-    }
-    .capacity-domains :global(svg) {
-      inline-size: 74px;
-      block-size: 74px;
-    }
-    .trial-arms {
-      gap: 0.65rem;
-    }
-    .trial-arm {
-      padding: 1rem 0.5rem;
-    }
-    .trial-arm :global(svg) {
-      inline-size: 90px;
-      block-size: 90px;
-    }
-    .paired-icons {
-      flex-direction: column;
-    }
-    .weekly-rhythm :global(svg) {
-      inline-size: 75px;
-      block-size: 75px;
-    }
-    .weekly-rhythm figcaption {
-      font-size: 0.75rem;
-    }
-    .study-tools {
-      grid-template-columns: 1fr;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .study-lead {
+      position: relative;
+      inset-block-start: auto;
     }
   }
 </style>

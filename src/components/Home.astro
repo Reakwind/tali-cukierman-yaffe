@@ -5,7 +5,7 @@ import HeroGraphic from './HeroGraphic.astro';
 import ResearchScene from './ResearchScene.astro';
 import DiabetesIcon from './DiabetesIcon.astro';
 import VisualStudy from './VisualStudy.astro';
-import VisualResult from './VisualResult.astro';
+import VisualMethods from './VisualMethods.astro';
 import VisualFooter from './VisualFooter.astro';
 import ParticipationInvite from './ParticipationInvite.astro';
 import ScrollExperience from './ScrollExperience.astro';
@@ -21,7 +21,7 @@ const studies = (await getCollection('studies')).filter(
 );
 const visuals = await getCollection('visualStudies');
 const visualById = new Map(visuals.map((visual) => [visual.id, visual]));
-const result = visuals.find((visual) => visual.data.kind === 'result')!;
+const methods = visuals.find((visual) => visual.data.kind === 'methods')!;
 const topics = he
   ? [
       {
@@ -141,16 +141,7 @@ const steps = he
           ))}
         </div>
       </div>
-      <VisualResult visual={result} locale={locale} />
-      <div class="platform-note">
-        <DiabetesIcon name="computer" size={80} />
-        <p>
-          <bdi dir="ltr">6 Vital</bdi> —{' '}
-          {he
-            ? 'פלטפורמה להערכה קוגניטיבית דיגיטלית שיצרה טלי.'
-            : 'A digital cognitive-assessment platform created by Tali.'}
-        </p>
-      </div>
+      <VisualMethods visual={methods} locale={locale} />
     </div>
   </section>
   <section
@@ -181,7 +172,7 @@ const steps = he
       ))}
       <section
         id="home-clinicians"
-        class="clinician-route"
+        class="clinician-route parallax-scene"
         data-scroll-section
         tabindex="-1"
         aria-labelledby="home-clinicians-title"
@@ -189,22 +180,47 @@ const steps = he
         <h3 id="home-clinicians-title">
           {he ? 'לצוותים רפואיים' : 'For clinicians'}
         </h3>
-        <div class="referral-flow">
-          <DiabetesIcon name="paper" size={100} />
-          <p>{he ? 'משתפים מידע על המחקר' : 'Share study information'}</p>
-          <span aria-hidden="true">→</span>
-          <DiabetesIcon name="contact" size={100} />
-          <p>{he ? 'המטופל פונה לצוות' : 'The patient contacts the team'}</p>
-          <span aria-hidden="true">→</span>
-          <DiabetesIcon name="conversation" size={100} />
-          <p>{he ? 'הצוות בודק התאמה' : 'The team discusses suitability'}</p>
+        <div class="referral-stage">
+          <div
+            class="referral-plate-far parallax-layer layer-far"
+            data-parallax-layer="far"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="referral-plate-mid parallax-layer layer-middle"
+            data-parallax-layer="middle"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="referral-flow parallax-layer layer-near"
+            data-parallax-layer="near"
+          >
+            <div class="referral-item">
+              <DiabetesIcon name="paper" size={100} />
+              <p>{he ? 'משתפים מידע על המחקר' : 'Share study information'}</p>
+            </div>
+            <span aria-hidden="true">→</span>
+            <div class="referral-item">
+              <DiabetesIcon name="contact" size={100} />
+              <p>
+                {he ? 'המטופל פונה לצוות' : 'The patient contacts the team'}
+              </p>
+            </div>
+            <span aria-hidden="true">→</span>
+            <div class="referral-item">
+              <DiabetesIcon name="conversation" size={100} />
+              <p>
+                {he ? 'הצוות בודק התאמה' : 'The team discusses suitability'}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
   </section>
   <section
     id="home-contact"
-    class="contact-section"
+    class="contact-section parallax-scene"
     data-content-part="participation"
     data-scroll-section
     tabindex="-1"
@@ -213,13 +229,28 @@ const steps = he
     <div class="container contact-layout">
       <div class="contact-story">
         <h2 id="home-contact-title">{t.takePart}</h2>
-        <div class="contact-steps">
-          {steps.map((step) => (
-            <figure>
-              <DiabetesIcon name={step.icon} size={140} />
-              <figcaption>{step.text}</figcaption>
-            </figure>
-          ))}
+        <div class="contact-stage">
+          <div
+            class="contact-plate-far parallax-layer layer-far"
+            data-parallax-layer="far"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="contact-plate-mid parallax-layer layer-middle"
+            data-parallax-layer="middle"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="contact-steps parallax-layer layer-near"
+            data-parallax-layer="near"
+          >
+            {steps.map((step) => (
+              <figure>
+                <DiabetesIcon name={step.icon} size={140} />
+                <figcaption>{step.text}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
         <p>
           {he
@@ -243,7 +274,7 @@ const steps = he
 </Layout>
 <style>
   .home-intro {
-    min-block-size: 170svh;
+    min-block-size: 165svh;
     background: var(--paper);
     position: relative;
   }
@@ -300,6 +331,9 @@ const steps = he
   .contact-story h2 {
     font-size: clamp(2rem, 4vw, 3rem);
   }
+  .research-section > .container > h2 {
+    margin-block-end: 1.25rem;
+  }
   .research-story {
     display: grid;
     grid-template-columns: minmax(0, 0.64fr) minmax(0, 0.36fr);
@@ -311,8 +345,11 @@ const steps = he
     inset-block-start: var(--header-clearance);
     overflow: clip;
   }
+  .research-steps {
+    padding-block-end: 12svh;
+  }
   .research-step {
-    min-block-size: 75svh;
+    min-block-size: 60svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -325,17 +362,6 @@ const steps = he
   .research-step p {
     font-size: 1rem;
     max-inline-size: 28ch;
-  }
-  .platform-note {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-block: 2.5rem 0;
-    font-size: 0.85rem;
-  }
-  .platform-note p {
-    margin: 0;
   }
   .studies-section {
     padding-block: 4rem;
@@ -350,14 +376,46 @@ const steps = he
   }
   .clinician-route {
     margin-block-start: 3rem;
-    padding: 2rem;
+    padding: 2.25rem;
     background: var(--paper);
     border: 1px solid var(--line);
   }
+  .referral-stage {
+    position: relative;
+    padding: 1.75rem;
+    margin-block-start: 1rem;
+  }
+  .referral-plate-far {
+    position: absolute;
+    inset: 0.25rem 0;
+    border-radius: 18px;
+    background: var(--teal-paper);
+    z-index: 0;
+  }
+  .referral-plate-mid {
+    position: absolute;
+    inset: 0.75rem 1rem;
+    border-radius: 14px;
+    border: 1.5px dashed var(--line-strong);
+    z-index: 1;
+  }
   .referral-flow {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+  }
+  .referral-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1 1 0;
+    padding: 0.75rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
   }
   .referral-flow p {
     font-size: 0.85rem;
@@ -377,22 +435,46 @@ const steps = he
     gap: 3rem;
     align-items: center;
   }
+  .contact-stage {
+    position: relative;
+    padding: 2rem 1.5rem;
+    margin-block: 1.5rem;
+  }
+  .contact-plate-far {
+    position: absolute;
+    inset: 0.35rem 0;
+    border-radius: 20px;
+    background: var(--teal-paper);
+    z-index: 0;
+  }
+  .contact-plate-mid {
+    position: absolute;
+    inset: 0.85rem 1rem;
+    border-radius: 16px;
+    border: 1.5px dashed var(--line-strong);
+    z-index: 1;
+  }
   .contact-steps {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    margin-block: 2rem;
   }
   .contact-steps figure {
     margin: 0;
     flex: 1 1 0;
     min-inline-size: 0;
     text-align: center;
-    max-inline-size: 150px;
+    max-inline-size: 165px;
+    padding: 0.85rem 0.5rem;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
   }
   .contact-steps figcaption {
     font-size: 0.8rem;
-    margin-block-start: 1rem;
+    margin-block-start: 0.75rem;
   }
   .contact-story > p {
     font-size: 0.9rem;
@@ -463,6 +545,9 @@ const steps = he
       inset-block-start: auto;
       max-inline-size: 420px;
     }
+    .research-steps {
+      padding-block-end: 0;
+    }
     .research-step {
       min-block-size: 0;
       padding-block: 1.25rem;
@@ -473,9 +558,13 @@ const steps = he
     .contact-layout {
       grid-template-columns: 1fr;
     }
+    .referral-stage,
+    .contact-stage {
+      padding: 0.75rem;
+    }
     .referral-flow {
       display: grid;
-      grid-template-columns: 70px 1fr;
+      grid-template-columns: 1fr;
     }
     .referral-flow > span {
       display: none;
@@ -521,6 +610,9 @@ const steps = he
       inset-block-start: auto;
       block-size: auto;
       padding-block: 2rem;
+    }
+    .research-steps {
+      padding-block-end: 0;
     }
     .research-step {
       min-block-size: 0;

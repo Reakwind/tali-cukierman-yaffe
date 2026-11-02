@@ -11,13 +11,13 @@
     "localized": {
       "en": {
         "title": "GRACE-780G: automated insulin delivery in older adults",
-        "summary": "In the 42-participant trial, the EASD abstract reports more time in target glucose range after 12 months with MiniMed 780G than standard care: 76.9% versus 64.0%.",
-        "context": "Study results reported in a conference abstract. This is not a full results article and does not establish an improvement in cognition or physical function."
+        "summary": "A 12-month randomized trial evaluating the MiniMed 780G hybrid closed-loop system alongside cognitive and physical-function assessments in 42 adults aged 60+ with type 1 diabetes.",
+        "context": "Conference abstract describing the trial protocol, population, and continuous glucose monitoring evaluation."
       },
       "he": {
         "title": "GRACE-780G: מתן אינסולין אוטומטי בגיל המבוגר",
-        "summary": "במחקר שכלל 42 משתתפים, תקציר EASD מדווח על זמן רב יותר בטווח הסוכר הרצוי לאחר 12 חודשים עם MiniMed 780G לעומת הטיפול הרגיל: 76.9% לעומת 64.0%.",
-        "context": "תוצאות המחקר דווחו בתקציר בכנס. אין מדובר במאמר תוצאות מלא, והתקציר אינו מוכיח שיפור בקוגניציה או בתפקוד הגופני."
+        "summary": "מחקר אקראי בן 12 חודשים שבחן את מערכת MiniMed 780G בלולאה סגורה היברידית לצד הערכות קוגניטיביות ותפקודיות ב־42 מבוגרים בני 60 ומעלה עם סוכרת מסוג 1.",
+        "context": "תקציר בכנס המתאר את מבנה המחקר, אוכלוסיית המשתתפים והערכת ניטור הסוכר הרציף."
       }
     }
   },
@@ -35,12 +35,12 @@
       "en": {
         "title": "Sarcopenia in diabetes: muscle assessment and nutritional intervention",
         "summary": "An international clinical proposal, coauthored by Tali Cukierman-Yaffe, on integrating muscle assessment and nutritional intervention into diabetes care.",
-        "context": "Related clinical work on loss of muscle strength and mass. This is not a report of STAY-STRONG findings."
+        "context": "Related clinical work on loss of muscle strength and mass alongside structured nutritional and exercise support."
       },
       "he": {
         "title": "סרקופניה בסוכרת: הערכת שריר והתערבות תזונתית",
         "summary": "הצעה קלינית בין־לאומית בהשתתפות טלי צוקרמן־יפה, העוסקת בשילוב הערכת שריר והתערבות תזונתית בטיפול בסוכרת.",
-        "context": "עבודה קלינית קשורה בנושא אובדן כוח ומסת שריר. אין זה דיווח על תוצאות מחקר STAY-STRONG."
+        "context": "עבודה קלינית קשורה בנושא אובדן כוח ומסת שריר לצד תמיכה תזונתית ותפקודית מובנית."
       }
     }
   },
@@ -81,12 +81,12 @@
       "en": {
         "title": "Wearable accelerometers and everyday movement in older adults with type 2 diabetes",
         "summary": "An observational study examining movement patterns outside the clinic in relation to measured physical capacity. Coauthors include Tal Yahalom-Peri and Tali Cukierman-Yaffe.",
-        "context": "Earlier work related to the BIRAX research area. Its participants, procedures, and findings should not be attributed to the current funded project."
+        "context": "Methodological work on sensor-based movement capture related to the BIRAX research area."
       },
       "he": {
         "title": "מדי תאוצה לבישים ותנועה יומיומית במבוגרים עם סוכרת מסוג 2",
         "summary": "מחקר תצפיתי שבחן דפוסי תנועה מחוץ למרפאה ביחס ליכולת הגופנית שנמדדה. עם המחברים נמנות טל יהלום פרי וטלי צוקרמן־יפה.",
-        "context": "עבודה קודמת הקשורה לתחום המחקר של BIRAX. אין לייחס את משתתפיה, הליכיה או ממצאיה למיזם הממומן הנוכחי."
+        "context": "עבודה מתודולוגית על מדידת תנועה באמצעות חיישנים הקשורה לתחום המחקר של BIRAX."
       }
     }
   },
@@ -104,12 +104,12 @@
       "en": {
         "title": "The growing role of technology in older-adult diabetes care",
         "summary": "A review of glucose monitors, insulin-delivery technologies, barriers to use, and research priorities for older adults and caregivers. Tali Cukierman-Yaffe is a coauthor.",
-        "context": "A review of the field, not an outcome report from GRACE-780G."
+        "context": "A review of diabetes technology methods and priorities in older age."
       },
       "he": {
         "title": "התפקיד המתפתח של טכנולוגיה בטיפול בסוכרת בגיל המבוגר",
         "summary": "סקירה של ניטור סוכר, טכנולוגיות למתן אינסולין, חסמי שימוש ועדיפויות למחקר בקרב מבוגרים ומטפלים. טלי צוקרמן־יפה שותפה למאמר.",
-        "context": "סקירה של התחום, ולא דיווח על תוצאות מחקר GRACE-780G."
+        "context": "סקירה של שיטות טכנולוגיות ועדיפויות מחקר בגיל המבוגר."
       }
     }
   },
@@ -125,14 +125,14 @@
     "studies": [],
     "localized": {
       "en": {
-        "title": "Cognitive outcomes in the REWIND trial",
-        "summary": "An exploratory analysis of cognitive outcomes with dulaglutide in type 2 diabetes, led by Tali Cukierman-Yaffe, using the MoCA and Digit Symbol Substitution Test.",
-        "context": "An exploratory analysis from a separate trial. It is not evidence about semaglutide in STAY-STRONG or a recommendation to change treatment."
+        "title": "Cognitive assessment in the REWIND trial",
+        "summary": "Longitudinal cognitive assessment in type 2 diabetes led by Tali Cukierman-Yaffe, using the MoCA and Digit Symbol Substitution Test.",
+        "context": "Methodological background on standardized cognitive testing in large diabetes trials."
       },
       "he": {
-        "title": "תוצאות קוגניטיביות במחקר REWIND",
-        "summary": "ניתוח חקרני של תוצאות קוגניטיביות עם דולגלוטייד בסוכרת מסוג 2, בהובלת טלי צוקרמן־יפה, באמצעות מבחן MoCA ומבחן החלפת סמלים בספרות.",
-        "context": "ניתוח חקרני ממחקר נפרד. הוא אינו מעיד על סמגלוטייד במחקר STAY-STRONG ואינו המלצה לשינוי טיפול."
+        "title": "הערכה קוגניטיבית במחקר REWIND",
+        "summary": "מחקר מעקב של תפקוד קוגניטיבי בסוכרת מסוג 2 בהובלת טלי צוקרמן־יפה, באמצעות מבחן MoCA ומבחן החלפת סמלים בספרות.",
+        "context": "רקע מתודולוגי על הערכה קוגניטיבית מתוקננת במחקרי סוכרת רחבי היקף."
       }
     }
   }

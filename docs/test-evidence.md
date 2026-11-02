@@ -553,3 +553,31 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   physical-device checks are claimed. No new dependency, paid service, external
   asset/API, message, cloud deployment, account/DNS/billing change, PR or merge.
   Participant email delivery remains disabled; this is a local review draft.
+
+## Scene containment, section clearance and diagram framing — 2026-11-01
+
+- Screenshot inspection of the white-canvas homepage exposed four scroll/layout
+  defects: the hero arch clipped at the top of `.hero-pin` at 600px scroll, the
+  research scene's sensor and cognition icons drifted outside the teal backdrop
+  and clipped against `.research-visual`, the "Research areas" heading straddled
+  the sticky header when viewing the first topic, and the `GRACE-780G` result
+  card intruded below the sticky research scene while reading the third topic.
+- Red (`npm run test:e2e -- --project=chromium tests/e2e/visual-story.spec.ts --grep "unclipped inside their frames"`):
+  both English and Hebrew checks failed on the hero far layer clipping above
+  `.hero-pin` (`88.43px < 117px`) and research scene overflow.
+- Green: rebalanced the hero and research SVG coordinates and calibrated layer
+  travel in both native CSS keyframes and the WAAPI fallback (`HeroGraphic.astro`,
+  `ResearchScene.astro`, `site.css`, `ScrollExperience.astro`), adjusted research
+  topic cadence and section spacing (`Home.astro`), and framed the `GRACE-780G`
+  result stage and study protocol cards (`VisualResult.astro`, `VisualStudy.astro`).
+- Cross-browser Firefox check exposed a Gecko `getBoundingClientRect()` quirk on
+  `<g>` wrappers around nested `<svg viewBox>` icons; asserting the rendered
+  `.icon-lines` geometry directly verified actual icon containment in all engines.
+- Visually inspected fresh English desktop (`1440×1000`) and Hebrew phone
+  (`390×844`) captures across hero, scrolled hero, all three research topics,
+  `GRACE-780G`, `STAY-STRONG`, and participation.
+- Final `CFFIXED_USER_HOME=/tmp/vital-ff-home npm run verify` and
+  `npm run check:worker`: formatting, ESLint, Astro/TypeScript (60 files, zero
+  diagnostics), **50 unit tests**, production build, Worker dry-run, and all
+  **405 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
+  Chrome and mobile Safari. Delivery remains disabled (`ENQUIRIES_ENABLED=false`).

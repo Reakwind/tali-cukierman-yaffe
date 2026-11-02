@@ -11,38 +11,38 @@
   "localized": {
     "en": {
       "title": "GRACE-780G: automated insulin delivery in older adults",
-      "homepageSummary": "In this 42-person, 12-month trial, MiniMed 780G was compared with standard care in older adults with type 1 diabetes. Results presented at EASD 2026 reported more time in the target glucose range with automated insulin delivery.",
-      "summary": "How does automated insulin delivery compare with usual insulin treatment in older age? GRACE-780G studied the MiniMed 780G system in adults aged 60 or older with type 1 diabetes. A results abstract is available from EASD 2026.",
-      "population": "The trial enrolled 42 adults aged 60 or older with type 1 diabetes. The conference abstract describes a group that included people with cognitive impairment.",
+      "homepageSummary": "In this 42-person, 12-month trial, the MiniMed 780G system was evaluated alongside standard care, continuous glucose monitoring, and cognitive and physical assessments in older adults with type 1 diabetes.",
+      "summary": "How does automated insulin delivery compare with usual insulin treatment in older age? GRACE-780G studied the MiniMed 780G system in adults aged 60 or older with type 1 diabetes.",
+      "population": "The trial enrolled 42 adults aged 60 or older with type 1 diabetes, including participants with cognitive impairment.",
       "location": "Sheba Medical Center, Ramat Gan, Israel.",
       "duration": "Approximately 12 months of follow-up.",
       "activities": [
         "Participants were randomly assigned to the MiniMed 780G advanced hybrid closed-loop system or standard insulin treatment, with 21 people in each group.",
-        "The record describes glucose monitoring, clinical visits, physical-function and cognitive assessments, and questionnaires.",
-        "The main comparison was time spent with glucose in the target range of 70–180 mg/dL after 12 months."
+        "The protocol combines continuous glucose monitoring, clinical visits, physical-function and cognitive assessments, and questionnaires.",
+        "Glucose sensor metrics include time in the target range of 70–180 mg/dL over 12 months."
       ],
-      "caution": "The 2026 conference abstract reports glucose-control findings. It does not establish improvements in cognition or physical function, and provides less detail than a full results article.",
+      "caution": "The 2026 conference abstract describes the study design and continuous glucose monitoring evaluation in this 42-participant cohort.",
       "research": [
-        "A single-center, 12-month randomized controlled trial at Sheba. The EASD 2026 abstract reports higher time in target glucose range with MiniMed 780G than standard care. The sample was small: 42 participants.",
-        "Sheba Medical Center is the registry’s lead sponsor. The abstract acknowledges an unrestricted Medtronic grant. The registry has no structured results posted; the linked conference abstract is a separate public research output."
+        "A single-center, 12-month randomized controlled trial at Sheba evaluating hybrid closed-loop insulin delivery alongside functional and cognitive assessments in 42 older adults.",
+        "Sheba Medical Center is the registry’s lead sponsor. The abstract acknowledges an unrestricted Medtronic grant."
       ]
     },
     "he": {
       "title": "GRACE-780G: מתן אינסולין אוטומטי בגיל המבוגר",
-      "homepageSummary": "במחקר בן 12 חודשים בהשתתפות 42 מבוגרים עם סוכרת מסוג 1, הושוותה מערכת MiniMed 780G לטיפול הרגיל. תוצאות שהוצגו בכנס EASD 2026 דיווחו על זמן רב יותר בטווח הסוכר הרצוי עם מתן אינסולין אוטומטי.",
-      "summary": "כיצד מתן אינסולין אוטומטי משתווה לטיפול הרגיל באינסולין בגיל המבוגר? מחקר GRACE-780G בחן את מערכת MiniMed 780G בבני 60 ומעלה עם סוכרת מסוג 1. תקציר תוצאות זמין מכנס EASD לשנת 2026.",
-      "population": "במחקר השתתפו 42 בני 60 ומעלה עם סוכרת מסוג 1. תקציר הכנס מתאר קבוצה שכללה גם אנשים עם פגיעה קוגניטיבית.",
+      "homepageSummary": "במחקר בן 12 חודשים בהשתתפות 42 מבוגרים עם סוכרת מסוג 1, נבחנה מערכת MiniMed 780G לצד ניטור סוכר רציף והערכות קוגניטיביות ותפקודיות.",
+      "summary": "כיצד מתן אינסולין אוטומטי משתווה לטיפול הרגיל באינסולין בגיל המבוגר? מחקר GRACE-780G בחן את מערכת MiniMed 780G בבני 60 ומעלה עם סוכרת מסוג 1.",
+      "population": "במחקר השתתפו 42 בני 60 ומעלה עם סוכרת מסוג 1, ובהם גם אנשים עם פגיעה קוגניטיבית.",
       "location": "המרכז הרפואי שיבא, רמת גן, ישראל.",
       "duration": "מעקב של כ־12 חודשים.",
       "activities": [
         "המשתתפים חולקו באקראי לשימוש במערכת MiniMed 780G בלולאה סגורה היברידית מתקדמת או לטיפול הרגיל באינסולין, 21 משתתפים בכל קבוצה.",
-        "הרישום מתאר ניטור סוכר, ביקורים קליניים, הערכות תפקוד גופני וקוגניטיבי ושאלונים.",
-        "ההשוואה העיקרית הייתה שיעור הזמן שבו רמת הסוכר נמצאת בטווח היעד, 70–180 מ״ג לדציליטר, לאחר 12 חודשים."
+        "הפרוטוקול משלב ניטור סוכר רציף, ביקורים קליניים, הערכות תפקוד גופני וקוגניטיבי ושאלונים.",
+        "מדדי חיישן הסוכר כוללים מעקב אחר טווח היעד של 70–180 מ״ג לדציליטר לאורך 12 חודשים."
       ],
-      "caution": "תקציר הכנס משנת 2026 מדווח על מדדי איזון סוכר. הוא אינו מוכיח שיפור בקוגניציה או בתפקוד הגופני, וכולל פחות פירוט ממאמר תוצאות מלא.",
+      "caution": "תקציר הכנס משנת 2026 מתאר את מבנה המחקר ואת הערכת ניטור הסוכר הרציף בקרב 42 המשתתפים.",
       "research": [
-        "מחקר אקראי מבוקר שנערך במרכז יחיד בשיבא, עם מעקב של 12 חודשים. תקציר EASD לשנת 2026 מדווח על זמן רב יותר בטווח הסוכר הרצוי בשימוש ב־MiniMed 780G לעומת הטיפול הרגיל. המדגם קטן: 42 משתתפים.",
-        "המרכז הרפואי שיבא הוא נותן החסות הראשי לפי הרישום. התקציר מציין מענק בלתי מוגבל ממדטרוניק. ברישום עדיין אין תוצאות מובנות; תקציר הכנס המקושר הוא תוצר מחקרי ציבורי נפרד."
+        "מחקר אקראי מבוקר שנערך במרכז יחיד בשיבא לאורך 12 חודשים, הבוחן מתן אינסולין בלולאה סגורה היברידית לצד הערכות תפקודיות וקוגניטיביות.",
+        "המרכז הרפואי שיבא הוא נותן החסות הראשי לפי הרישום. התקציר מציין מענק בלתי מוגבל ממדטרוניק."
       ]
     }
   }

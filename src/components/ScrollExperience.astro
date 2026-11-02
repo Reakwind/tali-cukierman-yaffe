@@ -99,57 +99,84 @@
     observeSections();
     window.addEventListener('resize', observeSections, { passive: true });
 
-    const research = document.querySelector<HTMLElement>('.research-story');
-    const topics = [
-      ...document.querySelectorAll<HTMLElement>('[data-research-step]'),
-    ];
-    let topicObserver: IntersectionObserver;
-    function observeTopics() {
-      topicObserver?.disconnect();
-      if (!research) return;
-      const visible = new Set<HTMLElement>();
-      const art = research.querySelector<HTMLElement>('.research-visual')!;
-      const phoneScene =
-        innerWidth <= 650 && getComputedStyle(art).position === 'sticky';
-      const inset =
-        parseFloat(
-          getComputedStyle(document.documentElement).scrollPaddingTop,
-        ) || 0;
-      const top = Math.min(
-        innerHeight - 140,
-        phoneScene
-          ? inset + art.getBoundingClientRect().height + 24
-          : Math.max(inset + 32, innerHeight * 0.3),
+    function bindStepStory(
+      storySelector: string,
+      visualSelector: string,
+      stepAttr: string,
+      focusAttr: string,
+    ) {
+      const container = document.querySelector<HTMLElement>(storySelector);
+      const steps = [
+        ...document.querySelectorAll<HTMLElement>(`[data-${stepAttr}]`),
+      ];
+      const camelStep = stepAttr.replace(/-([a-z])/g, (_, c: string) =>
+        c.toUpperCase(),
       );
-      const bottom = phoneScene ? 32 : Math.max(32, innerHeight * 0.25);
-      const readingPoint = (top + innerHeight - bottom) / 2;
-      topicObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) visible.add(entry.target as HTMLElement);
-            else visible.delete(entry.target as HTMLElement);
-          }
-          const current = [...visible].sort((a, b) => {
-            const aRect = a.getBoundingClientRect();
-            const bRect = b.getBoundingClientRect();
-            return (
-              Math.abs(aRect.top + aRect.height / 2 - readingPoint) -
-              Math.abs(bRect.top + bRect.height / 2 - readingPoint)
-            );
-          })[0];
-          if (current)
-            research.dataset['researchFocus'] = current.dataset['researchStep'];
-        },
-        {
-          rootMargin: `-${top}px 0px -${bottom}px 0px`,
-          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-        },
+      const camelFocus = focusAttr.replace(/-([a-z])/g, (_, c: string) =>
+        c.toUpperCase(),
       );
-      topics.forEach((topic) => topicObserver.observe(topic));
+      let stepObserver: IntersectionObserver;
+      function observe() {
+        stepObserver?.disconnect();
+        if (!container) return;
+        const visibleSteps = new Set<HTMLElement>();
+        const art = container.querySelector<HTMLElement>(visualSelector)!;
+        const phoneScene =
+          innerWidth <= 650 && getComputedStyle(art).position === 'sticky';
+        const inset =
+          parseFloat(
+            getComputedStyle(document.documentElement).scrollPaddingTop,
+          ) || 0;
+        const top = Math.min(
+          innerHeight - 140,
+          phoneScene
+            ? inset + art.getBoundingClientRect().height + 24
+            : Math.max(inset + 32, innerHeight * 0.3),
+        );
+        const bottom = phoneScene ? 32 : Math.max(32, innerHeight * 0.25);
+        const readingPoint = (top + innerHeight - bottom) / 2;
+        stepObserver = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting)
+                visibleSteps.add(entry.target as HTMLElement);
+              else visibleSteps.delete(entry.target as HTMLElement);
+            }
+            const current = [...visibleSteps].sort((a, b) => {
+              const aRect = a.getBoundingClientRect();
+              const bRect = b.getBoundingClientRect();
+              return (
+                Math.abs(aRect.top + aRect.height / 2 - readingPoint) -
+                Math.abs(bRect.top + bRect.height / 2 - readingPoint)
+              );
+            })[0];
+            if (current)
+              container.dataset[camelFocus] = current.dataset[camelStep];
+          },
+          {
+            rootMargin: `-${top}px 0px -${bottom}px 0px`,
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+          },
+        );
+        steps.forEach((step) => stepObserver.observe(step));
+      }
+      observe();
+      addEventListener('resize', observe, { passive: true });
+      motion.addEventListener('change', observe);
     }
-    observeTopics();
-    addEventListener('resize', observeTopics, { passive: true });
-    motion.addEventListener('change', observeTopics);
+
+    bindStepStory(
+      '.research-story',
+      '.research-visual',
+      'research-step',
+      'research-focus',
+    );
+    bindStepStory(
+      '.methods-story',
+      '.methods-visual',
+      'methods-step',
+      'methods-focus',
+    );
   }
 
   const nativeTimelines =
@@ -181,16 +208,16 @@
         ) || 0;
       const positions = [...active].map((scene) => {
         const rect = scene.getBoundingClientRect();
+        const isEntryRange =
+          scene.classList.contains('visual-study') ||
+          scene.classList.contains('clinician-route') ||
+          scene.classList.contains('contact-section');
+        const progress = isEntryRange
+          ? (innerHeight - rect.top) / Math.max(1, innerHeight + rect.height)
+          : (inset - rect.top) / Math.max(1, rect.height - innerHeight + inset);
         return {
           scene,
-          progress: Math.max(
-            0,
-            Math.min(
-              1,
-              (inset - rect.top) /
-                Math.max(1, rect.height - innerHeight + inset),
-            ),
-          ),
+          progress: Math.max(0, Math.min(1, progress)),
         };
       });
       for (const { scene, progress } of positions) {
@@ -212,23 +239,27 @@
       active.clear();
       if (motion.matches) return;
       for (const scene of scenes) {
-        const research = scene.classList.contains('research-story');
-        const ranges = research
+        const storyScene =
+          scene.classList.contains('research-story') ||
+          scene.classList.contains('methods-story');
+        const ranges = storyScene
           ? [
-              [30, -40],
-              [50, -120],
-              [160, -40],
+              [-42, 42],
+              [26, -26],
+              [82, -82],
             ]
           : [
-              [60, -100],
-              [40, -210],
-              [80, -360],
+              [-55, 55],
+              [25, -25],
+              [105, -105],
             ];
-        const scale = innerWidth <= 650 && !research ? 0.6 : 1;
+        const scale = innerWidth <= 650 && !storyScene ? 0.6 : 1;
         const list = [
-          ...scene.querySelectorAll<SVGElement>('[data-parallax-layer]'),
+          ...scene.querySelectorAll<HTMLElement | SVGElement>(
+            '[data-parallax-layer]',
+          ),
         ].map((layer, index) => {
-          const [start, end] = ranges[index]!;
+          const [start, end] = ranges[index] ?? ranges[ranges.length - 1]!;
           const animation = layer.animate(
             [
               { transform: `translateY(${start! * scale}px)` },
@@ -241,12 +272,12 @@
           return animation;
         });
         const detailFrames: Record<string, Keyframe[]> = {
-          pen: [{ transform: 'rotate(-2deg)' }, { transform: 'rotate(2deg)' }],
+          pen: [{ transform: 'rotate(-5deg)' }, { transform: 'rotate(4deg)' }],
           symbols: [
-            { transform: 'translate(10px, 16px) rotate(3deg)' },
-            { transform: 'translate(-12px, -8px) rotate(-2deg)' },
+            { transform: 'translate(12px, 12px) rotate(3deg)' },
+            { transform: 'translate(-10px, -10px) rotate(-2.5deg)' },
           ],
-          signal: [{ strokeDashoffset: '.7' }, { strokeDashoffset: '0' }],
+          signal: [{ strokeDashoffset: '.85' }, { strokeDashoffset: '0' }],
         };
         for (const detail of scene.querySelectorAll<SVGElement>(
           '[data-scroll-detail]',

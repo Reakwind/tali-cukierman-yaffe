@@ -148,35 +148,64 @@
     }
   },
   {
-    "id": "hybrid-closed-loop",
-    "kind": "result",
-    "sourceUrl": "https://easddistribute.m-anage.com/from.storage?image=DRQMKAdip9FzW2MCANbX49w3an0Yo0TbAUx61uf-MLE8Lc6YRYFPblGBhJ7f6xIH0",
+    "id": "methods",
+    "kind": "methods",
+    "sourceUrl": "https://6-vital.com/",
     "sourceChecked": "2026-11-01",
     "approval": "draft",
     "localized": {
       "en": {
-        "lead": "MiniMed 780G and time in target glucose range.",
-        "audience": "Adults 60+ with type 1 diabetes",
-        "visitNote": "Conference abstract · EASD 2026",
-        "automated": "MiniMed 780G",
-        "standard": "Standard care",
-        "metric": "Time in target glucose range"
+        "heading": "Our methods",
+        "lead": "Digital sensing, machine learning and combined clinical interventions."
       },
       "he": {
-        "lead": "MiniMed 780G וזמן בטווח הסוכר הרצוי.",
-        "audience": "בני 60 ומעלה עם סוכרת מסוג 1",
-        "visitNote": "תקציר בכנס · EASD 2026",
-        "automated": "MiniMed 780G",
-        "standard": "הטיפול הרגיל",
-        "metric": "זמן בטווח הסוכר הרצוי"
+        "heading": "שיטות המחקר שלנו",
+        "lead": "חישה דיגיטלית, למידת מכונה והתערבויות קליניות משולבות."
       }
     },
-    "participants": 42,
-    "followupMonths": 12,
-    "targetRange": [70, 180],
-    "timeInRange": {
-      "automated": 76.9,
-      "standard": 64.0
-    }
+    "steps": [
+      {
+        "id": "six-vital",
+        "icons": ["phone", "sensor", "cognition"],
+        "localized": {
+          "en": {
+            "title": "6 Vital phone app & digital cognitive test",
+            "text": "Installed on participants’ phones to collect movement data from phone sensors and cognitive data from a digital test created by our group."
+          },
+          "he": {
+            "title": "אפליקציית 6 Vital ומבחן קוגניטיבי דיגיטלי",
+            "text": "מותקנת בטלפון של המשתתפים ואוספת נתוני תנועה מחיישני הטלפון ונתונים קוגניטיביים ממבחן דיגיטלי שפיתחה הקבוצה."
+          }
+        }
+      },
+      {
+        "id": "ml-frailty",
+        "icons": ["computer", "strength", "balance"],
+        "localized": {
+          "en": {
+            "title": "Machine learning to identify frailty",
+            "text": "Combines movement and cognitive signals with machine learning to identify frailty and physical-capacity risk in older adults with diabetes."
+          },
+          "he": {
+            "title": "למידת מכונה לזיהוי שבריריות",
+            "text": "משלבת נתוני תנועה וקוגניציה עם למידת מכונה כדי לזהות שבריריות ושינויים ביכולת הגופנית במבוגרים עם סוכרת."
+          }
+        }
+      },
+      {
+        "id": "interventions",
+        "icons": ["app", "nutrition", "injection"],
+        "localized": {
+          "en": {
+            "title": "App fitness videos, nutrition & GLP-1 therapy",
+            "text": "Combines guided fitness videos inside the app and nutritional interventions along with GLP-1 medication to preserve muscle and improve outcomes."
+          },
+          "he": {
+            "title": "סרטוני כושר באפליקציה, תזונה וטיפול ב־GLP-1",
+            "text": "משלב סרטוני כושר מודרכים בתוך האפליקציה והתערבויות תזונתיות יחד עם תרופות GLP-1 לשימור השריר ולשיפור התפקוד."
+          }
+        }
+      }
+    ]
   }
 ]

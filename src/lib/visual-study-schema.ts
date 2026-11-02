@@ -68,30 +68,30 @@ const trial = z
         'Assessment visits must be ordered within the stated study duration.',
     },
   );
-const result = z.strictObject({
-  ...base,
-  id: z.literal('hybrid-closed-loop'),
-  kind: z.literal('result'),
-  participants: z.number().int().positive(),
-  followupMonths: z.number().int().positive(),
-  targetRange: z
-    .tuple([z.number().positive(), z.number().positive()])
-    .refine(([min, max]) => min < max),
-  timeInRange: z.strictObject({
-    automated: z.number().min(0).max(100),
-    standard: z.number().min(0).max(100),
-  }),
+const methodStep = z.strictObject({
+  id: z.enum(['six-vital', 'ml-frailty', 'interventions']),
+  icons: z.array(z.enum(iconNames)).min(1),
   localized: bilingual(
     z.strictObject({
-      ...core,
-      automated: caption,
-      standard: caption,
-      metric: caption,
+      title: caption,
+      text: caption,
     }),
   ),
+});
+const methods = z.strictObject({
+  ...base,
+  id: z.literal('methods'),
+  kind: z.literal('methods'),
+  localized: bilingual(
+    z.strictObject({
+      heading: caption,
+      lead: caption,
+    }),
+  ),
+  steps: z.array(methodStep).length(3),
 });
 export const visualStudySchema = z.discriminatedUnion('kind', [
   assessment,
   trial,
-  result,
+  methods,
 ]);

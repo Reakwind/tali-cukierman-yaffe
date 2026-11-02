@@ -18,14 +18,23 @@ const publications = (await getCollection('publications')).sort(
 <div class="container visual-footer">
   <section
     id="home-publications"
-    class="publication-shelf"
+    class="publication-shelf parallax-scene"
     data-scroll-section
     tabindex="-1"
     aria-labelledby="footer-publications-title"
   >
     <div class="publication-art" aria-hidden="true">
-      <DiabetesIcon name="paper" size={300} />
-      <div class="paper-subjects">
+      <div
+        class="publication-backdrop parallax-layer layer-far"
+        data-parallax-layer="far"
+      ></div>
+      <div class="parallax-layer layer-middle" data-parallax-layer="middle">
+        <DiabetesIcon name="paper" size={300} />
+      </div>
+      <div
+        class="paper-subjects parallax-layer layer-near"
+        data-parallax-layer="near"
+      >
         <DiabetesIcon name="cognition" size={100} />
         <DiabetesIcon name="strength" size={100} />
         <DiabetesIcon name="pump" size={100} />
@@ -46,19 +55,12 @@ const publications = (await getCollection('publications')).sort(
                 <ResearchText text={data.localized[locale].title} />
               </a>
             </h3>
-            {id !== 'grace-780g' && (
-              <p class="publication-summary">
-                <ResearchText text={data.localized[locale].summary} />
-              </p>
-            )}
+            <p class="publication-summary">
+              <ResearchText text={data.localized[locale].summary} />
+            </p>
             <p class="publication-citation" dir="ltr" lang="en" data-citation>
               {data.citation}
             </p>
-            {id === 'grace-780g' && (
-              <a class="result-link" href="#study-hybrid-closed-loop">
-                {he ? 'תוצאות GRACE-780G' : 'GRACE-780G results'}
-              </a>
-            )}
           </li>
         ))}
       </ol>
@@ -165,11 +167,24 @@ const publications = (await getCollection('publications')).sort(
   .publication-art {
     position: sticky;
     inset-block-start: var(--header-clearance);
-    min-block-size: 500px;
+    block-size: calc(100svh - var(--header-clearance));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: clip;
+  }
+  .publication-backdrop {
+    position: absolute;
+    inline-size: 76%;
+    block-size: 70%;
+    border-radius: 28px;
+    background: var(--teal-soft);
+    z-index: 0;
+  }
+  .publication-art > :not(.publication-backdrop) {
+    position: relative;
+    z-index: 1;
   }
   .paper-subjects {
     display: flex;
@@ -208,9 +223,6 @@ const publications = (await getCollection('publications')).sort(
     color: var(--muted);
     margin: 0;
   }
-  .result-link {
-    font-size: 0.7rem;
-  }
   .footer-team {
     padding-block: 3rem;
     border-block-start: 1px solid var(--line-strong);
@@ -219,6 +231,7 @@ const publications = (await getCollection('publications')).sort(
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1.5rem;
+    padding-block: 1.5rem;
   }
   .portrait-strip img,
   .portrait-symbol {
@@ -257,14 +270,14 @@ const publications = (await getCollection('publications')).sort(
   }
   .student-contact {
     font-size: 0.85rem;
-    margin-block: 1.5rem 0;
+    margin-block: 1rem 0;
   }
   .site-facts {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     border-block-start: 1px solid var(--line-strong);
-    padding-block-start: 2rem;
+    padding-block: 2rem;
   }
   .site-facts section {
     display: flex;
@@ -293,23 +306,17 @@ const publications = (await getCollection('publications')).sort(
     }
   }
   @media (max-width: 650px) {
-    .paper-subjects :global(svg) {
-      inline-size: 70px;
-      block-size: 70px;
-    }
     .publication-shelf {
       grid-template-columns: 1fr;
     }
     .publication-art {
       position: static;
-      min-block-size: 250px;
-    }
-    .publication-art > :global(svg) {
-      inline-size: 200px;
-      block-size: 200px;
+      block-size: auto;
+      min-block-size: 360px;
     }
     .portrait-strip {
       grid-template-columns: repeat(2, 1fr);
+      padding-block: 1rem;
     }
     .site-facts {
       grid-template-columns: 1fr;
@@ -320,6 +327,13 @@ const publications = (await getCollection('publications')).sort(
     .site-facts #accessibility {
       flex-direction: column;
       align-items: start;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .publication-art {
+      position: relative;
+      inset-block-start: auto;
+      block-size: auto;
     }
   }
 </style>

@@ -65,7 +65,7 @@ for (const locale of ['en', 'he'] as const) {
     }
   });
 
-  test(`${locale}: completed GRACE-780G connects to results without an enrollment journey`, async ({
+  test(`${locale}: completed GRACE-780G connects to study design and outputs without showcasing results or an enrollment journey`, async ({
     page,
   }) => {
     await page.goto(`/${locale}/studies/hybrid-closed-loop/`);
@@ -75,6 +75,8 @@ for (const locale of ['en', 'he'] as const) {
     await expect(
       page.locator('#outputs a[href*="easddistribute.m-anage.com"]'),
     ).toHaveCount(1);
+    await expect(page.locator('main')).not.toContainText('76.9%');
+    await expect(page.locator('main')).not.toContainText('64.0%');
     await expect(page.locator('#taking-part')).toHaveCount(0);
     await expect(
       page.locator('.next-steps, form, [data-live-enquiry]'),
@@ -88,22 +90,20 @@ for (const locale of ['en', 'he'] as const) {
     }
   });
 
-  test(`${locale}: research findings and publications retain their evidence`, async ({
+  test(`${locale}: research methods and publications showcase methods without study results`, async ({
     page,
   }) => {
     await page.goto(`/${locale}/`);
-    await expect(page.locator('#study-hybrid-closed-loop')).toContainText(
-      'GRACE-780G',
+    await expect(page.locator('#research-methods')).toContainText('6 Vital');
+    await expect(page.locator('#research-methods')).toContainText(
+      locale === 'en' ? 'frailty' : 'שבריריות',
     );
-    await expect(page.locator('#study-hybrid-closed-loop')).toContainText(
-      '2026',
-    );
+    await expect(page.locator('#research-methods')).toContainText('GLP-1');
+    await expect(page.locator('main')).not.toContainText('76.9%');
+    await expect(page.locator('main')).not.toContainText('64.0%');
     await expect(
       page.locator('#home-publications [data-publication]'),
     ).toHaveCount(6);
-    await expect(
-      page.locator('#home-publications a[href="#study-hybrid-closed-loop"]'),
-    ).toHaveCount(1);
     await expect(page.locator('#home-updates')).toHaveCount(0);
   });
 }

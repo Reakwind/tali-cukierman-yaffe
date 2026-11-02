@@ -1,0 +1,164 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/ui';
+import MethodsScene from './MethodsScene.astro';
+import ResearchText from './ResearchText.astro';
+interface Props {
+  visual: CollectionEntry<'visualStudies'>;
+  locale: Locale;
+}
+const { visual, locale } = Astro.props;
+if (visual.data.kind !== 'methods') {
+  throw new Error(`Expected methods visual data for ${visual.id}.`);
+}
+const data = visual.data;
+const copy = data.localized[locale];
+---
+
+<section
+  id="research-methods"
+  class="visual-methods"
+  aria-labelledby="research-methods-title"
+>
+  <header class="methods-header">
+    <h3 id="research-methods-title">{copy.heading}</h3>
+    <p>{copy.lead}</p>
+  </header>
+  <div class="methods-story parallax-scene" data-methods-focus="six-vital">
+    <div class="methods-visual" data-visual>
+      <MethodsScene locale={locale} />
+    </div>
+    <div class="methods-steps">
+      {data.steps.map((step) => {
+        const stepCopy = step.localized[locale];
+        return (
+          <article
+            class="method-step"
+            data-methods-step={step.id}
+            id={`method-${step.id}`}
+            aria-labelledby={`method-${step.id}-title`}
+          >
+            <h3 id={`method-${step.id}-title`}>
+              <ResearchText text={stepCopy.title} />
+            </h3>
+            <p>
+              <ResearchText text={stepCopy.text} />
+            </p>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+<style>
+  .visual-methods {
+    margin-block-start: 4rem;
+    padding-block-start: 3.5rem;
+    border-block-start: 2px solid var(--magenta);
+  }
+  .methods-header {
+    margin-block-end: 1.5rem;
+    max-inline-size: 65ch;
+  }
+  .methods-header h3 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-block-end: 0.6rem;
+  }
+  .methods-header p {
+    color: var(--muted);
+    margin: 0;
+  }
+  .methods-story {
+    display: grid;
+    grid-template-columns: minmax(0, 0.64fr) minmax(0, 0.36fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .methods-visual {
+    position: sticky;
+    inset-block-start: var(--header-clearance);
+    overflow: clip;
+  }
+  .methods-steps {
+    padding-block-end: 12svh;
+  }
+  .method-step {
+    min-block-size: 60svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .method-step h3 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--magenta);
+    margin-block-end: 1rem;
+  }
+  .method-step p {
+    font-size: 1rem;
+    max-inline-size: 28ch;
+  }
+  @media (max-width: 650px) {
+    .visual-methods {
+      margin-block-start: 2.5rem;
+      padding-block-start: 2rem;
+    }
+    .methods-story {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .methods-visual {
+      position: relative;
+      inset-block-start: auto;
+      max-inline-size: 420px;
+    }
+    .methods-steps {
+      padding-block-end: 0;
+    }
+    .method-step {
+      min-block-size: 0;
+      padding-block: 1.25rem;
+    }
+    .method-step p {
+      max-inline-size: 40ch;
+    }
+  }
+  @media (max-width: 650px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+    .methods-story {
+      --methods-scene-height: min(40svh, 340px);
+    }
+    .methods-visual {
+      grid-area: 1 / 1;
+      position: sticky;
+      inset-block-start: var(--header-clearance);
+      block-size: var(--methods-scene-height);
+      inline-size: 100%;
+      max-inline-size: none;
+      z-index: 2;
+      background: var(--paper);
+    }
+    .methods-visual :global(.methods-scene) {
+      block-size: 100%;
+    }
+    .methods-steps {
+      grid-area: 1 / 1;
+      padding-block-start: calc(var(--methods-scene-height) + 2rem);
+    }
+    .method-step {
+      min-block-size: 60svh;
+      padding-block: 2rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .methods-steps {
+      padding-block-end: 0;
+    }
+    .method-step {
+      min-block-size: 0;
+      padding-block: 2rem;
+    }
+    .methods-visual {
+      position: relative;
+      inset-block-start: auto;
+    }
+  }
+</style>

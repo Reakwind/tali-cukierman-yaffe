@@ -77,10 +77,9 @@ test('the Hebrew page carries the same content and study information', async ({
     /סוכרת,\s*קוגניציה\s*והזדקנות\./,
   );
   await expect(page.locator('#home-research .area-art')).toHaveCount(3);
+  await expect(page.locator('#home-research .method-art')).toHaveCount(3);
   await expect(page.locator('#home-studies [data-study]')).toHaveCount(2);
-  await expect(page.locator('#study-hybrid-closed-loop')).toContainText(
-    'GRACE-780G',
-  );
+  await expect(page.locator('#research-methods')).toContainText('6 Vital');
   await expect(page.locator('main form')).toHaveCount(1);
   await expect(page.locator('[data-live-enquiry]')).toHaveCount(0);
 });

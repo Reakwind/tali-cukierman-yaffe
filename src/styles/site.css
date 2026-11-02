@@ -154,23 +154,23 @@ main {
 }
 @keyframes pen-settle {
   from {
-    transform: rotate(-2deg);
+    transform: rotate(-5deg);
   }
   to {
-    transform: rotate(2deg);
+    transform: rotate(4deg);
   }
 }
 @keyframes symbols-settle {
   from {
-    transform: translate(10px, 16px) rotate(3deg);
+    transform: translate(12px, 12px) rotate(3deg);
   }
   to {
-    transform: translate(-12px, -8px) rotate(-2deg);
+    transform: translate(-10px, -10px) rotate(-2.5deg);
   }
 }
 @keyframes signal-resolve {
   from {
-    stroke-dashoffset: 0.7;
+    stroke-dashoffset: 0.85;
   }
   to {
     stroke-dashoffset: 0;
@@ -178,50 +178,50 @@ main {
 }
 @keyframes far-depth {
   from {
-    transform: translateY(60px);
+    transform: translateY(-55px);
   }
   to {
-    transform: translateY(-100px);
+    transform: translateY(55px);
   }
 }
 @keyframes middle-depth {
   from {
-    transform: translateY(40px);
+    transform: translateY(25px);
   }
   to {
-    transform: translateY(-210px);
+    transform: translateY(-25px);
   }
 }
 @keyframes near-depth {
   from {
-    transform: translateY(80px);
+    transform: translateY(105px);
   }
   to {
-    transform: translateY(-360px);
+    transform: translateY(-105px);
   }
 }
 @keyframes research-far {
   from {
-    transform: translateY(30px);
+    transform: translateY(-42px);
   }
   to {
-    transform: translateY(-40px);
+    transform: translateY(42px);
   }
 }
 @keyframes research-middle {
   from {
-    transform: translateY(50px);
+    transform: translateY(26px);
   }
   to {
-    transform: translateY(-120px);
+    transform: translateY(-26px);
   }
 }
 @keyframes research-near {
   from {
-    transform: translateY(160px);
+    transform: translateY(82px);
   }
   to {
-    transform: translateY(-40px);
+    transform: translateY(-82px);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -239,14 +239,22 @@ main {
     html:not([data-parallax-engine='js']) .layer-near {
       animation-name: near-depth;
     }
-    html:not([data-parallax-engine='js']) .research-story .layer-far {
+    html:not([data-parallax-engine='js']) .research-story .layer-far,
+    html:not([data-parallax-engine='js']) .methods-story .layer-far {
       animation-name: research-far;
     }
-    html:not([data-parallax-engine='js']) .research-story .layer-middle {
+    html:not([data-parallax-engine='js']) .research-story .layer-middle,
+    html:not([data-parallax-engine='js']) .methods-story .layer-middle {
       animation-name: research-middle;
     }
-    html:not([data-parallax-engine='js']) .research-story .layer-near {
+    html:not([data-parallax-engine='js']) .research-story .layer-near,
+    html:not([data-parallax-engine='js']) .methods-story .layer-near {
       animation-name: research-near;
+    }
+    html:not([data-parallax-engine='js']) .visual-study .parallax-layer,
+    html:not([data-parallax-engine='js']) .clinician-route .parallax-layer,
+    html:not([data-parallax-engine='js']) .contact-section .parallax-layer {
+      animation-range: entry 15% exit 85%;
     }
     html:not([data-parallax-engine='js']) .hero-detail {
       animation: pen-settle 1ms cubic-bezier(0.3, 0, 0.25, 1) both;
@@ -264,26 +272,26 @@ main {
 @media (max-width: 650px) {
   @keyframes far-depth {
     from {
-      transform: translateY(36px);
+      transform: translateY(-33px);
     }
     to {
-      transform: translateY(-60px);
+      transform: translateY(33px);
     }
   }
   @keyframes middle-depth {
     from {
-      transform: translateY(24px);
+      transform: translateY(15px);
     }
     to {
-      transform: translateY(-126px);
+      transform: translateY(-15px);
     }
   }
   @keyframes near-depth {
     from {
-      transform: translateY(48px);
+      transform: translateY(63px);
     }
     to {
-      transform: translateY(-216px);
+      transform: translateY(-63px);
     }
   }
 }

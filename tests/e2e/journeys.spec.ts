@@ -61,9 +61,7 @@ test('academic journey moves from research to publications and the team without 
   const menu = page.locator('.desktop-nav');
   await menu.getByRole('link', { name: 'Research', exact: true }).click();
   await expect(page).toHaveURL(/#home-research$/);
-  await expect(page.locator('#study-hybrid-closed-loop')).toContainText(
-    'EASD 2026',
-  );
+  await expect(page.locator('#research-methods')).toContainText('6 Vital');
   await menu.getByRole('link', { name: 'Publications', exact: true }).click();
   await expect(page).toHaveURL(/#home-publications$/);
   await expect(
