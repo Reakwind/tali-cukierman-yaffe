@@ -1,0 +1,139 @@
+[
+  {
+    "id": "grace-780g",
+    "year": 2026,
+    "type": "conference-abstract",
+    "citation": "Shimon H et al. EASD 2026. Late-breaking abstract LBA 19.",
+    "sourceUrl": "https://easddistribute.m-anage.com/from.storage?image=DRQMKAdip9FzW2MCANbX49w3an0Yo0TbAUx61uf-MLE8Lc6YRYFPblGBhJ7f6xIH0",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": ["hybrid-closed-loop"],
+    "localized": {
+      "en": {
+        "title": "GRACE-780G: automated insulin delivery in older adults",
+        "summary": "A 12-month randomized trial evaluating the MiniMed 780G hybrid closed-loop system alongside cognitive and physical-function assessments in 42 adults aged 60+ with type 1 diabetes.",
+        "context": "Conference abstract describing the trial protocol, population, and continuous glucose monitoring evaluation."
+      },
+      "he": {
+        "title": "GRACE-780G: מתן אינסולין אוטומטי בגיל המבוגר",
+        "summary": "מחקר אקראי בן 12 חודשים שבחן את מערכת MiniMed 780G בלולאה סגורה היברידית לצד הערכות קוגניטיביות ותפקודיות ב־42 מבוגרים בני 60 ומעלה עם סוכרת מסוג 1.",
+        "context": "תקציר בכנס המתאר את מבנה המחקר, אוכלוסיית המשתתפים והערכת ניטור הסוכר הרציף."
+      }
+    }
+  },
+  {
+    "id": "sarcopenia",
+    "year": 2026,
+    "type": "proposal",
+    "citation": "Tarazona-Santabalbina FJ et al. Diabetes Research and Clinical Practice. 2026;238:113326.",
+    "doi": "10.1016/j.diabres.2026.113326",
+    "sourceUrl": "https://cris.tau.ac.il/en/publications/sarcopenia-in-diabetes-a-proposal-on-integrating-muscle-assessmen/",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": ["stay-strong"],
+    "localized": {
+      "en": {
+        "title": "Sarcopenia in diabetes: muscle assessment and nutritional intervention",
+        "summary": "An international clinical proposal, coauthored by Tali Cukierman-Yaffe, on integrating muscle assessment and nutritional intervention into diabetes care.",
+        "context": "Related clinical work on loss of muscle strength and mass alongside structured nutritional and exercise support."
+      },
+      "he": {
+        "title": "סרקופניה בסוכרת: הערכת שריר והתערבות תזונתית",
+        "summary": "הצעה קלינית בין־לאומית בהשתתפות טלי צוקרמן־יפה, העוסקת בשילוב הערכת שריר והתערבות תזונתית בטיפול בסוכרת.",
+        "context": "עבודה קלינית קשורה בנושא אובדן כוח ומסת שריר לצד תמיכה תזונתית ותפקודית מובנית."
+      }
+    }
+  },
+  {
+    "id": "digital-assessment",
+    "year": 2024,
+    "type": "article",
+    "citation": "Segev O et al. Diabetes, Obesity and Metabolism. 2024;26(8):3299–3305.",
+    "doi": "10.1111/dom.15657",
+    "sourceUrl": "https://doi.org/10.1111/dom.15657",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": [],
+    "localized": {
+      "en": {
+        "title": "A digital Digit Symbol Substitution Test for older adults with diabetes",
+        "summary": "Development and first-stage validation of a digital cognitive assessment, relevant to the group’s work on measuring thinking and processing speed.",
+        "context": "The authors call for further validation, including self-administration and use in different clinical settings."
+      },
+      "he": {
+        "title": "מבחן החלפת סמלים בספרות בגרסה דיגיטלית למבוגרים עם סוכרת",
+        "summary": "פיתוח ותיקוף ראשוני של כלי הערכה קוגניטיבי דיגיטלי, הקשור לעבודת הקבוצה במדידת חשיבה ומהירות עיבוד.",
+        "context": "המחברים מציינים צורך בתיקוף נוסף, לרבות שימוש עצמאי ובמסגרות קליניות שונות."
+      }
+    }
+  },
+  {
+    "id": "movement",
+    "year": 2023,
+    "type": "article",
+    "citation": "Yahalom-Peri T et al. Journal of Clinical Medicine. 2023;12(23):7404.",
+    "doi": "10.3390/jcm12237404",
+    "sourceUrl": "https://www.mdpi.com/2077-0383/12/23/7404",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": ["birax"],
+    "localized": {
+      "en": {
+        "title": "Wearable accelerometers and everyday movement in older adults with type 2 diabetes",
+        "summary": "An observational study examining movement patterns outside the clinic in relation to measured physical capacity. Coauthors include Tal Yahalom-Peri and Tali Cukierman-Yaffe.",
+        "context": "Methodological work on sensor-based movement capture related to the BIRAX research area."
+      },
+      "he": {
+        "title": "מדי תאוצה לבישים ותנועה יומיומית במבוגרים עם סוכרת מסוג 2",
+        "summary": "מחקר תצפיתי שבחן דפוסי תנועה מחוץ למרפאה ביחס ליכולת הגופנית שנמדדה. עם המחברים נמנות טל יהלום פרי וטלי צוקרמן־יפה.",
+        "context": "עבודה מתודולוגית על מדידת תנועה באמצעות חיישנים הקשורה לתחום המחקר של BIRAX."
+      }
+    }
+  },
+  {
+    "id": "technology-review",
+    "year": 2023,
+    "type": "review",
+    "citation": "Huang ES et al. Diabetes Care. 2023;46(8):1455–1463.",
+    "doi": "10.2337/dci23-0021",
+    "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/37471606/",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": [],
+    "localized": {
+      "en": {
+        "title": "The growing role of technology in older-adult diabetes care",
+        "summary": "A review of glucose monitors, insulin-delivery technologies, barriers to use, and research priorities for older adults and caregivers. Tali Cukierman-Yaffe is a coauthor.",
+        "context": "A review of diabetes technology methods and priorities in older age."
+      },
+      "he": {
+        "title": "התפקיד המתפתח של טכנולוגיה בטיפול בסוכרת בגיל המבוגר",
+        "summary": "סקירה של ניטור סוכר, טכנולוגיות למתן אינסולין, חסמי שימוש ועדיפויות למחקר בקרב מבוגרים ומטפלים. טלי צוקרמן־יפה שותפה למאמר.",
+        "context": "סקירה של שיטות טכנולוגיות ועדיפויות מחקר בגיל המבוגר."
+      }
+    }
+  },
+  {
+    "id": "rewind",
+    "year": 2020,
+    "type": "article",
+    "citation": "Cukierman-Yaffe T et al. The Lancet Neurology. 2020;19(7):582–590.",
+    "doi": "10.1016/S1474-4422(20)30173-3",
+    "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/32562683/",
+    "sourceChecked": "2026-11-01",
+    "approval": "draft",
+    "studies": [],
+    "localized": {
+      "en": {
+        "title": "Cognitive assessment in the REWIND trial",
+        "summary": "Longitudinal cognitive assessment in type 2 diabetes led by Tali Cukierman-Yaffe, using the MoCA and Digit Symbol Substitution Test.",
+        "context": "Methodological background on standardized cognitive testing in large diabetes trials."
+      },
+      "he": {
+        "title": "הערכה קוגניטיבית במחקר REWIND",
+        "summary": "מחקר מעקב של תפקוד קוגניטיבי בסוכרת מסוג 2 בהובלת טלי צוקרמן־יפה, באמצעות מבחן MoCA ומבחן החלפת סמלים בספרות.",
+        "context": "רקע מתודולוגי על הערכה קוגניטיבית מתוקננת במחקרי סוכרת רחבי היקף."
+      }
+    }
+  }
+]

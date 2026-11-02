@@ -1,0 +1,98 @@
+---
+import DiabetesIcon from './DiabetesIcon.astro';
+import type { Locale } from '../i18n/ui';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 900 800"
+  width="900"
+  height="800"
+  class="methods-scene"
+  role="img"
+  aria-labelledby="methods-scene-title"
+>
+  <title id="methods-scene-title">
+    {
+      locale === 'he'
+        ? 'איור שיטות המחקר: אפליקציית 6 Vital לחיישני תנועה ומבחן קוגניטיבי דיגיטלי, למידת מכונה לזיהוי שבריריות, והתערבות משולבת של כושר, תזונה ו־GLP-1'
+        : 'Research methods illustration: 6 Vital phone sensor and digital cognitive testing app, machine learning for frailty, and combined app fitness, nutrition and GLP-1 intervention'
+    }
+  </title>
+  <g class="parallax-layer layer-far" data-parallax-layer="far">
+    <rect
+      x="100"
+      y="90"
+      width="660"
+      height="620"
+      rx="32"
+      fill="var(--teal-soft)"
+    />
+    <path
+      d="M160 190H700M160 630H700M160 190V630M700 190V630"
+      fill="none"
+      stroke="var(--teal)"
+      stroke-opacity=".2"
+      stroke-dasharray="3 12"
+    />
+    <path
+      d="M280 260H450V490H280M450 375H560"
+      fill="none"
+      stroke="var(--magenta)"
+      stroke-width="2"
+    />
+  </g>
+  <g class="parallax-layer layer-middle" data-parallax-layer="middle">
+    <g class="method-art focus-six-vital">
+      <DiabetesIcon name="phone" x={115} y={165} size={190} />
+      <DiabetesIcon name="sensor" x={300} y={170} size={110} />
+      <DiabetesIcon name="cognition" x={300} y={265} size={120} />
+    </g>
+    <g class="method-art focus-ml-frailty">
+      <DiabetesIcon name="computer" x={115} y={400} size={190} />
+      <DiabetesIcon name="balance" x={305} y={390} size={115} />
+      <DiabetesIcon name="strength" x={305} y={495} size={115} />
+    </g>
+  </g>
+  <g class="parallax-layer layer-near" data-parallax-layer="near">
+    <g class="method-art focus-interventions">
+      <DiabetesIcon name="app" x={480} y={235} size={190} />
+      <DiabetesIcon name="nutrition" x={480} y={420} size={140} />
+      <DiabetesIcon name="injection" x={615} y={420} size={140} />
+    </g>
+  </g>
+</svg>
+<style>
+  .methods-scene {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    overflow: visible;
+  }
+  .method-art {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 0.45s ease,
+      transform 0.6s cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  :global([data-methods-focus='six-vital']) .focus-ml-frailty,
+  :global([data-methods-focus='six-vital']) .focus-interventions,
+  :global([data-methods-focus='ml-frailty']) .focus-six-vital,
+  :global([data-methods-focus='ml-frailty']) .focus-interventions,
+  :global([data-methods-focus='interventions']) .focus-six-vital,
+  :global([data-methods-focus='interventions']) .focus-ml-frailty {
+    opacity: 0.2;
+    transform: scale(0.94);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .method-art {
+      transition: none;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,9 @@
+package-lock.json
+node_modules/
+dist/
+.astro/
+.wrangler/
+.env.example
+.dev.vars.example
+test-results/
+playwright-report/

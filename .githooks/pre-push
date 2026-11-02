@@ -1,0 +1,28 @@
+#!/bin/sh
+# Blocks direct pushes to main and non-fast-forward pushes.
+set -eu
+
+ZERO="0000000000000000000000000000000000000000"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ -z "${local_ref:-}" ] && continue
+
+  if [ "$remote_ref" = "refs/heads/main" ] || [ "$remote_ref" = "refs/heads/master" ]; then
+    echo "REFUSED pre-push: Direct pushes to $remote_ref are forbidden. Fix: Push a <type>/<slug> feature branch and open a pull request." >&2
+    exit 1
+  fi
+
+  if [ "$local_sha" = "$ZERO" ]; then
+    echo "REFUSED pre-push: Deleting remote refs via git push is forbidden. Fix: Use gh pr merge --squash --delete-branch." >&2
+    exit 1
+  fi
+
+  if [ "$remote_sha" != "$ZERO" ] && git rev-parse --verify "$remote_sha^{commit}" >/dev/null 2>&1; then
+    if ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
+      echo "REFUSED pre-push: Non-fast-forward (force) push to $remote_ref is forbidden. Fix: Pull/rebase cleanly or push a new commit." >&2
+      exit 1
+    fi
+  fi
+done
+
+exit 0

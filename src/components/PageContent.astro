@@ -1,0 +1,60 @@
+---
+import { pages, type PageKey } from '../data/pages';
+import type { Locale } from '../i18n/ui';
+import { sectionHref } from '../lib/section-navigation';
+import ResearchText from './ResearchText.astro';
+interface Props {
+  locale: Locale;
+  content: (typeof pages)[Locale][PageKey];
+  prefix: string;
+  headingLevel?: 3 | 4;
+}
+const { locale, content, prefix, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+---
+
+{content.sections.map((section) => (
+  <section
+    id={`${prefix}-${section.id}`}
+    class="content-section"
+    aria-labelledby={`${prefix}-${section.id}-title`}
+  >
+    <Heading id={`${prefix}-${section.id}-title`}>{section.title}</Heading>
+    {section.paragraphs.map((paragraph) => (
+      <p>
+        <ResearchText text={paragraph} />
+      </p>
+    ))}
+    {section.bullets && (
+      <ul>
+        {section.bullets.map((bullet) => (
+          <li>
+            <ResearchText text={bullet} />
+          </li>
+        ))}
+      </ul>
+    )}
+    {section.links && (
+      <div class="section-links">
+        {section.links.map((link) => (
+          <a href={sectionHref(locale, link.path)}>{link.label}</a>
+        ))}
+      </div>
+    )}
+  </section>
+))}
+<style>
+  .content-section + .content-section {
+    margin-block-start: 2rem;
+  }
+  .content-section p,
+  .content-section li {
+    font-size: 0.9rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+</style>

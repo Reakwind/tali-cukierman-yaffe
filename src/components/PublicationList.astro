@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui, type Locale } from '../i18n/ui';
+import ResearchText from './ResearchText.astro';
+
+interface Props {
+  locale: Locale;
+  studyId?: string;
+  embedded?: boolean;
+}
+const { locale, studyId, embedded = false } = Astro.props;
+const t = ui[locale];
+const publications = (await getCollection('publications'))
+  .filter(
+    (entry) => !studyId || entry.data.studies.some((id) => id === studyId),
+  )
+  .sort((a, b) => b.data.year - a.data.year || a.id.localeCompare(b.id));
+const Heading = embedded ? 'h4' : studyId ? 'h3' : 'h2';
+---
+
+<div class="publication-list">
+  {publications.map(({ id, data }) => {
+    const content = data.localized[locale];
+    return (
+      <article
+        class="article-section publication"
+        id={`publication-${id}`}
+        data-publication={id}
+      >
+        <p class="eyebrow">
+          {data.year} · {t.outputTypes[data.type]}
+        </p>
+        <Heading>
+          <ResearchText text={content.title} />
+        </Heading>
+        <p class="publication-citation" data-citation dir="ltr" lang="en">
+          {data.citation}
+        </p>
+        <p>
+          <ResearchText text={content.summary} />
+        </p>
+        <p class="small">
+          <ResearchText text={content.context} />
+        </p>
+        <div class="section-links">
+          <a
+            class="text-link"
+            href={data.doi ? `https://doi.org/${data.doi}` : data.sourceUrl}
+          >
+            <span class="publication-link-label">
+              {data.doi ? (
+                <>
+                  {t.readArticle} · <bdi dir="ltr">DOI: {data.doi}</bdi>
+                </>
+              ) : (
+                t.readAbstract
+              )}
+            </span>
+          </a>
+          {!studyId &&
+            data.studies.map((study) => (
+              <a
+                class="text-link"
+                href={
+                  embedded
+                    ? `#study-${study}`
+                    : getRelativeLocaleUrl(locale, `studies/${study}/`)
+                }
+              >
+                {t.relatedStudy}:{' '}
+                <bdi dir="ltr">
+                  {study === 'hybrid-closed-loop'
+                    ? 'GRACE-780G'
+                    : study === 'stay-strong'
+                      ? 'STAY-STRONG'
+                      : 'BIRAX'}
+                </bdi>
+                <span class="arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            ))}
+        </div>
+      </article>
+    );
+  })}
+</div>
+
+<style>
+  .publication-citation {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    text-align: start;
+  }
+  .publication :is(h3, h4) {
+    font-size: 1.15rem;
+  }
+  .section-links {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.8rem;
+  }
+  .section-links a {
+    max-inline-size: 100%;
+  }
+  .publication-link-label {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+</style>

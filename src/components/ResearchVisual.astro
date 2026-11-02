@@ -1,0 +1,142 @@
+---
+import type { Locale } from '../i18n/ui';
+interface Props {
+  locale: Locale;
+  kind?: string;
+}
+const { locale, kind = 'overview' } = Astro.props;
+const diagrams: Record<string, { root: string[]; branches: string[] }> =
+  locale === 'he'
+    ? {
+        overview: {
+          root: ['סוכרת', 'והזדקנות'],
+          branches: ['תפקוד קוגניטיבי', 'תפקוד גופני', 'טכנולוגיות סוכרת'],
+        },
+        cognition: {
+          root: ['הערכה', 'קוגניטיבית'],
+          branches: ['חשיבה וזיכרון', 'מהירות עיבוד', 'הערכה דיגיטלית'],
+        },
+        movement: {
+          root: ['יכולת', 'גופנית'],
+          branches: ['כושר', 'כוח', 'שיווי משקל'],
+        },
+        technology: {
+          root: ['טכנולוגיות', 'סוכרת'],
+          branches: ['MiniMed 780G', 'איזון סוכר', 'כלי הערכה דיגיטליים'],
+        },
+      }
+    : {
+        overview: {
+          root: ['Diabetes', '& aging'],
+          branches: [
+            'Cognitive function',
+            'Physical function',
+            'Diabetes technology',
+          ],
+        },
+        cognition: {
+          root: ['Cognitive', 'assessment'],
+          branches: [
+            'Thinking & memory',
+            'Processing speed',
+            'Digital assessment',
+          ],
+        },
+        movement: {
+          root: ['Physical', 'capacity'],
+          branches: ['Fitness', 'Strength', 'Balance'],
+        },
+        technology: {
+          root: ['Diabetes', 'technology'],
+          branches: [
+            'MiniMed 780G',
+            'Glucose management',
+            'Digital assessment',
+          ],
+        },
+      };
+const diagram = diagrams[kind] ?? diagrams['overview']!;
+---
+
+<svg
+  viewBox="0 0 600 360"
+  class="research-visual"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g class="connections">
+    <path d="M200 180H265V66H330M265 180H330M265 180V294H330" />
+  </g>
+  <rect class="root-node" x="20" y="115" width="180" height="130" rx="3" />
+  <text
+    class="root-label"
+    x="110"
+    y="170"
+    text-anchor="middle"
+    direction={locale === 'he' ? 'rtl' : 'ltr'}
+  >
+    {diagram.root.map((line, index) => (
+      <tspan x="110" dy={index ? 30 : 0}>
+        {line}
+      </tspan>
+    ))}
+  </text>
+  {diagram.branches.map((label, index) => (
+    <g>
+      <rect
+        class="branch-node"
+        x="330"
+        y={30 + index * 114}
+        width="250"
+        height="72"
+        rx="3"
+      />
+      <circle class="connection-point" cx="330" cy={66 + index * 114} r="4" />
+      <text
+        class="branch-label"
+        x="455"
+        y={73 + index * 114}
+        text-anchor="middle"
+        direction={/[A-Za-z]/.test(label) ? 'ltr' : 'rtl'}
+      >
+        {label}
+      </text>
+    </g>
+  ))}
+</svg>
+<style>
+  .research-visual {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+  .connections {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 2;
+  }
+  .root-node {
+    fill: var(--cyan);
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+  .branch-node {
+    fill: var(--paper);
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+  .connection-point {
+    fill: var(--accent);
+  }
+  text {
+    fill: var(--ink);
+    font-family: inherit;
+  }
+  .root-label {
+    font-size: 23px;
+    font-weight: 500;
+  }
+  .branch-label {
+    font-size: 18px;
+  }
+</style>

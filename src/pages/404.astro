@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout locale="en" title="Page not found">
+  <div class="container language-choice">
+    <p class="eyebrow">
+      404 ·{' '}
+      <span lang="he" dir="rtl" class="hebrew-text">
+        הדף לא נמצא
+      </span>
+    </p>
+    <h1>Page not found.</h1>
+    <p class="page-intro">
+      That link may be out of date. Find your way back to the research.
+    </p>
+    <p lang="he" dir="rtl" class="hebrew-text">
+      ייתכן שהקישור אינו עדכני. אפשר לחזור למחקר מכאן.
+    </p>
+    <div class="actions">
+      <a href="/en/" class="button">
+        English homepage <span aria-hidden="true">↗</span>
+      </a>
+      <a
+        href="/he/"
+        lang="he"
+        dir="rtl"
+        class="button button-secondary hebrew-text"
+      >
+        לאתר בעברית <span aria-hidden="true">↖</span>
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,339 @@
+---
+import { getCollection } from 'astro:content';
+import { team } from '../data/team';
+import { ui, type Locale } from '../i18n/ui';
+import DiabetesIcon from './DiabetesIcon.astro';
+import ResearchText from './ResearchText.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const he = locale === 'he';
+const t = ui[locale];
+const publications = (await getCollection('publications')).sort(
+  (a, b) => b.data.year - a.data.year || a.id.localeCompare(b.id),
+);
+---
+
+<div class="container visual-footer">
+  <section
+    id="home-publications"
+    class="publication-shelf parallax-scene"
+    data-scroll-section
+    tabindex="-1"
+    aria-labelledby="footer-publications-title"
+  >
+    <div class="publication-art" aria-hidden="true">
+      <div
+        class="publication-backdrop parallax-layer layer-far"
+        data-parallax-layer="far"
+      ></div>
+      <div class="parallax-layer layer-middle" data-parallax-layer="middle">
+        <DiabetesIcon name="paper" size={300} />
+      </div>
+      <div
+        class="paper-subjects parallax-layer layer-near"
+        data-parallax-layer="near"
+      >
+        <DiabetesIcon name="cognition" size={100} />
+        <DiabetesIcon name="strength" size={100} />
+        <DiabetesIcon name="pump" size={100} />
+      </div>
+    </div>
+    <div>
+      <h2 id="footer-publications-title">{t.publications}</h2>
+      <ol class="publication-index">
+        {publications.map(({ id, data }) => (
+          <li data-publication={id}>
+            <p class="publication-meta">
+              {data.year} · {t.outputTypes[data.type]}
+            </p>
+            <h3>
+              <a
+                href={data.doi ? `https://doi.org/${data.doi}` : data.sourceUrl}
+              >
+                <ResearchText text={data.localized[locale].title} />
+              </a>
+            </h3>
+            <p class="publication-summary">
+              <ResearchText text={data.localized[locale].summary} />
+            </p>
+            <p class="publication-citation" dir="ltr" lang="en" data-citation>
+              {data.citation}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section
+    id="home-team"
+    class="footer-team"
+    data-scroll-section
+    tabindex="-1"
+    aria-labelledby="footer-team-title"
+  >
+    <h2 id="footer-team-title">{he ? 'הצוות' : 'The team'}</h2>
+    <div class="portrait-strip">
+      {team.map((member) => (
+        <article
+          id={`team-${member.id}`}
+          class={member.id === 'tali' ? 'pi' : 'member'}
+        >
+          {member.photo ? (
+            <img
+              src={member.photo.src}
+              alt={member.photo.alt[locale]}
+              width="160"
+              height="180"
+              loading="lazy"
+            />
+          ) : (
+            <div class="portrait-symbol" aria-hidden="true">
+              <span>
+                {member.name[locale]
+                  .replace(/^(?:Prof\. |Dr\. |פרופ׳ |ד״ר )/, '')
+                  .split(/\s+/)
+                  .slice(0, 2)
+                  .map((part) => part[0])
+                  .join('')}
+              </span>
+            </div>
+          )}
+          <h3>{member.name[locale]}</h3>
+          <p>{member.role[locale]}</p>
+        </article>
+      ))}
+    </div>
+    <p class="student-contact">
+      {he
+        ? 'לפניות על מחקר לתואר שני או לדוקטורט:'
+        : 'MSc and PhD research enquiries:'}{' '}
+      <a href="mailto:tcukierm@gmail.com">
+        {he ? 'כתבו לפרופ׳ צוקרמן־יפה' : 'Email Prof. Cukierman-Yaffe'}
+      </a>
+    </p>
+  </section>
+  <div class="site-facts">
+    <section
+      id="privacy"
+      data-scroll-section
+      tabindex="-1"
+      aria-labelledby="footer-privacy-title"
+    >
+      <DiabetesIcon name="conversation" size={92} />
+      <div>
+        <h2 id="footer-privacy-title">{t.privacy}</h2>
+        <p>
+          {he
+            ? 'פרטי הקשר נשלחים לצוות המחקר. אין באתר חשבונות משתמשים או מאגר משתתפים.'
+            : 'Contact details go to the research team. The website has no accounts or participant database.'}
+        </p>
+      </div>
+    </section>
+    <section
+      id="accessibility"
+      data-scroll-section
+      tabindex="-1"
+      aria-labelledby="footer-accessibility-title"
+    >
+      <div class="access-icons">
+        <DiabetesIcon name="keyboard" size={70} />
+        <DiabetesIcon name="language" size={70} />
+        <DiabetesIcon name="motion" size={70} />
+      </div>
+      <div>
+        <h2 id="footer-accessibility-title">{t.accessibility}</h2>
+        <p>
+          {he
+            ? 'ניווט במקלדת · עברית ואנגלית · תמיכה בהפחתת תנועה'
+            : 'Keyboard navigation · Hebrew and English · Reduced-motion support'}
+        </p>
+      </div>
+    </section>
+  </div>
+</div>
+<style>
+  .visual-footer {
+    padding-block: 3rem;
+  }
+  .publication-shelf {
+    display: grid;
+    grid-template-columns: 0.6fr 0.4fr;
+    gap: 4rem;
+    align-items: start;
+    padding-block-end: 3rem;
+  }
+  .publication-art {
+    position: sticky;
+    inset-block-start: var(--header-clearance);
+    block-size: calc(100svh - var(--header-clearance));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: clip;
+  }
+  .publication-backdrop {
+    position: absolute;
+    inline-size: 76%;
+    block-size: 70%;
+    border-radius: 28px;
+    background: var(--teal-soft);
+    z-index: 0;
+  }
+  .publication-art > :not(.publication-backdrop) {
+    position: relative;
+    z-index: 1;
+  }
+  .paper-subjects {
+    display: flex;
+    gap: 1rem;
+    margin-block-start: -2rem;
+  }
+  h2 {
+    font-size: 1.7rem;
+  }
+  .publication-index {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .publication-index li {
+    padding-block: 1.25rem;
+    border-block-end: 1px solid var(--line-strong);
+    margin: 0;
+  }
+  .publication-meta {
+    font-size: 0.7rem;
+    color: var(--magenta);
+    margin-block-end: 0.4rem;
+  }
+  .publication-index h3 {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-block-end: 0.5rem;
+  }
+  .publication-summary {
+    font-size: 0.8rem;
+    line-height: 1.65;
+  }
+  .publication-citation {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .footer-team {
+    padding-block: 3rem;
+    border-block-start: 1px solid var(--line-strong);
+  }
+  .portrait-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+  }
+  .portrait-strip img,
+  .portrait-symbol {
+    display: block;
+    inline-size: 100%;
+    block-size: 180px;
+    object-fit: cover;
+    background: var(--teal-soft);
+  }
+  .portrait-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--magenta-soft);
+  }
+  .portrait-symbol span {
+    font-size: 2rem;
+    color: var(--magenta);
+  }
+  .portrait-strip h3 {
+    font-size: 0.9rem;
+    margin-block: 1rem 0.5rem;
+  }
+  .portrait-strip p {
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+  #team-tali img {
+    object-position: 50% 18%;
+  }
+  #team-naama img {
+    object-position: 45% 35%;
+  }
+  #team-tal img {
+    object-position: 50% 22%;
+  }
+  .student-contact {
+    font-size: 0.85rem;
+    margin-block: 1rem 0;
+  }
+  .site-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    border-block-start: 1px solid var(--line-strong);
+    padding-block: 2rem;
+  }
+  .site-facts section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .site-facts h2 {
+    font-size: 1rem;
+    margin-block-end: 0.5rem;
+  }
+  .site-facts p {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  .access-icons {
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 1099px) {
+    .portrait-strip {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .publication-shelf {
+      gap: 2rem;
+      grid-template-columns: 0.5fr 0.5fr;
+    }
+  }
+  @media (max-width: 650px) {
+    .publication-shelf {
+      grid-template-columns: 1fr;
+    }
+    .publication-art {
+      position: static;
+      block-size: auto;
+      min-block-size: 360px;
+    }
+    .portrait-strip {
+      grid-template-columns: repeat(2, 1fr);
+      padding-block: 1rem;
+    }
+    .site-facts {
+      grid-template-columns: 1fr;
+    }
+    .access-icons {
+      flex-direction: row;
+    }
+    .site-facts #accessibility {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .publication-art {
+      position: relative;
+      inset-block-start: auto;
+      block-size: auto;
+    }
+  }
+</style>

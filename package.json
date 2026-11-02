@@ -1,0 +1,43 @@
+{
+  "name": "tali-cukierman-yaffe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "astro": "7.4.4"
+  },
+  "engines": {
+    "node": ">=24.22.2 <25"
+  },
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "dev:worker": "npm run build && wrangler dev --local",
+    "check:worker": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "check": "astro check",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:unit": "node --test tests/unit/*.test.ts",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "verify": "npm run format:check && npm run lint && npm run check && npm test"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "eslint": "10.13.0",
+    "eslint-plugin-astro": "3.2.1",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "wrangler": "4.156.0"
+  }
+}

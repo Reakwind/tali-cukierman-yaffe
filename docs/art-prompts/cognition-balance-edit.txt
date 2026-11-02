@@ -1,0 +1,7 @@
+Edited with the built-in image-generation tool using cognition.png as the edit target.
+
+Use case: precise-object-edit.
+Input image: EDIT TARGET, the pastel cognition illustration of a brain held by two hands.
+Edit only the balance and physical support of the brain in the hands. Center the brain exactly between the two wrists and make it sit level. Give its two hemispheres comparable overall width, height and visual weight, with the middle groove upright; preserve natural differences in the decorative folds. Correct the uneven lower contour so no lower lobe droops off to one side.
+Adjust the cupped hands so their palms come slightly inward and clearly underneath the lower left and lower right sides of the brain, at the same support height. Their inward-facing palm edges should form a stable, continuous cradle under the center. The brain should visibly settle into both palms, with gentle contact shading at the touch points. Fingers should curve naturally around the outer sides and behind the brain. Keep recognizable, plausible left and right hand anatomy.
+Preserve the existing soft pink/lilac/peach palette, coral cuffs, clean rounded illustration style, subtle grain and smooth pastel shading, white background, original canvas proportions, generous margins, and approximately the same overall scale. This is a small composition and anatomy correction, not a stylistic redesign. No extra objects, lettering, borders or symbols.
