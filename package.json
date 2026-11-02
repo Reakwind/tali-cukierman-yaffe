@@ -11,12 +11,16 @@
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks || true",
+    "session:start": "node scripts/session.ts start",
+    "day:finish": "node scripts/session.ts finish",
+    "day:cleanup": "node scripts/session.ts cleanup",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "dev:worker": "npm run build && wrangler dev --local",
     "check:worker": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "check": "astro check",
+    "check:dependencies": "npm audit --audit-level=moderate",
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -39,5 +43,8 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "wrangler": "4.156.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.1"
   }
 }

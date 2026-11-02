@@ -27,7 +27,7 @@ Repository: `https://github.com/Reakwind/tali-cukierman-yaffe`
 
 - **Single source of instructions**: `AGENTS.md` (imported by `CLAUDE.md` for Claude Code in the cloud and CLI).
 - **Short commits**: Every commit uses `<type>: <imperative summary>` (`feat:`, `fix:`, `test:`, `docs:`, `refactor:`, `chore:`) in `<= 72` characters (enforced by `.githooks/commit-msg`).
-- **PR-only merges to `main`**: Create a `<type>/<slug>` branch from `origin/main`, run `npm run verify`, open a focused PR, and squash-merge (`gh pr merge --squash --delete-branch`).
+- **Sessions and daily PRs**: `npm run session:start -- <slug>` gives each session its own worktree beside the root checkout. Commit every change; `npm run day:finish` opens one PR for the day, which is squash-merged (`gh pr merge --squash --delete-branch`). The next `session:start` trims merged worktrees and fast-forwards root `main`.
 - **Destructive git protection**: Force pushes, direct pushes to `main`, `git reset --hard`, `git clean -f`, `git branch -D`, and `gh pr merge --admin` are blocked by `.claude/settings.json`, `.claude/hooks/block-destructive-git.sh`, `.githooks/pre-push`, and GitHub branch protection.
 
 ## Development

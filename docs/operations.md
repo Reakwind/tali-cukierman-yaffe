@@ -5,14 +5,22 @@
 Repository: https://github.com/Reakwind/tali-cukierman-yaffe
 
 The full codebase is published on `main` for cloud and multi-agent development
-(including Claude Code in the cloud). Every feature or fix is developed on a
-`<type>/<slug>` branch cut from `origin/main`, committed in short (`<= 72` char)
-conventional commits, verified with `npm run verify`, and squash-merged through a
-pull request. Do not force-push a shared branch or push directly to `main`.
+(including Claude Code in the cloud). Each local session works in its own git
+worktree on a `session/<date>-<slug>` branch and commits every change. At the end
+of the day `npm run day:finish` merges the sessions into `day/<date>` and opens one
+PR, verified with `npm run verify` and squash-merged. GitHub deletes the merged
+branch; the next `npm run session:start` (or `day:cleanup`) removes local worktrees
+and branches already on `origin/main` and fast-forwards the root `main` checkout.
+Do not force-push a shared branch or push directly to `main`.
 
 Applied and read back through GitHub's API on 2026-10-30:
 
 - Public visibility; squash-only merges; merged branches automatically deleted.
+- Applied by the owner and read back through the API on 2026-11-02: squash
+  commits use the PR title and list each commit's message
+  (`squash_merge_commit_title: PR_TITLE`,
+  `squash_merge_commit_message: COMMIT_MESSAGES`), so `main` history names
+  every change in the day's PR.
 - `main` requires PRs, the `quality` check, up-to-date branches, resolved
   conversations, and linear history. Administrators are covered. Force pushes
   and branch deletion are disabled.
@@ -28,14 +36,19 @@ Applied and read back through GitHub's API on 2026-10-30:
 The JSON files in `.github/` document the settings submitted to GitHub. They are
 **not** automatically applied by GitHub when edited. Apply and verify deliberate
 future changes through the API/settings interface; do not weaken safeguards to
-get a PR merged. After CI first runs, bind the required check to the GitHub Actions
-application rather than accepting a check posted by any integration.
+get a PR merged. The required `quality` check is bound to the GitHub Actions app
+(`app_id` 15368, applied by the owner and read back on 2026-11-02), so a check of
+the same name posted by any other integration does not satisfy it.
 
 The account owner should use a passkey or two-factor authentication and store
 recovery codes securely. Account authentication and billing settings have not
 been changed by this project; never put recovery codes or tokens in the repo.
 
-CI uses standard Ubuntu runners and pinned Actions, without repository secrets.
+CI (`.github/workflows/ci.yml`) runs on every PR and push to `main`: the
+dependency audit, `npm run verify` on all five browser projects, and dependency
+review. It first ran on 2026-11-02 and passed (415 browser checks). It uses
+standard Ubuntu runners, which are free for public repositories, and pinned
+Actions, without repository secrets. Do not add larger or paid runners.
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote
 verification step after analyzable source is on the default branch.
@@ -114,7 +127,15 @@ Revert a faulty feature through a new PR and rerun checks; do not force-reset
 `main`. Cloudflare deployment history can provide a production rollback once
 hosting is configured. Never discard unrelated local work.
 
+Run `npm run check:dependencies` (`npm audit`, moderate or worse fails); CI runs
+it after install.
+
 Review Dependabot PRs and vulnerability alerts regularly. Prefer compatible small
 updates; verify breaking changes against current docs/Context7. No blanket
 auto-merge for major dependency upgrades. No paid scanning/agent services are
 required for the planned workflow.
+
+`package.json` overrides `minimatch` to `11.0.1` for GHSA-g3hv-75wg-m249
+(2026-11-02). ESLint and typescript-eslint still declare `^10`, so the override
+sits outside their ranges. Remove it once both depend on a fixed release, and
+keep `tests/unit/tooling.test.ts` passing.

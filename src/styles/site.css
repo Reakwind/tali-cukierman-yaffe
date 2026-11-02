@@ -34,6 +34,9 @@
   --rose-paper: #fff3f8;
   --accent: var(--teal);
   --cyan: var(--teal-soft);
+  /* Stacking order: the skip link must stay above the sticky header. */
+  --layer-header: 30;
+  --layer-skip-link: 40;
   --mist: #f3f8f5;
   --paper: #ffffff;
   --header-clearance: 6.5rem;
@@ -414,7 +417,7 @@ main {
   position: absolute;
   inset-block-start: 0.5rem;
   inset-inline-start: 1rem;
-  z-index: 20;
+  z-index: var(--layer-skip-link);
   padding: 0.7rem 1rem;
   color: white;
   background: var(--ink);
@@ -427,7 +430,7 @@ main {
 .site-header {
   position: sticky;
   inset-block-start: 0;
-  z-index: 30;
+  z-index: var(--layer-header);
   background: var(--paper);
 }
 .header-row {
