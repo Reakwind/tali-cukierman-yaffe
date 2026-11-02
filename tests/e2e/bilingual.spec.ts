@@ -50,18 +50,34 @@ test('mobile navigation works with native keyboard controls', async ({
   await expect(page).toHaveURL(/\/en\/#home-research$/);
 });
 
-test('a keyboard skip link reaches the main content', async ({
-  page,
-  browserName,
-}) => {
-  await page.goto('/he/');
-  // Safari uses Option-Tab for links when full keyboard access is not enabled.
-  await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
-  const skip = page.getByRole('link', { name: 'דילוג לתוכן הראשי' });
-  await expect(skip).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(page.getByRole('main')).toBeFocused();
-});
+for (const [locale, name] of [
+  ['en', 'Skip to main content'],
+  ['he', 'דילוג לתוכן הראשי'],
+] as const) {
+  test(`${locale}: the focused skip link is visible above the header and reaches main content`, async ({
+    page,
+    browserName,
+  }) => {
+    await page.goto(`/${locale}/`);
+    // Safari uses Option-Tab for links when full keyboard access is not enabled.
+    await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
+    const skip = page.getByRole('link', { name });
+    await expect(skip).toBeFocused();
+    // WCAG 2.4.11: focus must not be hidden behind the sticky header.
+    expect(
+      await skip.evaluate((link) => {
+        const box = link.getBoundingClientRect();
+        const top = document.elementFromPoint(
+          box.x + box.width / 2,
+          box.y + box.height / 2,
+        );
+        return top === link || link.contains(top);
+      }),
+    ).toBe(true);
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('main')).toBeFocused();
+  });
+}
 
 test('Hebrew navigation and language switching work without JavaScript', async ({
   browser,
