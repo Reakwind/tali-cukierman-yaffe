@@ -1,7 +1,14 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test-results",
+    "playwright-report",
+    "coverage",
+    "blob-report"
+  ],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "types": ["node"]

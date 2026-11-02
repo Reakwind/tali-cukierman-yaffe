@@ -121,7 +121,15 @@ Revert a faulty feature through a new PR and rerun checks; do not force-reset
 `main`. Cloudflare deployment history can provide a production rollback once
 hosting is configured. Never discard unrelated local work.
 
+Run `npm run check:dependencies` (`npm audit`, moderate or worse fails); CI runs
+it after install.
+
 Review Dependabot PRs and vulnerability alerts regularly. Prefer compatible small
 updates; verify breaking changes against current docs/Context7. No blanket
 auto-merge for major dependency upgrades. No paid scanning/agent services are
 required for the planned workflow.
+
+`package.json` overrides `minimatch` to `11.0.1` for GHSA-g3hv-75wg-m249
+(2026-11-02). ESLint and typescript-eslint still declare `^10`, so the override
+sits outside their ranges. Remove it once both depend on a fixed release, and
+keep `tests/unit/tooling.test.ts` passing.
