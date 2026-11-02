@@ -10,6 +10,19 @@
 - Content and translations are drafts until reviewed. Never invent team members,
   openings, endorsements, recruiting status, results, or contact details.
 
+## Repository structure
+
+- `src/pages/[locale]/` — Bilingual static routes (`en` LTR and `he` RTL), including `/[locale]/`, `/[locale]/studies/[study]`, and `/[locale]/participation/thank-you`.
+- `src/components/` — Page sections and layered SVG visual storytelling (`Home.astro`, `HeroGraphic.astro`, `ResearchVisual.astro`, `ResearchScene.astro`, `VisualMethods.astro`, `MethodsScene.astro`, `VisualStudy.astro`, `VisualFooter.astro`, `ScrollExperience.astro`, `DiabetesIcon.astro`).
+- `src/content/` — Validated bilingual JSON content (`studies/*.json`, `visual-studies.json`, `publications.json`, `highlights.json`).
+- `src/lib/` — Zod content schemas (`study-schema.ts`, `visual-study-schema.ts`, `output-schema.ts`) and shared helpers.
+- `src/data/` & `src/i18n/` — Team profiles (`team.ts`), page copy (`pages.ts`), and UI strings (`ui.ts`).
+- `src/styles/site.css` — Logical RTL-safe CSS and scroll-driven parallax layers.
+- `worker/index.ts` & `wrangler.jsonc` — Cloudflare Worker endpoint (`POST /api/participation`) + static assets.
+- `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
+- `docs/` — Project brief (`project-brief.md`), architecture (`architecture.md`), registration plan (`registration-plan.md`), and visual/scrolling specs.
+- `.claude/` & `.githooks/` — Agent permissions, PreToolUse destructive-git blocker, and Git commit/push hooks.
+
 ## Approved design direction
 
 - The owner rejected the original wellness-style draft and the university-template
@@ -73,24 +86,35 @@
   that a vendor, encryption, or a checkbox alone establishes legal compliance.
 - Never paste secrets into code, chat, logs, or PRs. `PUBLIC_*` variables are public.
 
-## GitHub workflow
+## Multi-agent version control & short commits
 
-- Repository: `reakwind/tali-cukierman-yaffe` (public).
-- One small feature per branch/PR. Only the minimum repository seed may be
-  committed directly before protections are configured. Do not bundle unrelated
-  features or silently push to `main` afterward.
-- PR text: why, what changed, real test evidence, screenshots for visual changes,
-  and known limitations/approvals needed. Keep it concise.
-- The working agent reviews the full diff, confirms required checks for the exact
-  head revision, and squash-merges when ready; delete the merged feature branch.
-  Recheck if the head changes. Never use an admin bypass to ignore failed checks.
-- A solo agent acting as the PR author cannot provide independent self-approval.
-  Keep review rules compatible with the agreed solo workflow; request a separate
-  reviewer for sensitive clinical content, permissions, billing, and DNS changes.
-- Do not alter unfamiliar user work, force-push shared branches, discard changes,
-  or merge unreviewed dependency major updates.
+- **Repository**: `reakwind/tali-cukierman-yaffe` (public).
+- **Inspect before acting**: At the start of every session, run `git status -sb`,
+  `git fetch origin`, `git log --oneline -n 10`, and `gh pr list` to see in-flight work.
+- **Branch per task**: Always branch from a freshly fetched `origin/main` using
+  `<type>/<short-slug>` (e.g., `feat/methods-scene`, `fix/rtl-nav`, `test/enquiry-worker`).
+  One agent owns a branch at a time; use separate git worktrees when running parallel local agents.
+- **Short, atomic commits**:
+  - Format the subject line as `<type>: <imperative summary>` (`feat`, `fix`, `test`, `docs`, `refactor`, `chore`, `build`, `ci`) in **72 characters or fewer** (enforced by `.githooks/commit-msg`).
+  - Commit each logical step separately (e.g. failing test -> implementation -> cleanup) so `git log --oneline` stays scannable for other agents.
+  - Keep commit bodies optional and at most 1-3 short bullet lines. Never paste long session transcripts or status dumps into commit messages.
+- **Pull request policy**:
+  - One small, focused feature or fix per branch/PR targeting `main`. Do not bundle unrelated changes or push directly to `main`.
+  - PR text (`.github/pull_request_template.md`): concise Why, What changed, real Red/Green verification evidence, screenshots for visual changes, and known limitations/approvals needed.
+  - The working agent reviews the full diff (`git diff origin/main...HEAD`), confirms required checks (`npm run verify` and CI) for the exact head revision, and squash-merges when ready (`gh pr merge --squash --delete-branch`). Recheck if the head changes.
+  - A solo agent acting as the PR author cannot provide independent self-approval. Request a separate reviewer for sensitive clinical content, permissions, billing, and DNS changes.
 - Keep workflow permissions least-privileged, Actions pinned to full commit SHAs,
   and untrusted PR execution isolated from secrets. No privileged PR checkouts.
+
+## Forbidden git & GitHub commands
+
+The following destructive commands are strictly forbidden and blocked by `.claude/settings.json`, `.claude/hooks/block-destructive-git.sh`, `.githooks/pre-push`, and GitHub branch protection:
+
+- **No force pushes**: `git push --force`, `git push -f`, `git push --force-with-lease`, `git push --mirror`.
+- **No direct pushes to `main`**: Always push a feature branch and merge through a pull request.
+- **No destructive working-tree wipes**: `git reset --hard`, `git clean -f`, `git checkout -- .`, `git restore .`.
+- **No history rewrites or unmerged branch deletions**: `git branch -D`, `git filter-branch`, `git filter-repo`, `git update-ref -d`.
+- **No admin bypasses or repository deletions**: `gh pr merge --admin`, `gh repo delete`, `gh repo archive`, `gh api -X DELETE`.
 
 ## Budget and scope
 

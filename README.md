@@ -18,19 +18,17 @@ be placed in this repository, its issues, or pull requests.
 - [Confirmed direction](docs/project-brief.md)
 - [Research, design references, and initial personas](docs/discovery.md)
 - [Participant-enquiry plan](docs/registration-plan.md)
-- [Agent workflow](AGENTS.md)
+- [Agent workflow & git policy](AGENTS.md)
 - [Content editing](docs/content-editing.md)
 
-The application currently remains **local only**, at the owner's request. The
-public GitHub repository contains its initial seed; CI/workflow publication and
-feature PRs/merges are pending additional authorization. No Cloudflare deployment
-or live registration service has been created.
+## Multi-agent & cloud workflow
 
-The local preview, when running, is available in [English](http://127.0.0.1:4321/en/)
-and [Hebrew](http://127.0.0.1:4321/he/).
+Repository: `https://github.com/Reakwind/tali-cukierman-yaffe`
 
-Every feature is developed through a focused PR and squash-merged only when its
-checks pass. No additional paid services are authorized.
+- **Single source of instructions**: `AGENTS.md` (imported by `CLAUDE.md` for Claude Code in the cloud and CLI).
+- **Short commits**: Every commit uses `<type>: <imperative summary>` (`feat:`, `fix:`, `test:`, `docs:`, `refactor:`, `chore:`) in `<= 72` characters (enforced by `.githooks/commit-msg`).
+- **PR-only merges to `main`**: Create a `<type>/<slug>` branch from `origin/main`, run `npm run verify`, open a focused PR, and squash-merge (`gh pr merge --squash --delete-branch`).
+- **Destructive git protection**: Force pushes, direct pushes to `main`, `git reset --hard`, `git clean -f`, `git branch -D`, and `gh pr merge --admin` are blocked by `.claude/settings.json`, `.claude/hooks/block-destructive-git.sh`, `.githooks/pre-push`, and GitHub branch protection.
 
 ## Development
 
