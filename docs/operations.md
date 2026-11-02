@@ -53,6 +53,16 @@ Failed browser traces/screenshots have a three-day retention period. Keep exampl
 synthetic and never include patient data. CodeQL setup remains a separate remote
 verification step after analyzable source is on the default branch.
 
+### Cloud session setup
+
+Claude Code cloud containers start with an older Node and older Playwright
+browsers than this project pins, so browser tests fail there for reasons
+unrelated to the site. `scripts/cloud-setup.sh` installs the pinned Node and
+the matching Chromium, Firefox and WebKit builds with their system libraries.
+Paste its contents into the cloud environment's settings (environment menu in
+the session title bar, then Edit, then Setup script); new sessions run it.
+Update its two version numbers with `.node-version` and `@playwright/test`.
+
 ### Local browser tooling note
 
 The current Playwright Firefox 157 bundle has a known macOS 27 app-data/profile

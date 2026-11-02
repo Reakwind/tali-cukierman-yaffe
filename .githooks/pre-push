@@ -17,7 +17,13 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     exit 1
   fi
 
-  if [ "$remote_sha" != "$ZERO" ] && git rev-parse --verify "$remote_sha^{commit}" >/dev/null 2>&1; then
+  if [ "$remote_sha" != "$ZERO" ]; then
+    # Without the remote tip locally the ancestry check cannot run, and a
+    # force push could overwrite commits we have never seen. Fail closed.
+    if ! git rev-parse --verify --quiet "$remote_sha^{commit}" >/dev/null; then
+      echo "REFUSED pre-push: $remote_ref has commits you have not fetched. Fix: git fetch origin, merge or rebase onto it, then push again." >&2
+      exit 1
+    fi
     if ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
       echo "REFUSED pre-push: Non-fast-forward (force) push to $remote_ref is forbidden. Fix: Pull/rebase cleanly or push a new commit." >&2
       exit 1

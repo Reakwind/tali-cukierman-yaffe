@@ -181,4 +181,67 @@ describe('multi-agent repo structure and destructive git protections', () => {
     );
     assert.equal(pushFeature.status, 0, pushFeature.stderr);
   });
+
+  it('refuses a push when the remote tip has not been fetched, but allows fast-forwards', () => {
+    // A throwaway repository with two commits, so the test does not depend
+    // on how much history the surrounding checkout has (CI clones shallowly).
+    const repo = mkdtempSync(path.join(tmpdir(), 'pre-push-test-'));
+    const env = {
+      ...process.env,
+      GIT_CONFIG_GLOBAL: '/dev/null',
+      GIT_CONFIG_NOSYSTEM: '1',
+      GIT_AUTHOR_NAME: 'Test',
+      GIT_AUTHOR_EMAIL: 'test@example.invalid',
+      GIT_COMMITTER_NAME: 'Test',
+      GIT_COMMITTER_EMAIL: 'test@example.invalid',
+    };
+    const git = (...args: string[]) =>
+      spawnSync('git', args, {
+        cwd: repo,
+        env,
+        encoding: 'utf8',
+      }).stdout.trim();
+    const push = (input: string) =>
+      spawnSync(
+        'sh',
+        [prePushHook, 'origin', 'https://github.com/Reakwind/x.git'],
+        { cwd: repo, env, input, encoding: 'utf8' },
+      );
+    try {
+      git('init', '-q');
+      git('commit', '-q', '--allow-empty', '-m', 'first');
+      const first = git('rev-parse', 'HEAD');
+      git('commit', '-q', '--allow-empty', '-m', 'second');
+      const second = git('rev-parse', 'HEAD');
+
+      // Someone else's commit we have never fetched: the ancestry check cannot
+      // run, so a force push could silently overwrite their work.
+      const unknown = push(
+        `refs/heads/feat/x ${second} refs/heads/feat/x 3333333333333333333333333333333333333333\n`,
+      );
+      assert.notEqual(unknown.status, 0);
+      assert.match(unknown.stderr, /fetch/i);
+
+      const fastForward = push(
+        `refs/heads/feat/x ${second} refs/heads/feat/x ${first}\n`,
+      );
+      assert.equal(fastForward.status, 0, fastForward.stderr);
+
+      const rewind = push(
+        `refs/heads/feat/x ${first} refs/heads/feat/x ${second}\n`,
+      );
+      assert.notEqual(rewind.status, 0, 'non-fast-forward is still refused');
+    } finally {
+      rmSync(repo, { recursive: true, force: true });
+    }
+  });
+
+  it('keeps the memory plugin state file out of git', () => {
+    const ignored = spawnSync(
+      'git',
+      ['check-ignore', '--quiet', '.anchor/session-state.md'],
+      { encoding: 'utf8' },
+    );
+    assert.equal(ignored.status, 0, '.anchor/ should be in .gitignore');
+  });
 });
