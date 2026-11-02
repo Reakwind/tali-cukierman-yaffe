@@ -14,3 +14,4 @@ playwright-report/
 blob-report/
 .DS_Store
 *.log
+.anchor/
