@@ -113,9 +113,10 @@
   - A solo agent cannot self-approve. Request a separate reviewer for sensitive
     clinical content, permissions, billing, and DNS changes.
 - **After the merge**: the next `session:start` (or `npm run day:cleanup`)
-  removes worktrees and `session/*`/`day/*` branches whose changes are already
-  on `origin/main`, and fast-forwards root `main`. It keeps anything with
-  uncommitted changes or commits not on `main`.
+  removes worktrees and `session/*`/`day/*` branches whose changes reached
+  `origin/main` (some `main` commit since they branched contains them, or they
+  are part of a merged day branch), and fast-forwards root `main`. It keeps
+  anything with uncommitted changes or commits made after the merge.
 - **Cloud sessions** (Claude Code on the web) already run in an isolated clone on
   an assigned branch, so skip `session:start`. Commit per change and push that
   branch. Fold it into the day's PR with
