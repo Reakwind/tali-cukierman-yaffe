@@ -197,4 +197,36 @@ describe('session worktrees and the daily pull request', () => {
     assert.ok(existsSync(path.join(wt, 'later.txt')));
     assert.match(res.stdout + res.stderr, /uncommitted/i);
   });
+
+  it('trims merged work even after main later edits the same files', () => {
+    assert.equal(session(root, 'start', 'early').status, 0);
+    const wt = path.join(worktrees, `${DATE}-early`);
+    commitFile(wt, 'a.txt', 'a\n', 'docs: add a');
+    assert.equal(session(root, 'finish').status, 0);
+    squashMerge(`day/${DATE}`);
+    const other = remoteClone(); // the next day's work extends the same file
+    commitFile(other, 'a.txt', 'a\nmore\n', 'docs: extend a');
+    git(other, 'push', '-q', 'origin', 'main');
+
+    const res = session(root, 'cleanup');
+    assert.equal(res.status, 0, res.stderr);
+    assert.equal(existsSync(wt), false);
+    const branches = git(root, 'branch', '--format=%(refname:short)');
+    assert.doesNotMatch(branches, /session\/|day\//);
+  });
+
+  it('keeps a branch that gained commits after its squash merge', () => {
+    assert.equal(session(root, 'start', 'ongoing').status, 0);
+    const wt = path.join(worktrees, `${DATE}-ongoing`);
+    commitFile(wt, 'a.txt', 'a\n', 'docs: add a');
+    assert.equal(session(root, 'finish').status, 0);
+    squashMerge(`day/${DATE}`);
+    commitFile(wt, 'b.txt', 'b\n', 'docs: add b after the merge');
+
+    const res = session(root, 'cleanup');
+    assert.equal(res.status, 0, res.stderr);
+    assert.ok(existsSync(path.join(wt, 'b.txt')));
+    const branches = git(root, 'branch', '--format=%(refname:short)');
+    assert.match(branches, new RegExp(`session/${DATE}-ongoing`));
+  });
 });
