@@ -104,3 +104,13 @@ test('type checks ignore generated browser reports and coverage', async () => {
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('CI lives where GitHub runs it and runs the full verification', async () => {
+  const workflow = await readFile(
+    new URL('../../.github/workflows/ci.yml', import.meta.url),
+    'utf8',
+  );
+  assert.match(workflow, /^\s+quality:$/m, 'required check job name');
+  assert.match(workflow, /run: npm run check:dependencies$/m);
+  assert.match(workflow, /run: npm run verify$/m);
+});
