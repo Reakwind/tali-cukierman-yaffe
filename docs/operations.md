@@ -16,10 +16,11 @@ Do not force-push a shared branch or push directly to `main`.
 Applied and read back through GitHub's API on 2026-10-30:
 
 - Public visibility; squash-only merges; merged branches automatically deleted.
-- Requested 2026-11-02, not yet applied or verified: squash commits use the PR
-  title and list each commit's message (`squash_merge_commit_title: PR_TITLE`,
-  `squash_merge_commit_message: COMMIT_MESSAGES`), so `main` history names every
-  change in the day's PR.
+- Applied by the owner and read back through the API on 2026-11-02: squash
+  commits use the PR title and list each commit's message
+  (`squash_merge_commit_title: PR_TITLE`,
+  `squash_merge_commit_message: COMMIT_MESSAGES`), so `main` history names
+  every change in the day's PR.
 - `main` requires PRs, the `quality` check, up-to-date branches, resolved
   conversations, and linear history. Administrators are covered. Force pushes
   and branch deletion are disabled.
