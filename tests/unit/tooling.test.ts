@@ -114,3 +114,23 @@ test('CI lives where GitHub runs it and runs the full verification', async () =>
   assert.match(workflow, /run: npm run check:dependencies$/m);
   assert.match(workflow, /run: npm run verify$/m);
 });
+
+test('Dependabot keeps @types/node on the Node major the project runs', async () => {
+  const config = await readFile(
+    new URL('../../.github/dependabot.yml', import.meta.url),
+    'utf8',
+  );
+  const nodeMajor = (
+    await readFile(new URL('../../.node-version', import.meta.url), 'utf8')
+  ).split('.')[0];
+  const pkg = await readJson('../../package.json');
+  assert.equal(
+    pkg.devDependencies['@types/node'].split('.')[0],
+    nodeMajor,
+    '@types/node should match .node-version',
+  );
+  assert.match(
+    config,
+    /ignore:\s*\n\s*- dependency-name: '@types\/node'\s*\n\s*update-types: \['version-update:semver-major'\]/,
+  );
+});
