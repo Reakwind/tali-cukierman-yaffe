@@ -52,6 +52,16 @@ These supersede conflicting points below.
   section titles that stay with their section on desktop, and drawings that
   arrive once (the hero painting on load, rules and the app screenshot as they
   arrive). Text never moves. Details in docs/scrolling-plan.md.
+- Hebrew (2026-11-03): prototype/he.html holds only the Hebrew words; the build
+  takes fonts, styles, painting and script from the English page. Same section
+  ids, so the language link opens the other page at the section being read.
+  Right-to-left layout, Hebrew faces first, citations and identifiers kept left
+  to right, and the painting mirrored so the course of life runs in reading
+  order. The copy is a draft translation that needs review by a Hebrew-speaking
+  team member. Team names and roles and publication titles reuse the site's
+  existing Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת
+  360"), "מחקרים נוכחיים" for Ongoing studies, and whether the painting should
+  be mirrored.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
