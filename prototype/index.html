@@ -102,8 +102,7 @@
   }
   a:focus-visible,
   button:focus-visible,
-  input:focus-visible,
-  select:focus-visible {
+  input:focus-visible {
     outline: 3px solid var(--ink);
     outline-offset: 3px;
     border-radius: 3px;
@@ -543,8 +542,7 @@
     font-size: var(--t-record);
     margin-inline-start: 8px;
   }
-  .field input,
-  .field select {
+  .field input {
     font: inherit;
     font-weight: 400;
     min-height: 46px;
@@ -756,9 +754,7 @@
                 >Funder’s project page</a
               >
             </p>
-            <a class="ask" href="#contact" data-study="BIRAX"
-              >Ask about this study</a
-            >
+            <a class="ask" href="#contact">Ask about this study</a>
           </li>
           <li class="study" id="stay-strong">
             <h3>STAY-STRONG</h3>
@@ -772,9 +768,7 @@
                 >NCT06497595</a
               >
             </p>
-            <a class="ask" href="#contact" data-study="STAY-STRONG"
-              >Ask about this study</a
-            >
+            <a class="ask" href="#contact">Ask about this study</a>
           </li>
         </ul>
       </div>
@@ -941,14 +935,6 @@
       <div class="content">
         <form class="enquiry" id="enquiry" novalidate>
           <h3>Interested in a study, or referring a patient?</h3>
-          <label class="field" for="f-study"
-            ><span>Study<span class="opt">Optional</span></span>
-            <select id="f-study" name="study">
-              <option value="">Not sure</option>
-              <option value="BIRAX">BIRAX</option>
-              <option value="STAY-STRONG">STAY-STRONG</option>
-            </select>
-          </label>
           <label class="field" for="f-name"
             ><span>First name<span class="opt">Optional</span></span>
             <input
@@ -1036,14 +1022,6 @@
     markCurrent();
     window.addEventListener('scroll', markCurrent, { passive: true });
     window.addEventListener('resize', markCurrent);
-
-    // "Ask about this study" fills in the study in the form.
-    var study = document.getElementById('f-study');
-    document.querySelectorAll('[data-study]').forEach(function (a) {
-      a.addEventListener('click', function () {
-        study.value = a.getAttribute('data-study');
-      });
-    });
 
     var form = document.getElementById('enquiry'),
       sent = document.getElementById('sent');
