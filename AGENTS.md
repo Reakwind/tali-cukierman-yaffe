@@ -33,6 +33,7 @@
 - `worker/index.ts` & `wrangler.jsonc` — Cloudflare Worker endpoint (`POST /api/participation`) + static assets.
 - `scripts/session.ts` — Session worktrees and the daily PR (`session:start`, `day:finish`, `day:cleanup`).
 - `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
+- `prototype/index.html` — The current one-page draft of the site, reviewed by the owner as an artifact. `npm run prototype:build` inlines its images into `dist/prototype/index.html`; publish that build, never a copy edited elsewhere.
 - `docs/` — Project brief (`project-brief.md`), architecture (`architecture.md`), registration plan (`registration-plan.md`), and visual/scrolling specs.
 - `.claude/` & `.githooks/` — Agent permissions, PreToolUse destructive-git blocker, and Git commit/push hooks.
 
