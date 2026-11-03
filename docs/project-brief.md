@@ -25,7 +25,11 @@ These supersede conflicting points below.
   students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
   voluntary" line. The program contact replaces the four personal inboxes for
   enquiries (owner, 2026-11-03; source: Tali's 2024 Maccabi dietitians deck).
-- 6 Vital links to https://6-vital.com/. Its "Get in Touch" button was a
+- 6 Vital closes Research under "How we measure", not as a map stop: the
+  group's own platform for running studies and remote measurement (phone app
+  with movement sensors and the digital DSST; machine-learning models with
+  collaborators). The researchers' back office is not linked or described.
+  It links to https://6-vital.com/, whose "Get in Touch" button was a
   placeholder link when checked on 2026-11-03.
 - Research copy is drawn from Tali's presentations (2021 stakeholder lecture,
   2024 Diabetes 360 program deck, 2024 cognitive-function and Maccabi lectures).
@@ -47,7 +51,7 @@ These supersede conflicting points below.
 - Stack: proceed with the lean static Astro/TypeScript/CSS recommendation.
 - Content: no current CV or approved portraits/team photos are available. Draft from
   attributed public sources, improve iteratively, and mark content pending review.
-- 6 Vital: the owner describes it as a platform Tali created; the site says "created by our research group" (owner, 2026-11-03). Give it a dedicated
+- 6 Vital: the owner describes it as a platform Tali created. Give it a dedicated
   page under Research, not the website's main identity or a major commercial section.
 - Participant enquiries: on 2026-11-01 the owner requested an optional first name
   and one phone/email contact, sent to the four specified team inboxes. Prepare
