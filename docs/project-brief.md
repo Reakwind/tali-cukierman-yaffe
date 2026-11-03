@@ -19,14 +19,22 @@ These supersede conflicting points below.
   Publications, Team, Contact.
 - Studies appear as "Ongoing studies" with no recruitment status or timelines.
   GRACE-780G (completed) appears only through its publication.
-- Contact: one route for participants and clinicians (two-field form or a linked
-  "email the research team"), and "For collaboration opportunities and
-  prospective students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
-  voluntary" line.
+- Contact: one route for participants and clinicians (two-field form, or the
+  Diabetes 360 program's email D360@sheba.health.gov.il as a link and its phone
+  03-5307493, option 8), and "For collaboration opportunities and prospective
+  students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
+  voluntary" line. The program contact replaces the four personal inboxes for
+  enquiries (owner, 2026-11-03; source: Tali's 2024 Maccabi dietitians deck).
 - 6 Vital links to https://6-vital.com/. Its "Get in Touch" button was a
   placeholder link when checked on 2026-11-03.
-- The Research section copy is a draft until the owner adds context. The working
-  copy deck is on the design canvas ("Content and skeleton v5").
+- Research copy is drawn from Tali's presentations (2021 stakeholder lecture,
+  2024 Diabetes 360 program deck, 2024 cognitive-function and Maccabi lectures).
+  It states the group's approach and methods, not findings or statistics:
+  findings belong to Publications (owner, 2026-11-03).
+- Research names the Center for Successful Aging with Diabetes (Division of
+  Endocrinology & Metabolism, Sheba Medical Center), whose pillars are clinical
+  care in the Diabetes 360 clinic for ages 60+, training and research (owner
+  approved, 2026-11-03).
 
 ## Decisions
 
