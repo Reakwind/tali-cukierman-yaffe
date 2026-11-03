@@ -193,19 +193,15 @@ test('every colour pair meets WCAG contrast for text', async () => {
   }
 });
 
-test('the study colour fills the participant path', async () => {
+test('pink is reserved for ongoing studies', async () => {
   const styles = css(await buildPrototype());
-  for (const selector of [
-    '.now',
-    '.band.studies-band',
-    '.study .ask',
-    'button.send',
-  ]) {
-    assert.match(
-      rule(styles, selector),
-      /background:\s*var\(--study\)/,
-      selector,
-    );
+  const uses = [...styles.matchAll(/([^{}]+)\{([^{}]*)\}/g)].filter((m) =>
+    /var\(--study/.test(m[2] ?? ''),
+  );
+  assert.ok(uses.length > 0);
+  for (const use of uses) {
+    const selector = (use[1] ?? '').trim();
+    assert.match(selector, /study|ongoing|\.dot\.on/, selector);
   }
 });
 
