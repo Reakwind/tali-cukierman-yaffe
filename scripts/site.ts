@@ -11,7 +11,8 @@ const output = resolve(root, 'dist/site');
 const headers = '/*\n  X-Robots-Tag: noindex, nofollow\n';
 
 /** The published site: the two prototype pages as full documents, plus
- * response headers. Served as static files by Cloudflare (wrangler.site.json). */
+ * response headers. Served as static files by Cloudflare (wrangler.json, the
+ * default config, so a plain `wrangler deploy` publishes it). */
 export async function buildSite(): Promise<Map<string, string>> {
   // The English page is written for the artifact host, which supplies the
   // document shell; the site needs its own.
