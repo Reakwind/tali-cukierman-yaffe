@@ -68,9 +68,9 @@ These supersede conflicting points below.
   `diabetes-360`). No form until a working, approved destination exists:
   Contact offers the D360 email and phone instead, because a form that only
   shows "thank you" would lose real enquiries. Hidden from search (robots meta
-  tag and `X-Robots-Tag` header) until the team approves launch. Address: a
-  subdomain of the owner's itaycohen.com was proposed; the owner attaches it in
-  the Cloudflare dashboard. A group domain for the public launch is still open.
+  tag and `X-Robots-Tag` header) until the team approves launch. Address (owner, 2026-11-03): the free workers.dev address for now, not a
+  personal domain; the owner may rename the account's workers.dev subdomain. A
+  group or institutional domain for the public launch is still open.
   Deploying needs a Cloudflare API token in the cloud environment's secrets;
   none was available on 2026-11-03.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
