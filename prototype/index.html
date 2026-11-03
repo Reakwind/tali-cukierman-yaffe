@@ -115,15 +115,16 @@
   }
   .skip {
     position: absolute;
-    left: -999px;
+    inset-inline-start: 16px;
     top: 8px;
+    transform: translateY(-200%);
     z-index: 40;
     background: var(--ink);
     color: var(--paper);
     padding: 10px 14px;
   }
   .skip:focus {
-    left: 16px;
+    transform: none;
   }
 
   /* header: stays in view and marks the section being read */
@@ -172,8 +173,28 @@
     color: var(--teal);
     border-bottom-color: var(--teal);
   }
+  /* The other language, after the menu; on phones beside the group name. */
+  .lang {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--t-small);
+    padding-block: 12px 10px;
+    padding-inline-start: 24px;
+    border-inline-start: 1px solid var(--line);
+  }
+  .lang:hover {
+    color: var(--teal);
+    text-decoration: underline;
+  }
   @media (max-width: 760px) {
+    .lang {
+      order: 1;
+      padding: 0;
+      border: 0;
+      font-size: var(--t-record);
+    }
     .nav {
+      order: 2;
       flex: 1 1 100%;
       justify-content: space-between;
       overflow-x: auto;
@@ -648,6 +669,25 @@
     font-size: var(--t-small);
     color: var(--muted);
   }
+  /* Hebrew (he.html shares this stylesheet): Hebrew faces first, details in
+     sans because the mono face has no Hebrew, citations stay left to right.
+     The painting is mirrored so the course of life runs in reading order. */
+  :root:lang(he) {
+    --sans:
+      'IBM Plex Sans Hebrew', 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  }
+  :lang(he) :is(.study .meta, .measure figcaption, .pubs .area-tag) {
+    font-family: var(--sans);
+  }
+  :lang(he) bdi {
+    white-space: nowrap;
+  }
+  .cite {
+    unicode-bidi: isolate;
+  }
+  [dir='rtl'] .art svg {
+    transform: scaleX(-1);
+  }
   /* Scroll (owner chose option C, 2026-11-03). Orientation, then drawings that
      arrive once. Text never moves, nothing scrolls for the reader, and the
      page is complete at rest: without the script, in print, with reduced
@@ -780,6 +820,7 @@
       <a href="#team">Team</a>
       <a href="#contact">Contact</a>
     </nav>
+    <a class="lang" href="he.html" hreflang="he" lang="he">עברית</a>
   </div>
 </header>
 
@@ -1681,7 +1722,12 @@
     <div class="wrap">
       <h2 id="contact-h">Contact</h2>
       <div class="content">
-        <form class="enquiry" id="enquiry" novalidate>
+        <form
+          class="enquiry"
+          id="enquiry"
+          novalidate
+          data-missing="Enter a phone number or email."
+        >
           <h3>Interested in a study, or referring a patient?</h3>
           <label class="field" for="f-name"
             ><span>First name<span class="opt">Optional</span></span>
@@ -1751,6 +1797,9 @@
     var sections = links.map(function (a) {
       return document.querySelector(a.getAttribute('href'));
     });
+    // The language link opens the other language at the section being read.
+    var lang = document.querySelector('a.lang');
+    var langPage = lang ? lang.getAttribute('href').split('#')[0] : '';
     function markCurrent() {
       var line = header.offsetHeight + window.innerHeight * 0.3;
       var current = -1;
@@ -1766,6 +1815,11 @@
         if (i === current) a.setAttribute('aria-current', 'true');
         else a.removeAttribute('aria-current');
       });
+      if (lang)
+        lang.setAttribute(
+          'href',
+          langPage + (current < 0 ? '' : links[current].getAttribute('href')),
+        );
     }
     markCurrent();
     window.addEventListener('scroll', markCurrent, { passive: true });
@@ -1824,7 +1878,7 @@
       var c = document.getElementById('f-contact'),
         status = document.getElementById('form-status');
       if (!c.value.trim()) {
-        status.textContent = 'Enter a phone number or email.';
+        status.textContent = form.getAttribute('data-missing');
         c.focus();
         return;
       }
