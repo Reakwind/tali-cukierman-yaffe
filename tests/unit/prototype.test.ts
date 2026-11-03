@@ -114,3 +114,48 @@ test('every team member has a photo', async () => {
   assert.ok(people.length > 0);
   for (const person of people) assert.match(person, /<img\b/);
 });
+
+const css = (html: string) =>
+  /<style>([\s\S]*?)<\/style>/.exec(html)?.[1] ?? '';
+const rule = (styles: string, selector: string) =>
+  new RegExp(
+    `(^|\\n)\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`,
+  ).exec(styles)?.[2] ?? '';
+
+test('the page loads typefaces that also cover Hebrew', async () => {
+  const html = await buildPrototype();
+  const fonts = /href="(https:\/\/fonts\.googleapis\.com\/css2[^"]+)"/.exec(
+    html,
+  )?.[1];
+  assert.ok(fonts);
+  assert.match(fonts, /Frank\+Ruhl\+Libre/);
+  assert.match(fonts, /IBM\+Plex\+Sans\+Hebrew/);
+  assert.doesNotMatch(fonts, /Lexend/);
+});
+
+test('no text is set smaller than 14px', async () => {
+  const sizes = [
+    ...css(await buildPrototype()).matchAll(/font-size:\s*([\d.]+)px/g),
+  ].map((m) => Number(m[1]));
+  assert.ok(sizes.length > 0);
+  for (const size of sizes) assert.ok(size >= 14, `${size}px`);
+});
+
+test('the story is serif, details sans and records mono', async () => {
+  const styles = css(await buildPrototype());
+  for (const selector of ['.about h1', '.section h2', '.area h3']) {
+    assert.match(
+      rule(styles, selector),
+      /font-family:\s*var\(--serif\)/,
+      selector,
+    );
+  }
+  for (const selector of ['.study .meta', '.pubs .yr', '.pubs .src']) {
+    assert.match(
+      rule(styles, selector),
+      /font-family:\s*var\(--mono\)/,
+      selector,
+    );
+  }
+  assert.match(rule(styles, 'body'), /font-family:\s*var\(--sans\)/);
+});
