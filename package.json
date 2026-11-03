@@ -20,6 +20,8 @@
     "preview": "astro preview",
     "dev:worker": "npm run build && wrangler dev --local",
     "check:worker": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "site:build": "node scripts/site.ts",
+    "site:deploy": "npm run site:build && wrangler deploy -c wrangler.site.json",
     "check": "astro check",
     "check:dependencies": "npm audit --audit-level=moderate",
     "lint": "eslint . --max-warnings 0",
