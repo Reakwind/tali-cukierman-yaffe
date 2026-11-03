@@ -14,10 +14,10 @@ These supersede conflicting points below.
   to publish their photos from the team's Drive (owner, 2026-11-03).
 - No duplicate places (owner, 2026-11-03): each ongoing study is named in one
   place only, the Ongoing studies section. The first screen has no study
-  shortcut and Research has no study markers; both repeated that section and
-  broke the flow. Publications link to papers. The contact form's optional Study
-  field is the one functional exception (it is what "Ask about this study" fills
-  in). Affiliations appear once, as logos in About.
+  shortcut, Research has no study markers and the contact form has no study
+  field (owner, 2026-11-03); all three repeated that section and broke the
+  flow. The form asks only for an optional first name and a phone or email.
+  Publications link to papers. Affiliations appear once, as logos in About.
   Privacy and Accessibility pages are needed before launch; until they exist
   the footer has no links.
 - Colour (owner chose "one bold colour", version B, 2026-11-03): palette from
