@@ -81,3 +81,28 @@ test('phones keep a 20px margin, a compact header and a short measure panel', as
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
 });
+
+test('the painting sits beside the heading on desktop and under it on phones', async ({
+  page,
+}) => {
+  await open(page, 1440, 900);
+  const heading = await box(page, '.about h1');
+  const art = await box(page, '.about .art');
+  expect(art.x).toBeGreaterThan(heading.x + heading.width - 40);
+  expect(heading.height).toBeLessThan(3.5 * 84 * 1.02);
+  for (const [w, h] of [
+    [1440, 900],
+    [1024, 768],
+    [820, 1180],
+    [390, 844],
+  ] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(w);
+  }
+  await open(page, 390, 844);
+  const small = await box(page, '.about .art');
+  expect(small.y).toBeGreaterThan((await box(page, '.about h1')).y);
+  expect(small.width).toBeGreaterThanOrEqual(388);
+});

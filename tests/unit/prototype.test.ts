@@ -222,3 +222,43 @@ test('ongoing study names are large serif type in the logo pink', async () => {
   assert.match(name, /font-size:\s*var\(--t-heading\)/);
   assert.equal(token(styles, 'study-display').toLowerCase(), '#e83880');
 });
+
+test('the first screen pairs the heading with the painting, not a sentence', async () => {
+  const html = await buildPrototype();
+  const about =
+    /<section class="about"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
+  assert.match(about, /<h1>/);
+  assert.doesNotMatch(about, /<p\b/);
+  assert.match(
+    about,
+    /<figure class="art" aria-hidden="true">\s*<svg[^>]*focusable="false"/,
+  );
+});
+
+test('the painting stays within the Sheba navy, teal and pink hues', async () => {
+  const html = await buildPrototype();
+  const art = /<figure class="art"[\s\S]*?<\/figure>/.exec(html)?.[0] ?? '';
+  const colours = [...art.matchAll(/#([0-9a-fA-F]{6})\b/g)].map((m) => m[1]);
+  assert.ok(colours.length > 0);
+  for (const hex of colours) {
+    const [r, g, b] = [0, 2, 4].map(
+      (i) => parseInt((hex ?? '').slice(i, i + 2), 16) / 255,
+    ) as [number, number, number];
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    if (max - min < 0.06) continue; // white and greys
+    const d = max - min;
+    const raw =
+      max === r
+        ? (g - b) / d + (g < b ? 6 : 0)
+        : max === g
+          ? (b - r) / d + 2
+          : (r - g) / d + 4;
+    const hue = raw * 60;
+    const family =
+      (hue >= 225 && hue <= 250) || // navy
+      (hue >= 155 && hue <= 175) || // teal
+      (hue >= 320 && hue <= 345); // pink
+    assert.ok(family, `#${hex} (hue ${Math.round(hue)})`);
+  }
+});
