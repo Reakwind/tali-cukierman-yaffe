@@ -83,26 +83,22 @@ The test configuration also uses Astro's built-in `--ignore-lock` flag so its
 agent-aware CLI stays in the foreground under Playwright. Each test run builds
 fresh output and refuses to reuse an unrelated or stale server.
 
-## Cloudflare deployment (not connected yet)
+## Cloudflare deployment
 
-The owner's 2026-11-01 request for contact-form email delivery gives a concrete
-need for one Worker endpoint. The current recommendation is **Workers Static
-Assets plus the small enquiry Worker**, while Astro continues to generate static
-HTML. See [architecture and setup order](architecture.md); the earlier Pages-only
-recommendation is superseded for this feature.
+The published site is the one-page prototype in English and Hebrew, as static
+files. The owner connected the repository through Cloudflare's Git import on
+2026-11-03 (Worker `tali-cukierman-yaffe`, workers.dev address). The defaults
+publish the right site: `npm run build` builds `dist/site`, and the root
+`wrangler.json` runs that build before every `wrangler deploy`. Run
+`npm run site:deploy` to deploy by hand with a token.
 
-Run `npm run dev:worker` for a local Cloudflare preview and `npm run check:worker`
-for a bundle/configuration dry-run. Sending defaults to off. The static-only
-`npm run preview` remains useful for content review; it does not serve the API.
+The earlier Astro draft and its enquiry Worker keep their tests and tooling
+under `wrangler.astro.jsonc` (Worker name `tali-cukierman-yaffe-astro`), which
+is never deployed: `npm run build:astro`, `npm run dev:worker` and
+`npm run check:worker` use it. Sending defaults to off there.
 
-When connecting the account, use the pinned Wrangler CLI, the selected domain,
-four verified email destinations and Turnstile configuration. Review a hosted
-preview, headers, bilingual routes, error states and an authorized delivery test
-before enabling email. Do not connect/change DNS, billing or account permissions
-without the owner's approval. Keep any Git integration scoped to this repository.
-
-No production deployment, domain, billing control, or Cloudflare account permission
-has been configured by this project yet.
+Do not connect/change DNS, billing or account permissions without the owner's
+approval. Keep any Git integration scoped to this repository.
 
 ## Draft and launch
 
