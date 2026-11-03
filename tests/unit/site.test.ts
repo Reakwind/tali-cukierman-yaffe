@@ -40,7 +40,7 @@ test('drafts stay out of search engines', async () => {
 
 test('the site deploys as static files, with no server code or email', async () => {
   const config = JSON.parse(
-    await readFile('wrangler.site.jsonc', 'utf8'),
+    await readFile('wrangler.site.json', 'utf8'),
   ) as Record<string, unknown>;
   assert.equal(config['main'], undefined);
   assert.equal(config['send_email'], undefined);
