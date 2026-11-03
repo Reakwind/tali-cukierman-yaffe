@@ -1,0 +1,1772 @@
+<title>Diabetes 360 Research Group</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+/>
+<style>
+  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. The Sheba logo pink marks ongoing studies only, on their names and section title; each study is named in one place, the Ongoing studies section. Teal is for links and buttons only; everything else is navy ink and neutrals. Single light theme by choice. */
+  :root {
+    color-scheme: light;
+    --paper: #ffffff;
+    --ink: #232350;
+    --muted: #52607a;
+    --line: #dcdfe9;
+    --line-strong: #a9afc6;
+    --panel: #f3f4f8;
+    --teal: #0a6e5d;
+    --teal-soft: #cfe9e2;
+    --study-display: #e83880;
+    --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+    --sans:
+      'IBM Plex Sans', 'IBM Plex Sans Hebrew', 'Segoe UI', Arial, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+    --t-display: clamp(44px, 6.4vw, 84px);
+    --t-title: clamp(32px, 3.6vw, 44px);
+    --t-heading: clamp(24px, 2.3vw, 28px);
+    --t-lead: clamp(21px, 2.1vw, 26px);
+    --t-name: 21px;
+    --t-body: 18px;
+    --t-small: 15px;
+    --t-record: 14px;
+    --g: clamp(20px, 4vw, 40px);
+    /* Spacing follows the pyramid: the bigger the change of level, the bigger the gap. */
+    --space-heading: 12px;
+    --space-item: 32px;
+    --space-block: 48px;
+    --space-section: clamp(40px, 4.5vw, 64px);
+    --max: 1160px;
+    --header-h: 64px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  html {
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  @media (max-width: 560px) {
+    :root {
+      --t-body: 17px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 30;
+    background: var(--paper);
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  ul,
+  ol,
+  figure {
+    margin: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+    text-wrap: balance;
+    line-height: 1.2;
+  }
+  a {
+    color: var(--teal);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  .wrap {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-left: max(var(--g), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--g), env(safe-area-inset-right, 0px));
+  }
+  .skip {
+    position: absolute;
+    inset-inline-start: 16px;
+    top: 8px;
+    transform: translateY(-200%);
+    z-index: 40;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 14px;
+  }
+  .skip:focus {
+    transform: none;
+  }
+
+  /* header: stays in view and marks the section being read */
+  .site-header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 32px;
+    padding-block: 10px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    color: var(--ink);
+    text-decoration: none;
+    margin-inline-end: auto;
+    line-height: 1.25;
+  }
+  .brand b {
+    font-weight: 500;
+    font-size: 20px;
+    font-family: var(--serif);
+  }
+  .nav {
+    display: flex;
+    gap: 0 24px;
+    font-size: var(--t-small);
+  }
+  .nav a {
+    color: var(--ink);
+    text-decoration: none;
+    padding-block: 12px 10px;
+    border-bottom: 2px solid transparent;
+  }
+  .nav a:hover {
+    color: var(--teal);
+  }
+  .nav a[aria-current='true'] {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+  /* The other language, after the menu; on phones beside the group name. */
+  .lang {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--t-small);
+    padding-block: 12px 10px;
+    padding-inline-start: 24px;
+    border-inline-start: 1px solid var(--line);
+  }
+  .lang:hover {
+    color: var(--teal);
+    text-decoration: underline;
+  }
+  @media (max-width: 760px) {
+    .lang {
+      order: 1;
+      padding: 0;
+      border: 0;
+      font-size: var(--t-record);
+    }
+    .nav {
+      order: 2;
+      flex: 1 1 100%;
+      justify-content: space-between;
+      overflow-x: auto;
+      scrollbar-width: none;
+      gap: 0 14px;
+      font-size: var(--t-record);
+      white-space: nowrap;
+    }
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+    .nav a {
+      padding-block: 6px 4px;
+    }
+    .site-header .wrap {
+      padding-block: 6px;
+    }
+    .brand b {
+      font-size: 18px;
+    }
+  }
+
+  /* sections */
+  .section > .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    gap: 24px 56px;
+    padding-block: var(--space-section);
+  }
+  .section + .section {
+    border-top: 1px solid var(--line);
+  }
+  .section.band,
+  .section.band + .section {
+    border-top: 0;
+  }
+  .section h2 {
+    font-size: var(--t-title);
+    font-family: var(--serif);
+    line-height: 1.05;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-block);
+    min-width: 0;
+    max-width: 780px;
+  }
+  @media (max-width: 1000px) {
+    .section > .wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* About: the first screen */
+  .about .wrap {
+    padding-block: clamp(56px, 10vw, 128px) clamp(32px, 5vw, 64px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .about h1 {
+    font-size: var(--t-display);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    max-width: 13ch;
+    font-family: var(--serif);
+  }
+  /* The painting: a course through life, the moment of early detection, and the
+     path that follows. Beside the heading on wide screens; full width below it
+     on tablets and phones. Decorative to assistive technology. */
+  .art {
+    margin: 0;
+  }
+  .art svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 1001px) {
+    .about {
+      overflow-x: clip;
+    }
+    .about .wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 610px) minmax(0, 1fr);
+      grid-template-rows: 1fr auto;
+      column-gap: 24px;
+      row-gap: 28px;
+      align-items: end;
+    }
+    .about h1 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .about .affil {
+      grid-column: 1;
+      grid-row: 2;
+      margin: 0;
+    }
+    .about .art {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+      width: calc(100% + 18vw);
+      margin-inline-start: -4vw;
+    }
+  }
+  @media (max-width: 1000px) {
+    .about .art {
+      margin-inline: calc(-1 * var(--g));
+    }
+  }
+  .affil {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 36px;
+    margin-top: 8px;
+  }
+  .affil img {
+    display: block;
+    height: 44px;
+    width: auto;
+  }
+  @media (max-width: 560px) {
+    .affil img {
+      height: 38px;
+    }
+  }
+
+  /* Research: philosophy, then one row per area */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .intro p {
+    max-width: 60ch;
+  }
+  .intro p:first-child {
+    font-size: var(--t-lead);
+    line-height: 1.5;
+    font-family: var(--serif);
+  }
+  .intro p + p {
+    color: var(--muted);
+    font-size: var(--t-small);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  .areas {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px 40px;
+    padding-block: calc(var(--space-item) / 2);
+    border-bottom: 1px solid var(--line);
+  }
+  .area p {
+    max-width: 62ch;
+  }
+  .area h3 {
+    font-size: var(--t-heading);
+    margin-bottom: var(--space-heading);
+    font-family: var(--serif);
+  }
+
+  .measure {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 24px 40px;
+    align-items: center;
+    padding: clamp(20px, 3.5vw, 36px);
+    background: var(--panel);
+    border-radius: 10px;
+  }
+  .measure h3 {
+    font-size: var(--t-heading);
+    margin-bottom: var(--space-heading);
+    font-family: var(--serif);
+  }
+  .measure figure {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .measure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    border: 6px solid var(--ink);
+    background: var(--paper);
+  }
+  .measure a {
+    white-space: nowrap;
+  }
+  .measure figcaption {
+    font-size: var(--t-record);
+    color: var(--muted);
+    line-height: 1.4;
+    font-family: var(--mono);
+  }
+  @media (max-width: 900px) {
+    /* One column: heading, then the screenshot, then the text that explains it. */
+    .measure {
+      grid-template-columns: 1fr;
+      gap: var(--space-heading);
+    }
+    .measure > div {
+      display: contents;
+    }
+    .measure h3 {
+      margin-bottom: 0;
+    }
+    .measure p {
+      order: 2;
+    }
+    .measure figure {
+      order: 1;
+      max-width: 160px;
+      margin-block: 4px var(--space-heading);
+    }
+  }
+
+  /* Ongoing studies: names and title in the logo pink on a neutral panel */
+  .band.studies-band {
+    background: var(--panel);
+  }
+  .studies-band h2 {
+    color: var(--study-display);
+  }
+  .studies {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px 32px;
+  }
+  .study {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-heading);
+    scroll-margin-top: calc(var(--header-h) + 16px);
+    border-top: 6px solid var(--study-display);
+    padding-top: 18px;
+  }
+  .study h3 {
+    font-size: var(--t-heading);
+    font-weight: 500;
+    font-family: var(--serif);
+    color: var(--study-display);
+  }
+  .study .meta {
+    font-size: var(--t-record);
+    color: var(--muted);
+    font-family: var(--mono);
+    line-height: 1.7;
+  }
+  .study .ask {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  .ask {
+    font-weight: 500;
+  }
+
+  /* Publications: the densest level */
+  .pubs {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+    font-size: var(--t-body);
+  }
+  .pubs li {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 0 16px;
+    border-bottom: 1px solid var(--line);
+    padding-block: 12px;
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+  .pubs li:target {
+    background: var(--panel);
+  }
+  .pubs .yr {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--t-record);
+    padding-top: 3px;
+    font-family: var(--mono);
+  }
+  .pubs a {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .pubs a:hover {
+    color: var(--teal);
+  }
+  .pubs .src {
+    display: block;
+    font-size: var(--t-record);
+    color: var(--muted);
+    font-family: var(--mono);
+    line-height: 1.7;
+  }
+  .pubs .area-tag {
+    color: var(--muted);
+  }
+
+  /* Team */
+  .pi {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .pi img {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .pi b {
+    display: block;
+    font-size: var(--t-heading);
+    font-weight: 500;
+    font-family: var(--serif);
+  }
+  .pi span {
+    color: var(--muted);
+  }
+  .people {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px 32px;
+  }
+  .people li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .people img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 auto;
+  }
+  .people b {
+    display: block;
+    font-weight: 500;
+    font-size: var(--t-body);
+    color: var(--ink);
+  }
+  .people span {
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    .pi {
+      grid-template-columns: 96px minmax(0, 1fr);
+    }
+    .pi img {
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  /* Contact: the end point */
+  .band.contact-band {
+    background: var(--panel);
+  }
+  .reach {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-heading);
+    max-width: 520px;
+  }
+  .reach h3 {
+    font-family: var(--serif);
+    font-size: var(--t-heading);
+  }
+  .collab {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 20px;
+    max-width: 56ch;
+  }
+
+  footer .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 32px;
+    padding-block: 24px 40px;
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+  /* Hebrew (he.html shares this stylesheet): Hebrew faces first, and details
+     in sans because the mono face has no Hebrew. Publications stay in English
+     (owner, 2026-11-03), as a left-to-right block in English faces. The
+     painting is not mirrored (owner, 2026-11-03). */
+  :root:lang(he) {
+    --sans:
+      'IBM Plex Sans Hebrew', 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  }
+  :lang(he) :is(.study .meta, .measure figcaption) {
+    font-family: var(--sans);
+  }
+  :lang(he) bdi {
+    white-space: nowrap;
+  }
+  :root:lang(he) [lang='en'] {
+    --sans:
+      'IBM Plex Sans', 'IBM Plex Sans Hebrew', 'Segoe UI', Arial, sans-serif;
+    font-family: var(--sans);
+  }
+  /* Scroll (owner chose option C, 2026-11-03). Orientation, then drawings that
+     arrive once. Text never moves, nothing scrolls for the reader, and the
+     page is complete at rest: without the script, in print, with reduced
+     motion, after a menu jump and for anything on screen when the page opens.
+     Write animation-timeline after the animation shorthand, which resets it. */
+  @media (min-width: 1001px) {
+    .section > .wrap > h2 {
+      position: sticky;
+      top: calc(var(--header-h) + 32px);
+      align-self: start;
+    }
+  }
+  @keyframes read-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes paint-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes settle {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes lens-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+  @media screen and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .site-header::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        bottom: -1px;
+        height: 3px;
+        background: var(--ink);
+        transform-origin: left center;
+        animation: read-progress linear both;
+        animation-timeline: scroll(root block);
+      }
+      [dir='rtl'] .site-header::after {
+        transform-origin: right center;
+      }
+    }
+    /* The painting: washes settle, the course is painted, the lens appears at
+       the moment of detection, then the risk path rises. About two seconds. */
+    .draw .art .wash {
+      animation: settle 900ms ease-out backwards;
+    }
+    .draw .art .course {
+      animation: paint-in 1700ms cubic-bezier(0.45, 0.05, 0.3, 1) 150ms
+        backwards;
+    }
+    .draw .art .lens {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: lens-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms backwards;
+    }
+    .draw .art .risk {
+      animation: paint-in 1000ms ease-out 1200ms backwards;
+    }
+    /* Rules draw across as their block arrives; the screenshot fades in. */
+    .draw :is(.areas, .pubs, .study) {
+      position: relative;
+      border-top-color: transparent;
+    }
+    .draw :is(.areas, .pubs)::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: -1px;
+      height: 1px;
+      background: var(--ink);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(0.45, 0.05, 0.3, 1);
+    }
+    .draw .study::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: -6px;
+      height: 6px;
+      background: var(--study-display);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(0.45, 0.05, 0.3, 1)
+        var(--delay, 0ms);
+    }
+    .draw :is(.areas, .pubs, .study):dir(rtl)::after {
+      transform-origin: right center;
+    }
+    .draw .arrived:is(.areas, .pubs, .study)::after {
+      transform: scaleX(1);
+    }
+    .draw .measure figure {
+      opacity: 0;
+      transition: opacity 700ms ease-out 200ms;
+    }
+    .draw .measure figure.arrived {
+      opacity: 1;
+    }
+    .draw .at-once,
+    .draw .at-once::after {
+      transition: none;
+    }
+  }
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Diabetes 360 Research Group</b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#research">Research</a>
+      <a href="#studies">Studies</a>
+      <a href="#publications">Publications</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="lang" href="he.html" hreflang="he" lang="he">עברית</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="about" aria-label="About">
+    <div class="wrap">
+      <h1>We study healthy aging with diabetes.</h1>
+      <figure class="art" aria-hidden="true">
+        <svg
+          viewBox="0 80 1200 460"
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <filter
+              id="watercolor-wash"
+              x="-15%"
+              y="-15%"
+              width="130%"
+              height="130%"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.012"
+                numOctaves="4"
+                seed="14"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="42"
+                xChannelSelector="R"
+                yChannelSelector="G"
+                result="displaced"
+              />
+              <feGaussianBlur
+                in="displaced"
+                stdDeviation="3.5"
+                result="blurred"
+              />
+              <feMerge>
+                <feMergeNode in="blurred" />
+              </feMerge>
+            </filter>
+            <filter
+              id="watercolor-bloom"
+              x="-10%"
+              y="-10%"
+              width="120%"
+              height="120%"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.025"
+                numOctaves="3"
+                seed="7"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="18"
+                xChannelSelector="R"
+                yChannelSelector="G"
+                result="displaced"
+              />
+              <feGaussianBlur in="displaced" stdDeviation="1.2" />
+            </filter>
+            <filter
+              id="brush-stroke"
+              x="-5%"
+              y="-5%"
+              width="110%"
+              height="110%"
+            >
+              <feTurbulence
+                type="turbulence"
+                baseFrequency="0.045"
+                numOctaves="3"
+                seed="3"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="5.5"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+            <filter id="fine-ink" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.08"
+                numOctaves="2"
+                seed="9"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="2.2"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+            <radialGradient id="wash-lavender" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#D3D4EA" stop-opacity="0.65" />
+              <stop offset="65%" stop-color="#E4E4F2" stop-opacity="0.35" />
+              <stop offset="100%" stop-color="#E4E4F2" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="wash-sage" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#BFE4DA" stop-opacity="0.7" />
+              <stop offset="60%" stop-color="#D7EFE8" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#EAF6F2" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient
+              id="primary-trajectory"
+              x1="0%"
+              y1="50%"
+              x2="100%"
+              y2="50%"
+            >
+              <stop offset="0%" stop-color="#8E92BE" stop-opacity="0.4" />
+              <stop offset="36%" stop-color="#E3A3BE" stop-opacity="0.85" />
+              <stop offset="52%" stop-color="#5FB3A1" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#4B4F8C" stop-opacity="0.75" />
+            </linearGradient>
+          </defs>
+          <g
+            class="wash"
+            filter="url(#watercolor-wash)"
+            style="mix-blend-mode: multiply"
+          >
+            <ellipse
+              cx="260"
+              cy="360"
+              rx="300"
+              ry="190"
+              fill="url(#wash-lavender)"
+            />
+            <ellipse
+              cx="880"
+              cy="330"
+              rx="360"
+              ry="220"
+              fill="url(#wash-sage)"
+            />
+          </g>
+          <g
+            filter="url(#fine-ink)"
+            stroke="#4A4E7A"
+            stroke-linecap="round"
+            fill="none"
+          >
+            <path
+              d="M 60,460 Q 300,458 600,461 T 1140,459"
+              stroke-width="1.2"
+              stroke-opacity="0.4"
+            />
+            <line
+              x1="120"
+              y1="450"
+              x2="120"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="150"
+              y1="455"
+              x2="150"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="180"
+              y1="455"
+              x2="180"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="210"
+              y1="455"
+              x2="210"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="240"
+              y1="450"
+              x2="240"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="270"
+              y1="455"
+              x2="270"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="300"
+              y1="455"
+              x2="300"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="330"
+              y1="455"
+              x2="330"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="360"
+              y1="450"
+              x2="360"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="390"
+              y1="455"
+              x2="390"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="420"
+              y1="455"
+              x2="420"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="450"
+              y1="455"
+              x2="450"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="480"
+              y1="450"
+              x2="480"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="510"
+              y1="455"
+              x2="510"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="540"
+              y1="455"
+              x2="540"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="570"
+              y1="455"
+              x2="570"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="600"
+              y1="450"
+              x2="600"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="630"
+              y1="455"
+              x2="630"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="660"
+              y1="455"
+              x2="660"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="690"
+              y1="455"
+              x2="690"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="720"
+              y1="450"
+              x2="720"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="750"
+              y1="455"
+              x2="750"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="780"
+              y1="455"
+              x2="780"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="810"
+              y1="455"
+              x2="810"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="840"
+              y1="450"
+              x2="840"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="870"
+              y1="455"
+              x2="870"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="900"
+              y1="455"
+              x2="900"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="930"
+              y1="455"
+              x2="930"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="960"
+              y1="450"
+              x2="960"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="990"
+              y1="455"
+              x2="990"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="1020"
+              y1="455"
+              x2="1020"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="1050"
+              y1="455"
+              x2="1050"
+              y2="465"
+              stroke-width="0.8"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="1080"
+              y1="450"
+              x2="1080"
+              y2="470"
+              stroke-width="1.4"
+              stroke-opacity="0.45"
+            />
+            <line
+              x1="470"
+              y1="170"
+              x2="470"
+              y2="500"
+              stroke-width="1.3"
+              stroke-opacity="0.45"
+            />
+          </g>
+          <g class="risk" filter="url(#brush-stroke)">
+            <path
+              d="M 470,340 C 530,310 580,220 660,165 C 720,125 790,105 860,92"
+              fill="none"
+              stroke="#D9789E"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-dasharray="14 10 5 12"
+              opacity="0.55"
+            />
+          </g>
+          <g class="course" filter="url(#brush-stroke)">
+            <path
+              d="M 20,375 C 160,340 270,410 385,368 C 425,353 445,348 470,340 C 560,310 640,275 760,315 C 880,355 1010,330 1180,240"
+              fill="none"
+              stroke="url(#primary-trajectory)"
+              stroke-width="26"
+              stroke-linecap="round"
+              opacity="0.28"
+            />
+            <path
+              d="M 15,378 C 155,335 270,402 385,360 C 425,345 445,341 470,333 C 560,300 640,262 765,302 C 885,340 1010,318 1185,232 C 1015,338 885,368 755,326 C 635,286 560,320 470,347 C 445,355 425,360 385,375 C 270,418 155,352 15,384 Z"
+              fill="url(#primary-trajectory)"
+            />
+            <path
+              d="M 20,381 C 155,344 270,410 385,368 C 425,353 445,348 470,340 C 560,310 640,274 760,314 C 880,354 1010,328 1180,236"
+              fill="none"
+              stroke="#0A6E5D"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-opacity="0.55"
+            />
+          </g>
+          <g transform="translate(470, 340)">
+            <g class="lens">
+              <circle
+                r="86"
+                fill="none"
+                stroke="#C9CCE6"
+                stroke-width="9"
+                stroke-opacity="0.5"
+                filter="url(#watercolor-bloom)"
+              />
+              <circle
+                r="64"
+                fill="none"
+                stroke="#4A4E7A"
+                stroke-width="1.2"
+                stroke-opacity="0.55"
+                stroke-dasharray="18 6 4 6"
+                filter="url(#fine-ink)"
+              />
+              <g
+                stroke="#4A4E7A"
+                stroke-linecap="round"
+                opacity="0.55"
+                filter="url(#fine-ink)"
+              >
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(0)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(30)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(60)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(90)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(120)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(150)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(180)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(210)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(240)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(270)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(300)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(330)"
+                />
+              </g>
+              <circle
+                r="16"
+                fill="#C9CCE6"
+                fill-opacity="0.6"
+                filter="url(#watercolor-bloom)"
+              />
+              <circle r="8" fill="#232350" filter="url(#brush-stroke)" />
+              <circle r="3" fill="#ffffff" />
+            </g>
+          </g>
+        </svg>
+      </figure>
+      <div class="affil">
+        <img
+          src="../public/images/brand/sheba.png"
+          alt="Sheba Medical Center"
+        />
+        <img src="../public/images/brand/tau.png" alt="Tel Aviv University" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="research" aria-labelledby="research-h">
+    <div class="wrap">
+      <h2 id="research-h">Research</h2>
+      <div class="content">
+        <div class="intro">
+          <p>
+            We see diabetes as a condition that speeds up aging. Cognitive
+            decline and loss of physical function are complications of diabetes,
+            and like other complications they can be detected early and
+            prevented. Care should follow a person's physical and cognitive
+            capacity rather than their age, which calls for measures that work
+            in routine care.
+          </p>
+          <p>
+            Our research is part of the Center for Successful Aging with
+            Diabetes at Sheba Medical Center, which brings together clinical
+            care in the Diabetes 360 clinic for people aged 60 and over,
+            training, and research.
+          </p>
+        </div>
+
+        <ol class="areas">
+          <li class="area">
+            <div>
+              <h3>Cognitive function</h3>
+              <p>
+                Thinking and memory shape how people manage diabetes day to day.
+                We develop measures of cognitive function that are practical in
+                the clinic and sensitive to change over time, including a
+                digital version of the Digit Symbol Substitution Test, a short
+                test of processing speed.
+              </p>
+            </div>
+          </li>
+          <li class="area">
+            <div>
+              <h3>Frailty</h3>
+              <p>
+                We look at frailty through physical capacity: strength, fitness
+                and balance. We measure everyday movement with wearable sensors,
+                develop machine-learning methods to identify people at risk
+                earlier, and test whether exercise and nutrition can help
+                preserve muscle.
+              </p>
+            </div>
+          </li>
+          <li class="area">
+            <div>
+              <h3>Diabetes technologies</h3>
+              <p>
+                We study how older adults use diabetes technologies, such as
+                automated insulin delivery, and how they relate to cognitive and
+                physical function.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="measure" id="how-we-measure">
+          <div>
+            <h3>How we measure</h3>
+            <p>
+              We developed 6 Vital, our own platform for running studies and
+              measuring people outside the clinic. A phone app records movement
+              through the phone's sensors and runs our digital Digit Symbol
+              Substitution Test, so participants can be followed remotely,
+              quickly and with little staff time. With collaborators, we develop
+              machine-learning models to analyse the app's data. Our aim is
+              assessment that is fast, inexpensive and accurate enough to
+              support early detection and intervention, without adding to the
+              load on stretched health services.
+              <a href="https://6-vital.com/">6-vital.com</a>
+            </p>
+          </div>
+          <figure>
+            <img
+              src="../public/images/research/dsst.png"
+              alt="Phone screen of the digital Digit Symbol Substitution Test: a key pairs the digits 1 to 9 with symbols, and the person draws the symbol for each digit."
+            />
+            <figcaption>
+              The digital Digit Symbol Substitution Test in the 6 Vital app
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="section band studies-band"
+    id="studies"
+    aria-labelledby="studies-h"
+  >
+    <div class="wrap">
+      <h2 id="studies-h">Ongoing studies</h2>
+      <div class="content">
+        <ul class="studies">
+          <li class="study" id="birax">
+            <h3>BIRAX</h3>
+            <p>
+              Developing ways to assess physical capacity in older adults with
+              type 2 diabetes, using machine learning.
+            </p>
+            <p class="meta">
+              With Swansea University, UK · Funded by BIRAX and Diabetes UK ·
+              <a
+                href="https://www.diabetes.org.uk/our-research/about-our-research/our-funded-projects/wales/personalising-care-type-2-age-well"
+                >Funder’s project page</a
+              >
+            </p>
+            <a class="ask" href="#contact">Ask about this study</a>
+          </li>
+          <li class="study" id="stay-strong">
+            <h3>STAY-STRONG</h3>
+            <p>
+              Exercise and nutrition alongside semaglutide, to help preserve
+              muscle during weight loss.
+            </p>
+            <p class="meta">
+              Age 65+ · type 2 diabetes · BMI 27+ · Sheba Medical Center ·
+              <a href="https://clinicaltrials.gov/study/NCT06497595"
+                >NCT06497595</a
+              >
+            </p>
+            <a class="ask" href="#contact">Ask about this study</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="publications" aria-labelledby="pubs-h">
+    <div class="wrap">
+      <h2 id="pubs-h">Selected publications</h2>
+      <div class="content">
+        <ol class="pubs" reversed>
+          <li id="pub-grace">
+            <span class="yr">2026</span
+            ><span
+              ><a
+                href="https://easddistribute.m-anage.com/from.storage?image=DRQMKAdip9FzW2MCANbX49w3an0Yo0TbAUx61uf-MLE8Lc6YRYFPblGBhJ7f6xIH0"
+                >GRACE-780G: automated insulin delivery in older adults</a
+              ><span class="src"
+                >Shimon H et al. EASD 2026, late-breaking abstract LBA 19 ·
+                <span class="area-tag">Diabetes technologies</span></span
+              ></span
+            >
+          </li>
+          <li id="pub-sarcopenia">
+            <span class="yr">2026</span
+            ><span
+              ><a href="https://doi.org/10.1016/j.diabres.2026.113326"
+                >Sarcopenia in diabetes: muscle assessment and nutritional
+                intervention</a
+              ><span class="src"
+                >Tarazona-Santabalbina FJ et al. Diabetes Research and Clinical
+                Practice 2026;238:113326 ·
+                <span class="area-tag">Frailty</span></span
+              ></span
+            >
+          </li>
+          <li id="pub-dsst">
+            <span class="yr">2024</span
+            ><span
+              ><a href="https://doi.org/10.1111/dom.15657"
+                >A digital Digit Symbol Substitution Test for older adults with
+                diabetes</a
+              ><span class="src"
+                >Segev O et al. Diabetes, Obesity and Metabolism
+                2024;26(8):3299–3305 ·
+                <span class="area-tag">Cognitive function</span></span
+              ></span
+            >
+          </li>
+          <li id="pub-movement">
+            <span class="yr">2023</span
+            ><span
+              ><a href="https://doi.org/10.3390/jcm12237404"
+                >Wearable accelerometers and everyday movement in older adults
+                with type 2 diabetes</a
+              ><span class="src"
+                >Yahalom-Peri T et al. Journal of Clinical Medicine
+                2023;12(23):7404 · <span class="area-tag">Frailty</span></span
+              ></span
+            >
+          </li>
+          <li id="pub-technology">
+            <span class="yr">2023</span
+            ><span
+              ><a href="https://pubmed.ncbi.nlm.nih.gov/37471606/"
+                >The growing role of technology in older-adult diabetes care</a
+              ><span class="src"
+                >Huang ES et al. Diabetes Care 2023;46(8):1455–1463 ·
+                <span class="area-tag">Diabetes technologies</span></span
+              ></span
+            >
+          </li>
+          <li id="pub-rewind">
+            <span class="yr">2020</span
+            ><span
+              ><a href="https://pubmed.ncbi.nlm.nih.gov/32562683/"
+                >Cognitive assessment in the REWIND trial</a
+              ><span class="src"
+                >Cukierman-Yaffe T et al. The Lancet Neurology
+                2020;19(7):582–590 ·
+                <span class="area-tag">Cognitive function</span></span
+              ></span
+            >
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://pubmed.ncbi.nlm.nih.gov/?term=Cukierman-Yaffe+T%5BAuthor%5D&amp;sort=date"
+            >Full publication list</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team" aria-labelledby="team-h">
+    <div class="wrap">
+      <h2 id="team-h">Team</h2>
+      <div class="content">
+        <div class="pi">
+          <img
+            src="../public/images/team/tali.jpg"
+            alt="Prof. Tali Cukierman-Yaffe"
+          />
+          <div>
+            <b>Prof. Tali Cukierman-Yaffe</b
+            ><span
+              >Principal investigator · Endocrinologist and clinical
+              epidemiologist</span
+            >
+          </div>
+        </div>
+        <ul class="people">
+          <li>
+            <img
+              src="../public/images/team/naama.webp"
+              alt="Dr. Naama Peltz-Sinvani"
+            /><span
+              ><b>Dr. Naama Peltz-Sinvani</b
+              ><span
+                >Endocrinologist · Head of the Clinical Research Unit, Division
+                of Endocrinology, Diabetes and Metabolism, Sheba Medical
+                Center</span
+              ></span
+            >
+          </li>
+          <li>
+            <img
+              src="../public/images/team/hagar.jpg"
+              alt="Hagar Shimon"
+            /><span
+              ><b>Hagar Shimon</b
+              ><span>Research coordinator and PhD candidate</span></span
+            >
+          </li>
+          <li>
+            <img src="../public/images/team/yasmin.jpg" alt="Yasmin Alt" /><span
+              ><b>Yasmin Alt</b><span>Research coordinator</span></span
+            >
+          </li>
+          <li>
+            <img
+              src="../public/images/team/tal.jpg"
+              alt="Tal Yahalom-Peri"
+            /><span><b>Tal Yahalom-Peri</b><span>PhD candidate</span></span>
+          </li>
+          <li>
+            <img src="../public/images/team/itay.png" alt="Itay Cohen" /><span
+              ><b>Itay Cohen</b><span>MSc student in epidemiology</span></span
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="section band contact-band"
+    id="contact"
+    aria-labelledby="contact-h"
+  >
+    <div class="wrap">
+      <h2 id="contact-h">Contact</h2>
+      <div class="content">
+        <div class="reach">
+          <h3>Interested in a study, or referring a patient?</h3>
+          <p>
+            <a href="mailto:D360@sheba.health.gov.il">Email the team</a> or call
+            <a href="tel:+97235307493">03-5307493, option 8</a>.
+          </p>
+        </div>
+        <p class="collab">
+          For collaboration opportunities and prospective students,
+          <a href="mailto:tcukierm@gmail.com">email Prof. Cukierman-Yaffe</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Diabetes 360 Research Group</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var header = document.querySelector('.site-header');
+    function setHeader() {
+      document.documentElement.style.setProperty(
+        '--header-h',
+        header.offsetHeight + 'px',
+      );
+    }
+    setHeader();
+    window.addEventListener('resize', setHeader);
+
+    // Mark the menu item of the section being read.
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var sections = links.map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+    // The language link opens the other language at the section being read.
+    var lang = document.querySelector('a.lang');
+    var langPage = lang ? lang.getAttribute('href').split('#')[0] : '';
+    function markCurrent() {
+      var line = header.offsetHeight + window.innerHeight * 0.3;
+      var current = -1;
+      sections.forEach(function (s, i) {
+        if (s && s.getBoundingClientRect().top <= line) current = i;
+      });
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2
+      )
+        current = links.length - 1;
+      links.forEach(function (a, i) {
+        if (i === current) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+      if (lang)
+        lang.setAttribute(
+          'href',
+          langPage + (current < 0 ? '' : links[current].getAttribute('href')),
+        );
+    }
+    markCurrent();
+    window.addEventListener('scroll', markCurrent, { passive: true });
+    window.addEventListener('resize', markCurrent);
+
+    // Drawings arrive once (owner chose option C, 2026-11-03). Anything on
+    // screen at load, or passed by a menu jump, is shown drawn at once.
+    if ('IntersectionObserver' in window) {
+      var drawn = Array.prototype.slice.call(
+        document.querySelectorAll('.areas, .pubs, .study, .measure figure'),
+      );
+      document.querySelectorAll('.study').forEach(function (s, i) {
+        s.style.setProperty('--delay', i * 120 + 'ms');
+      });
+      var arrive = function (el, now) {
+        if (now) el.classList.add('at-once');
+        el.classList.add('arrived');
+      };
+      drawn.forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight)
+          arrive(el, true);
+      });
+      document.documentElement.classList.add('draw');
+      var watch = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            arrive(e.target, false);
+            watch.unobserve(e.target);
+          });
+        },
+        { rootMargin: '0px 0px -12% 0px' },
+      );
+      drawn.forEach(function (el) {
+        if (!el.classList.contains('arrived')) watch.observe(el);
+      });
+      links.forEach(function (a) {
+        a.addEventListener('click', function () {
+          var target = document.querySelector(a.getAttribute('href'));
+          var stop =
+            target.getBoundingClientRect().top + window.innerHeight * 2;
+          drawn.forEach(function (el) {
+            if (el.getBoundingClientRect().top < stop) {
+              arrive(el, true);
+              watch.unobserve(el);
+            }
+          });
+        });
+      });
+    }
+  })();
+</script>

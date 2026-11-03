@@ -1,5 +1,34 @@
 # Continuous-page reading and scrolling
 
+## Current direction — 2026-11-03
+
+The owner chose option C of four reviewed on the real prototype (orientation,
+reading focus, graphics draw in, staged entrance). It supersedes the parallax
+and pinned-scene plan below, which describes the earlier Astro implementation
+and is to be replaced when the prototype is ported.
+
+- Orientation: a 3px navy line under the header grows with the reading
+  position (CSS scroll timeline, no script; absent where unsupported). On
+  screens from 1001px each section title stays beside its section.
+- Drawings arrive once: on load the hero painting is painted left to right,
+  the lens appears at the moment of detection, then the risk path rises (about
+  two seconds). The rules over Research, each study and Publications draw
+  across as they arrive; the app screenshot fades in.
+- Text never moves or fades. Nothing scrolls for the reader, snaps or uses
+  parallax. The page is complete at rest: without the script, in print, with
+  reduced motion (also when changed mid-visit), after a menu jump and for
+  anything on screen when the page opens.
+- Evidence: Nielsen Norman Group on animated text, scrolljacking and parallax;
+  vestibular dysfunction is more common with diabetes (Agrawal 2009); WCAG
+  2.3.3 on motion from interaction. Orientation is what helps.
+- Write `animation-timeline` after the `animation` shorthand, which resets it.
+  Hero animations use `backwards` fill so they leave no state behind.
+- Checked by `tests/e2e/prototype-scroll.spec.ts` in Chromium (desktop and
+  Pixel 7). Firefox 159+ and Safari 26+ support scroll timelines; they have
+  not been tested locally (no browsers in the cloud session).
+
+## Earlier plan — 2026-11-01 (superseded)
+
 Owner direction and source check: 2026-11-01. Local review draft; no deployment.
 The latest visual direction supersedes the original muted diagram drift.
 

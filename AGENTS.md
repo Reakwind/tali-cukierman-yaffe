@@ -9,6 +9,21 @@
   same-page language switching, and mixed-direction identifiers handled correctly.
 - Content and translations are drafts until reviewed. Never invent team members,
   openings, endorsements, recruiting status, results, or contact details.
+- The group is the **Diabetes 360 Research Group**; Prof. Tali Cukierman-Yaffe is
+  its principal investigator, not its name. She leads the Team section, not the
+  opening (owner, 2026-11-03).
+- Information hierarchy is a pyramid. Each section goes one level deeper, and a
+  visitor can stop at any level: About (bird's-eye view: should I keep reading?)
+  -> Research (what the group studies and how) -> Ongoing studies (concrete
+  studies to ask about) -> Publications (the deepest dive). Team, Contact and
+  the footer follow. Keep every fact at its own level; do not repeat it above.
+- No duplicate places (owner, 2026-11-03): name each ongoing study in one place
+  only, the Ongoing studies section. No shortcuts or markers that repeat a
+  section's content elsewhere on the page.
+- Site copy only states verified facts or offers an action. Never write prose
+  addressed to the builder, design notes, or placeholders such as "to confirm"
+  into the site; open questions stay in the project docs. Email addresses are
+  links, not printed text.
 
 ## Repository structure
 
@@ -19,8 +34,10 @@
 - `src/data/` & `src/i18n/` — Team profiles (`team.ts`), page copy (`pages.ts`), and UI strings (`ui.ts`).
 - `src/styles/site.css` — Logical RTL-safe CSS and scroll-driven parallax layers.
 - `worker/index.ts` & `wrangler.jsonc` — Cloudflare Worker endpoint (`POST /api/participation`) + static assets.
+- `scripts/site.ts` & `wrangler.site.json` — The published site: the two prototype pages as full documents plus a no-index `_headers` file in `dist/site`, deployed as static files only (`npm run site:deploy`). No server code, form or email.
 - `scripts/session.ts` — Session worktrees and the daily PR (`session:start`, `day:finish`, `day:cleanup`).
 - `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
+- `prototype/index.html` and `prototype/he.html` — The current one-page draft of the site in English and Hebrew, reviewed by the owner as an artifact. `he.html` holds only the Hebrew words; the build takes fonts, styles, painting, script and the English publication list from `index.html`. `npm run prototype:build` inlines images into `dist/prototype/index.html` and `dist/prototype/he.html`; publish that build (the Hebrew page as a supporting file), never a copy edited elsewhere.
 - `docs/` — Project brief (`project-brief.md`), architecture (`architecture.md`), registration plan (`registration-plan.md`), and visual/scrolling specs.
 - `.claude/` & `.githooks/` — Agent permissions, PreToolUse destructive-git blocker, and Git commit/push hooks.
 
@@ -73,8 +90,10 @@
 
 - Follow `docs/registration-plan.md`. A registry listing is not approval to publish
   a recruitment advertisement or confirmation that a particular site has openings.
-- Use official records and record their dates. Separate completed projects from
-  studies that may be recruiting. Never display a completed study as open.
+- Use official records and record their dates. The site lists "Ongoing studies"
+  without recruitment status or timelines, because they change too often to keep
+  current (owner, 2026-11-03). A completed study appears only through its
+  publications, never among ongoing studies.
 - Keep drafts non-indexable until the team approves launch. The owner removed the
   visible "Website draft" banner on 2026-10-31; content review status stays
   tracked in the project docs.
