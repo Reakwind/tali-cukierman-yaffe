@@ -95,14 +95,14 @@ test('the first screen does not repeat the ongoing studies', async () => {
   assert.doesNotMatch(about, /Ongoing studies|href="#contact"/);
 });
 
-test('the enquiry form asks only for a name and a phone or email', async () => {
+test('contact offers the team email and phone, and no form that sends nothing', async () => {
+  // A form that only shows "thank you" would lose real enquiries (owner,
+  // 2026-11-03): email and phone until a working destination is approved.
   const html = await buildPrototype();
-  const form = /<form[\s\S]*?<\/form>/.exec(html)?.[0] ?? '';
-  assert.doesNotMatch(form, /<select/);
-  const fields = [...form.matchAll(/<input[^>]*\sid="([^"]+)"/g)].map(
-    (m) => m[1],
-  );
-  assert.deepEqual(fields, ['f-name', 'f-contact']);
+  assert.doesNotMatch(html, /<form\b|<input\b/);
+  const contact = section(html, 'contact');
+  assert.match(contact, /href="mailto:D360@sheba\.health\.gov\.il"/);
+  assert.match(contact, /href="tel:\+97235307493"/);
   assert.doesNotMatch(html, /data-study=/);
 });
 

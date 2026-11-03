@@ -112,17 +112,6 @@ test('the Hebrew page keeps the content rules', async () => {
   assert.doesNotMatch(text, /\d\s?%/);
   assert.match(he, /href="mailto:D360@sheba\.health\.gov\.il"/);
   assert.equal([...he.matchAll(/href="#top"/g)].length, 1);
-  const form = /<form[\s\S]*?<\/form>/.exec(he)?.[0] ?? '';
-  const fields = [...form.matchAll(/<input[^>]*\sid="([^"]+)"/g)].map(
-    (m) => m[1],
-  );
-  assert.deepEqual(fields, ['f-name', 'f-contact']);
-});
-
-test('the form message is read from the page, not written in the script', async () => {
-  const [en, he] = [await buildPrototype('en'), await buildPrototype('he')];
-  assert.match(en, /<form[^>]*data-missing="Enter a phone number or email\."/);
-  assert.match(he, /<form[^>]*data-missing="[^"]*[א-ת][^"]*"/);
-  const script = /<script>[\s\S]*?<\/script>/.exec(en)?.[0] ?? '';
-  assert.doesNotMatch(script, /Enter a phone number/);
+  assert.match(he, /href="tel:\+97235307493"/);
+  assert.doesNotMatch(he, /<form\b|<input\b/);
 });
