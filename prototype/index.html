@@ -7,7 +7,7 @@
   href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
 />
 <style>
-  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. One saturated pink traces the participant path (first-screen bar, ongoing-study stops, the Ongoing studies band, its buttons, Send); teal is for links and buttons only; everything else is navy ink and neutrals. Single light theme by choice. */
+  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. The Sheba logo pink marks ongoing studies only: large on their names and section title, one step deeper on the small Research stops. Teal is for links and buttons only; everything else is navy ink and neutrals. Single light theme by choice. */
   :root {
     color-scheme: light;
     --paper: #ffffff;
@@ -18,11 +18,8 @@
     --panel: #f3f4f8;
     --teal: #0a6e5d;
     --teal-soft: #cfe9e2;
-    --study: #a81d57;
-    --study-deep: #7d1641;
-    --study-tint: #fbeff4;
-    --on-study: #ffffff;
-    --on-study-muted: #f6d3e2;
+    --study: #cc1f66;
+    --study-display: #e83880;
     --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
     --sans:
       'IBM Plex Sans', 'IBM Plex Sans Hebrew', 'Segoe UI', Arial, sans-serif;
@@ -242,42 +239,6 @@
     color: var(--muted);
     max-width: 42ch;
   }
-  .now {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 6px 18px;
-    margin-top: 14px;
-    font-size: var(--t-small);
-    max-width: 780px;
-    border-top: 1px solid var(--line);
-    padding-top: 18px;
-  }
-  .now .label {
-    color: var(--muted);
-    font-size: var(--t-record);
-    font-family: var(--mono);
-  }
-  .now a.study-link {
-    color: var(--study);
-    font-weight: 500;
-    font-family: var(--mono);
-    font-size: var(--t-record);
-    letter-spacing: 0.02em;
-  }
-  .now a.study-link::before {
-    content: '';
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: currentColor;
-    margin-inline-end: 8px;
-    vertical-align: 1px;
-  }
-  .now .ask {
-    margin-inline-start: auto;
-  }
   .affil {
     display: flex;
     flex-wrap: wrap;
@@ -291,13 +252,6 @@
     width: auto;
   }
   @media (max-width: 560px) {
-    .now .label {
-      flex: 1 1 100%;
-    }
-    .now .ask {
-      margin-inline-start: 0;
-      flex: 1 1 100%;
-    }
     .affil img {
       height: 38px;
     }
@@ -460,9 +414,12 @@
     }
   }
 
-  /* Ongoing studies: the solid pink band of the participant path */
+  /* Ongoing studies: names and title in the logo pink on a neutral panel */
   .band.studies-band {
     background: var(--panel);
+  }
+  .studies-band h2 {
+    color: var(--study-display);
   }
   .studies {
     list-style: none;
@@ -476,12 +433,14 @@
     flex-direction: column;
     gap: 10px;
     scroll-margin-top: calc(var(--header-h) + 16px);
-    border-top: 1px solid var(--ink);
-    padding-top: 16px;
+    border-top: 6px solid var(--study-display);
+    padding-top: 18px;
   }
   .study h3 {
-    font-size: var(--t-name);
-    font-weight: 600;
+    font-size: var(--t-heading);
+    font-weight: 500;
+    font-family: var(--serif);
+    color: var(--study-display);
   }
   .study .meta {
     font-size: var(--t-record);
@@ -723,12 +682,6 @@
         Our research aims to better understand cognitive function, frailty and
         the use of diabetes technologies among older adults, with a strong focus
         on early detection and prevention.
-      </p>
-      <p class="now">
-        <span class="label">Ongoing studies</span>
-        <a class="study-link" href="#birax">BIRAX</a>
-        <a class="study-link" href="#stay-strong">STAY-STRONG</a>
-        <a class="ask" href="#contact">Ask about a study</a>
       </p>
       <div class="affil">
         <img
