@@ -97,3 +97,12 @@ test('every image has alt text', async () => {
   assert.ok(images.length > 0);
   for (const image of images) assert.match(image, /\salt="[^"]+"/);
 });
+
+test('every team member has a photo', async () => {
+  const html = await buildPrototype();
+  const team = section(html, 'team');
+  assert.doesNotMatch(team, /class="initials"/);
+  const people = [...team.matchAll(/<li>[\s\S]*?<\/li>/g)].map((m) => m[0]);
+  assert.ok(people.length > 0);
+  for (const person of people) assert.match(person, /<img\b/);
+});
