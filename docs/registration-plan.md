@@ -47,7 +47,7 @@ the entered details on screen and allow retry. An email alternative is available
 ## Current state
 
 The bilingual form, Worker and configuration are prepared locally. Delivery is
-explicitly disabled in `wrangler.jsonc`. No email was sent to the recipients;
+explicitly disabled in `wrangler.astro.jsonc`. No email was sent to the recipients;
 tests use dummy details and mocked delivery. Native local runtime and dry-run
 validation do not establish that recipients or a domain are configured.
 

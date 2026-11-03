@@ -66,7 +66,8 @@ On failure the form keeps the visitor's entered details and offers retry/email.
 ## Local state and validation
 
 - `worker/index.ts` implements the API and static-asset fallback.
-- `wrangler.jsonc` defines the assets, endpoint routing, fixed email allowlist,
+- `wrangler.astro.jsonc` (the earlier Astro draft, not the published site)
+  defines the assets, endpoint routing, fixed email allowlist,
   and **disabled** email sending. No sender/domain/secret is invented.
 - `PUBLIC_TURNSTILE_SITE_KEY` is public build configuration; the secret key is
   a Worker secret. Templates contain no working credentials.
