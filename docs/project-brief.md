@@ -7,6 +7,12 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 
 These supersede conflicting points below.
 
+- Images (2026-11-03): Sheba logo cropped from the Sheba letterhead (Hebrew
+  only; an English version is wanted), TAU logo supplied by the owner, DSST
+  screen from the group's DSST validation poster. Logo use needs a check with
+  each institution's communications office before launch. Hagar's and Yasmin's
+  photos exist in the team's Drive; they stay as initials until the owner
+  confirms both agree to publication.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
