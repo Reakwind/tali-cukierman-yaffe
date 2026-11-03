@@ -7,6 +7,10 @@ personal-hub recommendation and tentative audience priorities in `discovery.md`.
 
 These supersede conflicting points below.
 
+- The English copy is settled (owner, 2026-11-03). Work continues on the
+  English design until it is done, then the Hebrew version; launch still ships
+  both languages.
+
 - Name: **Diabetes 360 Research Group**. Prof. Tali Cukierman-Yaffe is the
   principal investigator and leads the Team section; she is not introduced in
   the opening.
