@@ -12,6 +12,11 @@ These supersede conflicting points below.
   screen from the group's DSST validation poster. Logo use needs a check with
   each institution's communications office before launch. Hagar and Yasmin agreed
   to publish their photos from the team's Drive (owner, 2026-11-03).
+- Links stay at their pyramid level (owner, 2026-11-03): Research links only to
+  ongoing studies; publications link to papers; the first-screen study strip is
+  the one deliberate shortcut. Affiliations appear once, as logos in About.
+  Privacy and Accessibility pages are needed before launch; until they exist
+  the footer has no links.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
