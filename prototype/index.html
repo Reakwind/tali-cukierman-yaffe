@@ -1,4 +1,5 @@
 <title>Diabetes 360 Research Group</title>
+<meta name="robots" content="noindex, nofollow" />
 <meta name="claude:viewport-fit-sides" content="cover" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -577,82 +578,15 @@
   .band.contact-band {
     background: var(--panel);
   }
-  form.enquiry,
-  .sent {
+  .reach {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--space-heading);
     max-width: 520px;
   }
-  form.enquiry h3,
-  .sent h3 {
+  .reach h3 {
     font-family: var(--serif);
     font-size: var(--t-heading);
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: var(--t-small);
-    font-weight: 500;
-  }
-  .field .opt {
-    font-weight: 400;
-    color: var(--muted);
-    font-size: var(--t-record);
-    margin-inline-start: 8px;
-  }
-  .field input {
-    font: inherit;
-    font-weight: 400;
-    min-height: 46px;
-    padding: 0 12px;
-    border: 1px solid var(--line-strong);
-    border-radius: 6px;
-    color: var(--ink);
-    background: var(--paper);
-  }
-  .send-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 16px;
-    font-size: var(--t-small);
-  }
-  button.send {
-    font: inherit;
-    font-size: var(--t-small);
-    font-weight: 500;
-    min-height: 44px;
-    padding: 0 22px;
-    border: 0;
-    border-radius: 6px;
-    background: var(--teal);
-    color: var(--paper);
-    cursor: pointer;
-  }
-  .form-status {
-    font-size: var(--t-record);
-    color: var(--ink);
-    font-weight: 600;
-  }
-  .form-status:empty {
-    display: none;
-  }
-  .sent:focus {
-    outline: none;
-  }
-  .linkish {
-    font: inherit;
-    font-size: var(--t-small);
-    background: none;
-    border: 0;
-    padding: 8px 0;
-    color: var(--teal);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-    align-self: flex-start;
   }
   .collab {
     border-top: 1px solid var(--line-strong);
@@ -1722,48 +1656,12 @@
     <div class="wrap">
       <h2 id="contact-h">Contact</h2>
       <div class="content">
-        <form
-          class="enquiry"
-          id="enquiry"
-          novalidate
-          data-missing="Enter a phone number or email."
-        >
+        <div class="reach">
           <h3>Interested in a study, or referring a patient?</h3>
-          <label class="field" for="f-name"
-            ><span>First name<span class="opt">Optional</span></span>
-            <input
-              id="f-name"
-              name="name"
-              type="text"
-              autocomplete="given-name"
-            />
-          </label>
-          <label class="field" for="f-contact"
-            ><span>Phone or email</span>
-            <input
-              id="f-contact"
-              name="contact"
-              type="text"
-              autocomplete="email"
-              required
-            />
-          </label>
-          <div class="send-row">
-            <button class="send" type="submit">Send</button
-            ><span
-              >or
-              <a href="mailto:D360@sheba.health.gov.il">email the team</a>
-              or call
-              <a href="tel:+97235307493">03-5307493, option 8</a></span
-            >
-          </div>
-          <p class="form-status" id="form-status" role="status"></p>
-        </form>
-        <div class="sent" id="sent" tabindex="-1" hidden>
-          <h3>Thank you. The research team will get in touch.</h3>
-          <button type="button" class="linkish" id="edit-details">
-            Change my details
-          </button>
+          <p>
+            <a href="mailto:D360@sheba.health.gov.il">Email the team</a> or call
+            <a href="tel:+97235307493">03-5307493, option 8</a>.
+          </p>
         </div>
         <p class="collab">
           For collaboration opportunities and prospective students,
@@ -1870,29 +1768,5 @@
         });
       });
     }
-
-    var form = document.getElementById('enquiry'),
-      sent = document.getElementById('sent');
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var c = document.getElementById('f-contact'),
-        status = document.getElementById('form-status');
-      if (!c.value.trim()) {
-        status.textContent = form.getAttribute('data-missing');
-        c.focus();
-        return;
-      }
-      status.textContent = '';
-      form.hidden = true;
-      sent.hidden = false;
-      sent.focus();
-    });
-    document
-      .getElementById('edit-details')
-      .addEventListener('click', function () {
-        sent.hidden = true;
-        form.hidden = false;
-        document.getElementById('f-contact').focus();
-      });
   })();
 </script>
