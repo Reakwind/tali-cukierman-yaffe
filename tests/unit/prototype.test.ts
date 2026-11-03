@@ -53,19 +53,29 @@ const studyIds = (html: string) =>
     (m) => m[1] ?? '',
   );
 
-test('research stops link only to studies and publications', async () => {
+test('research stops link one level down, to ongoing studies only', async () => {
   const html = await buildPrototype();
-  const targets = new Set([
-    ...ids(section(html, 'studies')),
-    ...ids(section(html, 'publications')),
-  ]);
+  const studies = new Set(studyIds(html));
   const stops = [
     ...section(html, 'research').matchAll(
       /<a class="stop[^"]*" href="#([^"]+)"/g,
     ),
   ].map((m) => m[1] ?? '');
-  assert.ok(stops.length >= 6);
-  for (const stop of stops) assert.ok(targets.has(stop), stop);
+  assert.ok(stops.length > 0);
+  for (const stop of stops) assert.ok(studies.has(stop), stop);
+});
+
+test('the header names the group without repeating its affiliations', async () => {
+  const html = await buildPrototype();
+  const header = /<header[\s\S]*?<\/header>/.exec(html)?.[0] ?? '';
+  assert.match(header, /Diabetes 360 Research Group/);
+  assert.doesNotMatch(header, /Sheba|Tel Aviv University/);
+});
+
+test('no link is a placeholder pointing back to the top', async () => {
+  const html = await buildPrototype();
+  const toTop = [...html.matchAll(/href="#top"/g)];
+  assert.equal(toTop.length, 1);
 });
 
 test('the first screen links to every ongoing study', async () => {
