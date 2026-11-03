@@ -42,3 +42,20 @@ test('prototype research names the Center and states no statistics', async () =>
   assert.match(research, /Center\s+for\s+Successful\s+Aging\s+with\s+Diabetes/);
   assert.doesNotMatch(html.replace(/<style[\s\S]*?<\/style>/g, ''), /\d\s?%/);
 });
+
+test('research map stops link only to studies and publications', async () => {
+  const html = await buildPrototype();
+  const section = (id: string) =>
+    new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0] ??
+    '';
+  const ids = (text: string) =>
+    new Set([...text.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  const targets = new Set([
+    ...ids(section('studies')),
+    ...ids(section('publications')),
+  ]);
+  const map = /<figure class="map">[\s\S]*?<\/figure>/.exec(html)?.[0] ?? '';
+  const stops = [...map.matchAll(/<a href="#([^"]+)"/g)].map((m) => m[1]);
+  assert.ok(stops.length > 0);
+  for (const stop of stops) assert.ok(targets.has(stop), stop);
+});
