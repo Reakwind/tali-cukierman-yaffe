@@ -210,6 +210,13 @@
   }
 
   /* research */
+  .intro p {
+    max-width: 62ch;
+  }
+  .intro p + p {
+    margin-top: 12px;
+    color: var(--muted);
+  }
   .area h3 {
     font-size: 19px;
     margin-bottom: 6px;
@@ -533,6 +540,22 @@
     <div class="wrap">
       <h2 id="research-h">Research</h2>
       <div class="content">
+        <div class="intro">
+          <p>
+            We see diabetes as a condition that speeds up aging. Cognitive
+            decline and loss of physical function are complications of diabetes,
+            and like other complications they can be detected early and
+            prevented. Care should follow a person's physical and cognitive
+            capacity rather than their age, which calls for measures that work
+            in routine care.
+          </p>
+          <p>
+            Our research is part of the Center for Successful Aging with
+            Diabetes at Sheba Medical Center, which brings together clinical
+            care in the Diabetes 360 clinic for people aged 60 and over,
+            training, and research.
+          </p>
+        </div>
         <figure class="map">
           <svg
             class="map-wide"
@@ -828,19 +851,20 @@
         <div class="area">
           <h3>Cognitive function</h3>
           <p>
-            We study how diabetes affects thinking, memory and processing speed
-            in later life, and how to detect changes early. Our group developed
-            a digital version of the Digit Symbol Substitution Test, a short
-            test of processing speed, for older adults with diabetes.
+            Thinking and memory shape how people manage diabetes day to day. We
+            develop measures of cognitive function that are practical in the
+            clinic and sensitive to change over time, including a digital
+            version of the Digit Symbol Substitution Test, a short test of
+            processing speed.
           </p>
         </div>
         <div class="area">
           <h3>Frailty</h3>
           <p>
-            We study frailty through physical capacity: strength, fitness and
+            We look at frailty through physical capacity: strength, fitness and
             balance. We measure everyday movement with wearable sensors, develop
-            machine-learning methods to identify people at risk, and test
-            whether exercise and nutrition can help preserve muscle.
+            machine-learning methods to identify people at risk earlier, and
+            test whether exercise and nutrition can help preserve muscle.
           </p>
         </div>
         <div class="area">
@@ -848,7 +872,8 @@
           <p>
             We study how older adults use diabetes technologies, such as
             automated insulin delivery, and how they relate to cognitive and
-            physical function.
+            physical function. We also develop digital tools that bring
+            continuous, remote assessment into routine care.
           </p>
         </div>
         <div class="area tool" id="six-vital">
