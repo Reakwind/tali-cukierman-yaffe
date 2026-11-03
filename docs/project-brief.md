@@ -53,15 +53,16 @@ These supersede conflicting points below.
   arrive once (the hero painting on load, rules and the app screenshot as they
   arrive). Text never moves. Details in docs/scrolling-plan.md.
 - Hebrew (2026-11-03): prototype/he.html holds only the Hebrew words; the build
-  takes fonts, styles, painting and script from the English page. Same section
-  ids, so the language link opens the other page at the section being read.
-  Right-to-left layout, Hebrew faces first, citations and identifiers kept left
-  to right, and the painting mirrored so the course of life runs in reading
-  order. The copy is a draft translation that needs review by a Hebrew-speaking
-  team member. Team names and roles and publication titles reuse the site's
-  existing Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת
-  360"), "מחקרים נוכחיים" for Ongoing studies, and whether the painting should
-  be mirrored.
+  takes fonts, styles, painting, script and the publication list from the
+  English page. Same section ids, so the language link opens the other page at
+  the section being read. Right-to-left layout, Hebrew faces first, and
+  identifiers such as study names kept left to right. The painting is not
+  mirrored, and publications stay in English as a left-to-right block (owner,
+  2026-11-03). Mixed Hebrew and English is checked to stay inside its column
+  from 360px to 1440px. The copy is a draft translation that needs review by a
+  Hebrew-speaking team member; team names and roles reuse the site's existing
+  Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
+  "מחקרים נוכחיים" for Ongoing studies.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
