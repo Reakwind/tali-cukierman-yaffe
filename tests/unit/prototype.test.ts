@@ -40,7 +40,11 @@ test('prototype research names the Center and states no statistics', async () =>
   const research =
     /<section[^>]*id="research"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
   assert.match(research, /Center\s+for\s+Successful\s+Aging\s+with\s+Diabetes/);
-  assert.doesNotMatch(html.replace(/<style[\s\S]*?<\/style>/g, ''), /\d\s?%/);
+  // Visible text only: percentages inside SVG attributes are geometry, not statistics.
+  const text = html
+    .replace(/<(style|script|svg)[\s\S]*?<\/\1>/g, ' ')
+    .replace(/<[^>]+>/g, ' ');
+  assert.doesNotMatch(text, /\d\s?%/);
 });
 
 const section = (html: string, id: string) =>
