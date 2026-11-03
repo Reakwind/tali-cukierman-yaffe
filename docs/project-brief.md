@@ -40,6 +40,15 @@ These supersede conflicting points below.
   48px, between sections 80–128px). The first screen alone spans the full width;
   sections keep a title column, which stacks above the content below 1000px.
   Phone margin 20px. Checked by tests/e2e/prototype-layout.spec.ts.
+- Hero (owner chose "Quiet", option 3, 2026-11-03): the first screen is the
+  heading "We study healthy aging with diabetes." beside a watercolour
+  painting; the rest of the About sentence is no longer on the first screen
+  (it added too little to justify the space). The painting is an abstract
+  course through life, a lens at the moment of early detection and the path
+  that follows, adapted from the owner's own SVG draft into the Sheba navy,
+  teal and pink. It is decorative (hidden from screen readers) and inline SVG.
+  Beside the heading from 1001px; full width under it on tablets and phones.
+  Scroll behaviour is a separate, later pass.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
