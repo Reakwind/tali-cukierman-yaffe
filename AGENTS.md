@@ -9,6 +9,18 @@
   same-page language switching, and mixed-direction identifiers handled correctly.
 - Content and translations are drafts until reviewed. Never invent team members,
   openings, endorsements, recruiting status, results, or contact details.
+- The group is the **Diabetes 360 Research Group**; Prof. Tali Cukierman-Yaffe is
+  its principal investigator, not its name. She leads the Team section, not the
+  opening (owner, 2026-11-03).
+- Information hierarchy is a pyramid. Each section goes one level deeper, and a
+  visitor can stop at any level: About (bird's-eye view: should I keep reading?)
+  -> Research (what the group studies and how) -> Ongoing studies (concrete
+  studies to ask about) -> Publications (the deepest dive). Team, Contact and
+  the footer follow. Keep every fact at its own level; do not repeat it above.
+- Site copy only states verified facts or offers an action. Never write prose
+  addressed to the builder, design notes, or placeholders such as "to confirm"
+  into the site; open questions stay in the project docs. Email addresses are
+  links, not printed text.
 
 ## Repository structure
 
@@ -73,8 +85,10 @@
 
 - Follow `docs/registration-plan.md`. A registry listing is not approval to publish
   a recruitment advertisement or confirmation that a particular site has openings.
-- Use official records and record their dates. Separate completed projects from
-  studies that may be recruiting. Never display a completed study as open.
+- Use official records and record their dates. The site lists "Ongoing studies"
+  without recruitment status or timelines, because they change too often to keep
+  current (owner, 2026-11-03). A completed study appears only through its
+  publications, never among ongoing studies.
 - Keep drafts non-indexable until the team approves launch. The owner removed the
   visible "Website draft" banner on 2026-10-31; content review status stays
   tracked in the project docs.
