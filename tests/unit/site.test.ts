@@ -66,11 +66,15 @@ test('the default build and deploy publish this site', async () => {
   const config = JSON.parse(await readFile('wrangler.json', 'utf8')) as {
     name?: string;
     build?: { command?: string };
+    previews?: object;
   };
   // The Worker the owner connected to the repository and serves the site.
   assert.equal(config.name, 'diabetes-360');
   // A plain `wrangler deploy` builds the site first.
   assert.equal(config.build?.command, 'npm run site:build');
+  // Cloudflare builds pull requests with `wrangler preview`, which needs this
+  // block, even empty, to create a preview of the site.
+  assert.deepEqual(config.previews, {});
 });
 
 test('deploy commands that name wrangler.site.json reach the same config', async () => {
