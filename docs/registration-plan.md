@@ -1,5 +1,9 @@
 # Participant enquiries and professional contact
 
+Status 2026-11-03: the published prototype has no form. Contact offers the
+Diabetes 360 program's email and phone until the form below is built, tested
+and approved (owner, 2026-11-03).
+
 Updated 2026-11-01 from the owner's instructions. The minimal contact-form
 direction supersedes the earlier institution-managed registry proposal for this
 informational website. Account setup and deployment have not happened.

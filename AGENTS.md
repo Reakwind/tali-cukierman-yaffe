@@ -34,6 +34,7 @@
 - `src/data/` & `src/i18n/` — Team profiles (`team.ts`), page copy (`pages.ts`), and UI strings (`ui.ts`).
 - `src/styles/site.css` — Logical RTL-safe CSS and scroll-driven parallax layers.
 - `worker/index.ts` & `wrangler.jsonc` — Cloudflare Worker endpoint (`POST /api/participation`) + static assets.
+- `scripts/site.ts` & `wrangler.site.json` — The published site: the two prototype pages as full documents plus a no-index `_headers` file in `dist/site`, deployed as static files only (`npm run site:deploy`). No server code, form or email.
 - `scripts/session.ts` — Session worktrees and the daily PR (`session:start`, `day:finish`, `day:cleanup`).
 - `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
 - `prototype/index.html` and `prototype/he.html` — The current one-page draft of the site in English and Hebrew, reviewed by the owner as an artifact. `he.html` holds only the Hebrew words; the build takes fonts, styles, painting, script and the English publication list from `index.html`. `npm run prototype:build` inlines images into `dist/prototype/index.html` and `dist/prototype/he.html`; publish that build (the Hebrew page as a supporting file), never a copy edited elsewhere.

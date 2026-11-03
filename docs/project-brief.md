@@ -63,6 +63,16 @@ These supersede conflicting points below.
   Hebrew-speaking team member; team names and roles reuse the site's existing
   Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
   "מחקרים נוכחיים" for Ongoing studies.
+- Publishing (owner, 2026-11-03): the two prototype pages go to Cloudflare as
+  static files only (`npm run site:build`, `wrangler.site.json`, Worker name
+  `diabetes-360`). No form until a working, approved destination exists:
+  Contact offers the D360 email and phone instead, because a form that only
+  shows "thank you" would lose real enquiries. Hidden from search (robots meta
+  tag and `X-Robots-Tag` header) until the team approves launch. Address: a
+  subdomain of the owner's itaycohen.com was proposed; the owner attaches it in
+  the Cloudflare dashboard. A group domain for the public launch is still open.
+  Deploying needs a Cloudflare API token in the cloud environment's secrets;
+  none was available on 2026-11-03.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
