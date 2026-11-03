@@ -94,14 +94,6 @@
     padding-left: max(var(--g), env(safe-area-inset-left, 0px));
     padding-right: max(var(--g), env(safe-area-inset-right, 0px));
   }
-  .vh {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
   .skip {
     position: absolute;
     left: -999px;
@@ -142,10 +134,6 @@
     font-weight: 500;
     font-size: 18px;
     letter-spacing: -0.01em;
-  }
-  .brand small {
-    font-size: 12px;
-    color: var(--muted);
   }
   .nav {
     display: flex;
@@ -303,19 +291,6 @@
   .intro p + p {
     color: var(--muted);
   }
-  .key {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 20px;
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: -16px;
-  }
-  .key span {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
   .dot {
     display: inline-block;
     width: 12px;
@@ -336,16 +311,23 @@
   }
   .area {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(200px, 236px);
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px 40px;
     padding-block: 24px;
     border-bottom: 1px solid var(--line);
+  }
+  .area.has-track {
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 236px);
+  }
+  .area p {
+    max-width: 62ch;
   }
   .area h3 {
     font-size: 20px;
     margin-bottom: 6px;
   }
   .track {
+    align-self: start;
     list-style: none;
     padding: 2px 0 0;
     position: relative;
@@ -387,7 +369,7 @@
     font-weight: 400;
   }
   @media (max-width: 640px) {
-    .area {
+    .area.has-track {
       grid-template-columns: 1fr;
     }
   }
@@ -663,22 +645,12 @@
     font-size: 14px;
     color: var(--muted);
   }
-  footer nav {
-    display: flex;
-    gap: 20px;
-  }
-  footer a {
-    color: var(--ink);
-  }
 </style>
 
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header" id="top">
   <div class="wrap">
-    <a class="brand" href="#top"
-      ><b>Diabetes 360 Research Group</b
-      ><small>Sheba Medical Center · Tel Aviv University</small></a
-    >
+    <a class="brand" href="#top"><b>Diabetes 360 Research Group</b></a>
     <nav class="nav" aria-label="Main">
       <a href="#research">Research</a>
       <a href="#studies">Studies</a>
@@ -735,10 +707,6 @@
           </p>
         </div>
 
-        <p class="key" aria-hidden="true">
-          <span><i class="dot on"></i>Ongoing study</span>
-          <span><i class="dot"></i>Publication</span>
-        </p>
         <ol class="areas">
           <li class="area">
             <div>
@@ -751,29 +719,8 @@
                 test of processing speed.
               </p>
             </div>
-            <ul class="track" aria-label="Cognitive function: publications">
-              <li>
-                <a class="stop" href="#pub-dsst"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>Digital symbol
-                    test<small>2024</small></span
-                  ></a
-                >
-              </li>
-              <li>
-                <a class="stop" href="#pub-rewind"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>REWIND<small
-                      >2020</small
-                    ></span
-                  ></a
-                >
-              </li>
-            </ul>
           </li>
-          <li class="area">
+          <li class="area has-track">
             <div>
               <h3>Frailty</h3>
               <p>
@@ -784,7 +731,7 @@
                 preserve muscle.
               </p>
             </div>
-            <ul class="track" aria-label="Frailty: studies and publications">
+            <ul class="track" aria-label="Frailty: ongoing studies">
               <li>
                 <a class="stop ongoing" href="#birax"
                   ><i class="dot on" aria-hidden="true"></i
@@ -795,25 +742,6 @@
                 <a class="stop ongoing" href="#stay-strong"
                   ><i class="dot on" aria-hidden="true"></i
                   ><span>STAY-STRONG<small>Ongoing study</small></span></a
-                >
-              </li>
-              <li>
-                <a class="stop" href="#pub-movement"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>Wearable sensors<small
-                      >2023</small
-                    ></span
-                  ></a
-                >
-              </li>
-              <li>
-                <a class="stop" href="#pub-sarcopenia"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>Sarcopenia
-                    review<small>2026</small></span
-                  ></a
                 >
               </li>
             </ul>
@@ -827,27 +755,6 @@
                 physical function.
               </p>
             </div>
-            <ul class="track" aria-label="Diabetes technologies: publications">
-              <li>
-                <a class="stop" href="#pub-grace"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>GRACE-780G<small
-                      >2026</small
-                    ></span
-                  ></a
-                >
-              </li>
-              <li>
-                <a class="stop" href="#pub-technology"
-                  ><i class="dot" aria-hidden="true"></i
-                  ><span
-                    ><span class="vh">Publication: </span>Technology in
-                    older-adult care<small>2023</small></span
-                  ></a
-                >
-              </li>
-            </ul>
           </li>
         </ol>
 
@@ -1144,9 +1051,6 @@
 <footer>
   <div class="wrap">
     <span>Diabetes 360 Research Group</span>
-    <nav aria-label="Site information">
-      <a href="#top">Privacy</a><a href="#top">Accessibility</a>
-    </nav>
   </div>
 </footer>
 
