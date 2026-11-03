@@ -48,7 +48,10 @@ These supersede conflicting points below.
   that follows, adapted from the owner's own SVG draft into the Sheba navy,
   teal and pink. It is decorative (hidden from screen readers) and inline SVG.
   Beside the heading from 1001px; full width under it on tablets and phones.
-  Scroll behaviour is a separate, later pass.
+- Scroll (owner chose option C, 2026-11-03): a reading line under the header,
+  section titles that stay with their section on desktop, and drawings that
+  arrive once (the hero painting on load, rules and the app screenshot as they
+  arrive). Text never moves. Details in docs/scrolling-plan.md.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
