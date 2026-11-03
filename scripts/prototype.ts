@@ -21,8 +21,9 @@ const shared = (english: string, pattern: RegExp, name: string) => {
   return found.join('\n');
 };
 
-/** The Hebrew page holds only its own words. Fonts, styles, the painting and
- * the script come from the English page, so the two never drift apart. */
+/** The Hebrew page holds only its own words. Fonts, styles, the painting, the
+ * script and the English publication list come from the English page, so the
+ * two never drift apart. */
 async function assemble(language: Language): Promise<string> {
   const english = await readFile(resolve(root, pages.en.source), 'utf8');
   if (language === 'en') return english;
@@ -32,6 +33,12 @@ async function assemble(language: Language): Promise<string> {
     style: shared(english, /<style>[\s\S]*?<\/style>/, 'style'),
     art: shared(english, /<figure class="art"[\s\S]*?<\/figure>/, 'painting'),
     script: shared(english, /<script>[\s\S]*?<\/script>/, 'script'),
+    // Publications stay in English (owner, 2026-11-03), read left to right.
+    publications: shared(
+      english,
+      /<ol class="pubs"[\s\S]*?<\/ol>/,
+      'publications',
+    ).replace('<ol class="pubs"', '<ol class="pubs" lang="en" dir="ltr"'),
   };
   return hebrew.replace(/<!-- shared:(\w+) -->/g, (_, name: string) => {
     const part = parts[name];
