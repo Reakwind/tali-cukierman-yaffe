@@ -4,10 +4,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
 />
 <style>
-  /* Design weight follows the information pyramid: About is the largest type, each level below is denser. Magenta marks ongoing studies only. Single light theme by choice. */
+  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. Magenta marks ongoing studies only. Single light theme by choice. */
   :root {
     color-scheme: light;
     --paper: #ffffff;
@@ -20,7 +20,18 @@
     --teal-paper: #f1f8f5;
     --magenta: #94315f;
     --magenta-paper: #fbf4f7;
-    --font: 'Lexend', 'Segoe UI', Arial, sans-serif;
+    --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+    --sans:
+      'IBM Plex Sans', 'IBM Plex Sans Hebrew', 'Segoe UI', Arial, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+    --t-display: clamp(44px, 6.4vw, 84px);
+    --t-title: clamp(32px, 3.6vw, 44px);
+    --t-heading: clamp(24px, 2.3vw, 28px);
+    --t-lead: clamp(21px, 2.1vw, 26px);
+    --t-name: 21px;
+    --t-body: 18px;
+    --t-small: 15px;
+    --t-record: 14px;
     --g: clamp(16px, 4vw, 40px);
     --max: 1160px;
     --header-h: 64px;
@@ -34,6 +45,11 @@
   html {
     scroll-padding-top: calc(var(--header-h) + 16px);
   }
+  @media (max-width: 560px) {
+    :root {
+      --t-body: 17px;
+    }
+  }
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
@@ -43,9 +59,9 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--font);
-    font-size: 17px;
-    line-height: 1.65;
+    font-family: var(--sans);
+    font-size: var(--t-body);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   body::before {
@@ -132,13 +148,13 @@
   }
   .brand b {
     font-weight: 500;
-    font-size: 18px;
-    letter-spacing: -0.01em;
+    font-size: 20px;
+    font-family: var(--serif);
   }
   .nav {
     display: flex;
     gap: 0 24px;
-    font-size: 15px;
+    font-size: var(--t-small);
   }
   .nav a {
     color: var(--ink);
@@ -160,7 +176,7 @@
       overflow-x: auto;
       scrollbar-width: none;
       gap: 0 14px;
-      font-size: 14px;
+      font-size: var(--t-record);
       white-space: nowrap;
     }
     .nav::-webkit-scrollbar {
@@ -186,8 +202,9 @@
     border-top: 0;
   }
   .section h2 {
-    font-size: 26px;
-    letter-spacing: -0.01em;
+    font-size: var(--t-title);
+    font-family: var(--serif);
+    line-height: 1.05;
   }
   .content {
     display: flex;
@@ -210,16 +227,17 @@
     gap: 22px;
   }
   .about h1 {
-    font-size: clamp(34px, 5.2vw, 60px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    max-width: 16ch;
+    font-size: var(--t-display);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    max-width: 13ch;
+    font-family: var(--serif);
   }
   .about .sub {
-    font-size: clamp(18px, 1.9vw, 22px);
+    font-size: var(--t-lead);
     line-height: 1.55;
     color: var(--muted);
-    max-width: 44ch;
+    max-width: 42ch;
   }
   .now {
     display: flex;
@@ -229,16 +247,20 @@
     margin-top: 14px;
     padding-top: 18px;
     border-top: 1px solid var(--line);
-    font-size: 16px;
+    font-size: var(--t-small);
     max-width: 780px;
   }
   .now .label {
     color: var(--muted);
-    font-size: 14px;
+    font-size: var(--t-record);
+    font-family: var(--mono);
   }
   .now a.study-link {
     color: var(--magenta);
     font-weight: 500;
+    font-family: var(--mono);
+    font-size: var(--t-record);
+    letter-spacing: 0.02em;
   }
   .now a.study-link::before {
     content: '';
@@ -285,11 +307,14 @@
     max-width: 60ch;
   }
   .intro p:first-child {
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: var(--t-lead);
+    line-height: 1.5;
+    font-family: var(--serif);
   }
   .intro p + p {
     color: var(--muted);
+    font-size: var(--t-small);
+    line-height: 1.6;
   }
   .dot {
     display: inline-block;
@@ -323,8 +348,9 @@
     max-width: 62ch;
   }
   .area h3 {
-    font-size: 20px;
+    font-size: var(--t-heading);
     margin-bottom: 6px;
+    font-family: var(--serif);
   }
   .track {
     align-self: start;
@@ -350,16 +376,25 @@
     align-items: baseline;
     gap: 12px;
     color: var(--ink);
-    font-size: 15px;
+    font-size: var(--t-record);
     line-height: 1.35;
+    font-family: var(--mono);
+    text-decoration: none;
+  }
+  a.stop .name {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   a.stop .dot {
     transform: translateY(1px);
   }
   a.stop small {
     display: block;
-    font-size: 13px;
+    font-size: var(--t-record);
     color: var(--muted);
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
   a.stop.ongoing {
     color: var(--magenta);
@@ -384,8 +419,9 @@
     border-radius: 10px;
   }
   .measure h3 {
-    font-size: 20px;
+    font-size: var(--t-heading);
     margin-bottom: 8px;
+    font-family: var(--serif);
   }
   .measure figure {
     display: flex;
@@ -404,9 +440,10 @@
     white-space: nowrap;
   }
   .measure figcaption {
-    font-size: 13px;
+    font-size: var(--t-record);
     color: var(--muted);
     line-height: 1.4;
+    font-family: var(--mono);
   }
   @media (max-width: 640px) {
     .measure {
@@ -437,11 +474,14 @@
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
   .study h3 {
-    font-size: 22px;
+    font-size: var(--t-name);
+    font-weight: 600;
   }
   .study .meta {
-    font-size: 15px;
+    font-size: var(--t-record);
     color: var(--muted);
+    font-family: var(--mono);
+    line-height: 1.7;
   }
   .study .ask {
     margin-top: auto;
@@ -456,7 +496,7 @@
     list-style: none;
     padding: 0;
     border-top: 1px solid var(--ink);
-    font-size: 16px;
+    font-size: var(--t-body);
   }
   .pubs li {
     display: grid;
@@ -472,8 +512,9 @@
   .pubs .yr {
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-    font-size: 15px;
-    padding-top: 1px;
+    font-size: var(--t-record);
+    padding-top: 3px;
+    font-family: var(--mono);
   }
   .pubs a {
     color: var(--ink);
@@ -484,8 +525,10 @@
   }
   .pubs .src {
     display: block;
-    font-size: 13px;
+    font-size: var(--t-record);
     color: var(--muted);
+    font-family: var(--mono);
+    line-height: 1.7;
   }
   .pubs .area-tag {
     color: var(--teal);
@@ -508,8 +551,9 @@
   }
   .pi b {
     display: block;
-    font-size: 22px;
+    font-size: var(--t-heading);
     font-weight: 500;
+    font-family: var(--serif);
   }
   .pi span {
     color: var(--muted);
@@ -536,9 +580,11 @@
   .people b {
     display: block;
     font-weight: 500;
+    font-size: var(--t-body);
+    color: var(--ink);
   }
   .people span {
-    font-size: 14px;
+    font-size: var(--t-small);
     color: var(--muted);
   }
   @media (max-width: 480px) {
@@ -564,19 +610,20 @@
   }
   form.enquiry h3,
   .sent h3 {
-    font-size: 22px;
+    font-family: var(--serif);
+    font-size: var(--t-heading);
   }
   .field {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: 15px;
+    font-size: var(--t-small);
     font-weight: 500;
   }
   .field .opt {
     font-weight: 400;
     color: var(--muted);
-    font-size: 13px;
+    font-size: var(--t-record);
     margin-inline-start: 8px;
   }
   .field input,
@@ -595,11 +642,11 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 10px 16px;
-    font-size: 15px;
+    font-size: var(--t-small);
   }
   button.send {
     font: inherit;
-    font-size: 15px;
+    font-size: var(--t-small);
     font-weight: 500;
     min-height: 44px;
     padding: 0 22px;
@@ -610,7 +657,7 @@
     cursor: pointer;
   }
   .form-status {
-    font-size: 14px;
+    font-size: var(--t-record);
     color: var(--magenta);
   }
   .form-status:empty {
@@ -621,7 +668,7 @@
   }
   .linkish {
     font: inherit;
-    font-size: 15px;
+    font-size: var(--t-small);
     background: none;
     border: 0;
     padding: 8px 0;
@@ -642,7 +689,7 @@
     justify-content: space-between;
     gap: 8px 32px;
     padding-block: 24px 40px;
-    font-size: 14px;
+    font-size: var(--t-small);
     color: var(--muted);
   }
 </style>
@@ -735,13 +782,19 @@
               <li>
                 <a class="stop ongoing" href="#birax"
                   ><i class="dot on" aria-hidden="true"></i
-                  ><span>BIRAX<small>Ongoing study</small></span></a
+                  ><span
+                    ><span class="name">BIRAX</span
+                    ><small>Ongoing study</small></span
+                  ></a
                 >
               </li>
               <li>
                 <a class="stop ongoing" href="#stay-strong"
                   ><i class="dot on" aria-hidden="true"></i
-                  ><span>STAY-STRONG<small>Ongoing study</small></span></a
+                  ><span
+                    ><span class="name">STAY-STRONG</span
+                    ><small>Ongoing study</small></span
+                  ></a
                 >
               </li>
             </ul>
