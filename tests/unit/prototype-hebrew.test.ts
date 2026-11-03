@@ -60,13 +60,13 @@ test('styles, painting and script come from the English page', async () => {
   }
 });
 
-test('Hebrew copy is complete: Latin only in names, records and citations', async () => {
+test('Hebrew copy is complete: Latin only in names, records and publications', async () => {
   const he = await buildPrototype('he');
   const text = visibleText(
     he
       .replace(/<bdi>[\s\S]*?<\/bdi>/g, ' ')
       .replace(/<a class="lang"[\s\S]*?<\/a>/, ' ')
-      .replace(/<span class="cite" dir="ltr"\s*>[\s\S]*?<\/span>/g, ' '),
+      .replace(/<ol class="pubs"[\s\S]*?<\/ol>/, ' '),
   );
   assert.deepEqual(text.match(/[A-Za-z]{2,}/g) ?? [], []);
   assert.ok((text.match(/[א-ת]+/g) ?? []).length > 400);
@@ -83,8 +83,17 @@ test('identifiers and citations are isolated from the Hebrew text direction', as
   ]) {
     assert.match(he, new RegExp(`<bdi>${id}</bdi>`), id);
   }
-  const cites = [...he.matchAll(/<span class="cite" dir="ltr"\s*>/g)];
-  assert.equal(cites.length, 6);
+});
+
+test('publications stay in English, copied from the English page', async () => {
+  const [en, he] = [await buildPrototype('en'), await buildPrototype('he')];
+  const list = (html: string) =>
+    /<ol class="pubs"([^>]*)>([\s\S]*?)<\/ol>/.exec(html) ?? [];
+  const [, heAttributes, heItems] = list(he);
+  assert.match(heAttributes ?? '', /\slang="en"/);
+  assert.match(heAttributes ?? '', /\sdir="ltr"/);
+  assert.ok((heItems ?? '').length > 1000);
+  assert.equal(heItems, list(en)[2]);
 });
 
 test('every Hebrew image description is in Hebrew', async () => {

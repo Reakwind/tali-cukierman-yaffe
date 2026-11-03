@@ -51,7 +51,7 @@ test('the Hebrew page mirrors the layout without overflowing', async ({
   }
 });
 
-test('Hebrew text uses the Hebrew faces, and citations stay left to right', async ({
+test('Hebrew text uses the Hebrew faces, and publications stay left to right', async ({
   page,
 }) => {
   await open(page, 1440, 900);
@@ -62,7 +62,7 @@ test('Hebrew text uses the Hebrew faces, and citations stay left to right', asyn
       body: used('.area p'),
       meta: used('.study .meta'),
       caption: used('.measure figcaption'),
-      cite: getComputedStyle(document.querySelector('.cite')!).direction,
+      cite: getComputedStyle(document.querySelector('.pubs')!).direction,
     };
   });
   expect(faces.body).toMatch(/^"?IBM Plex Sans Hebrew/);
@@ -98,3 +98,72 @@ test('the reading line grows from the right in Hebrew', async ({ page }) => {
   );
   expect(origin.startsWith('1440px')).toBe(true);
 });
+
+test('the painting is not mirrored in Hebrew', async ({ page }) => {
+  await open(page, 1440, 900);
+  expect(
+    await page.evaluate(
+      () => getComputedStyle(document.querySelector('.art svg')!).transform,
+    ),
+  ).toBe('none');
+});
+
+test('English publications read left to right inside the Hebrew page', async ({
+  page,
+}) => {
+  await open(page, 1440, 900);
+  const entry = await box(page, '#pub-grace');
+  const year = await box(page, '#pub-grace .yr');
+  const title = await box(page, '#pub-grace a');
+  // Year at the left, title beside it, both starting from the left edge.
+  expect(year.x).toBeLessThan(entry.x + 4);
+  expect(title.x).toBeGreaterThan(year.x + year.width);
+  expect(title.x).toBeLessThan(year.x + 80);
+  expect(
+    await page.evaluate(
+      () => getComputedStyle(document.querySelector('.pubs a')!).fontFamily,
+    ),
+  ).toMatch(/^"?IBM Plex Sans"?,/);
+});
+
+for (const [width, height] of [
+  [1440, 900],
+  [1024, 768],
+  [820, 1180],
+  [390, 844],
+  [360, 740],
+] as const) {
+  test(`mixed Hebrew and English stays inside its column at ${width}px`, async ({
+    page,
+  }) => {
+    await open(page, width, height);
+    const escapes = await page.evaluate(() => {
+      const out: string[] = [];
+      document.querySelectorAll('.section .content').forEach((column) => {
+        const c = column.getBoundingClientRect();
+        column.querySelectorAll('*').forEach((el) => {
+          if (el.closest('svg')) return;
+          const r = el.getBoundingClientRect();
+          if (!r.width) return;
+          if (
+            r.left < c.left - 1 ||
+            r.right > c.right + 1 ||
+            r.left < -1 ||
+            r.right > document.documentElement.clientWidth + 1
+          )
+            out.push(
+              `${el.tagName}.${el.className}: ${el.textContent!.trim().slice(0, 40)}`,
+            );
+          if (
+            el.scrollWidth > el.clientWidth + 1 &&
+            getComputedStyle(el).overflowX === 'visible' &&
+            el.clientWidth
+          )
+            out.push(`overflowing ${el.tagName}.${el.className}`);
+        });
+      });
+      return out;
+    });
+    expect(escapes).toEqual([]);
+  });
+}
