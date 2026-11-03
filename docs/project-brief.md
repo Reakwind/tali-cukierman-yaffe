@@ -17,6 +17,12 @@ These supersede conflicting points below.
   the one deliberate shortcut. Affiliations appear once, as logos in About.
   Privacy and Accessibility pages are needed before launch; until they exist
   the footer has no links.
+- Typography (owner chose direction B, 2026-11-03): Frank Ruhl Libre for the
+  story (page heading, section titles, Research opening, area names), IBM Plex
+  Sans for details, IBM Plex Mono for records (years, citations, study
+  details). One named type scale; nothing below 14px. Frank Ruhl Libre and IBM
+  Plex Sans Hebrew cover Hebrew; mono is used only for Latin and numbers. Self-
+  host the fonts for launch instead of loading them from Google.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
