@@ -32,7 +32,12 @@
     --t-body: 18px;
     --t-small: 15px;
     --t-record: 14px;
-    --g: clamp(16px, 4vw, 40px);
+    --g: clamp(20px, 4vw, 40px);
+    /* Spacing follows the pyramid: the bigger the change of level, the bigger the gap. */
+    --space-heading: 12px;
+    --space-item: 32px;
+    --space-block: 48px;
+    --space-section: clamp(40px, 4.5vw, 64px);
     --max: 1160px;
     --header-h: 64px;
   }
@@ -183,7 +188,13 @@
       display: none;
     }
     .nav a {
-      padding-block: 8px 6px;
+      padding-block: 6px 4px;
+    }
+    .site-header .wrap {
+      padding-block: 6px;
+    }
+    .brand b {
+      font-size: 18px;
     }
   }
 
@@ -191,8 +202,8 @@
   .section > .wrap {
     display: grid;
     grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-    gap: 20px 56px;
-    padding-block: clamp(56px, 8vw, 96px);
+    gap: 24px 56px;
+    padding-block: var(--space-section);
   }
   .section + .section {
     border-top: 1px solid var(--line);
@@ -209,11 +220,11 @@
   .content {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--space-block);
     min-width: 0;
     max-width: 780px;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 1000px) {
     .section > .wrap {
       grid-template-columns: 1fr;
     }
@@ -261,7 +272,7 @@
   .intro {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
   }
   .intro p {
     max-width: 60ch;
@@ -275,6 +286,7 @@
     color: var(--muted);
     font-size: var(--t-small);
     line-height: 1.6;
+    max-width: 56ch;
   }
   .dot {
     display: inline-block;
@@ -298,7 +310,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 16px 40px;
-    padding-block: 24px;
+    padding-block: calc(var(--space-item) / 2);
     border-bottom: 1px solid var(--line);
   }
   .area.has-track {
@@ -309,7 +321,7 @@
   }
   .area h3 {
     font-size: var(--t-heading);
-    margin-bottom: 6px;
+    margin-bottom: var(--space-heading);
     font-family: var(--serif);
   }
   .track {
@@ -380,7 +392,7 @@
   }
   .measure h3 {
     font-size: var(--t-heading);
-    margin-bottom: 8px;
+    margin-bottom: var(--space-heading);
     font-family: var(--serif);
   }
   .measure figure {
@@ -405,12 +417,25 @@
     line-height: 1.4;
     font-family: var(--mono);
   }
-  @media (max-width: 640px) {
+  @media (max-width: 900px) {
+    /* One column: heading, then the screenshot, then the text that explains it. */
     .measure {
       grid-template-columns: 1fr;
+      gap: var(--space-heading);
+    }
+    .measure > div {
+      display: contents;
+    }
+    .measure h3 {
+      margin-bottom: 0;
+    }
+    .measure p {
+      order: 2;
     }
     .measure figure {
-      max-width: 200px;
+      order: 1;
+      max-width: 160px;
+      margin-block: 4px var(--space-heading);
     }
   }
 
@@ -431,7 +456,7 @@
   .study {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-heading);
     scroll-margin-top: calc(var(--header-h) + 16px);
     border-top: 6px solid var(--study-display);
     padding-top: 18px;
@@ -647,6 +672,7 @@
   .collab {
     border-top: 1px solid var(--line-strong);
     padding-top: 20px;
+    max-width: 56ch;
   }
 
   footer .wrap {
