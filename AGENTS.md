@@ -116,7 +116,11 @@
   (failing test -> implementation -> docs), so `git log --oneline` stays scannable.
   - Subject: `<type>: <imperative summary>` (`feat`, `fix`, `test`, `docs`, `refactor`, `chore`, `build`, `ci`), **72 characters or fewer** (enforced by `.githooks/commit-msg`).
   - Bodies optional, at most 1-3 short bullet lines. No transcripts or status dumps.
-- **One pull request per day**: when the day's sessions are committed, run
+- **Pull requests only when the owner asks** (owner, 2026-11-03): during the day,
+  commit each change and push the branch, but do not open, update or watch a
+  pull request. The day's PR is the end of the day and happens only on the
+  owner's request.
+- **One pull request per day**: when the owner asks for it, run
   `npm run day:finish` from the root. It merges that day's session branches into
   `day/<date>`, pushes it and opens one draft PR listing every commit. It refuses
   while a session worktree has uncommitted changes.
@@ -134,8 +138,8 @@
   anything with uncommitted changes or commits made after the merge.
 - **Cloud sessions** (Claude Code on the web) already run in an isolated clone on
   an assigned branch, so skip `session:start`. Commit per change and push that
-  branch. Fold it into the day's PR with
-  `npm run day:finish -- --include origin/<branch>`, then close its own PR.
+  branch; open no PR for it. When the owner asks for the day's PR, fold the
+  branch in with `npm run day:finish -- --include origin/<branch>`.
 - Keep workflow permissions least-privileged, Actions pinned to full commit SHAs,
   and untrusted PR execution isolated from secrets. No privileged PR checkouts.
 
