@@ -3,6 +3,31 @@
 Updated 2026-10-31 following the owner's discovery and content-scope answers. This supersedes the
 personal-hub recommendation and tentative audience priorities in `discovery.md`.
 
+## Decisions — 2026-11-03
+
+These supersede conflicting points below.
+
+- Name: **Diabetes 360 Research Group**. Prof. Tali Cukierman-Yaffe is the
+  principal investigator and leads the Team section; she is not introduced in
+  the opening.
+- About copy (owner's text): "We study healthy aging with diabetes. Our research
+  aims to better understand cognitive function, frailty and the use of diabetes
+  technologies among older adults, with a strong focus on early detection and
+  prevention."
+- One page in an information pyramid: About -> Research -> Ongoing studies ->
+  Publications, then Team, Contact and footer. Menu: Research, Studies,
+  Publications, Team, Contact.
+- Studies appear as "Ongoing studies" with no recruitment status or timelines.
+  GRACE-780G (completed) appears only through its publication.
+- Contact: one route for participants and clinicians (two-field form or a linked
+  "email the research team"), and "For collaboration opportunities and
+  prospective students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
+  voluntary" line.
+- 6 Vital links to https://6-vital.com/. Its "Get in Touch" button was a
+  placeholder link when checked on 2026-11-03.
+- The Research section copy is a draft until the owner adds context. The working
+  copy deck is on the design canvas ("Content and skeleton v5").
+
 ## Decisions
 
 - Identity: Tali Cukierman-Yaffe's research group and projects.
