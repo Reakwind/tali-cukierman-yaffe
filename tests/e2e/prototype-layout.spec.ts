@@ -1,19 +1,16 @@
 import { expect, test, type Page } from '@playwright/test';
-import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { buildPrototype } from '../../scripts/prototype.ts';
 
 // The one-page draft in prototype/index.html, built with its images inlined.
-const draft = () => {
-  execFileSync('node', ['scripts/prototype.ts']);
-  return readFileSync('dist/prototype/index.html', 'utf8');
-};
+// Built in memory: parallel workers never share a half-written file.
+const draft = () => buildPrototype();
 
 const open = async (page: Page, width: number, height: number) => {
   await page.setViewportSize({ width, height });
   // The artifact host adds this viewport tag when it publishes the page.
   const viewport =
     '<meta name="viewport" content="width=device-width, initial-scale=1">';
-  await page.setContent(viewport + draft(), { waitUntil: 'load' });
+  await page.setContent(viewport + (await draft()), { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
 };
 

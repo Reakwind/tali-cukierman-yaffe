@@ -1,22 +1,19 @@
 import { expect, test, type Page } from '@playwright/test';
-import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { buildPrototype } from '../../scripts/prototype.ts';
 
 // Scroll behaviour of the one-page draft (owner chose option C, 2026-11-03):
 // orientation (a reading line, titles that stay with their section) plus
 // drawings that arrive once. Text never moves; the page is complete at rest.
 
-const draft = () => {
-  execFileSync('node', ['scripts/prototype.ts']);
-  return readFileSync('dist/prototype/index.html', 'utf8');
-};
+// Built in memory: parallel workers never share a half-written file.
+const draft = () => buildPrototype();
 
 const viewport =
   '<meta name="viewport" content="width=device-width, initial-scale=1">';
 
 const open = async (page: Page, width: number, height: number) => {
   await page.setViewportSize({ width, height });
-  await page.setContent(viewport + draft(), { waitUntil: 'load' });
+  await page.setContent(viewport + (await draft()), { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
 };
 
@@ -162,7 +159,7 @@ test('without JavaScript the page is complete', async ({ browser }) => {
     viewport: { width: 1440, height: 900 },
   });
   const page = await context.newPage();
-  await page.setContent(viewport + draft(), { waitUntil: 'load' });
+  await page.setContent(viewport + (await draft()), { waitUntil: 'load' });
   expect(
     await page.evaluate(
       () => getComputedStyle(document.querySelector('#birax')!).borderTopColor,

@@ -1,18 +1,15 @@
 import { expect, test, type Page } from '@playwright/test';
-import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { buildPrototype } from '../../scripts/prototype.ts';
 
 // The Hebrew page renders right to left, at every width, with the same
 // orientation and drawing behaviour as the English page.
 
-const hebrew = () => {
-  execFileSync('node', ['scripts/prototype.ts']);
-  return readFileSync('dist/prototype/he.html', 'utf8');
-};
+// Built in memory: parallel workers never share a half-written file.
+const hebrew = () => buildPrototype('he');
 
 const open = async (page: Page, width: number, height: number) => {
   await page.setViewportSize({ width, height });
-  await page.setContent(hebrew(), { waitUntil: 'load' });
+  await page.setContent(await hebrew(), { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
 };
 
