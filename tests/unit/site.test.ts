@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { lstat, readFile, readlink } from 'node:fs/promises';
 import test from 'node:test';
 import { buildSite } from '../../scripts/site.ts';
 
@@ -67,13 +67,20 @@ test('the default build and deploy publish this site', async () => {
     name?: string;
     build?: { command?: string };
   };
-  // The Worker the owner already connected to the repository.
-  assert.equal(config.name, 'tali-cukierman-yaffe');
+  // The Worker the owner connected to the repository and serves the site.
+  assert.equal(config.name, 'diabetes-360');
   // A plain `wrangler deploy` builds the site first.
   assert.equal(config.build?.command, 'npm run site:build');
 });
 
+test('deploy commands that name wrangler.site.json reach the same config', async () => {
+  // The owner's Cloudflare build may run `wrangler deploy -c wrangler.site.json`.
+  const link = await lstat('wrangler.site.json');
+  assert.ok(link.isSymbolicLink(), 'wrangler.site.json links to wrangler.json');
+  assert.equal(await readlink('wrangler.site.json'), 'wrangler.json');
+});
+
 test('the old Astro draft can no longer replace the published site', async () => {
   const text = await readFile('wrangler.astro.jsonc', 'utf8');
-  assert.doesNotMatch(text, /"name":\s*"tali-cukierman-yaffe"/);
+  assert.doesNotMatch(text, /"name":\s*"(diabetes-360|tali-cukierman-yaffe)"/);
 });

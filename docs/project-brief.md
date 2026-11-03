@@ -64,12 +64,12 @@ These supersede conflicting points below.
   Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
   "מחקרים נוכחיים" for Ongoing studies.
 - Publishing (owner, 2026-11-03): the two prototype pages go to Cloudflare as
-  static files only. The repository's defaults publish them: `npm run build`
-  builds `dist/site`, and the root `wrangler.json` (Worker
-  `tali-cukierman-yaffe`, the one the owner connected through Cloudflare's Git
-  import) builds before every `wrangler deploy`. The owner's first import, on
-  2026-11-03, published the old Astro draft because the defaults then pointed
-  to it; that config is now `wrangler.astro.jsonc` under another Worker name.
+  static files only, at https://diabetes-360.reakwind.workers.dev/ (Worker
+  `diabetes-360`, connected through Cloudflare's Git import). The repository's
+  defaults publish them: `npm run build` builds `dist/site`, and the root
+  `wrangler.json` builds before every `wrangler deploy`. The owner's first
+  import published the old Astro draft because the defaults then pointed to
+  it; that config is now `wrangler.astro.jsonc` under another Worker name.
   No form until a working, approved destination exists: Contact offers the D360
   email and phone, because a form that only shows "thank you" would lose real
   enquiries. Hidden from search (robots meta tag and `X-Robots-Tag` header)

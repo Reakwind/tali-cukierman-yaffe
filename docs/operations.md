@@ -86,11 +86,15 @@ fresh output and refuses to reuse an unrelated or stale server.
 ## Cloudflare deployment
 
 The published site is the one-page prototype in English and Hebrew, as static
-files. The owner connected the repository through Cloudflare's Git import on
-2026-11-03 (Worker `tali-cukierman-yaffe`, workers.dev address). The defaults
-publish the right site: `npm run build` builds `dist/site`, and the root
-`wrangler.json` runs that build before every `wrangler deploy`. Run
-`npm run site:deploy` to deploy by hand with a token.
+files, at https://diabetes-360.reakwind.workers.dev/ (Worker `diabetes-360`,
+connected through Cloudflare's Git import on 2026-11-03). The defaults publish
+it: `npm run build` builds `dist/site`, and the root `wrangler.json` runs that
+build before every `wrangler deploy`. `wrangler.site.json` is a link to
+`wrangler.json`, so a deploy command written as
+`npx wrangler deploy -c wrangler.site.json` keeps working. Run
+`npm run site:deploy` to deploy by hand with a token. The owner's first import
+(Worker `tali-cukierman-yaffe`) published the old Astro draft because the
+defaults then pointed to it.
 
 The earlier Astro draft and its enquiry Worker keep their tests and tooling
 under `wrangler.astro.jsonc` (Worker name `tali-cukierman-yaffe-astro`), which
