@@ -17,7 +17,9 @@ const imageTypes: Record<string, string> = {
 export async function buildPrototype(): Promise<string> {
   let html = await readFile(source, 'utf8');
   const paths = new Set(
-    [...html.matchAll(/\ssrc="(\.\.\/[^"]+)"/g)].map((match) => match[1]),
+    [...html.matchAll(/\ssrc="(\.\.\/[^"]+)"/g)].flatMap((match) =>
+      match[1] ? [match[1]] : [],
+    ),
   );
   for (const path of paths) {
     const type = imageTypes[extname(path).toLowerCase()];

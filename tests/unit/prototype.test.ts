@@ -5,7 +5,7 @@ import { buildPrototype } from '../../scripts/prototype.ts';
 test('prototype build inlines every image as a data URI', async () => {
   const html = await buildPrototype();
   const sources = [...html.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map(
-    (match) => match[1],
+    (match) => match[1] ?? '',
   );
   assert.ok(sources.length > 0);
   for (const source of sources) {
