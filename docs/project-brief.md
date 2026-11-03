@@ -3,6 +3,113 @@
 Updated 2026-10-31 following the owner's discovery and content-scope answers. This supersedes the
 personal-hub recommendation and tentative audience priorities in `discovery.md`.
 
+## Decisions — 2026-11-03
+
+These supersede conflicting points below.
+
+- Images (2026-11-03): Sheba logo cropped from the Sheba letterhead (Hebrew
+  only; an English version is wanted), TAU logo supplied by the owner, DSST
+  screen from the group's DSST validation poster. Logo use needs a check with
+  each institution's communications office before launch. Hagar and Yasmin agreed
+  to publish their photos from the team's Drive (owner, 2026-11-03).
+- No duplicate places (owner, 2026-11-03): each ongoing study is named in one
+  place only, the Ongoing studies section. The first screen has no study
+  shortcut, Research has no study markers and the contact form has no study
+  field (owner, 2026-11-03); all three repeated that section and broke the
+  flow. The form asks only for an optional first name and a phone or email.
+  Publications link to papers. Affiliations appear once, as logos in About.
+  Privacy and Accessibility pages are needed before launch; until they exist
+  the footer has no links.
+- Colour (owner chose "one bold colour", version B, 2026-11-03): palette from
+  the Sheba logo. Navy #232350 for text, teal #0a6e5d for links and buttons
+  only, neutral grey panels. The logo pink #e83880 marks ongoing studies only,
+  on large type (study names, the Ongoing studies title) and their rules. No
+  pink fills or bands.
+- Typography (owner chose direction B, 2026-11-03): Frank Ruhl Libre for the
+  story (page heading, section titles, Research opening, area names), IBM Plex
+  Sans for details, IBM Plex Mono for records (years, citations, study
+  details). One named type scale; nothing below 14px. Frank Ruhl Libre and IBM
+  Plex Sans Hebrew cover Hebrew; mono is used only for Latin and numbers. Self-
+  host the fonts for launch instead of loading them from Google.
+- No icons (owner, 2026-11-03): text, typography and colour carry the hierarchy.
+  Expert guidance (NHS, ONS, Nielsen Norman Group) supports icons only where
+  testing shows a gap; an arrow on the participation links is the one candidate
+  to test with users later.
+- Layout (owner, 2026-11-03): one spacing scale where the gap grows with the
+  change of level (heading to text 12px, between items 32px, between blocks
+  48px, between sections 80–128px). The first screen alone spans the full width;
+  sections keep a title column, which stacks above the content below 1000px.
+  Phone margin 20px. Checked by tests/e2e/prototype-layout.spec.ts.
+- Hero (owner chose "Quiet", option 3, 2026-11-03): the first screen is the
+  heading "We study healthy aging with diabetes." beside a watercolour
+  painting; the rest of the About sentence is no longer on the first screen
+  (it added too little to justify the space). The painting is an abstract
+  course through life, a lens at the moment of early detection and the path
+  that follows, adapted from the owner's own SVG draft into the Sheba navy,
+  teal and pink. It is decorative (hidden from screen readers) and inline SVG.
+  Beside the heading from 1001px; full width under it on tablets and phones.
+- Scroll (owner chose option C, 2026-11-03): a reading line under the header,
+  section titles that stay with their section on desktop, and drawings that
+  arrive once (the hero painting on load, rules and the app screenshot as they
+  arrive). Text never moves. Details in docs/scrolling-plan.md.
+- Hebrew (2026-11-03): prototype/he.html holds only the Hebrew words; the build
+  takes fonts, styles, painting, script and the publication list from the
+  English page. Same section ids, so the language link opens the other page at
+  the section being read. Right-to-left layout, Hebrew faces first, and
+  identifiers such as study names kept left to right. The painting is not
+  mirrored, and publications stay in English as a left-to-right block (owner,
+  2026-11-03). Mixed Hebrew and English is checked to stay inside its column
+  from 360px to 1440px. The copy is a draft translation that needs review by a
+  Hebrew-speaking team member; team names and roles reuse the site's existing
+  Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
+  "מחקרים נוכחיים" for Ongoing studies.
+- Publishing (owner, 2026-11-03): the two prototype pages go to Cloudflare as
+  static files only (`npm run site:build`, `wrangler.site.json`, Worker name
+  `diabetes-360`). No form until a working, approved destination exists:
+  Contact offers the D360 email and phone instead, because a form that only
+  shows "thank you" would lose real enquiries. Hidden from search (robots meta
+  tag and `X-Robots-Tag` header) until the team approves launch. Address (owner, 2026-11-03): the free workers.dev address for now, not a
+  personal domain; the owner may rename the account's workers.dev subdomain. A
+  group or institutional domain for the public launch is still open.
+  Deploying needs a Cloudflare API token in the cloud environment's secrets;
+  none was available on 2026-11-03.
+- The English copy is settled (owner, 2026-11-03). Work continues on the
+  English design until it is done, then the Hebrew version; launch still ships
+  both languages.
+
+- Name: **Diabetes 360 Research Group**. Prof. Tali Cukierman-Yaffe is the
+  principal investigator and leads the Team section; she is not introduced in
+  the opening.
+- About copy (owner's text): "We study healthy aging with diabetes. Our research
+  aims to better understand cognitive function, frailty and the use of diabetes
+  technologies among older adults, with a strong focus on early detection and
+  prevention."
+- One page in an information pyramid: About -> Research -> Ongoing studies ->
+  Publications, then Team, Contact and footer. Menu: Research, Studies,
+  Publications, Team, Contact.
+- Studies appear as "Ongoing studies" with no recruitment status or timelines.
+  GRACE-780G (completed) appears only through its publication.
+- Contact: one route for participants and clinicians (two-field form, or the
+  Diabetes 360 program's email D360@sheba.health.gov.il as a link and its phone
+  03-5307493, option 8), and "For collaboration opportunities and prospective
+  students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
+  voluntary" line. The program contact replaces the four personal inboxes for
+  enquiries (owner, 2026-11-03; source: Tali's 2024 Maccabi dietitians deck).
+- 6 Vital closes Research under "How we measure", not as a map stop: the
+  group's own platform for running studies and remote measurement (phone app
+  with movement sensors and the digital DSST; machine-learning models with
+  collaborators). The researchers' back office is not linked or described.
+  It links to https://6-vital.com/, whose "Get in Touch" button was a
+  placeholder link when checked on 2026-11-03.
+- Research copy is drawn from Tali's presentations (2021 stakeholder lecture,
+  2024 Diabetes 360 program deck, 2024 cognitive-function and Maccabi lectures).
+  It states the group's approach and methods, not findings or statistics:
+  findings belong to Publications (owner, 2026-11-03).
+- Research names the Center for Successful Aging with Diabetes (Division of
+  Endocrinology & Metabolism, Sheba Medical Center), whose pillars are clinical
+  care in the Diabetes 360 clinic for ages 60+, training and research (owner
+  approved, 2026-11-03).
+
 ## Decisions
 
 - Identity: Tali Cukierman-Yaffe's research group and projects.
