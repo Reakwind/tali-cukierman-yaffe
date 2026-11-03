@@ -27,3 +27,18 @@ test('prototype element ids are unique', async () => {
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length);
 });
+
+test('prototype enquiries go to the Diabetes 360 program contact', async () => {
+  const html = await buildPrototype();
+  assert.match(html, /href="mailto:D360@sheba\.health\.gov\.il"/);
+  assert.match(html, /href="tel:\+97235307493"/);
+  assert.doesNotMatch(html, /(reakwind|hagarshimon|yasminshtig)@/);
+});
+
+test('prototype research names the Center and states no statistics', async () => {
+  const html = await buildPrototype();
+  const research =
+    /<section[^>]*id="research"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
+  assert.match(research, /Center for Successful Aging with Diabetes/);
+  assert.doesNotMatch(html.replace(/<style[\s\S]*?<\/style>/g, ''), /\d\s?%/);
+});
