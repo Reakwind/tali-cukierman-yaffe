@@ -39,11 +39,41 @@ test('drafts stay out of search engines', async () => {
 });
 
 test('the site deploys as static files, with no server code or email', async () => {
-  const config = JSON.parse(
-    await readFile('wrangler.site.json', 'utf8'),
-  ) as Record<string, unknown>;
+  const config = JSON.parse(await readFile('wrangler.json', 'utf8')) as Record<
+    string,
+    unknown
+  >;
   assert.equal(config['main'], undefined);
   assert.equal(config['send_email'], undefined);
   assert.deepEqual(config['assets'], { directory: './dist/site' });
   assert.equal(config['workers_dev'], true);
+});
+
+// Cloudflare's Git import runs `npm run build` and `npx wrangler deploy` with
+// the root config. Those defaults must publish this site, not the old Astro
+// draft (owner, 2026-11-03).
+test('the default build and deploy publish this site', async () => {
+  const scripts = (
+    JSON.parse(await readFile('package.json', 'utf8')) as {
+      scripts: Record<string, string>;
+    }
+  ).scripts;
+  assert.equal(scripts['build'], 'npm run site:build');
+  // Only one root config, so no tool can pick the old one by default.
+  for (const other of ['wrangler.jsonc', 'wrangler.toml']) {
+    await assert.rejects(readFile(other), other);
+  }
+  const config = JSON.parse(await readFile('wrangler.json', 'utf8')) as {
+    name?: string;
+    build?: { command?: string };
+  };
+  // The Worker the owner already connected to the repository.
+  assert.equal(config.name, 'tali-cukierman-yaffe');
+  // A plain `wrangler deploy` builds the site first.
+  assert.equal(config.build?.command, 'npm run site:build');
+});
+
+test('the old Astro draft can no longer replace the published site', async () => {
+  const text = await readFile('wrangler.astro.jsonc', 'utf8');
+  assert.doesNotMatch(text, /"name":\s*"tali-cukierman-yaffe"/);
 });
