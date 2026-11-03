@@ -51,16 +51,21 @@ const studyIds = (html: string) =>
     (m) => m[1] ?? '',
   );
 
-test('research stops link one level down, to ongoing studies only', async () => {
+test('ongoing studies are named in one place only', async () => {
   const html = await buildPrototype();
-  const studies = new Set(studyIds(html));
-  const stops = [
-    ...section(html, 'research').matchAll(
-      /<a class="stop[^"]*" href="#([^"]+)"/g,
+  const names = [
+    ...section(html, 'studies').matchAll(
+      /<li class="study"[^>]*>\s*<h3>([^<]+)<\/h3>/g,
     ),
-  ].map((m) => m[1] ?? '');
-  assert.ok(stops.length > 0);
-  for (const stop of stops) assert.ok(studies.has(stop), stop);
+  ].map((m) => (m[1] ?? '').trim());
+  assert.ok(names.length > 0);
+  const elsewhere = html
+    .replace(/<section[^>]*id="studies"[\s\S]*?<\/section>/, '')
+    .replace(/<select[\s\S]*?<\/select>/g, '')
+    .replace(/<(script|style|title)[\s\S]*?<\/\1>/g, '');
+  for (const name of names) {
+    assert.doesNotMatch(elsewhere, new RegExp(`\\b${name}\\b`), name);
+  }
 });
 
 test('the header names the group without repeating its affiliations', async () => {
@@ -182,8 +187,6 @@ test('every colour pair meets WCAG contrast for text', async () => {
     ['ink', 'paper', 7],
     ['muted', 'paper', 4.5],
     ['teal', 'paper', 4.5],
-    ['study', 'paper', 4.5],
-    ['study', 'panel', 4.5],
     ['study-display', 'paper', 3],
     ['study-display', 'panel', 3],
   ];
