@@ -61,7 +61,6 @@ test('ongoing studies are named in one place only', async () => {
   assert.ok(names.length > 0);
   const elsewhere = html
     .replace(/<section[^>]*id="studies"[\s\S]*?<\/section>/, '')
-    .replace(/<select[\s\S]*?<\/select>/g, '')
     .replace(/<(script|style|title)[\s\S]*?<\/\1>/g, '');
   for (const name of names) {
     assert.doesNotMatch(elsewhere, new RegExp(`\\b${name}\\b`), name);
@@ -92,18 +91,15 @@ test('the first screen does not repeat the ongoing studies', async () => {
   assert.doesNotMatch(about, /Ongoing studies|href="#contact"/);
 });
 
-test('each study can be named in the enquiry form', async () => {
+test('the enquiry form asks only for a name and a phone or email', async () => {
   const html = await buildPrototype();
-  const studies = section(html, 'studies');
-  const names = [
-    ...studies.matchAll(/href="#contact" data-study="([^"]+)"/g),
-  ].map((m) => m[1] ?? '');
-  assert.ok(names.length > 0);
-  assert.equal(names.length, studyIds(html).length);
   const form = /<form[\s\S]*?<\/form>/.exec(html)?.[0] ?? '';
-  for (const name of names) {
-    assert.match(form, new RegExp(`<option value="${name}"`));
-  }
+  assert.doesNotMatch(form, /<select/);
+  const fields = [...form.matchAll(/<input[^>]*\sid="([^"]+)"/g)].map(
+    (m) => m[1],
+  );
+  assert.deepEqual(fields, ['f-name', 'f-contact']);
+  assert.doesNotMatch(html, /data-study=/);
 });
 
 test('every image has alt text', async () => {
