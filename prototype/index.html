@@ -648,6 +648,125 @@
     font-size: var(--t-small);
     color: var(--muted);
   }
+  /* Scroll (owner chose option C, 2026-11-03). Orientation, then drawings that
+     arrive once. Text never moves, nothing scrolls for the reader, and the
+     page is complete at rest: without the script, in print, with reduced
+     motion, after a menu jump and for anything on screen when the page opens.
+     Write animation-timeline after the animation shorthand, which resets it. */
+  @media (min-width: 1001px) {
+    .section > .wrap > h2 {
+      position: sticky;
+      top: calc(var(--header-h) + 32px);
+      align-self: start;
+    }
+  }
+  @keyframes read-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes paint-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes settle {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes lens-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+  @media screen and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .site-header::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        bottom: -1px;
+        height: 3px;
+        background: var(--ink);
+        transform-origin: left center;
+        animation: read-progress linear both;
+        animation-timeline: scroll(root block);
+      }
+      [dir='rtl'] .site-header::after {
+        transform-origin: right center;
+      }
+    }
+    /* The painting: washes settle, the course is painted, the lens appears at
+       the moment of detection, then the risk path rises. About two seconds. */
+    .draw .art .wash {
+      animation: settle 900ms ease-out backwards;
+    }
+    .draw .art .course {
+      animation: paint-in 1700ms cubic-bezier(0.45, 0.05, 0.3, 1) 150ms
+        backwards;
+    }
+    .draw .art .lens {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: lens-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms backwards;
+    }
+    .draw .art .risk {
+      animation: paint-in 1000ms ease-out 1200ms backwards;
+    }
+    /* Rules draw across as their block arrives; the screenshot fades in. */
+    .draw :is(.areas, .pubs, .study) {
+      position: relative;
+      border-top-color: transparent;
+    }
+    .draw :is(.areas, .pubs)::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: -1px;
+      height: 1px;
+      background: var(--ink);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(0.45, 0.05, 0.3, 1);
+    }
+    .draw .study::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: -6px;
+      height: 6px;
+      background: var(--study-display);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(0.45, 0.05, 0.3, 1)
+        var(--delay, 0ms);
+    }
+    [dir='rtl'] .draw :is(.areas, .pubs, .study)::after {
+      transform-origin: right center;
+    }
+    .draw .arrived:is(.areas, .pubs, .study)::after {
+      transform: scaleX(1);
+    }
+    .draw .measure figure {
+      opacity: 0;
+      transition: opacity 700ms ease-out 200ms;
+    }
+    .draw .measure figure.arrived {
+      opacity: 1;
+    }
+    .draw .at-once,
+    .draw .at-once::after {
+      transition: none;
+    }
+  }
 </style>
 
 <a class="skip" href="#main">Skip to content</a>
@@ -792,7 +911,11 @@
               <stop offset="100%" stop-color="#4B4F8C" stop-opacity="0.75" />
             </linearGradient>
           </defs>
-          <g filter="url(#watercolor-wash)" style="mix-blend-mode: multiply">
+          <g
+            class="wash"
+            filter="url(#watercolor-wash)"
+            style="mix-blend-mode: multiply"
+          >
             <ellipse
               cx="260"
               cy="360"
@@ -1092,7 +1215,7 @@
               stroke-opacity="0.45"
             />
           </g>
-          <g filter="url(#brush-stroke)">
+          <g class="risk" filter="url(#brush-stroke)">
             <path
               d="M 470,340 C 530,310 580,220 660,165 C 720,125 790,105 860,92"
               fill="none"
@@ -1102,6 +1225,8 @@
               stroke-dasharray="14 10 5 12"
               opacity="0.55"
             />
+          </g>
+          <g class="course" filter="url(#brush-stroke)">
             <path
               d="M 20,375 C 160,340 270,410 385,368 C 425,353 445,348 470,340 C 560,310 640,275 760,315 C 880,355 1010,330 1180,240"
               fill="none"
@@ -1124,134 +1249,136 @@
             />
           </g>
           <g transform="translate(470, 340)">
-            <circle
-              r="86"
-              fill="none"
-              stroke="#C9CCE6"
-              stroke-width="9"
-              stroke-opacity="0.5"
-              filter="url(#watercolor-bloom)"
-            />
-            <circle
-              r="64"
-              fill="none"
-              stroke="#4A4E7A"
-              stroke-width="1.2"
-              stroke-opacity="0.55"
-              stroke-dasharray="18 6 4 6"
-              filter="url(#fine-ink)"
-            />
-            <g
-              stroke="#4A4E7A"
-              stroke-linecap="round"
-              opacity="0.55"
-              filter="url(#fine-ink)"
-            >
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-102"
-                stroke-width="1.8"
-                transform="rotate(0)"
+            <g class="lens">
+              <circle
+                r="86"
+                fill="none"
+                stroke="#C9CCE6"
+                stroke-width="9"
+                stroke-opacity="0.5"
+                filter="url(#watercolor-bloom)"
               />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(30)"
+              <circle
+                r="64"
+                fill="none"
+                stroke="#4A4E7A"
+                stroke-width="1.2"
+                stroke-opacity="0.55"
+                stroke-dasharray="18 6 4 6"
+                filter="url(#fine-ink)"
               />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(60)"
+              <g
+                stroke="#4A4E7A"
+                stroke-linecap="round"
+                opacity="0.55"
+                filter="url(#fine-ink)"
+              >
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(0)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(30)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(60)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(90)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(120)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(150)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(180)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(210)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(240)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-102"
+                  stroke-width="1.8"
+                  transform="rotate(270)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(300)"
+                />
+                <line
+                  x1="0"
+                  y1="-90"
+                  x2="0"
+                  y2="-97"
+                  stroke-width="1.1"
+                  transform="rotate(330)"
+                />
+              </g>
+              <circle
+                r="16"
+                fill="#C9CCE6"
+                fill-opacity="0.6"
+                filter="url(#watercolor-bloom)"
               />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-102"
-                stroke-width="1.8"
-                transform="rotate(90)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(120)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(150)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-102"
-                stroke-width="1.8"
-                transform="rotate(180)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(210)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(240)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-102"
-                stroke-width="1.8"
-                transform="rotate(270)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(300)"
-              />
-              <line
-                x1="0"
-                y1="-90"
-                x2="0"
-                y2="-97"
-                stroke-width="1.1"
-                transform="rotate(330)"
-              />
+              <circle r="8" fill="#232350" filter="url(#brush-stroke)" />
+              <circle r="3" fill="#ffffff" />
             </g>
-            <circle
-              r="16"
-              fill="#C9CCE6"
-              fill-opacity="0.6"
-              filter="url(#watercolor-bloom)"
-            />
-            <circle r="8" fill="#232350" filter="url(#brush-stroke)" />
-            <circle r="3" fill="#ffffff" />
           </g>
         </svg>
       </figure>
@@ -1643,6 +1770,52 @@
     markCurrent();
     window.addEventListener('scroll', markCurrent, { passive: true });
     window.addEventListener('resize', markCurrent);
+
+    // Drawings arrive once (owner chose option C, 2026-11-03). Anything on
+    // screen at load, or passed by a menu jump, is shown drawn at once.
+    if ('IntersectionObserver' in window) {
+      var drawn = Array.prototype.slice.call(
+        document.querySelectorAll('.areas, .pubs, .study, .measure figure'),
+      );
+      document.querySelectorAll('.study').forEach(function (s, i) {
+        s.style.setProperty('--delay', i * 120 + 'ms');
+      });
+      var arrive = function (el, now) {
+        if (now) el.classList.add('at-once');
+        el.classList.add('arrived');
+      };
+      drawn.forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight)
+          arrive(el, true);
+      });
+      document.documentElement.classList.add('draw');
+      var watch = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            arrive(e.target, false);
+            watch.unobserve(e.target);
+          });
+        },
+        { rootMargin: '0px 0px -12% 0px' },
+      );
+      drawn.forEach(function (el) {
+        if (!el.classList.contains('arrived')) watch.observe(el);
+      });
+      links.forEach(function (a) {
+        a.addEventListener('click', function () {
+          var target = document.querySelector(a.getAttribute('href'));
+          var stop =
+            target.getBoundingClientRect().top + window.innerHeight * 2;
+          drawn.forEach(function (el) {
+            if (el.getBoundingClientRect().top < stop) {
+              arrive(el, true);
+              watch.unobserve(el);
+            }
+          });
+        });
+      });
+    }
 
     var form = document.getElementById('enquiry'),
       sent = document.getElementById('sent');
