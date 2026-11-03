@@ -66,7 +66,7 @@ test('Hebrew copy is complete: Latin only in names, records and citations', asyn
     he
       .replace(/<bdi>[\s\S]*?<\/bdi>/g, ' ')
       .replace(/<a class="lang"[\s\S]*?<\/a>/, ' ')
-      .replace(/<span class="cite" dir="ltr">[\s\S]*?<\/span>/g, ' '),
+      .replace(/<span class="cite" dir="ltr"\s*>[\s\S]*?<\/span>/g, ' '),
   );
   assert.deepEqual(text.match(/[A-Za-z]{2,}/g) ?? [], []);
   assert.ok((text.match(/[א-ת]+/g) ?? []).length > 400);
@@ -83,7 +83,7 @@ test('identifiers and citations are isolated from the Hebrew text direction', as
   ]) {
     assert.match(he, new RegExp(`<bdi>${id}</bdi>`), id);
   }
-  const cites = [...he.matchAll(/<span class="cite" dir="ltr">/g)];
+  const cites = [...he.matchAll(/<span class="cite" dir="ltr"\s*>/g)];
   assert.equal(cites.length, 6);
 });
 
