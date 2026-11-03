@@ -159,3 +159,58 @@ test('the story is serif, details sans and records mono', async () => {
   }
   assert.match(rule(styles, 'body'), /font-family:\s*var\(--sans\)/);
 });
+
+const token = (styles: string, name: string) =>
+  new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`).exec(styles)?.[1] ?? '';
+const luminance = (hex: string) => {
+  const channel = (i: number) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * channel(1) + 0.7152 * channel(3) + 0.0722 * channel(5);
+};
+const contrast = (a: string, b: string) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return ((hi ?? 0) + 0.05) / ((lo ?? 0) + 0.05);
+};
+
+test('every colour pair meets WCAG contrast for text', async () => {
+  const styles = css(await buildPrototype());
+  const pairs: [string, string, number][] = [
+    ['ink', 'paper', 7],
+    ['muted', 'paper', 4.5],
+    ['teal', 'paper', 4.5],
+    ['study', 'paper', 4.5],
+    ['on-study', 'study', 4.5],
+    ['on-study-muted', 'study', 4.5],
+    ['study', 'study-tint', 4.5],
+    ['ink', 'study-tint', 7],
+  ];
+  for (const [fg, bg, min] of pairs) {
+    const [a, b] = [token(styles, fg), token(styles, bg)];
+    assert.ok(a && b, `--${fg} and --${bg} are defined`);
+    assert.ok(contrast(a, b) >= min, `--${fg} on --${bg}`);
+  }
+});
+
+test('the study colour fills the participant path', async () => {
+  const styles = css(await buildPrototype());
+  for (const selector of [
+    '.now',
+    '.band.studies-band',
+    '.study .ask',
+    'button.send',
+  ]) {
+    assert.match(
+      rule(styles, selector),
+      /background:\s*var\(--study\)/,
+      selector,
+    );
+  }
+});
+
+test('teal is used only for links and buttons', async () => {
+  const styles = css(await buildPrototype());
+  assert.doesNotMatch(rule(styles, '.pubs .area-tag'), /var\(--teal\)/);
+  assert.doesNotMatch(styles, /background:\s*var\(--teal-paper\)/);
+});
