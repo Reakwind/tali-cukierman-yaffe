@@ -39,6 +39,6 @@ test('prototype research names the Center and states no statistics', async () =>
   const html = await buildPrototype();
   const research =
     /<section[^>]*id="research"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
-  assert.match(research, /Center for Successful Aging with Diabetes/);
+  assert.match(research, /Center\s+for\s+Successful\s+Aging\s+with\s+Diabetes/);
   assert.doesNotMatch(html.replace(/<style[\s\S]*?<\/style>/g, ''), /\d\s?%/);
 });
