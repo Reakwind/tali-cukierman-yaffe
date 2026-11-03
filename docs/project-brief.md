@@ -33,6 +33,11 @@ These supersede conflicting points below.
   Expert guidance (NHS, ONS, Nielsen Norman Group) supports icons only where
   testing shows a gap; an arrow on the participation links is the one candidate
   to test with users later.
+- Layout (owner, 2026-11-03): one spacing scale where the gap grows with the
+  change of level (heading to text 12px, between items 32px, between blocks
+  48px, between sections 80–128px). The first screen alone spans the full width;
+  sections keep a title column, which stacks above the content below 1000px.
+  Phone margin 20px. Checked by tests/e2e/prototype-layout.spec.ts.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
