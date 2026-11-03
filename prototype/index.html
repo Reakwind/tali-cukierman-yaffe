@@ -7,7 +7,7 @@
   href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
 />
 <style>
-  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. The Sheba logo pink marks ongoing studies only: large on their names and section title, one step deeper on the small Research stops. Teal is for links and buttons only; everything else is navy ink and neutrals. Single light theme by choice. */
+  /* Type follows the information pyramid: a serif tells the story (About, section titles, the Research opening, area names), a sans carries the details, a monospaced face marks records (years, citations, study details). Each level drops one step of the scale. The Sheba logo pink marks ongoing studies only, on their names and section title; each study is named in one place, the Ongoing studies section. Teal is for links and buttons only; everything else is navy ink and neutrals. Single light theme by choice. */
   :root {
     color-scheme: light;
     --paper: #ffffff;
@@ -18,7 +18,6 @@
     --panel: #f3f4f8;
     --teal: #0a6e5d;
     --teal-soft: #cfe9e2;
-    --study: #cc1f66;
     --study-display: #e83880;
     --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
     --sans:
@@ -268,7 +267,7 @@
     }
   }
 
-  /* Research: philosophy, then one row per area with its own track */
+  /* Research: philosophy, then one row per area */
   .intro {
     display: flex;
     flex-direction: column;
@@ -288,19 +287,6 @@
     line-height: 1.6;
     max-width: 56ch;
   }
-  .dot {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 3px solid var(--teal);
-    background: var(--paper);
-    flex: 0 0 auto;
-  }
-  .dot.on {
-    border-color: var(--study);
-    background: var(--study);
-  }
   .areas {
     list-style: none;
     padding: 0;
@@ -313,9 +299,6 @@
     padding-block: calc(var(--space-item) / 2);
     border-bottom: 1px solid var(--line);
   }
-  .area.has-track {
-    grid-template-columns: minmax(0, 1fr) minmax(200px, 236px);
-  }
   .area p {
     max-width: 62ch;
   }
@@ -323,62 +306,6 @@
     font-size: var(--t-heading);
     margin-bottom: var(--space-heading);
     font-family: var(--serif);
-  }
-  .track {
-    align-self: start;
-    list-style: none;
-    padding: 2px 0 0;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .track::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: 5px;
-    top: 12px;
-    bottom: 12px;
-    width: 2px;
-    background: var(--teal-soft);
-  }
-  a.stop {
-    position: relative;
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    color: var(--ink);
-    font-size: var(--t-record);
-    line-height: 1.35;
-    font-family: var(--mono);
-    text-decoration: none;
-  }
-  a.stop .name {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  a.stop .dot {
-    transform: translateY(1px);
-  }
-  a.stop small {
-    display: block;
-    font-size: var(--t-record);
-    color: var(--muted);
-    font-family: var(--mono);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  a.stop.ongoing {
-    color: var(--study);
-    font-weight: 500;
-  }
-  a.stop.ongoing small {
-    font-weight: 400;
-  }
-  @media (max-width: 640px) {
-    .area.has-track {
-      grid-template-columns: 1fr;
-    }
   }
 
   .measure {
@@ -753,7 +680,7 @@
               </p>
             </div>
           </li>
-          <li class="area has-track">
+          <li class="area">
             <div>
               <h3>Frailty</h3>
               <p>
@@ -764,26 +691,6 @@
                 preserve muscle.
               </p>
             </div>
-            <ul class="track" aria-label="Frailty: ongoing studies">
-              <li>
-                <a class="stop ongoing" href="#birax"
-                  ><i class="dot on" aria-hidden="true"></i
-                  ><span
-                    ><span class="name">BIRAX</span
-                    ><small>Ongoing study</small></span
-                  ></a
-                >
-              </li>
-              <li>
-                <a class="stop ongoing" href="#stay-strong"
-                  ><i class="dot on" aria-hidden="true"></i
-                  ><span
-                    ><span class="name">STAY-STRONG</span
-                    ><small>Ongoing study</small></span
-                  ></a
-                >
-              </li>
-            </ul>
           </li>
           <li class="area">
             <div>
