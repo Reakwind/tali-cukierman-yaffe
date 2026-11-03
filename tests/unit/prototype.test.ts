@@ -76,13 +76,15 @@ test('no link is a placeholder pointing back to the top', async () => {
   assert.equal(toTop.length, 1);
 });
 
-test('the first screen links to every ongoing study', async () => {
+test('the first screen does not repeat the ongoing studies', async () => {
   const html = await buildPrototype();
   const about =
     /<section class="about"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
-  const studies = studyIds(html);
-  assert.ok(studies.length > 0);
-  for (const id of studies) assert.match(about, new RegExp(`href="#${id}"`));
+  assert.ok(about.length > 0);
+  for (const id of studyIds(html)) {
+    assert.doesNotMatch(about, new RegExp(`href="#${id}"`));
+  }
+  assert.doesNotMatch(about, /Ongoing studies|href="#contact"/);
 });
 
 test('each study can be named in the enquiry form', async () => {
@@ -181,10 +183,9 @@ test('every colour pair meets WCAG contrast for text', async () => {
     ['muted', 'paper', 4.5],
     ['teal', 'paper', 4.5],
     ['study', 'paper', 4.5],
-    ['on-study', 'study', 4.5],
-    ['on-study-muted', 'study', 4.5],
-    ['study', 'study-tint', 4.5],
-    ['ink', 'study-tint', 7],
+    ['study', 'panel', 4.5],
+    ['study-display', 'paper', 3],
+    ['study-display', 'panel', 3],
   ];
   for (const [fg, bg, min] of pairs) {
     const [a, b] = [token(styles, fg), token(styles, bg)];
@@ -201,7 +202,7 @@ test('pink is reserved for ongoing studies', async () => {
   assert.ok(uses.length > 0);
   for (const use of uses) {
     const selector = (use[1] ?? '').trim();
-    assert.match(selector, /study|ongoing|\.dot\.on/, selector);
+    assert.match(selector, /stud|ongoing|\.dot\.on/, selector);
   }
 });
 
@@ -209,4 +210,16 @@ test('teal is used only for links and buttons', async () => {
   const styles = css(await buildPrototype());
   assert.doesNotMatch(rule(styles, '.pubs .area-tag'), /var\(--teal\)/);
   assert.doesNotMatch(styles, /background:\s*var\(--teal-paper\)/);
+});
+
+test('ongoing study names are large serif type in the logo pink', async () => {
+  const styles = css(await buildPrototype());
+  for (const selector of ['.studies-band h2', '.study h3']) {
+    const body = rule(styles, selector);
+    assert.match(body, /color:\s*var\(--study-display\)/, selector);
+  }
+  const name = rule(styles, '.study h3');
+  assert.match(name, /font-family:\s*var\(--serif\)/);
+  assert.match(name, /font-size:\s*var\(--t-heading\)/);
+  assert.equal(token(styles, 'study-display').toLowerCase(), '#e83880');
 });
