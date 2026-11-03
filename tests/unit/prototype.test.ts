@@ -46,8 +46,6 @@ test('prototype research names the Center and states no statistics', async () =>
 const section = (html: string, id: string) =>
   new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0] ??
   '';
-const ids = (text: string) =>
-  [...text.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1] ?? '');
 const studyIds = (html: string) =>
   [...section(html, 'studies').matchAll(/<li class="study" id="([^"]+)"/g)].map(
     (m) => m[1] ?? '',
