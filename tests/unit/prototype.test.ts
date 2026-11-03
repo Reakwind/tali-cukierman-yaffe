@@ -43,19 +43,57 @@ test('prototype research names the Center and states no statistics', async () =>
   assert.doesNotMatch(html.replace(/<style[\s\S]*?<\/style>/g, ''), /\d\s?%/);
 });
 
-test('research map stops link only to studies and publications', async () => {
+const section = (html: string, id: string) =>
+  new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0] ??
+  '';
+const ids = (text: string) =>
+  [...text.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1] ?? '');
+const studyIds = (html: string) =>
+  [...section(html, 'studies').matchAll(/<li class="study" id="([^"]+)"/g)].map(
+    (m) => m[1] ?? '',
+  );
+
+test('research stops link only to studies and publications', async () => {
   const html = await buildPrototype();
-  const section = (id: string) =>
-    new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0] ??
-    '';
-  const ids = (text: string) =>
-    new Set([...text.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
   const targets = new Set([
-    ...ids(section('studies')),
-    ...ids(section('publications')),
+    ...ids(section(html, 'studies')),
+    ...ids(section(html, 'publications')),
   ]);
-  const map = /<figure class="map">[\s\S]*?<\/figure>/.exec(html)?.[0] ?? '';
-  const stops = [...map.matchAll(/<a href="#([^"]+)"/g)].map((m) => m[1]);
-  assert.ok(stops.length > 0);
+  const stops = [
+    ...section(html, 'research').matchAll(
+      /<a class="stop[^"]*" href="#([^"]+)"/g,
+    ),
+  ].map((m) => m[1] ?? '');
+  assert.ok(stops.length >= 6);
   for (const stop of stops) assert.ok(targets.has(stop), stop);
+});
+
+test('the first screen links to every ongoing study', async () => {
+  const html = await buildPrototype();
+  const about =
+    /<section class="about"[\s\S]*?<\/section>/.exec(html)?.[0] ?? '';
+  const studies = studyIds(html);
+  assert.ok(studies.length > 0);
+  for (const id of studies) assert.match(about, new RegExp(`href="#${id}"`));
+});
+
+test('each study can be named in the enquiry form', async () => {
+  const html = await buildPrototype();
+  const studies = section(html, 'studies');
+  const names = [
+    ...studies.matchAll(/href="#contact" data-study="([^"]+)"/g),
+  ].map((m) => m[1] ?? '');
+  assert.ok(names.length > 0);
+  assert.equal(names.length, studyIds(html).length);
+  const form = /<form[\s\S]*?<\/form>/.exec(html)?.[0] ?? '';
+  for (const name of names) {
+    assert.match(form, new RegExp(`<option value="${name}"`));
+  }
+});
+
+test('every image has alt text', async () => {
+  const html = await buildPrototype();
+  const images = [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+  assert.ok(images.length > 0);
+  for (const image of images) assert.match(image, /\salt="[^"]+"/);
 });
