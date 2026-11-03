@@ -7,7 +7,7 @@
   href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap"
 />
 <style>
-  /* Layout: academic two-column sections (heading column + content column), one explanatory figure, no motion. Single light theme by choice: the group's site is a white canvas. */
+  /* Design weight follows the information pyramid: About is the largest type, each level below is denser. Magenta marks ongoing studies only. Single light theme by choice. */
   :root {
     color-scheme: light;
     --paper: #ffffff;
@@ -17,9 +17,9 @@
     --line-strong: #98b8b2;
     --teal: #17686a;
     --teal-soft: #d7efe9;
-    --teal-paper: #edf8f4;
+    --teal-paper: #f1f8f5;
     --magenta: #94315f;
-    --magenta-soft: #f5d9e7;
+    --magenta-paper: #fbf4f7;
     --font: 'Lexend', 'Segoe UI', Arial, sans-serif;
     --g: clamp(16px, 4vw, 40px);
     --max: 1160px;
@@ -61,7 +61,8 @@
   h3,
   p,
   ul,
-  ol {
+  ol,
+  figure {
     margin: 0;
   }
   h1,
@@ -81,7 +82,8 @@
   }
   a:focus-visible,
   button:focus-visible,
-  input:focus-visible {
+  input:focus-visible,
+  select:focus-visible {
     outline: 3px solid var(--magenta);
     outline-offset: 3px;
     border-radius: 3px;
@@ -91,6 +93,14 @@
     margin-inline: auto;
     padding-left: max(var(--g), env(safe-area-inset-left, 0px));
     padding-right: max(var(--g), env(safe-area-inset-right, 0px));
+  }
+  .vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   .skip {
     position: absolute;
@@ -105,7 +115,7 @@
     left: 16px;
   }
 
-  /* header */
+  /* header: stays in view and marks the section being read */
   .site-header {
     position: sticky;
     top: env(safe-area-inset-top, 0px);
@@ -117,8 +127,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px 32px;
-    padding-block: 12px;
+    gap: 0 32px;
+    padding-block: 10px;
   }
   .brand {
     display: flex;
@@ -139,41 +149,53 @@
   }
   .nav {
     display: flex;
-    flex-wrap: wrap;
     gap: 0 24px;
     font-size: 15px;
   }
   .nav a {
     color: var(--ink);
     text-decoration: none;
-    padding-block: 10px;
+    padding-block: 12px 10px;
+    border-bottom: 2px solid transparent;
   }
   .nav a:hover {
     color: var(--teal);
   }
+  .nav a[aria-current='true'] {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
   @media (max-width: 760px) {
     .nav {
       flex: 1 1 100%;
-      flex-wrap: nowrap;
+      justify-content: space-between;
       overflow-x: auto;
       scrollbar-width: none;
-      gap: 0 18px;
+      gap: 0 14px;
+      font-size: 14px;
       white-space: nowrap;
     }
     .nav::-webkit-scrollbar {
       display: none;
     }
+    .nav a {
+      padding-block: 8px 6px;
+    }
   }
 
   /* sections */
-  .section {
-    border-top: 1px solid var(--line);
-  }
   .section > .wrap {
     display: grid;
     grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-    gap: 16px 56px;
-    padding-block: clamp(48px, 7vw, 88px);
+    gap: 20px 56px;
+    padding-block: clamp(56px, 8vw, 96px);
+  }
+  .section + .section {
+    border-top: 1px solid var(--line);
+  }
+  .section.band,
+  .section.band + .section {
+    border-top: 0;
   }
   .section h2 {
     font-size: 26px;
@@ -182,9 +204,9 @@
   .content {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 32px;
     min-width: 0;
-    max-width: 760px;
+    max-width: 780px;
   }
   @media (max-width: 760px) {
     .section > .wrap {
@@ -192,135 +214,283 @@
     }
   }
 
-  /* about */
+  /* About: the first screen */
   .about .wrap {
-    padding-block: clamp(48px, 8vw, 104px) clamp(40px, 6vw, 72px);
+    padding-block: clamp(56px, 10vw, 128px) clamp(32px, 5vw, 64px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
   }
-  .about p {
-    font-size: clamp(22px, 2.6vw, 30px);
-    line-height: 1.45;
-    letter-spacing: -0.01em;
-    max-width: 34ch;
+  .about h1 {
+    font-size: clamp(34px, 5.2vw, 60px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 16ch;
   }
-  .about p + p {
-    margin-top: 18px;
-    font-size: 17px;
+  .about .sub {
+    font-size: clamp(18px, 1.9vw, 22px);
+    line-height: 1.55;
     color: var(--muted);
-    max-width: none;
+    max-width: 44ch;
   }
-
-  /* research */
-  .intro p {
-    max-width: 62ch;
-  }
-  .intro p + p {
-    margin-top: 12px;
-    color: var(--muted);
-  }
-  .area h3 {
-    font-size: 19px;
-    margin-bottom: 6px;
-  }
-  .area p {
-    max-width: 62ch;
-  }
-  .tool {
-    border-top: 1px solid var(--line);
+  .now {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    margin-top: 14px;
     padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+    max-width: 780px;
   }
-  figure.map {
-    margin: 0;
+  .now .label {
+    color: var(--muted);
+    font-size: 14px;
   }
-  figure.map svg {
+  .now a.study-link {
+    color: var(--magenta);
+    font-weight: 500;
+  }
+  .now a.study-link::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--magenta);
+    margin-inline-end: 8px;
+    vertical-align: 1px;
+  }
+  .now .ask {
+    margin-inline-start: auto;
+  }
+  .affil {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 36px;
+    margin-top: 8px;
+  }
+  .affil img {
     display: block;
-    width: 100%;
-    height: auto;
-  }
-  figure.map .map-narrow {
-    display: none;
+    height: 44px;
+    width: auto;
   }
   @media (max-width: 560px) {
-    figure.map .map-wide {
-      display: none;
+    .now .ask {
+      margin-inline-start: 0;
+      flex: 1 1 100%;
     }
-    figure.map .map-narrow {
-      display: block;
+    .affil img {
+      height: 38px;
     }
   }
-  figure.map a text {
-    text-decoration: underline;
+
+  /* Research: philosophy, then one row per area with its own track */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
-  figure.map a:focus-visible circle {
-    stroke: var(--magenta);
-    stroke-width: 6;
+  .intro p {
+    max-width: 60ch;
   }
-  .legend {
+  .intro p:first-child {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .intro p + p {
+    color: var(--muted);
+  }
+  .key {
     display: flex;
     flex-wrap: wrap;
     gap: 4px 20px;
     font-size: 13px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-bottom: -16px;
   }
-  .legend span {
+  .key span {
     display: inline-flex;
     align-items: center;
     gap: 8px;
   }
-  .legend i {
+  .dot {
+    display: inline-block;
     width: 12px;
     height: 12px;
     border-radius: 50%;
+    border: 3px solid var(--teal);
+    background: var(--paper);
+    flex: 0 0 auto;
+  }
+  .dot.on {
+    border-color: var(--magenta);
     background: var(--magenta);
   }
-  .legend i.o {
-    background: var(--paper);
-    border: 3px solid var(--teal);
-  }
-  svg text {
-    font-family: var(--font);
-  }
-
-  /* studies */
-  .studies {
+  .areas {
     list-style: none;
     padding: 0;
     border-top: 1px solid var(--ink);
   }
-  .studies li {
+  .area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 236px);
+    gap: 16px 40px;
+    padding-block: 24px;
     border-bottom: 1px solid var(--line);
-    padding-block: 18px;
+  }
+  .area h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .track {
+    list-style: none;
+    padding: 2px 0 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .track::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 5px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--teal-soft);
+  }
+  a.stop {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  a.stop .dot {
+    transform: translateY(1px);
+  }
+  a.stop small {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  a.stop.ongoing {
+    color: var(--magenta);
+    font-weight: 500;
+  }
+  a.stop.ongoing small {
+    font-weight: 400;
+  }
+  @media (max-width: 640px) {
+    .area {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .measure {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 24px 40px;
+    align-items: center;
+    padding: clamp(20px, 3.5vw, 36px);
+    background: var(--teal-paper);
+    border-radius: 10px;
+  }
+  .measure h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .measure figure {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .measure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    border: 6px solid var(--ink);
+    background: var(--paper);
+  }
+  .measure a {
+    white-space: nowrap;
+  }
+  .measure figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  @media (max-width: 640px) {
+    .measure {
+      grid-template-columns: 1fr;
+    }
+    .measure figure {
+      max-width: 200px;
+    }
+  }
+
+  /* Ongoing studies: a tinted band; magenta matches the stops above */
+  .band.studies-band {
+    background: var(--magenta-paper);
+  }
+  .studies {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px 32px;
+  }
+  .study {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 3px solid var(--magenta);
     scroll-margin-top: calc(var(--header-h) + 16px);
   }
-  .studies h3 {
-    font-size: 19px;
+  .study h3 {
+    font-size: 22px;
   }
-  .studies .meta {
+  .study .meta {
     font-size: 15px;
     color: var(--muted);
-    margin-top: 4px;
+  }
+  .study .ask {
+    margin-top: auto;
+    padding-top: 6px;
   }
   .ask {
     font-weight: 500;
   }
 
-  /* publications */
+  /* Publications: the densest level */
   .pubs {
     list-style: none;
     padding: 0;
     border-top: 1px solid var(--ink);
+    font-size: 16px;
   }
   .pubs li {
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr);
     gap: 0 16px;
     border-bottom: 1px solid var(--line);
-    padding-block: 14px;
+    padding-block: 12px;
     scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+  .pubs li:target {
+    background: var(--teal-paper);
   }
   .pubs .yr {
     color: var(--muted);
     font-variant-numeric: tabular-nums;
+    font-size: 15px;
     padding-top: 1px;
   }
   .pubs a {
@@ -332,11 +502,14 @@
   }
   .pubs .src {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
   }
+  .pubs .area-tag {
+    color: var(--teal);
+  }
 
-  /* team */
+  /* Team */
   .pi {
     display: grid;
     grid-template-columns: 132px minmax(0, 1fr);
@@ -404,7 +577,10 @@
     }
   }
 
-  /* contact */
+  /* Contact: the end point */
+  .band.contact-band {
+    background: var(--teal-paper);
+  }
   form.enquiry,
   .sent {
     display: flex;
@@ -414,7 +590,7 @@
   }
   form.enquiry h3,
   .sent h3 {
-    font-size: 19px;
+    font-size: 22px;
   }
   .field {
     display: flex;
@@ -429,7 +605,8 @@
     font-size: 13px;
     margin-inline-start: 8px;
   }
-  .field input {
+  .field input,
+  .field select {
     font: inherit;
     font-weight: 400;
     min-height: 46px;
@@ -481,13 +658,10 @@
     align-self: flex-start;
   }
   .collab {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--line-strong);
     padding-top: 20px;
   }
 
-  footer {
-    border-top: 1px solid var(--line);
-  }
   footer .wrap {
     display: flex;
     flex-wrap: wrap;
@@ -506,8 +680,7 @@
   }
 </style>
 
-<a class="skip" href="#main">Skip to main content</a>
-
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-header" id="top">
   <div class="wrap">
     <a class="brand" href="#top"
@@ -527,12 +700,25 @@
 <main id="main">
   <section class="about" aria-label="About">
     <div class="wrap">
-      <p>We study healthy aging with diabetes.</p>
-      <p>
+      <h1>We study healthy aging with diabetes.</h1>
+      <p class="sub">
         Our research aims to better understand cognitive function, frailty and
         the use of diabetes technologies among older adults, with a strong focus
         on early detection and prevention.
       </p>
+      <p class="now">
+        <span class="label">Ongoing studies</span>
+        <a class="study-link" href="#birax">BIRAX</a>
+        <a class="study-link" href="#stay-strong">STAY-STRONG</a>
+        <a class="ask" href="#contact">Ask about a study</a>
+      </p>
+      <div class="affil">
+        <img
+          src="../public/images/brand/sheba.png"
+          alt="Sheba Medical Center"
+        />
+        <img src="../public/images/brand/tau.png" alt="Tel Aviv University" />
+      </div>
     </div>
   </section>
 
@@ -556,312 +742,163 @@
             training, and research.
           </p>
         </div>
-        <figure class="map">
-          <svg
-            class="map-wide"
-            viewBox="0 0 640 330"
-            role="img"
-            aria-labelledby="map-t"
-          >
-            <title id="map-t">
-              Cognitive function: digital symbol test, 2024; REWIND, 2020.
-              Frailty: BIRAX and STAY-STRONG, ongoing studies; wearable sensors
-              paper, 2023. Diabetes technologies: GRACE-780G, 2026.
-            </title>
-            <g font-size="14" font-weight="600" fill="#243b45">
-              <text x="0" y="24">Cognitive function</text>
-              <text x="0" y="134">Frailty</text>
-              <text x="0" y="244">Diabetes technologies</text>
-            </g>
-            <g stroke="#17686a" stroke-width="4" stroke-linecap="round">
-              <path d="M2 60H636" />
-              <path d="M2 170H636" />
-              <path d="M2 280H636" />
-            </g>
-            <a href="#pub-dsst">
-              <circle
-                cx="250"
-                cy="60"
-                r="11"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="250"
-                y="96"
-                font-size="13"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                Digital symbol test · 2024
-              </text>
-            </a>
-            <a href="#pub-rewind">
-              <circle
-                cx="480"
-                cy="60"
-                r="11"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="480"
-                y="96"
-                font-size="13"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                REWIND · 2020
-              </text>
-            </a>
-            <a href="#birax">
-              <circle cx="250" cy="170" r="13" fill="#94315f" />
-              <text
-                x="250"
-                y="206"
-                font-size="13"
-                font-weight="600"
-                fill="#94315f"
-                text-anchor="middle"
-              >
-                BIRAX
-              </text>
-            </a>
-            <a href="#stay-strong">
-              <circle cx="400" cy="170" r="13" fill="#94315f" />
-              <text
-                x="400"
-                y="206"
-                font-size="13"
-                font-weight="600"
-                fill="#94315f"
-                text-anchor="middle"
-              >
-                STAY-STRONG
-              </text>
-            </a>
-            <a href="#pub-movement">
-              <circle
-                cx="550"
-                cy="170"
-                r="11"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="550"
-                y="206"
-                font-size="13"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                Wearable sensors · 2023
-              </text>
-            </a>
-            <a href="#pub-grace">
-              <circle
-                cx="480"
-                cy="280"
-                r="11"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="480"
-                y="316"
-                font-size="13"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                GRACE-780G · 2026
-              </text>
-            </a>
-          </svg>
-          <svg
-            class="map-narrow"
-            viewBox="0 0 360 300"
-            role="img"
-            aria-labelledby="map-t2"
-          >
-            <title id="map-t2">
-              Cognitive function: digital symbol test, 2024; REWIND, 2020.
-              Frailty: BIRAX and STAY-STRONG, ongoing studies; wearable sensors
-              paper, 2023. Diabetes technologies: GRACE-780G, 2026.
-            </title>
-            <g font-size="13" font-weight="600" fill="#243b45">
-              <text x="0" y="18">Cognitive function</text>
-              <text x="0" y="118">Frailty</text>
-              <text x="0" y="218">Diabetes technologies</text>
-            </g>
-            <g stroke="#17686a" stroke-width="4" stroke-linecap="round">
-              <path d="M2 46H356" />
-              <path d="M2 146H356" />
-              <path d="M2 246H356" />
-            </g>
-            <a href="#pub-dsst">
-              <circle
-                cx="120"
-                cy="46"
-                r="10"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="120"
-                y="78"
-                font-size="12"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                Symbol test ’24
-              </text>
-            </a>
-            <a href="#pub-rewind">
-              <circle
-                cx="280"
-                cy="46"
-                r="10"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="280"
-                y="78"
-                font-size="12"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                REWIND ’20
-              </text>
-            </a>
-            <a href="#birax">
-              <circle cx="100" cy="146" r="12" fill="#94315f" />
-              <text
-                x="100"
-                y="178"
-                font-size="12"
-                font-weight="600"
-                fill="#94315f"
-                text-anchor="middle"
-              >
-                BIRAX
-              </text>
-            </a>
-            <a href="#stay-strong">
-              <circle cx="205" cy="146" r="12" fill="#94315f" />
-              <text
-                x="205"
-                y="178"
-                font-size="12"
-                font-weight="600"
-                fill="#94315f"
-                text-anchor="middle"
-              >
-                STAY-STRONG
-              </text>
-            </a>
-            <a href="#pub-movement">
-              <circle
-                cx="315"
-                cy="146"
-                r="10"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="315"
-                y="178"
-                font-size="12"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                Sensors ’23
-              </text>
-            </a>
-            <a href="#pub-grace">
-              <circle
-                cx="280"
-                cy="246"
-                r="10"
-                fill="#ffffff"
-                stroke="#17686a"
-                stroke-width="4"
-              />
-              <text
-                x="280"
-                y="278"
-                font-size="12"
-                fill="#243b45"
-                text-anchor="middle"
-              >
-                GRACE-780G ’26
-              </text>
-            </a>
-          </svg>
-          <figcaption class="legend">
-            <span><i></i>Ongoing study</span
-            ><span><i class="o"></i>Publication</span>
-          </figcaption>
-        </figure>
-        <div class="area">
-          <h3>Cognitive function</h3>
-          <p>
-            Thinking and memory shape how people manage diabetes day to day. We
-            develop measures of cognitive function that are practical in the
-            clinic and sensitive to change over time, including a digital
-            version of the Digit Symbol Substitution Test, a short test of
-            processing speed.
-          </p>
-        </div>
-        <div class="area">
-          <h3>Frailty</h3>
-          <p>
-            We look at frailty through physical capacity: strength, fitness and
-            balance. We measure everyday movement with wearable sensors, develop
-            machine-learning methods to identify people at risk earlier, and
-            test whether exercise and nutrition can help preserve muscle.
-          </p>
-        </div>
-        <div class="area">
-          <h3>Diabetes technologies</h3>
-          <p>
-            We study how older adults use diabetes technologies, such as
-            automated insulin delivery, and how they relate to cognitive and
-            physical function.
-          </p>
-        </div>
-        <div class="area tool" id="how-we-measure">
-          <h3>How we measure</h3>
-          <p>
-            We developed 6 Vital, our own platform for running studies and
-            measuring people outside the clinic. A phone app records movement
-            through the phone's sensors and runs our digital Digit Symbol
-            Substitution Test, so participants can be followed remotely, quickly
-            and with little staff time. With collaborators, we develop
-            machine-learning models to analyse the app's data. Our aim is
-            assessment that is fast, inexpensive and accurate enough to support
-            early detection and intervention, without adding to the load on
-            stretched health services.
-            <a href="https://6-vital.com/">6-vital.com</a>
-          </p>
+
+        <p class="key" aria-hidden="true">
+          <span><i class="dot on"></i>Ongoing study</span>
+          <span><i class="dot"></i>Publication</span>
+        </p>
+        <ol class="areas">
+          <li class="area">
+            <div>
+              <h3>Cognitive function</h3>
+              <p>
+                Thinking and memory shape how people manage diabetes day to day.
+                We develop measures of cognitive function that are practical in
+                the clinic and sensitive to change over time, including a
+                digital version of the Digit Symbol Substitution Test, a short
+                test of processing speed.
+              </p>
+            </div>
+            <ul class="track" aria-label="Cognitive function: publications">
+              <li>
+                <a class="stop" href="#pub-dsst"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>Digital symbol
+                    test<small>2024</small></span
+                  ></a
+                >
+              </li>
+              <li>
+                <a class="stop" href="#pub-rewind"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>REWIND<small
+                      >2020</small
+                    ></span
+                  ></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="area">
+            <div>
+              <h3>Frailty</h3>
+              <p>
+                We look at frailty through physical capacity: strength, fitness
+                and balance. We measure everyday movement with wearable sensors,
+                develop machine-learning methods to identify people at risk
+                earlier, and test whether exercise and nutrition can help
+                preserve muscle.
+              </p>
+            </div>
+            <ul class="track" aria-label="Frailty: studies and publications">
+              <li>
+                <a class="stop ongoing" href="#birax"
+                  ><i class="dot on" aria-hidden="true"></i
+                  ><span>BIRAX<small>Ongoing study</small></span></a
+                >
+              </li>
+              <li>
+                <a class="stop ongoing" href="#stay-strong"
+                  ><i class="dot on" aria-hidden="true"></i
+                  ><span>STAY-STRONG<small>Ongoing study</small></span></a
+                >
+              </li>
+              <li>
+                <a class="stop" href="#pub-movement"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>Wearable sensors<small
+                      >2023</small
+                    ></span
+                  ></a
+                >
+              </li>
+              <li>
+                <a class="stop" href="#pub-sarcopenia"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>Sarcopenia
+                    review<small>2026</small></span
+                  ></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="area">
+            <div>
+              <h3>Diabetes technologies</h3>
+              <p>
+                We study how older adults use diabetes technologies, such as
+                automated insulin delivery, and how they relate to cognitive and
+                physical function.
+              </p>
+            </div>
+            <ul class="track" aria-label="Diabetes technologies: publications">
+              <li>
+                <a class="stop" href="#pub-grace"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>GRACE-780G<small
+                      >2026</small
+                    ></span
+                  ></a
+                >
+              </li>
+              <li>
+                <a class="stop" href="#pub-technology"
+                  ><i class="dot" aria-hidden="true"></i
+                  ><span
+                    ><span class="vh">Publication: </span>Technology in
+                    older-adult care<small>2023</small></span
+                  ></a
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="measure" id="how-we-measure">
+          <div>
+            <h3>How we measure</h3>
+            <p>
+              We developed 6 Vital, our own platform for running studies and
+              measuring people outside the clinic. A phone app records movement
+              through the phone's sensors and runs our digital Digit Symbol
+              Substitution Test, so participants can be followed remotely,
+              quickly and with little staff time. With collaborators, we develop
+              machine-learning models to analyse the app's data. Our aim is
+              assessment that is fast, inexpensive and accurate enough to
+              support early detection and intervention, without adding to the
+              load on stretched health services.
+              <a href="https://6-vital.com/">6-vital.com</a>
+            </p>
+          </div>
+          <figure>
+            <img
+              src="../public/images/research/dsst.png"
+              alt="Phone screen of the digital Digit Symbol Substitution Test: a key pairs the digits 1 to 9 with symbols, and the person draws the symbol for each digit."
+            />
+            <figcaption>
+              The digital Digit Symbol Substitution Test in the 6 Vital app
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="studies" aria-labelledby="studies-h">
+  <section
+    class="section band studies-band"
+    id="studies"
+    aria-labelledby="studies-h"
+  >
     <div class="wrap">
       <h2 id="studies-h">Ongoing studies</h2>
       <div class="content">
         <ul class="studies">
-          <li id="birax">
+          <li class="study" id="birax">
             <h3>BIRAX</h3>
             <p>
               Developing ways to assess physical capacity in older adults with
@@ -874,8 +911,11 @@
                 >Funder’s project page</a
               >
             </p>
+            <a class="ask" href="#contact" data-study="BIRAX"
+              >Ask about this study</a
+            >
           </li>
-          <li id="stay-strong">
+          <li class="study" id="stay-strong">
             <h3>STAY-STRONG</h3>
             <p>
               Exercise and nutrition alongside semaglutide, to help preserve
@@ -887,9 +927,11 @@
                 >NCT06497595</a
               >
             </p>
+            <a class="ask" href="#contact" data-study="STAY-STRONG"
+              >Ask about this study</a
+            >
           </li>
         </ul>
-        <p><a class="ask" href="#contact">Ask about a study</a></p>
       </div>
     </div>
   </section>
@@ -907,7 +949,7 @@
                 >GRACE-780G: automated insulin delivery in older adults</a
               ><span class="src"
                 >Shimon H et al. EASD 2026, late-breaking abstract LBA 19 ·
-                Diabetes technologies</span
+                <span class="area-tag">Diabetes technologies</span></span
               ></span
             >
           </li>
@@ -919,7 +961,8 @@
                 intervention</a
               ><span class="src"
                 >Tarazona-Santabalbina FJ et al. Diabetes Research and Clinical
-                Practice 2026;238:113326 · Frailty</span
+                Practice 2026;238:113326 ·
+                <span class="area-tag">Frailty</span></span
               ></span
             >
           </li>
@@ -931,7 +974,8 @@
                 diabetes</a
               ><span class="src"
                 >Segev O et al. Diabetes, Obesity and Metabolism
-                2024;26(8):3299–3305 · Cognitive function</span
+                2024;26(8):3299–3305 ·
+                <span class="area-tag">Cognitive function</span></span
               ></span
             >
           </li>
@@ -943,7 +987,7 @@
                 with type 2 diabetes</a
               ><span class="src"
                 >Yahalom-Peri T et al. Journal of Clinical Medicine
-                2023;12(23):7404 · Frailty</span
+                2023;12(23):7404 · <span class="area-tag">Frailty</span></span
               ></span
             >
           </li>
@@ -953,8 +997,8 @@
               ><a href="https://pubmed.ncbi.nlm.nih.gov/37471606/"
                 >The growing role of technology in older-adult diabetes care</a
               ><span class="src"
-                >Huang ES et al. Diabetes Care 2023;46(8):1455–1463 · Diabetes
-                technologies</span
+                >Huang ES et al. Diabetes Care 2023;46(8):1455–1463 ·
+                <span class="area-tag">Diabetes technologies</span></span
               ></span
             >
           </li>
@@ -965,7 +1009,8 @@
                 >Cognitive assessment in the REWIND trial</a
               ><span class="src"
                 >Cukierman-Yaffe T et al. The Lancet Neurology
-                2020;19(7):582–590 · Cognitive function</span
+                2020;19(7):582–590 ·
+                <span class="area-tag">Cognitive function</span></span
               ></span
             >
           </li>
@@ -1038,12 +1083,24 @@
     </div>
   </section>
 
-  <section class="section" id="contact" aria-labelledby="contact-h">
+  <section
+    class="section band contact-band"
+    id="contact"
+    aria-labelledby="contact-h"
+  >
     <div class="wrap">
       <h2 id="contact-h">Contact</h2>
       <div class="content">
         <form class="enquiry" id="enquiry" novalidate>
           <h3>Interested in a study, or referring a patient?</h3>
+          <label class="field" for="f-study"
+            ><span>Study<span class="opt">Optional</span></span>
+            <select id="f-study" name="study">
+              <option value="">Not sure</option>
+              <option value="BIRAX">BIRAX</option>
+              <option value="STAY-STRONG">STAY-STRONG</option>
+            </select>
+          </label>
           <label class="field" for="f-name"
             ><span>First name<span class="opt">Optional</span></span>
             <input
@@ -1109,6 +1166,40 @@
     }
     setHeader();
     window.addEventListener('resize', setHeader);
+
+    // Mark the menu item of the section being read.
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var sections = links.map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+    function markCurrent() {
+      var line = header.offsetHeight + window.innerHeight * 0.3;
+      var current = -1;
+      sections.forEach(function (s, i) {
+        if (s && s.getBoundingClientRect().top <= line) current = i;
+      });
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2
+      )
+        current = links.length - 1;
+      links.forEach(function (a, i) {
+        if (i === current) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+    markCurrent();
+    window.addEventListener('scroll', markCurrent, { passive: true });
+    window.addEventListener('resize', markCurrent);
+
+    // "Ask about this study" fills in the study in the form.
+    var study = document.getElementById('f-study');
+    document.querySelectorAll('[data-study]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        study.value = a.getAttribute('data-study');
+      });
+    });
+
     var form = document.getElementById('enquiry'),
       sent = document.getElementById('sent');
     form.addEventListener('submit', function (ev) {
