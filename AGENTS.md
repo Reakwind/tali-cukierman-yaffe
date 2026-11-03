@@ -33,8 +33,8 @@
 - `src/lib/` — Zod content schemas (`study-schema.ts`, `visual-study-schema.ts`, `output-schema.ts`) and shared helpers.
 - `src/data/` & `src/i18n/` — Team profiles (`team.ts`), page copy (`pages.ts`), and UI strings (`ui.ts`).
 - `src/styles/site.css` — Logical RTL-safe CSS and scroll-driven parallax layers.
-- `worker/index.ts` & `wrangler.jsonc` — Cloudflare Worker endpoint (`POST /api/participation`) + static assets.
-- `scripts/site.ts` & `wrangler.site.json` — The published site: the two prototype pages as full documents plus a no-index `_headers` file in `dist/site`, deployed as static files only (`npm run site:deploy`). No server code, form or email.
+- `worker/index.ts` & `wrangler.astro.jsonc` — The earlier Astro draft's enquiry Worker (`POST /api/participation`) + static assets. Kept for its tests; never deployed (Worker name `tali-cukierman-yaffe-astro`).
+- `scripts/site.ts` & `wrangler.json` — The published site and the repository's default: `npm run build` and a plain `wrangler deploy` publish the two prototype pages as static files from `dist/site`, with a no-index `_headers` file, to the Worker `diabetes-360` that Cloudflare's Git import is connected to (https://diabetes-360.reakwind.workers.dev/). `wrangler.site.json` is a link to `wrangler.json` for deploy commands that name it. No server code, form or email.
 - `scripts/session.ts` — Session worktrees and the daily PR (`session:start`, `day:finish`, `day:cleanup`).
 - `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
 - `prototype/index.html` and `prototype/he.html` — The current one-page draft of the site in English and Hebrew, reviewed by the owner as an artifact. `he.html` holds only the Hebrew words; the build takes fonts, styles, painting, script and the English publication list from `index.html`. `npm run prototype:build` inlines images into `dist/prototype/index.html` and `dist/prototype/he.html`; publish that build (the Hebrew page as a supporting file), never a copy edited elsewhere.

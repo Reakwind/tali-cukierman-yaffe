@@ -22,7 +22,7 @@ export default defineConfig({
   webServer: {
     // --ignore-lock keeps Astro's agent-aware CLI in the foreground for Playwright.
     command:
-      'npm run build && npm run preview -- --host 127.0.0.1 --port 4173 --ignore-lock',
+      'npm run build:astro && npm run preview -- --host 127.0.0.1 --port 4173 --ignore-lock',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: false,
     timeout: 90_000,

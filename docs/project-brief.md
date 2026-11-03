@@ -64,15 +64,18 @@ These supersede conflicting points below.
   Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
   "מחקרים נוכחיים" for Ongoing studies.
 - Publishing (owner, 2026-11-03): the two prototype pages go to Cloudflare as
-  static files only (`npm run site:build`, `wrangler.site.json`, Worker name
-  `diabetes-360`). No form until a working, approved destination exists:
-  Contact offers the D360 email and phone instead, because a form that only
-  shows "thank you" would lose real enquiries. Hidden from search (robots meta
-  tag and `X-Robots-Tag` header) until the team approves launch. Address (owner, 2026-11-03): the free workers.dev address for now, not a
-  personal domain; the owner may rename the account's workers.dev subdomain. A
-  group or institutional domain for the public launch is still open.
-  Deploying needs a Cloudflare API token in the cloud environment's secrets;
-  none was available on 2026-11-03.
+  static files only, at https://diabetes-360.reakwind.workers.dev/ (Worker
+  `diabetes-360`, connected through Cloudflare's Git import). The repository's
+  defaults publish them: `npm run build` builds `dist/site`, and the root
+  `wrangler.json` builds before every `wrangler deploy`. The owner's first
+  import published the old Astro draft because the defaults then pointed to
+  it; that config is now `wrangler.astro.jsonc` under another Worker name.
+  No form until a working, approved destination exists: Contact offers the D360
+  email and phone, because a form that only shows "thank you" would lose real
+  enquiries. Hidden from search (robots meta tag and `X-Robots-Tag` header)
+  until the team approves launch. Address: the free workers.dev address for
+  now, not a personal domain. A group or institutional domain for the public
+  launch is still open.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
