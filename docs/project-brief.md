@@ -23,6 +23,10 @@ These supersede conflicting points below.
   details). One named type scale; nothing below 14px. Frank Ruhl Libre and IBM
   Plex Sans Hebrew cover Hebrew; mono is used only for Latin and numbers. Self-
   host the fonts for launch instead of loading them from Google.
+- No icons (owner, 2026-11-03): text, typography and colour carry the hierarchy.
+  Expert guidance (NHS, ONS, Nielsen Norman Group) supports icons only where
+  testing shows a gap; an arrow on the participation links is the one candidate
+  to test with users later.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
   both languages.
