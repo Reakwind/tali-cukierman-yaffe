@@ -6,6 +6,7 @@
   "build": {
     "command": "npm run site:build"
   },
+  "previews": {},
   "assets": {
     "directory": "./dist/site"
   }
