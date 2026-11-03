@@ -17,6 +17,9 @@
   -> Research (what the group studies and how) -> Ongoing studies (concrete
   studies to ask about) -> Publications (the deepest dive). Team, Contact and
   the footer follow. Keep every fact at its own level; do not repeat it above.
+- No duplicate places (owner, 2026-11-03): name each ongoing study in one place
+  only, the Ongoing studies section. No shortcuts or markers that repeat a
+  section's content elsewhere on the page.
 - Site copy only states verified facts or offers an action. Never write prose
   addressed to the builder, design notes, or placeholders such as "to confirm"
   into the site; open questions stay in the project docs. Email addresses are

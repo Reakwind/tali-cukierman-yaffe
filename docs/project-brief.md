@@ -12,17 +12,19 @@ These supersede conflicting points below.
   screen from the group's DSST validation poster. Logo use needs a check with
   each institution's communications office before launch. Hagar and Yasmin agreed
   to publish their photos from the team's Drive (owner, 2026-11-03).
-- Links stay at their pyramid level (owner, 2026-11-03): Research links only to
-  ongoing studies; publications link to papers. The first screen has no study
-  shortcut: it repeated the Ongoing studies section and read like a generic
-  landing page (owner, 2026-11-03). Affiliations appear once, as logos in About.
+- No duplicate places (owner, 2026-11-03): each ongoing study is named in one
+  place only, the Ongoing studies section. The first screen has no study
+  shortcut and Research has no study markers; both repeated that section and
+  broke the flow. Publications link to papers. The contact form's optional Study
+  field is the one functional exception (it is what "Ask about this study" fills
+  in). Affiliations appear once, as logos in About.
   Privacy and Accessibility pages are needed before launch; until they exist
   the footer has no links.
 - Colour (owner chose "one bold colour", version B, 2026-11-03): palette from
   the Sheba logo. Navy #232350 for text, teal #0a6e5d for links and buttons
   only, neutral grey panels. The logo pink #e83880 marks ongoing studies only,
-  on large type (study names, the Ongoing studies title) and their rules; a
-  deeper #cc1f66 for small pink text. No pink fills or bands.
+  on large type (study names, the Ongoing studies title) and their rules. No
+  pink fills or bands.
 - Typography (owner chose direction B, 2026-11-03): Frank Ruhl Libre for the
   story (page heading, section titles, Research opening, area names), IBM Plex
   Sans for details, IBM Plex Mono for records (years, citations, study
