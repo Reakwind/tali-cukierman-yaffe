@@ -10,7 +10,10 @@ const draft = () => {
 
 const open = async (page: Page, width: number, height: number) => {
   await page.setViewportSize({ width, height });
-  await page.setContent(draft(), { waitUntil: 'load' });
+  // The artifact host adds this viewport tag when it publishes the page.
+  const viewport =
+    '<meta name="viewport" content="width=device-width, initial-scale=1">';
+  await page.setContent(viewport + draft(), { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
 };
 
@@ -46,10 +49,11 @@ test('spacing grows with the change of level', async ({ page }) => {
   const gap = async (upper: string, lower: string) =>
     (await box(page, lower)).y -
     ((await box(page, upper)).y + (await box(page, upper)).height);
+  // Text-to-text distances: what a reader sees between levels.
   const heading = await gap('.area h3', '.area p');
-  const items = await gap('.area:nth-child(1)', '.area:nth-child(2)');
-  const blocks = await gap('#research .intro', '#research .areas');
-  const sections = await gap('#research .measure', '#studies h2');
+  const items = await gap('.area:nth-child(1) p', '.area:nth-child(2) h3');
+  const blocks = await gap('#research .intro p:last-child', '.area h3');
+  const sections = await gap('#research .measure p', '#studies h2');
   expect(heading).toBeGreaterThanOrEqual(12);
   expect(items).toBeGreaterThan(heading);
   expect(blocks).toBeGreaterThan(items);
@@ -70,6 +74,8 @@ test('phones keep a 20px margin, a compact header and a short measure panel', as
   expect((await box(page, '.site-header')).height).toBeLessThanOrEqual(76);
   const figure = await box(page, '.measure figure');
   expect(figure.width).toBeLessThanOrEqual(170);
+  // The screenshot sits between its heading and the text that explains it.
+  expect(figure.y).toBeGreaterThan((await box(page, '.measure h3')).y);
   expect(figure.y).toBeLessThan((await box(page, '.measure p')).y);
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
