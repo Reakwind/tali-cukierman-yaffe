@@ -105,14 +105,87 @@ test('type checks ignore generated browser reports and coverage', async () => {
   }
 });
 
-test('CI lives where GitHub runs it and runs the full verification', async () => {
-  const workflow = await readFile(
-    new URL('../../.github/workflows/ci.yml', import.meta.url),
-    'utf8',
+const readWorkflow = () =>
+  readFile(new URL('../../.github/workflows/ci.yml', import.meta.url), 'utf8');
+
+/** The lines of one top-level job, from its key to the next job's key. */
+const job = (workflow: string, name: string) => {
+  const start = workflow.search(new RegExp(`^  ${name}:$`, 'm'));
+  assert.notEqual(start, -1, `CI has no ${name} job`);
+  const rest = workflow.slice(start + 1);
+  const end = rest.search(/^ {2}[\w-]+:$/m);
+  return end === -1 ? rest : rest.slice(0, end);
+};
+
+test('CI runs every step of npm run verify', async () => {
+  const workflow = await readWorkflow();
+  const pkg = await readJson('../../package.json');
+  const steps = (pkg.scripts.verify as string)
+    .split('&&')
+    .map((part) => part.trim().replace(/^npm (run )?/, ''))
+    .flatMap((name) =>
+      name === 'test'
+        ? (pkg.scripts.test as string)
+            .split('&&')
+            .map((part) => part.trim().replace(/^npm run /, ''))
+        : [name],
+    );
+  assert.ok(steps.includes('test:e2e'), 'verify should include browser tests');
+  for (const step of steps.filter((s) => s !== 'test:e2e')) {
+    assert.match(
+      job(workflow, 'checks'),
+      new RegExp(`run: npm run ${step}$`, 'm'),
+    );
+  }
+  assert.match(job(workflow, 'checks'), /run: npm run check:dependencies$/m);
+  assert.match(job(workflow, 'checks'), /run: npm run build$/m);
+});
+
+test('CI runs each browser project in its own job in the pinned Playwright image', async () => {
+  const workflow = await readWorkflow();
+  const browsers = job(workflow, 'browsers');
+  const { default: config } = await import('../../playwright.config.ts');
+  const projects = (config.projects ?? []).map((p) => p.name);
+  const matrix = browsers.match(/project: \[([^\]]+)\]/)?.[1];
+  assert.ok(matrix, 'browsers job should have a project matrix');
+  assert.deepEqual(
+    matrix.split(',').map((p) => p.trim()),
+    projects,
+    'one job per Playwright project',
   );
-  assert.match(workflow, /^\s+quality:$/m, 'required check job name');
-  assert.match(workflow, /run: npm run check:dependencies$/m);
-  assert.match(workflow, /run: npm run verify$/m);
+  assert.match(
+    browsers,
+    /run: npx playwright test --project=\$\{\{ matrix\.project \}\}$/m,
+  );
+
+  // Browsers and their system libraries come from Microsoft's image for the
+  // exact Playwright version, pinned by digest; no apt install on the runner.
+  const pkg = await readJson('../../package.json');
+  const version = pkg.devDependencies['@playwright/test'];
+  assert.match(
+    browsers,
+    new RegExp(
+      `image: mcr\\.microsoft\\.com/playwright:v${version.replaceAll('.', '\\.')}-noble@sha256:[0-9a-f]{64}$`,
+      'm',
+    ),
+    'container image should match @playwright/test and be pinned by digest',
+  );
+  assert.match(
+    browsers,
+    /options: --user 1001$/m,
+    'Firefox needs a non-root user',
+  );
+  assert.doesNotMatch(workflow, /playwright install/);
+});
+
+test('the required quality check passes only when every CI job passed', async () => {
+  const quality = job(await readWorkflow(), 'quality');
+  assert.match(quality, /needs: \[checks, browsers\]$/m);
+  assert.match(quality, /if: always\(\)$/m, 'report even when a job failed');
+  assert.match(
+    quality,
+    /contains\(needs\.\*\.result, 'failure'\) \|\| contains\(needs\.\*\.result, 'cancelled'\)/,
+  );
 });
 
 test('Dependabot keeps @types/node on the Node major the project runs', async () => {
