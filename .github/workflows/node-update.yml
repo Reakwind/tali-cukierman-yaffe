@@ -1,0 +1,55 @@
+name: Node update
+
+# Dependabot does not watch .node-version. Once a week this checks nodejs.org
+# for a newer release of the same Node major version (never a new major) and,
+# if there is one, opens a pull request updating .node-version, which CI, the
+# cloud toolchain and Cloudflare all read. It starts CI on that pull request,
+# because pushes made with the workflow token start no workflows. It merges
+# by itself only when the repository variable DEPENDABOT_AUTOMERGE is "true".
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - id: check
+        run: npm run node:update
+      - name: Open a pull request
+        if: steps.check.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.check.outputs.version }}
+          AUTOMERGE: ${{ vars.DEPENDABOT_AUTOMERGE }}
+        run: |
+          BRANCH="deps/node-$VERSION"
+          if git ls-remote --exit-code origin "refs/heads/$BRANCH" >/dev/null; then
+            echo "A pull request for Node $VERSION already exists."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$BRANCH"
+          git commit -am "build: update Node to $VERSION"
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "build: update Node to $VERSION" \
+            --body "Node $VERSION is the newest release of the major version this project uses. CI runs on this pull request; cloud sessions install the new version by themselves (scripts/toolchain.sh)."
+          gh workflow run ci.yml --ref "$BRANCH"
+          if [ "$AUTOMERGE" = "true" ]; then
+            gh pr merge --auto --squash "$BRANCH"
+          fi
