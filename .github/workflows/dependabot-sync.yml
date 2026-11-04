@@ -1,0 +1,44 @@
+name: Dependabot sync
+
+# When Dependabot updates packages, versions written outside package.json
+# (the Playwright image in .github/playwright-image) must follow. This runs `npm run deps:sync`,
+# which uses only Node's built-in modules: the updated packages are never
+# installed or run here, while the job can push. It then starts CI on the new
+# commit, because pushes made with the workflow token start no workflows.
+
+on:
+  pull_request:
+    paths: [package.json, package-lock.json]
+
+permissions: {}
+
+jobs:
+  sync:
+    if: github.actor == 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'dependabot/')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - run: npm run deps:sync
+      - name: Commit and start CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if git diff --quiet; then
+            echo "Already in sync."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am 'ci: match the Playwright image to @playwright/test'
+          git push origin "HEAD:$BRANCH"
+          gh workflow run ci.yml --ref "$BRANCH"

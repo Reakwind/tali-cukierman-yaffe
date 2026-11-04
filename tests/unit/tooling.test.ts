@@ -157,16 +157,30 @@ test('CI runs each browser project in its own job in the pinned Playwright image
 
   // Browsers and their system libraries come from Microsoft's image for the
   // exact Playwright version, pinned by digest; no apt install on the runner.
+  // The image is named in .github/playwright-image, a data file the workflow
+  // token may update (it may not change workflow files), and read by the
+  // `image` job.
   const pkg = await readJson('../../package.json');
   const version = pkg.devDependencies['@playwright/test'];
+  const image = (
+    await readFile(
+      new URL('../../.github/playwright-image', import.meta.url),
+      'utf8',
+    )
+  ).trim();
   assert.match(
-    browsers,
+    image,
     new RegExp(
-      `image: mcr\\.microsoft\\.com/playwright:v${version.replaceAll('.', '\\.')}-noble@sha256:[0-9a-f]{64}$`,
-      'm',
+      `^mcr\\.microsoft\\.com/playwright:v${version.replaceAll('.', '\\.')}-noble@sha256:[0-9a-f]{64}$`,
     ),
-    'container image should match @playwright/test and be pinned by digest',
+    'image should match @playwright/test and be pinned by digest',
   );
+  assert.doesNotMatch(workflow, /mcr\.microsoft\.com/, 'no image in ci.yml');
+  assert.match(browsers, /needs: image$/m);
+  assert.match(browsers, /image: \$\{\{ needs\.image\.outputs\.ref \}\}$/m);
+  const reader = job(workflow, 'image');
+  assert.match(reader, /\.github\/playwright-image/);
+  assert.match(reader, /grep -Eqx/, 'the image job validates the name');
   assert.match(
     browsers,
     /options: --user 1001$/m,
@@ -177,7 +191,9 @@ test('CI runs each browser project in its own job in the pinned Playwright image
 
 test('the required quality check passes only when every CI job passed', async () => {
   const quality = job(await readWorkflow(), 'quality');
-  assert.match(quality, /needs: \[checks, browsers\]$/m);
+  // `image` is listed too: when it fails the browser jobs are skipped, and a
+  // skipped job must not count as a pass.
+  assert.match(quality, /needs: \[checks, image, browsers\]$/m);
   assert.match(quality, /if: always\(\)$/m, 'report even when a job failed');
   assert.match(
     quality,

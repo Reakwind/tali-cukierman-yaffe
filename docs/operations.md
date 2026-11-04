@@ -56,14 +56,12 @@ every other job passed. Dependency review runs on PRs. It first ran on
 which are free for public repositories, pinned Actions and a digest-pinned
 image, without repository secrets. Do not add larger or paid runners.
 
-When `@playwright/test` changes, `tests/unit/tooling.test.ts` fails until the
-image tag and digest in `ci.yml` match it. Read the digest with:
-
-```sh
-curl -sI -H 'Accept: application/vnd.oci.image.index.v1+json' \
-  https://mcr.microsoft.com/v2/playwright/manifests/v<version>-noble |
-  grep -i docker-content-digest
-```
+When `@playwright/test` changes, `tests/unit/tooling.test.ts` fails until
+`.github/playwright-image` names the matching image and digest. CI's `image`
+job reads that data file (a workflow token may not change workflow files, so
+it is not in `ci.yml`). `npm run deps:sync` sets it from the registry; on
+Dependabot pull requests a workflow runs it automatically (see Dependency
+updates below).
 
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote
@@ -71,24 +69,28 @@ verification step after analyzable source is on the default branch.
 
 ### Cloud session setup
 
-Claude Code cloud containers start with Node 22, no version manager and
-older Playwright browsers than this project pins, so browser tests fail there
-for reasons unrelated to the site. `scripts/cloud-setup.sh` installs the
-pinned Node from nodejs.org (checked against its published checksums) and
-links it into `~/.local/bin`, which comes before the image's Node on `PATH`.
-It then installs the matching Chromium, Firefox and WebKit builds with their
-system libraries. Paste its contents into the cloud environment's settings
-(environment menu in the session title bar, then Edit, then Setup script);
-new sessions run it. `tests/unit/cloud-session.test.ts` fails when its two
-version numbers drift from `.node-version` and `@playwright/test`. The
-environment's network access must allow nodejs.org and Playwright's browser
-downloads.
+Claude Code cloud containers start with an older Node and Playwright browsers
+than this project pins, so browser tests would fail there for reasons
+unrelated to the site. `scripts/toolchain.sh` installs what the checkout
+pins: Node from `.node-version` (from nodejs.org, checked against its
+published checksums, linked into `~/.local/bin`, which comes before the
+image's Node on `PATH`) and the Chromium, Firefox and WebKit builds
+`@playwright/test` expects, with their system libraries. It skips anything
+already installed.
 
-The SessionStart hook in `.claude/settings.json`
-(`.claude/hooks/session-start.sh`) runs only in cloud sessions. It runs
-`npm ci` when `node_modules` is missing or older than the lockfile, and tells
-the agent when the pinned Node is not running, which means the setup script
-is missing or failed. On a Mac it does nothing.
+- `scripts/cloud-setup.sh` is the environment's setup script. It holds no
+  versions: it runs `toolchain.sh` from the `main` branch, so version updates
+  never need a new paste. Paste it once into the cloud environment's settings
+  (environment menu in the session title bar, then Edit, then Setup script).
+  The environment caches the result for about a week.
+- The SessionStart hook (`.claude/hooks/session-start.sh`, cloud sessions
+  only) makes each session match its checkout: it installs a missing Node or
+  missing browsers with `toolchain.sh` (about a minute, only after a version
+  change), runs `npm ci` when `node_modules` is missing or older than the
+  lockfile, and prints only what it changed or could not fix. On a Mac it does
+  nothing.
+- The environment's network access must allow nodejs.org,
+  raw.githubusercontent.com and Playwright's browser downloads.
 
 ### Local browser tooling note
 
@@ -205,10 +207,48 @@ hosting is configured. Never discard unrelated local work.
 Run `npm run check:dependencies` (`npm audit`, moderate or worse fails); CI runs
 it after install.
 
-Review Dependabot PRs and vulnerability alerts regularly. Prefer compatible small
-updates; verify breaking changes against current docs/Context7. No blanket
-auto-merge for major dependency upgrades. No paid scanning/agent services are
-required for the planned workflow.
+Review vulnerability alerts regularly. Major upgrades always come to a person:
+verify breaking changes against current docs/Context7. No paid scanning or
+agent services are required.
+
+### Dependency updates
+
+Versions stay pinned exactly; updates arrive as tested pull requests.
+
+- **Dependabot** (`.github/dependabot.yml`) opens weekly pull requests for npm
+  packages (patch and minor updates grouped) and for GitHub Actions.
+- **Dependabot sync** (`.github/workflows/dependabot-sync.yml`) runs
+  `npm run deps:sync` on Dependabot pull requests, so a Playwright update also
+  moves the CI image. It pushes the change and starts CI on it. It never
+  installs or runs the updated packages while it can push.
+- **Node update** (`.github/workflows/node-update.yml`) checks nodejs.org
+  every Monday and opens a pull request when a newer release of the same Node
+  major version exists (`npm run node:update`). It never moves to a new major
+  version. CI, the cloud toolchain and Cloudflare all read `.node-version`.
+- **Auto-merge** (`.github/workflows/dependabot-automerge.yml`, off by
+  default): when on, Dependabot pull requests whose updates are all patch or
+  minor versions, and Node update pull requests, merge by themselves once the
+  required `quality` check passes. Major updates, and pull requests without
+  Dependabot's metadata, are left for review. The decision is
+  `scripts/dependabot-automerge.ts`, read from `main`, never from the pull
+  request.
+
+These bot pull requests are exempt from the agents' "pull requests only when
+the owner asks" rule. Pull requests opened with the workflow token start no
+workflows themselves, so the workflows start CI explicitly.
+
+To turn auto-merge on (owner, in GitHub settings):
+
+1. Settings, General, Pull Requests: enable **Allow auto-merge**.
+2. Settings, Actions, General, Workflow permissions: enable **Allow GitHub
+   Actions to create and approve pull requests**. The Node update workflow
+   needs this to open its pull request, even with auto-merge off.
+3. Settings, Secrets and variables, Actions, Variables: add the repository
+   variable `DEPENDABOT_AUTOMERGE` with the value `true`. Delete it, or set
+   anything else, to turn auto-merge off again.
+
+Branch protection is unchanged: every merge still needs the `quality` check
+on an up-to-date branch. Cloudflare deploys each merge to `main`.
 
 `package.json` overrides `minimatch` to `11.0.1` for GHSA-g3hv-75wg-m249
 (2026-11-02). ESLint and typescript-eslint still declare `^10`, so the override

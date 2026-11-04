@@ -34,16 +34,38 @@ jobs:
       - run: npm run test:unit
       - run: npm run build
 
+  # The Playwright image the browser jobs run in, read from
+  # .github/playwright-image: a data file, so `npm run deps:sync` can update it
+  # from a workflow (the workflow token may not change workflow files). It must
+  # name Microsoft's image for the exact @playwright/test version, pinned by
+  # digest; anything else stops CI here.
+  image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      ref: ${{ steps.read.outputs.ref }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/playwright-image
+          sparse-checkout-cone-mode: false
+      - id: read
+        run: |
+          REF="$(tr -d '[:space:]' < .github/playwright-image)"
+          echo "$REF" | grep -Eqx 'mcr\.microsoft\.com/playwright:v[0-9]+\.[0-9]+\.[0-9]+-noble@sha256:[0-9a-f]{64}'
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+
   # One job per Playwright project, in parallel. Microsoft's image already
-  # holds the browsers and system libraries for this exact Playwright version
-  # (keep the tag in step with @playwright/test), so nothing is installed with
-  # apt on the runner. The image is pinned by digest like the Actions above.
+  # holds the browsers and system libraries for this exact Playwright version,
+  # so nothing is installed with apt on the runner.
   browsers:
     name: browsers (${{ matrix.project }})
+    needs: image
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f
+      image: ${{ needs.image.outputs.ref }}
       options: --user 1001
     strategy:
       fail-fast: false
@@ -70,7 +92,7 @@ jobs:
   # The check branch protection requires. It reports even when a job above
   # failed or was cancelled, and passes only when every one of them passed.
   quality:
-    needs: [checks, browsers]
+    needs: [checks, image, browsers]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 2
