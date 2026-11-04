@@ -106,8 +106,8 @@ CFFIXED_USER_HOME="$(mktemp -d)" npm run verify
 
 This agent session uses its approved temporary directory for that isolated home.
 Remove the workaround once the upstream fix is in a supported stable release.
-The test configuration also uses Astro's built-in `--ignore-lock` flag so its
-agent-aware CLI stays in the foreground under Playwright. Each test run builds
+Browser tests serve the built site with `wrangler dev`, which reproduces
+Cloudflare's headers, redirects and 404 handling locally. Each test run builds
 fresh output and refuses to reuse an unrelated or stale server.
 
 ## Cloudflare deployment
@@ -123,13 +123,51 @@ build before every `wrangler deploy`. `wrangler.site.json` is a link to
 (Worker `tali-cukierman-yaffe`) published the old Astro draft because the
 defaults then pointed to it.
 
-The earlier Astro draft and its enquiry Worker keep their tests and tooling
-under `wrangler.astro.jsonc` (Worker name `tali-cukierman-yaffe-astro`), which
-is never deployed: `npm run build:astro`, `npm run dev:worker` and
-`npm run check:worker` use it. Sending defaults to off there.
+The earlier Astro draft and its enquiry Worker were never deployed and were
+retired on 2026-11-04, because most browser tests checked it instead of the
+published site. Recover any part with `git show d3e5b5b:<path>`.
+
+The build also writes `404.html`, `robots.txt` (disallow all) and `_headers`
+with a hash-based Content-Security-Policy, `nosniff`, `no-referrer`, a
+Permissions-Policy and Cross-Origin-Opener-Policy; images get one-year
+immutable caching. See [architecture](architecture.md). Cloudflare deploys
+`main` whether or not the push's CI run passed; branch protection, which
+requires `quality` before a merge, is the gate.
 
 Do not connect/change DNS, billing or account permissions without the owner's
 approval. Keep any Git integration scoped to this repository.
+
+## Claude Code setup
+
+Committed in this repository, so every session (cloud or Mac) gets it:
+
+- `CLAUDE.md` imports `AGENTS.md`. `.claude/settings.json` holds the git
+  safety denials, the destructive-git hook, and the cloud-only SessionStart
+  hook described above.
+- `.mcp.json` adds the Playwright MCP server, so agents can open and inspect
+  the rendered pages as `AGENTS.md` requires. Project MCP servers load in
+  cloud sessions without a prompt.
+- `.claude/agents/site-reviewer.md`: a read-only reviewer for the content,
+  bilingual and accessibility rules, for a second look at a change.
+- `.claude/worktrees/` is ignored, for Claude Code's built-in worktrees
+  (`claude -w <name>`), an alternative to `npm run session:start`.
+
+Account settings only the owner can change (claude.ai):
+
+- Cloudflare: the "Cloudflare Developer Platform" connector describes itself
+  as deprecated; Cloudflare's current server is `https://mcp.cloudflare.com/mcp`
+  (on the Mac: `claude mcp add --transport http cloudflare
+https://mcp.cloudflare.com/mcp`). The token this cloud environment injects
+  can read Workers and deployments but not Workers Builds.
+- The GitHub plugin's MCP server fails to connect (HTTP 400); the built-in
+  GitHub tools work. Reconnect or remove it.
+- The anchor-memory plugin reports "memory drift" at every session start
+  because `memory/` does not exist here. Run its init for this repository or
+  disable it for this project.
+- Many unrelated plugins and connectors (healthcare, marketing, bio-research,
+  voice) load into every session and crowd each agent's context. Disable the
+  ones this project does not use.
+- Paste `scripts/cloud-setup.sh` into the cloud environment's setup script.
 
 ## Draft and launch
 

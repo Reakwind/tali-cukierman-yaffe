@@ -1,7 +1,9 @@
-# Tali Cukierman-Yaffe research group
+# Diabetes 360 Research Group website
 
-An English/Hebrew research-group website, bringing together diabetes, cognition,
-healthy aging, and digital-health projects.
+The English/Hebrew website of the Diabetes 360 Research Group, led by Prof.
+Tali Cukierman-Yaffe: diabetes, cognition, healthy aging, and digital-health
+research. Draft, published for team review at
+https://diabetes-360.reakwind.workers.dev/ (hidden from search engines).
 
 The main audience is people considering research participation, their caregivers,
 and clinicians or academic collaborators who may refer participants.
@@ -42,8 +44,11 @@ npx playwright install chromium firefox webkit
 npm run dev
 ```
 
-Open the local URL Astro prints. The public site is generated as static files in
-`dist/`; no server adapter, database, or production Node.js process is required.
+`npm run dev` builds the site and serves it at the local URL Wrangler prints,
+with the same headers, redirects and 404 page as Cloudflare. The pages are
+edited in `prototype/` (see [content editing](docs/content-editing.md)); the
+site is static files in `dist/site`, with no server code or database.
+`npm run prototype:build` writes the self-contained version for artifact review.
 
 Before opening or merging a PR:
 
@@ -51,19 +56,19 @@ Before opening or merging a PR:
 npm run verify
 ```
 
-This runs formatting, linting, type checks, Node tests, a production build, and
-Playwright on three desktop engines plus Android/iPhone viewports. Browser tests
-start their own local production preview. These viewports are emulation, not
-physical-device testing. Automated accessibility checks do not replace manual checks.
+This runs formatting, linting, type checks, Node tests, and Playwright on three
+desktop engines plus Android/iPhone viewports, against the built site served as
+Cloudflare serves it. These viewports are emulation, not physical-device
+testing. Automated accessibility checks do not replace manual checks.
 
-Use `npm run format` to format files. Set `ASTRO_TELEMETRY_DISABLED=1` to disable
-Astro development telemetry, as CI does.
+Use `npm run format` to format files.
 
 ## Deployment and security
 
-See [operations](docs/operations.md). Cloudflare has not yet been connected.
+See [operations](docs/operations.md) and [architecture](docs/architecture.md).
+Cloudflare's Git integration deploys `main` to the Worker `diabetes-360`.
 Drafts are deliberately non-indexable, but **noindex is not access control**:
-this repository is public, and a deployed preview would normally be public too.
+this repository and the deployed site are public.
 
 ## Rights
 

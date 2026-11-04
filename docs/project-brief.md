@@ -69,7 +69,7 @@ These supersede conflicting points below.
   defaults publish them: `npm run build` builds `dist/site`, and the root
   `wrangler.json` builds before every `wrangler deploy`. The owner's first
   import published the old Astro draft because the defaults then pointed to
-  it; that config is now `wrangler.astro.jsonc` under another Worker name.
+  it. The draft was retired on 2026-11-04 (recover from commit `d3e5b5b`).
   No form until a working, approved destination exists: Contact offers the D360
   email and phone, because a form that only shows "thank you" would lose real
   enquiries. Hidden from search (robots meta tag and `X-Robots-Tag` header)
@@ -122,6 +122,10 @@ These supersede conflicting points below.
 - Maintenance: agent-assisted content edits through tested pull requests.
 - Public GitHub repository: `reakwind/tali-cukierman-yaffe`.
 - Stack: proceed with the lean static Astro/TypeScript/CSS recommendation.
+  Update 2026-11-04: the published site is the static prototype built by
+  small Node scripts; the unpublished Astro draft was retired (commit
+  `d3e5b5b` holds it). Porting the prototype into a component structure stays
+  an option for the owner to decide.
 - Content: no current CV or approved portraits/team photos are available. Draft from
   attributed public sources, improve iteratively, and mark content pending review.
 - 6 Vital: the owner describes it as a platform Tali created. Give it a dedicated

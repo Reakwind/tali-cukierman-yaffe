@@ -27,19 +27,38 @@
 
 ## Repository structure
 
-- `src/pages/[locale]/` — Bilingual static routes (`en` LTR and `he` RTL), including `/[locale]/`, `/[locale]/studies/[study]`, and `/[locale]/participation/thank-you`.
-- `src/components/` — Page sections and layered SVG visual storytelling (`Home.astro`, `HeroGraphic.astro`, `ResearchVisual.astro`, `ResearchScene.astro`, `VisualMethods.astro`, `MethodsScene.astro`, `VisualStudy.astro`, `VisualFooter.astro`, `ScrollExperience.astro`, `DiabetesIcon.astro`).
-- `src/content/` — Validated bilingual JSON content (`studies/*.json`, `visual-studies.json`, `publications.json`, `highlights.json`).
-- `src/lib/` — Zod content schemas (`study-schema.ts`, `visual-study-schema.ts`, `output-schema.ts`) and shared helpers.
-- `src/data/` & `src/i18n/` — Team profiles (`team.ts`), page copy (`pages.ts`), and UI strings (`ui.ts`).
-- `src/styles/site.css` — Logical RTL-safe CSS and scroll-driven parallax layers.
-- `worker/index.ts` & `wrangler.astro.jsonc` — The earlier Astro draft's enquiry Worker (`POST /api/participation`) + static assets. Kept for its tests; never deployed (Worker name `tali-cukierman-yaffe-astro`).
-- `scripts/site.ts` & `wrangler.json` — The published site and the repository's default: `npm run build` and a plain `wrangler deploy` publish the two prototype pages as static files from `dist/site`, with a no-index `_headers` file, to the Worker `diabetes-360` that Cloudflare's Git import is connected to (https://diabetes-360.reakwind.workers.dev/). `wrangler.site.json` is a link to `wrangler.json` for deploy commands that name it. No server code, form or email.
-- `scripts/session.ts` — Session worktrees and the daily PR (`session:start`, `day:finish`, `day:cleanup`).
-- `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright E2E/visual-story journeys.
-- `prototype/index.html` and `prototype/he.html` — The current one-page draft of the site in English and Hebrew, reviewed by the owner as an artifact. `he.html` holds only the Hebrew words; the build takes fonts, styles, painting, script and the English publication list from `index.html`. `npm run prototype:build` inlines images into `dist/prototype/index.html` and `dist/prototype/he.html`; publish that build (the Hebrew page as a supporting file), never a copy edited elsewhere.
-- `docs/` — Project brief (`project-brief.md`), architecture (`architecture.md`), registration plan (`registration-plan.md`), and visual/scrolling specs.
-- `.claude/` & `.githooks/` — Agent permissions, PreToolUse destructive-git blocker, and Git commit/push hooks.
+- `prototype/index.html`, `prototype/he.html` and `prototype/404.html` — The
+  published site: one page per language plus the not-found page. `he.html`
+  holds only the Hebrew words; the build takes fonts, styles, painting, script
+  and the English publication list from `index.html`. No inline `style=` or
+  `on...=` attributes: the CSP admits only the pages' own `<style>`/`<script>`.
+- `public/images/` — Portraits, logos and the research image the pages use
+  (sources and credits in `docs/third-party.md`).
+- `scripts/site.ts` & `wrangler.json` — `npm run build` writes `dist/site`
+  (pages, content-hashed images, `404.html`, `robots.txt`, `_headers` with a
+  hash-based CSP). Cloudflare's Git integration deploys it to the Worker
+  `diabetes-360` (https://diabetes-360.reakwind.workers.dev/); a plain
+  `wrangler deploy` does the same. `wrangler.site.json` links to
+  `wrangler.json`. No server code, form or email. `npm run dev` serves the
+  build locally exactly as Cloudflare does.
+- `scripts/prototype.ts` — Assembles the pages. `npm run prototype:build`
+  writes `dist/prototype/` with images inlined, for the owner's review as an
+  artifact; publish that build (the Hebrew page as a supporting file), never a
+  copy edited elsewhere.
+- `scripts/session.ts` — Session worktrees and the daily PR (`session:start`,
+  `day:finish`, `day:cleanup`).
+- `scripts/cloud-setup.sh` — The cloud environment's setup script (pinned
+  Node and Playwright browsers); paste it into the environment settings.
+- `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright checks of the
+  built site served by `wrangler dev` (`site.spec.ts`) and of the pages'
+  layout, scrolling and Hebrew version (`prototype-*.spec.ts`).
+- `docs/` — Project brief (`project-brief.md`), architecture
+  (`architecture.md`), operations, registration plan and content records.
+- `.claude/`, `.mcp.json` & `.githooks/` — Agent permissions, the
+  destructive-git hook, the cloud SessionStart hook, the `site-reviewer`
+  subagent, the Playwright MCP server, and Git commit/push hooks.
+- The earlier Astro draft and its enquiry Worker were never deployed and were
+  retired on 2026-11-04. Recover any part with `git show d3e5b5b:<path>`.
 
 ## Approved design direction
 
@@ -63,7 +82,8 @@
 
 ## Keep it simple
 
-- Astro static HTML, TypeScript, plain CSS, and the smallest necessary JavaScript.
+- Static HTML, plain CSS and the smallest necessary JavaScript, built by small
+  TypeScript scripts. A framework or component port is an owner decision.
 - Prefer native browser features and maintained official capabilities before a
   dependency or custom implementation. No React, database, custom CMS, account
   system, tracking, or clinical-data backend without a demonstrated need/approval.
@@ -79,7 +99,7 @@
   implement the smallest change, rerun, and refactor with tests green.
 - Record actual red/green evidence in the PR. A missing tool, syntax error, or
   network failure is not evidence that the missing behavior was tested.
-- Run formatting, linting, Astro/TypeScript checks, unit tests, production build,
+- Run formatting, linting, TypeScript checks, unit tests, production build,
   and relevant Playwright journeys before requesting a merge.
 - Test Chromium, Firefox, WebKit, mobile viewports, keyboard navigation, reduced
   motion, no-JavaScript navigation, RTL, links, metadata, and automated accessibility.
@@ -141,7 +161,9 @@
   are part of a merged day branch), and fast-forwards root `main`. It keeps
   anything with uncommitted changes or commits made after the merge.
 - **Cloud sessions** (Claude Code on the web) already run in an isolated clone on
-  an assigned branch, so skip `session:start`. Commit per change and push that
+  an assigned branch, so skip `session:start`. The SessionStart hook installs
+  dependencies; if it reports the wrong Node, the environment's setup script
+  (`scripts/cloud-setup.sh`) is missing or failed. Commit per change and push that
   branch; open no PR for it. When the owner asks for the day's PR, fold the
   branch in with `npm run day:finish -- --include origin/<branch>`.
 - Keep workflow permissions least-privileged, Actions pinned to full commit SHAs,
