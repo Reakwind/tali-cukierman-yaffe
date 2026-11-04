@@ -13,12 +13,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+
 jobs:
-  quality:
+  # Everything in `npm run verify` except the browser tests.
+  checks:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    env:
-      ASTRO_TELEMETRY_DISABLED: '1'
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -29,15 +31,58 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check:dependencies
-      - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run verify
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run check
+      - run: npm run test:unit
+      - run: npm run build
+
+  # One job per Playwright project, in parallel. Microsoft's image already
+  # holds the browsers and system libraries for this exact Playwright version
+  # (keep the tag in step with @playwright/test), so nothing is installed with
+  # apt on the runner. The image is pinned by digest like the Actions above.
+  browsers:
+    name: browsers (${{ matrix.project }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f
+      options: --user 1001
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npx playwright test --project=${{ matrix.project }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
-          name: browser-failure-evidence
+          name: browser-failure-evidence-${{ matrix.project }}
           path: test-results/
           retention-days: 3
           if-no-files-found: ignore
+
+  # The check branch protection requires. It reports even when a job above
+  # failed or was cancelled, and passes only when every one of them passed.
+  quality:
+    needs: [checks, browsers]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "A required CI job did not pass." >&2
+          exit 1
+      - run: echo "Every CI job passed."
 
   dependency-review:
     if: github.event_name == 'pull_request'
