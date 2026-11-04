@@ -44,24 +44,51 @@ The account owner should use a passkey or two-factor authentication and store
 recovery codes securely. Account authentication and billing settings have not
 been changed by this project; never put recovery codes or tokens in the repo.
 
-CI (`.github/workflows/ci.yml`) runs on every PR and push to `main`: the
-dependency audit, `npm run verify` on all five browser projects, and dependency
-review. It first ran on 2026-11-02 and passed (415 browser checks). It uses
-standard Ubuntu runners, which are free for public repositories, and pinned
-Actions, without repository secrets. Do not add larger or paid runners.
+CI (`.github/workflows/ci.yml`) runs on every PR and push to `main`. The
+`checks` job runs the dependency audit and every non-browser step of
+`npm run verify` plus the site build. The `browsers` job runs one Playwright
+project per parallel job inside Microsoft's Playwright image for the pinned
+version, so browsers and their system libraries are never installed with apt
+(on 2026-11-03 that install took 14.5 minutes and timed CI out on `main`).
+The `quality` job, the check branch protection requires, passes only when
+every other job passed. Dependency review runs on PRs. It first ran on
+2026-11-02 and passed (415 browser checks). It uses standard Ubuntu runners,
+which are free for public repositories, pinned Actions and a digest-pinned
+image, without repository secrets. Do not add larger or paid runners.
+
+When `@playwright/test` changes, `tests/unit/tooling.test.ts` fails until the
+image tag and digest in `ci.yml` match it. Read the digest with:
+
+```sh
+curl -sI -H 'Accept: application/vnd.oci.image.index.v1+json' \
+  https://mcr.microsoft.com/v2/playwright/manifests/v<version>-noble |
+  grep -i docker-content-digest
+```
+
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote
 verification step after analyzable source is on the default branch.
 
 ### Cloud session setup
 
-Claude Code cloud containers start with an older Node and older Playwright
-browsers than this project pins, so browser tests fail there for reasons
-unrelated to the site. `scripts/cloud-setup.sh` installs the pinned Node and
-the matching Chromium, Firefox and WebKit builds with their system libraries.
-Paste its contents into the cloud environment's settings (environment menu in
-the session title bar, then Edit, then Setup script); new sessions run it.
-Update its two version numbers with `.node-version` and `@playwright/test`.
+Claude Code cloud containers start with Node 22, no version manager and
+older Playwright browsers than this project pins, so browser tests fail there
+for reasons unrelated to the site. `scripts/cloud-setup.sh` installs the
+pinned Node from nodejs.org (checked against its published checksums) and
+links it into `~/.local/bin`, which comes before the image's Node on `PATH`.
+It then installs the matching Chromium, Firefox and WebKit builds with their
+system libraries. Paste its contents into the cloud environment's settings
+(environment menu in the session title bar, then Edit, then Setup script);
+new sessions run it. `tests/unit/cloud-session.test.ts` fails when its two
+version numbers drift from `.node-version` and `@playwright/test`. The
+environment's network access must allow nodejs.org and Playwright's browser
+downloads.
+
+The SessionStart hook in `.claude/settings.json`
+(`.claude/hooks/session-start.sh`) runs only in cloud sessions. It runs
+`npm ci` when `node_modules` is missing or older than the lockfile, and tells
+the agent when the pinned Node is not running, which means the setup script
+is missing or failed. On a Mac it does nothing.
 
 ### Local browser tooling note
 
