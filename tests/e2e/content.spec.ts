@@ -26,7 +26,12 @@ for (const locale of ['en', 'he'] as const) {
       'href',
       `/${locale === 'en' ? 'he' : 'en'}/#taking-part`,
     );
-    await language.click();
+    // Click where the link is, as a mouse does. Locator.click() first
+    // scrolls the target into view, and in Chromium that moves the page away
+    // from the sticky header's link, so section orientation retargets it.
+    const box = await language.boundingBox();
+    if (!box) throw new Error('language link is not rendered');
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
     await expect(page).toHaveURL(
       `/${locale === 'en' ? 'he' : 'en'}/#taking-part`,
     );
