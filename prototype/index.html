@@ -216,6 +216,18 @@
     .brand b {
       font-size: 18px;
     }
+    /* Touch targets at least 24px tall (WCAG 2.2, 2.5.8). */
+    .brand,
+    .lang,
+    .nav a {
+      min-block-size: 24px;
+      justify-content: center;
+    }
+    .lang,
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+    }
   }
 
   /* sections */
