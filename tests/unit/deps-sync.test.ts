@@ -2,36 +2,25 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
-import {
-  imageDigest,
-  playwrightImage,
-  syncWorkflow,
-} from '../../scripts/deps-sync.ts';
+import { imageDigest, playwrightImage } from '../../scripts/deps-sync.ts';
 
 const root = new URL('../../', import.meta.url).pathname;
 const read = (path: string) => readFileSync(join(root, path), 'utf8');
 const digest = `sha256:${'a'.repeat(64)}`;
 
 describe('deps:sync', () => {
-  it('points the CI browser jobs at the image for a Playwright version', () => {
-    const before = read('.github/workflows/ci.yml');
-    const after = syncWorkflow(before, playwrightImage('1.66.0', digest));
-    assert.match(
-      after,
-      new RegExp(
-        `^\\s+image: mcr\\.microsoft\\.com/playwright:v1\\.66\\.0-noble@${digest}$`,
-        'm',
-      ),
-    );
-    // Nothing else in the workflow changes.
+  it('names the image for a Playwright version, pinned by digest', () => {
     assert.equal(
-      after.replace(/image: \S+/, ''),
-      before.replace(/image: \S+/, ''),
+      playwrightImage('1.66.0', digest),
+      `mcr.microsoft.com/playwright:v1.66.0-noble@${digest}`,
     );
   });
 
-  it('refuses a workflow without a Playwright image', () => {
-    assert.throws(() => syncWorkflow('jobs: {}\n', 'x'), /Playwright image/);
+  it('writes only the image file, never a workflow file', () => {
+    // The workflow token cannot push changes to .github/workflows/.
+    const source = read('scripts/deps-sync.ts');
+    assert.match(source, /\.github\/playwright-image/);
+    assert.doesNotMatch(source, /\.github\/workflows/);
   });
 
   it('reads the image digest from the registry and checks its form', async () => {
