@@ -13,3 +13,5 @@ blob-report/
 .DS_Store
 *.log
 .anchor/
+.claude/worktrees/
+.playwright-mcp/

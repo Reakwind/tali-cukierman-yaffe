@@ -5,3 +5,5 @@ dist/
 .wrangler/
 test-results/
 playwright-report/
+.claude/worktrees/
+.playwright-mcp/
