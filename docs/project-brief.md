@@ -61,8 +61,14 @@ These supersede conflicting points below.
   2026-11-03). Mixed Hebrew and English is checked to stay inside its column
   from 360px to 1440px. The copy is a draft translation that needs review by a
   Hebrew-speaking team member; team names and roles reuse the site's existing
-  Hebrew. Open: the Hebrew group name (draft "קבוצת המחקר סוכרת 360") and
-  "מחקרים נוכחיים" for Ongoing studies.
+  Hebrew. Rewritten 2026-11-04 as native Hebrew rather than a word-for-word
+  translation: "אנשים מבוגרים" for older adults ("מבוגרים" alone means
+  adults), "מבחן החלפת ספרה בסמל (DSST)" for the Digit Symbol Substitution
+  Test, "תחומי מחקר" for Research so it does not sit beside "מחקרים" in the
+  menu, and "מחקרים פעילים" for Ongoing studies. Open: the Hebrew group name
+  (draft "קבוצת המחקר ״סוכרת 360״"), the Hebrew names of the Center for
+  Successful Aging with Diabetes and of Sheba's endocrinology division, and a
+  native speaker's review of the whole page.
 - Publishing (owner, 2026-11-03): the two prototype pages go to Cloudflare as
   static files only, at https://diabetes-360.reakwind.workers.dev/ (Worker
   `diabetes-360`, connected through Cloudflare's Git import). The repository's
