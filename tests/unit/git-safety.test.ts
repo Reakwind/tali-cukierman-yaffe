@@ -97,7 +97,24 @@ describe('multi-agent repo structure and destructive git protections', () => {
       'gh pr create --fill',
       'gh pr merge --squash --delete-branch',
       'npm run verify',
+      // Flags of other commands in the same line are not push flags.
+      'git push -u origin feat/x 2>&1 | tail -1; pkill -f "astro preview"',
+      'git push -u origin feat/x && grep -f patterns.txt build.log',
+      'git push -u origin feat/x; git log --format=%H -1',
+      'git commit -m "fix: pkill -f next to a git push was refused"',
     ];
+
+    // A force push stays blocked wherever it sits in a compound command.
+    for (const cmd of [
+      'cd repo && git push -f origin feat/x',
+      'git fetch && git push origin feat/x --force',
+      'npm test; git push --mirror origin',
+      'git status | cat; git push origin +feat/x',
+      'git fetch && git push origin main',
+    ]) {
+      const res = runClaudeHook(cmd);
+      assert.notEqual(res.status, 0, `Expected command to be blocked: ${cmd}`);
+    }
 
     for (const cmd of allowedCommands) {
       const res = runClaudeHook(cmd);
