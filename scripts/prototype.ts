@@ -1,5 +1,6 @@
+import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, extname, resolve } from 'node:path';
+import { basename, dirname, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -47,27 +48,45 @@ async function assemble(language: Language): Promise<string> {
   });
 }
 
-/** Returns one page of the prototype as a self-contained HTML file: the
- * artifact host blocks external images, so local images become data URIs. */
-export async function buildPrototype(
-  language: Language = 'en',
-): Promise<string> {
+/** Returns one page of the prototype. `inline` makes a self-contained HTML
+ * file: the artifact host blocks external images, so local images become
+ * data URIs. `files` links each image as `images/<name>.<hash>.<ext>` and
+ * returns the files, so the published site can cache them and both
+ * languages share one copy. */
+export async function buildPage(
+  language: Language,
+  images: 'inline' | 'files',
+): Promise<{ html: string; images: Map<string, Buffer> }> {
   const source = resolve(root, pages[language].source);
   let html = await assemble(language);
+  const files = new Map<string, Buffer>();
   const paths = new Set(
     [...html.matchAll(/\ssrc="(\.\.\/[^"]+)"/g)].flatMap((match) =>
       match[1] ? [match[1]] : [],
     ),
   );
   for (const path of paths) {
-    const type = imageTypes[extname(path).toLowerCase()];
+    const extension = extname(path).toLowerCase();
+    const type = imageTypes[extension];
     if (!type) throw new Error(`Unsupported image type: ${path}`);
     const data = await readFile(resolve(dirname(source), path));
-    html = html
-      .split(`src="${path}"`)
-      .join(`src="data:${type};base64,${data.toString('base64')}"`);
+    let target = `data:${type};base64,${data.toString('base64')}`;
+    if (images === 'files') {
+      const hash = createHash('sha256').update(data).digest('hex').slice(0, 10);
+      target = `images/${basename(path, extension)}.${hash}${extension}`;
+      files.set(target, data);
+    }
+    html = html.split(`src="${path}"`).join(`src="${target}"`);
   }
-  return html;
+  return { html, images: files };
+}
+
+/** One page of the prototype as a self-contained HTML file (images inlined),
+ * as the owner reviews it in the artifact host. */
+export async function buildPrototype(
+  language: Language = 'en',
+): Promise<string> {
+  return (await buildPage(language, 'inline')).html;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

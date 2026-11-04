@@ -16,9 +16,9 @@ informational website. Account setup and deployment have not happened.
   Visitors can express general research interest without choosing a study.
   Existing study URLs retain contextual forms for direct/bookmarked visits.
 - Collect an optional first name and one phone number or email address. Send
-  these details, general interest or study name, and page language to all four recipients:
-  `reakwind@gmail.com`, `hagarshimon@gmail.com`, `yasminshtig@gmail.com`, and
-  `tcukierm@gmail.com`.
+  these details, general interest or study name, and page language to the four
+  team recipients the owner listed on 2026-11-01. Their addresses are kept out
+  of this public repository; ask the owner.
 - Student and collaborator CTAs open an empty `mailto:tcukierm@gmail.com` draft.
   Do not prefill the visitor's subject or message.
 - Public participation copy is informational and inviting, without legal or
@@ -29,7 +29,11 @@ informational website. Account setup and deployment have not happened.
 
 ## Technical design
 
-Use the existing Astro static build on Cloudflare Workers Static Assets and one
+Note, 2026-11-04: the Astro draft and its enquiry Worker were retired before
+any deployment; recover them from commit `d3e5b5b`. This design still applies
+to any future enquiry route.
+
+Use a static build on Cloudflare Workers Static Assets and one
 Worker endpoint for form submissions. The Worker uses Cloudflare's native email
 binding with the four-recipient allowlist. Turnstile is verified server-side.
 See [the stack recommendation](architecture.md) for primary sources and setup order.

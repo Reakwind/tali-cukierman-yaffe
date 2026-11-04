@@ -29,13 +29,26 @@ refuse() {
   exit 2
 }
 
+# Push flags are checked within each git push, so a flag that belongs to
+# another command on the same line (pkill -f, grep -f) is not mistaken for one.
+PUSHES="$(printf '%s\n' "$COMMAND" | tr ';|&' '\n\n\n' | grep 'git push' || true)"
+OLD_IFS="$IFS"
+IFS='
+'
+for PUSH in $PUSHES; do
+  # Only what follows "git push" can be its flags or refspecs.
+  case " ${PUSH#*git push} " in
+    *" --force"*|*" -f "*|*" --mirror"*|*" +"*)
+      refuse "Force pushes are forbidden" "Push a fast-forward commit on your feature branch or open a new PR"
+      ;;
+    *" origin main "*|*":main "*|*" origin refs/heads/main "*|*":refs/heads/main "*)
+      refuse "Direct pushes to main are forbidden" "Push to a <type>/<slug> feature branch and open a pull request"
+      ;;
+  esac
+done
+IFS="$OLD_IFS"
+
 case "$COMMAND" in
-  *"git push"*"--force"*|*"git push"*" -f "*|*"git push -f"|*"git push"*"--mirror"*)
-    refuse "Force pushes are forbidden" "Push a fast-forward commit on your feature branch or open a new PR"
-    ;;
-  *"git push origin main"*|*"git push -u origin main"*|*"git push origin HEAD:main"*|*"git push origin main:main"*|*"git push origin refs/heads/main"*)
-    refuse "Direct pushes to main are forbidden" "Push to a <type>/<slug> feature branch and open a pull request"
-    ;;
   *"git reset --hard"*)
     refuse "git reset --hard is forbidden because it destroys uncommitted work" "Inspect git status/diff and revert specific lines or commits safely"
     ;;

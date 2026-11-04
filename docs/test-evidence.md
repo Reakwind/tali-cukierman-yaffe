@@ -581,3 +581,32 @@ count as a behavior red. PRs should summarize the relevant entries concisely.
   diagnostics), **50 unit tests**, production build, Worker dry-run, and all
   **405 Playwright checks passed** across Chromium, Firefox, WebKit, mobile
   Chrome and mobile Safari. Delivery remains disabled (`ENQUIRIES_ENABLED=false`).
+
+## Repository setup for fast iteration — 2026-11-04
+
+Measured in a Claude Code cloud session (4 cores) and on GitHub Actions.
+The Astro sections above describe the retired draft (commit `d3e5b5b`).
+
+- CI: on `main`, `playwright install --with-deps` took 14.5 minutes and hit
+  the 15-minute timeout (runs 22 and 26 cancelled). Browser jobs now run in
+  parallel in the digest-pinned Playwright image: manual run 41782176271 on
+  the session branch passed every job in 2 minutes 48 seconds.
+- Cloud setup: the old script failed at its first line (`/opt/nvm` no longer
+  exists). The new script exited 0 in 98 seconds; `node` resolved to
+  v24.22.2. SessionStart hook: quiet when current, `npm ci` in 17 seconds
+  when the lockfile is newer.
+- Flaky tests, 10 runs per engine without retries: the language-switch test
+  failed 13/20 on Chromium (Locator.click scrolled from the sticky link),
+  then 100/100. The painting test failed 5/30, then 50/50, and fails when
+  the painting is disabled. Desktop scroll checks on the iPhone project
+  failed 46 times at 10 workers (3x pixel density starved WebKit), then
+  210/210 at 1x.
+- Git hook: refused `git push` lines containing `pkill -f`; now checks flags
+  per push, still blocks `-f`, `--force`, `--mirror` and `+refspec`.
+- Retired the Astro draft: 81 of 104 browser tests per project checked it, not
+  the published site. New `site.spec.ts` checks the built site through
+  `wrangler dev`; its axe check found phone header targets under 24px (WCAG
+  2.2 2.5.8), fixed (header 70px to 71px; screenshots compared).
+- Site build: pages 478 KB to 50–54 KB with content-hashed images; hash-based
+  CSP with no violations in five browser projects; 404 page and robots.txt.
+  The painting renders byte-identically before and after.

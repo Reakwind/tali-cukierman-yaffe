@@ -1,4 +1,0 @@
-# Copy to .dev.vars for local development. Keep real secrets out of Git.
-ENQUIRIES_ENABLED=false
-EMAIL_FROM=
-TURNSTILE_SECRET_KEY=

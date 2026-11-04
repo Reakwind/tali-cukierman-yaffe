@@ -20,9 +20,9 @@ export default defineConfig({
     { name: 'mobile-safari', use: { ...devices['iPhone 14'] } },
   ],
   webServer: {
-    // --ignore-lock keeps Astro's agent-aware CLI in the foreground for Playwright.
-    command:
-      'npm run build:astro && npm run preview -- --host 127.0.0.1 --port 4173 --ignore-lock',
+    // The published site as Cloudflare serves it: `wrangler dev` runs the
+    // build command in wrangler.json, then serves dist/site with its headers.
+    command: 'npx wrangler dev --ip 127.0.0.1 --port 4173',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: false,
     timeout: 90_000,

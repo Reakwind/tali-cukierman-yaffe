@@ -5,7 +5,7 @@
 The owner chose option C of four reviewed on the real prototype (orientation,
 reading focus, graphics draw in, staged entrance). It supersedes the parallax
 and pinned-scene plan below, which describes the earlier Astro implementation
-and is to be replaced when the prototype is ported.
+(retired 2026-11-04; recover from commit `d3e5b5b`).
 
 - Orientation: a 3px navy line under the header grows with the reading
   position (CSS scroll timeline, no script; absent where unsupported). On

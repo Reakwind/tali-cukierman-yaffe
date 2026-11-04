@@ -8,6 +8,7 @@
   },
   "previews": {},
   "assets": {
-    "directory": "./dist/site"
+    "directory": "./dist/site",
+    "not_found_handling": "404-page"
   }
 }
