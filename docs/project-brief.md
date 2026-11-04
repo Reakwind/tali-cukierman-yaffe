@@ -63,7 +63,7 @@ These supersede conflicting points below.
   Hebrew-speaking team member; team names and roles reuse the site's existing
   Hebrew. Rewritten 2026-11-04 as native Hebrew rather than a word-for-word
   translation: "אנשים מבוגרים" for older adults ("מבוגרים" alone means
-  adults), "מבחן החלפת ספרה בסמל (DSST)" for the Digit Symbol Substitution
+  adults), "מבחן סימן מספר קידוד (DSST)" (owner, 2026-11-04) for the Digit Symbol Substitution
   Test, "תחומי מחקר" for Research so it does not sit beside "מחקרים" in the
   menu, and "מחקרים פעילים" for Ongoing studies. Open: the Hebrew group name
   (draft "קבוצת המחקר ״סוכרת 360״"), the Hebrew names of the Center for
