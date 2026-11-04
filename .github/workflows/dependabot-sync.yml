@@ -1,7 +1,7 @@
 name: Dependabot sync
 
 # When Dependabot updates packages, versions written outside package.json
-# (the Playwright image in ci.yml) must follow. This runs `npm run deps:sync`,
+# (the Playwright image in .github/playwright-image) must follow. This runs `npm run deps:sync`,
 # which uses only Node's built-in modules: the updated packages are never
 # installed or run here, while the job can push. It then starts CI on the new
 # commit, because pushes made with the workflow token start no workflows.

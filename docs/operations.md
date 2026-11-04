@@ -56,10 +56,12 @@ every other job passed. Dependency review runs on PRs. It first ran on
 which are free for public repositories, pinned Actions and a digest-pinned
 image, without repository secrets. Do not add larger or paid runners.
 
-When `@playwright/test` changes, `tests/unit/tooling.test.ts` fails until the
-image tag and digest in `ci.yml` match it. `npm run deps:sync` sets both from
-the registry; on Dependabot pull requests a workflow runs it automatically
-(see Dependency updates below).
+When `@playwright/test` changes, `tests/unit/tooling.test.ts` fails until
+`.github/playwright-image` names the matching image and digest. CI's `image`
+job reads that data file (a workflow token may not change workflow files, so
+it is not in `ci.yml`). `npm run deps:sync` sets it from the registry; on
+Dependabot pull requests a workflow runs it automatically (see Dependency
+updates below).
 
 Failed browser traces/screenshots have a three-day retention period. Keep examples
 synthetic and never include patient data. CodeQL setup remains a separate remote
