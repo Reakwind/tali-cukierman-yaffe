@@ -8,6 +8,12 @@ import { buildPrototype } from '../../scripts/prototype.ts';
 // Built in memory: parallel workers never share a half-written file.
 const draft = () => buildPrototype();
 
+// These tests set desktop viewports. At the iPhone project's 3x pixel density
+// a 1440x900 frame is 4320x2700 pixels, nine times the work, and under a busy
+// CPU WebKit starved the animations being measured (13-15 of 15 runs failed
+// at 10 workers). Pixel density does not change scroll or animation logic.
+test.use({ deviceScaleFactor: 1 });
+
 const viewport =
   '<meta name="viewport" content="width=device-width, initial-scale=1">';
 
