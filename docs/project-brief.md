@@ -84,7 +84,9 @@ These supersede conflicting points below.
   launch is still open.
 - The English copy is settled (owner, 2026-11-03). Work continues on the
   English design until it is done, then the Hebrew version; launch still ships
-  both languages.
+  both languages. Copy-edited on the owner's request (2026-11-04) for clear
+  references, US spelling and named link targets, with the same facts; the
+  frailty sentence follows the owner's Hebrew.
 
 - Name: **Diabetes 360 Research Group**. Prof. Tali Cukierman-Yaffe is the
   principal investigator and leads the Team section; she is not introduced in
@@ -100,8 +102,9 @@ These supersede conflicting points below.
   GRACE-780G (completed) appears only through its publication.
 - Contact: one route for participants and clinicians (two-field form, or the
   Diabetes 360 program's email D360@sheba.health.gov.il as a link and its phone
-  03-5307493, option 8), and "For collaboration opportunities and prospective
-  students, email Prof. Cukierman-Yaffe" as a link. No "taking part is
+  03-5307493, option 8), and "Interested in a research collaboration, or in
+  joining the group as a student? Email Prof. Cukierman-Yaffe" as a link
+  (wording 2026-11-04). No "taking part is
   voluntary" line. The program contact replaces the four personal inboxes for
   enquiries (owner, 2026-11-03; source: Tali's 2024 Maccabi dietitians deck).
 - 6 Vital closes Research under "How we measure", not as a map stop: the
