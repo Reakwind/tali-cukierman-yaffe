@@ -47,8 +47,14 @@
   copy edited elsewhere.
 - `scripts/session.ts` — Session worktrees and the daily PR (`session:start`,
   `day:finish`, `day:cleanup`).
-- `scripts/cloud-setup.sh` — The cloud environment's setup script (pinned
-  Node and Playwright browsers); paste it into the environment settings.
+- `scripts/toolchain.sh` & `scripts/cloud-setup.sh` — Install the Node and
+  Playwright browsers the checkout pins. The setup script (pasted once into the
+  cloud environment) holds no versions and runs `toolchain.sh` from `main`;
+  the SessionStart hook repairs a session whose checkout pins other versions.
+- `scripts/deps-sync.ts`, `node-update.ts` & `dependabot-automerge.ts` with
+  `.github/workflows/` — Dependency updates: Dependabot PRs get the CI image
+  synced, a weekly PR follows new Node 24 releases, and opt-in auto-merge
+  takes patch/minor updates (`docs/operations.md`, Dependency updates).
 - `tests/unit/` & `tests/e2e/` — Node unit tests and Playwright checks of the
   built site served by `wrangler dev` (`site.spec.ts`) and of the pages'
   layout, scrolling and Hebrew version (`prototype-*.spec.ts`).
@@ -142,7 +148,8 @@
   - Bodies optional, at most 1-3 short bullet lines. No transcripts or status dumps.
 - **Pull requests only when the owner asks** (owner, 2026-11-03): during the day,
   commit each change and push the branch, but do not open, update or watch a
-  pull request. The day's PR is the end of the day and happens only on the
+  pull request. Bot pull requests (Dependabot, the Node update workflow) are
+  exempt (owner, 2026-11-04). The day's PR is the end of the day and happens only on the
   owner's request.
 - **One pull request per day**: when the owner asks for it, run
   `npm run day:finish` from the root. It merges that day's session branches into
