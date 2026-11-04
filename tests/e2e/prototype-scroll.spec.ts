@@ -65,22 +65,48 @@ test('section titles stay beside their section on desktop', async ({
   expect(title!.y).toBeLessThan(header!.height + 64);
 });
 
+// Records each animation in the painting as it starts. It goes before the
+// page's own script, so it sees the drawing from its first frame however long
+// loading and fonts take; counting running animations after load raced them.
+const recorder = `<script>
+  window.artStarts = [];
+  document.addEventListener('animationstart', (e) => {
+    if (e.target instanceof Element && e.target.closest('.art'))
+      window.artStarts.push([e.target, e.animationName]);
+  }, true);
+</script>`;
+
 test('the painting draws itself once, then rests complete', async ({
   page,
 }) => {
-  await open(page, 1440, 900);
-  const art = () =>
-    page.evaluate(() =>
-      document
-        .getAnimations()
-        .filter((a) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.setContent(viewport + recorder + (await draft()), {
+    waitUntil: 'load',
+  });
+  const running = () =>
+    page.evaluate(
+      () =>
+        document.getAnimations().filter((a) => {
           const t = (a.effect as KeyframeEffect | null)?.target;
           return t instanceof Element && t.closest('.art');
-        })
-        .map((a) => a.playState),
+        }).length,
     );
-  expect((await art()).length).toBeGreaterThanOrEqual(3);
-  await expect.poll(art, { timeout: 6000 }).toEqual([]);
+  await expect.poll(running, { timeout: 6000 }).toBe(0);
+  const drawn = await page.evaluate(() => {
+    const starts = (window as unknown as { artStarts: [Element, string][] })
+      .artStarts;
+    const byElement = new Map<Element, string[]>();
+    for (const [el, name] of starts)
+      byElement.set(el, [...(byElement.get(el) ?? []), name]);
+    return {
+      parts: byElement.size,
+      names: [...new Set(starts.map(([, name]) => name))].sort(),
+      repeated: [...byElement.values()].filter((n) => n.length > 1).length,
+    };
+  });
+  expect(drawn.parts).toBeGreaterThanOrEqual(3);
+  expect(drawn.names).toEqual(['lens-in', 'paint-in', 'settle']);
+  expect(drawn.repeated, 'each part draws once').toBe(0);
   expect(
     await page.evaluate(
       () => getComputedStyle(document.querySelector('.art .course')!).clipPath,
