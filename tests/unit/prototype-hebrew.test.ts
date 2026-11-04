@@ -77,6 +77,8 @@ test('identifiers and citations are isolated from the Hebrew text direction', as
   const he = await buildPrototype('he');
   for (const id of [
     '6 Vital',
+    'DSST',
+    'BMI',
     'BIRAX',
     'Diabetes UK',
     'NCT06497595',
