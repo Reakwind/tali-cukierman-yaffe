@@ -84,7 +84,10 @@ test('deploy commands that name wrangler.site.json reach the same config', async
   assert.equal(await readlink('wrangler.site.json'), 'wrangler.json');
 });
 
-test('the old Astro draft can no longer replace the published site', async () => {
-  const text = await readFile('wrangler.astro.jsonc', 'utf8');
-  assert.doesNotMatch(text, /"name":\s*"(diabetes-360|tali-cukierman-yaffe)"/);
+test('no other Wrangler config can deploy something else', async () => {
+  // The retired Astro draft had its own config and enquiry Worker; neither
+  // may come back as a second deploy target.
+  for (const other of ['wrangler.astro.jsonc', 'worker/index.ts']) {
+    await assert.rejects(readFile(other), other);
+  }
 });

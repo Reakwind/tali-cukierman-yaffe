@@ -40,13 +40,9 @@ test('a dependency audit script fails on moderate or worse advisories', async ()
 
 const linter = new ESLint();
 
-test('lint still checks TypeScript, Astro and build scripts', async () => {
+test('lint still checks TypeScript and build scripts', async () => {
   for (const [filePath, source] of [
-    ['src/example.ts', 'const unusedValue: number = 1;'],
-    [
-      'src/pages/example.astro',
-      '---\nconst unusedValue = 1;\n---\n<p>Example</p>',
-    ],
+    ['scripts/example.ts', 'const unusedValue: number = 1;'],
     ['example.mjs', 'const unusedValue = 1;'],
   ] as const) {
     const [result] = await linter.lintText(source, { filePath });
@@ -59,7 +55,7 @@ test('lint still checks TypeScript, Astro and build scripts', async () => {
 
 const generated = [
   'dist/example.js',
-  '.astro/types.d.ts',
+  '.wrangler/tmp/example.js',
   'test-results/example.js',
   'playwright-report/example.js',
   'coverage/example.js',
@@ -77,7 +73,8 @@ test('type checks ignore generated browser reports and coverage', async () => {
   try {
     const config = await readJson('../../tsconfig.json');
     for (const filePath of [
-      'src/example.ts',
+      'scripts/example.ts',
+      '.wrangler/tmp/example.js',
       'playwright-report/trace/example.js',
       'test-results/example.ts',
       'coverage/example.js',
@@ -98,7 +95,7 @@ test('type checks ignore generated browser reports and coverage', async () => {
     assert.deepEqual(parsed.errors, []);
     assert.deepEqual(
       parsed.fileNames.map((f) => relative(dir, f)),
-      ['src/example.ts'],
+      ['scripts/example.ts'],
     );
   } finally {
     await rm(dir, { recursive: true, force: true });
