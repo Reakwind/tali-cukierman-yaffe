@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { lstat, readFile, readlink } from 'node:fs/promises';
 import test from 'node:test';
 import { buildSite } from '../../scripts/site.ts';
@@ -6,36 +7,136 @@ import { buildSite } from '../../scripts/site.ts';
 // The published site: the two prototype pages as full documents, hidden from
 // search until the team approves launch, served as static files only.
 
-test('the site holds the English and Hebrew pages as full documents', async () => {
+const text = (files: Map<string, string | Buffer>, name: string) =>
+  String(files.get(name) ?? '');
+
+test('the site holds both pages, their images, a 404 page and robots.txt', async () => {
   const files = await buildSite();
-  assert.deepEqual([...files.keys()].sort(), [
+  const names = [...files.keys()];
+  for (const name of [
     '_headers',
+    '404.html',
     'he.html',
     'index.html',
-  ]);
+    'robots.txt',
+  ]) {
+    assert.ok(names.includes(name), name);
+  }
+  for (const name of names.filter((n) => !n.startsWith('images/'))) {
+    assert.equal(typeof files.get(name), 'string', name);
+  }
+});
+
+test('the site holds the English and Hebrew pages as full documents', async () => {
+  const files = await buildSite();
   assert.match(
-    files.get('index.html') ?? '',
+    text(files, 'index.html'),
     /^<!doctype html>\s*<html lang="en" dir="ltr">\s*<head>\s*<meta charset="utf-8"/i,
   );
   assert.match(
-    files.get('he.html') ?? '',
+    text(files, 'he.html'),
     /^<!doctype html>\s*<html lang="he" dir="rtl">/i,
   );
 });
 
 test('drafts stay out of search engines', async () => {
   const files = await buildSite();
-  for (const page of ['index.html', 'he.html']) {
+  for (const page of ['index.html', 'he.html', '404.html']) {
     assert.match(
-      files.get(page) ?? '',
+      text(files, page),
       /<meta name="robots" content="noindex, nofollow"/,
       page,
     );
   }
   assert.match(
-    files.get('_headers') ?? '',
+    text(files, '_headers'),
     /^\/\*\n\s+X-Robots-Tag: noindex, nofollow$/m,
   );
+  assert.match(text(files, 'robots.txt'), /^User-agent: \*\nDisallow: \/$/m);
+});
+
+test('pages link their images as cached files instead of inlining them', async () => {
+  const files = await buildSite();
+  for (const page of ['index.html', 'he.html']) {
+    const html = text(files, page);
+    assert.doesNotMatch(html, /data:image\//, page);
+    const sources = [...html.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map(
+      (m) => m[1] ?? '',
+    );
+    assert.ok(sources.length > 0, page);
+    for (const src of sources) {
+      // Content-hashed names, so a changed image never reuses a cached one.
+      assert.match(src, /^images\/[\w-]+\.[0-9a-f]{10}\.(jpg|png|webp)$/);
+      const image = files.get(src);
+      assert.ok(Buffer.isBuffer(image), src);
+      assert.equal(
+        createHash('sha256').update(image).digest('hex').slice(0, 10),
+        src.split('.').at(-2),
+      );
+    }
+    // 478 KB with every image inlined, twice over for the two languages.
+    assert.ok(Buffer.byteLength(html) < 100 * 1024, `${page} under 100 KB`);
+  }
+  assert.match(
+    text(files, '_headers'),
+    /^\/images\/\*\n\s+Cache-Control: public, max-age=31536000, immutable$/m,
+  );
+});
+
+test('security headers allow only the pages own inline code and fonts', async () => {
+  const files = await buildSite();
+  const headers = text(files, '_headers');
+  const csp = headers.match(/^\s+Content-Security-Policy: (.+)$/m)?.[1] ?? '';
+  const directives = new Map(
+    csp.split(';').map((d) => {
+      const [name = '', ...values] = d.trim().split(/\s+/);
+      return [name, values] as const;
+    }),
+  );
+  assert.deepEqual(directives.get('default-src'), ["'none'"]);
+  for (const name of ['base-uri', 'form-action', 'frame-ancestors']) {
+    assert.deepEqual(directives.get(name), ["'none'"], name);
+  }
+  assert.doesNotMatch(csp, /unsafe-/);
+  const hash = (code: string) =>
+    `'sha256-${createHash('sha256').update(code).digest('base64')}'`;
+  for (const page of ['index.html', 'he.html', '404.html']) {
+    const html = text(files, page);
+    for (const [kind, directive] of [
+      ['script', 'script-src'],
+      ['style', 'style-src'],
+    ] as const) {
+      for (const match of html.matchAll(
+        new RegExp(`<${kind}>([\\s\\S]*?)</${kind}>`, 'g'),
+      )) {
+        assert.ok(
+          directives.get(directive)?.includes(hash(match[1] ?? '')),
+          `${page}: ${kind} block missing from ${directive}`,
+        );
+      }
+    }
+    assert.doesNotMatch(html, /\sstyle="|\son[a-z]+="/, `${page}: inline attr`);
+  }
+  assert.ok(
+    directives.get('style-src')?.includes('https://fonts.googleapis.com'),
+  );
+  assert.deepEqual(directives.get('font-src'), ['https://fonts.gstatic.com']);
+  assert.deepEqual(directives.get('img-src'), ["'self'"]);
+  for (const header of [
+    'X-Content-Type-Options: nosniff',
+    'Referrer-Policy: no-referrer',
+    'Permissions-Policy: camera=(), microphone=(), geolocation=()',
+    'Cross-Origin-Opener-Policy: same-origin',
+  ]) {
+    assert.ok(headers.includes(header), header);
+  }
+});
+
+test('unknown addresses get a bilingual page back to both home pages', async () => {
+  const html = text(await buildSite(), '404.html');
+  assert.match(html, /^<!doctype html>\s*<html lang="en" dir="ltr">/i);
+  assert.match(html, /<a href="\/">/);
+  assert.match(html, /<[^>]+ lang="he" dir="rtl"[\s\S]*<a href="\/he">/);
 });
 
 test('the site deploys as static files, with no server code or email', async () => {
@@ -45,7 +146,10 @@ test('the site deploys as static files, with no server code or email', async () 
   >;
   assert.equal(config['main'], undefined);
   assert.equal(config['send_email'], undefined);
-  assert.deepEqual(config['assets'], { directory: './dist/site' });
+  assert.deepEqual(config['assets'], {
+    directory: './dist/site',
+    not_found_handling: '404-page',
+  });
   assert.equal(config['workers_dev'], true);
 });
 

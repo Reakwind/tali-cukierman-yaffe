@@ -14,9 +14,20 @@ for (const p of pages) {
     page,
     request,
   }) => {
+    // Anything the Content-Security-Policy blocks is reported here.
+    await page.addInitScript(() => {
+      const found: string[] = [];
+      (window as unknown as { violations: string[] }).violations = found;
+      document.addEventListener('securitypolicyviolation', (e) =>
+        found.push(`${e.effectiveDirective} ${e.blockedURI}`),
+      );
+    });
     const response = await page.goto(p.path);
     expect(response?.status()).toBe(200);
     expect(response?.headers()['x-robots-tag']).toBe('noindex, nofollow');
+    expect(response?.headers()['content-security-policy']).toContain(
+      "default-src 'none'",
+    );
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
       'content',
       'noindex, nofollow',
@@ -42,7 +53,19 @@ for (const p of pages) {
       const image = await request.get(new URL(src, page.url()).href);
       expect(image.status(), src).toBe(200);
       expect(image.headers()['content-type'], src).toMatch(/^image\//);
+      expect(image.headers()['cache-control'], src).toContain('immutable');
     }
+
+    // The page's own script, styles and fonts all run under the policy.
+    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(300);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { violations: string[] }).violations,
+      ),
+    ).toEqual([]);
+    await expect(page.locator('html')).toHaveClass(/\bdraw\b/);
 
     for (const width of [320, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -100,3 +123,19 @@ for (const p of pages) {
     expect(result.violations).toEqual([]);
   });
 }
+
+test('unknown addresses return the bilingual not-found page', async ({
+  page,
+}) => {
+  const response = await page.goto('/no-such-page');
+  expect(response?.status()).toBe(404);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+  const result = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  expect(result.violations).toEqual([]);
+  await page.locator('[lang="he"] a').click();
+  await expect(page).toHaveURL(/\/he$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'he');
+});
