@@ -1,0 +1,39 @@
+name: Dependabot auto-merge
+
+# Off until the owner turns it on: set the repository variable
+# DEPENDABOT_AUTOMERGE to "true" and allow auto-merge in the repository
+# settings (see docs/operations.md). Then a Dependabot pull request whose
+# updates are all patch or minor versions gets GitHub's auto-merge, which
+# still waits for the required `quality` check. Major updates are left for
+# review. Nothing from the pull request is installed or run here.
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  automerge:
+    if: vars.DEPENDABOT_AUTOMERGE == 'true' && github.actor == 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'dependabot/')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # The decision script comes from the base branch, not the pull request.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - name: Enable auto-merge for patch and minor updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          if gh pr view "$PR" --json commits | node scripts/dependabot-automerge.ts; then
+            gh pr merge --auto --squash "$PR"
+          fi
