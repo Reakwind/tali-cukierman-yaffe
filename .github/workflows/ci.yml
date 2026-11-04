@@ -13,9 +13,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  ASTRO_TELEMETRY_DISABLED: '1'
-
 jobs:
   # Everything in `npm run verify` except the browser tests.
   checks:
