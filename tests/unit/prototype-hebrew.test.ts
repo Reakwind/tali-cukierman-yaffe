@@ -118,3 +118,13 @@ test('the Hebrew page keeps the content rules', async () => {
   assert.match(he, /href="tel:\+97235307493"/);
   assert.doesNotMatch(he, /<form\b|<input\b/);
 });
+
+test('the menu label does not repeat the word navigation', async () => {
+  // Screen readers already announce a <nav> as navigation.
+  for (const lang of ['en', 'he'] as const) {
+    const html = await buildPrototype(lang);
+    const label = /<nav[^>]*aria-label="([^"]*)"/.exec(html)?.[1] ?? '';
+    assert.ok(label.length > 0, lang);
+    assert.doesNotMatch(label, /navigation|ניווט/i, lang);
+  }
+});
