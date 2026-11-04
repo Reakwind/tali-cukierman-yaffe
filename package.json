@@ -24,7 +24,8 @@
     "test:unit": "node --test tests/unit/*.test.ts",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:e2e",
-    "verify": "npm run format:check && npm run lint && npm run check && npm test"
+    "verify": "npm run format:check && npm run lint && npm run check && npm test",
+    "deps:sync": "node scripts/deps-sync.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
