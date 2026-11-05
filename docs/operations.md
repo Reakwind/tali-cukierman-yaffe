@@ -143,9 +143,17 @@ approval. Keep any Git integration scoped to this repository.
 
 Committed in this repository, so every session (cloud or Mac) gets it:
 
-- `CLAUDE.md` imports `AGENTS.md`. `.claude/settings.json` holds the git
-  safety denials, the destructive-git hook, and the cloud-only SessionStart
-  hook described above.
+- `CLAUDE.md` imports `AGENTS.md`; `prototype/CLAUDE.md` imports
+  `prototype/AGENTS.md`, the page and design rules, which load only when an
+  agent works on the pages.
+- `.claude/settings.json` holds the git safety denials, the destructive-git
+  hook and the cloud-only SessionStart hook described above. It also asks the
+  owner before Claude opens or merges a pull request or runs `day:finish`,
+  formats each file Claude edits (`format-edited-file.sh`), and runs lint,
+  types and unit tests before Claude ends a turn (`check-before-stop.sh`; a
+  state that passed is not checked again).
+- `.claude/skills/day-finish/`: the day's pull request procedure. Only the
+  owner starts it, with `/day-finish`.
 - `.mcp.json` adds the Playwright MCP server, so agents can open and inspect
   the rendered pages as `AGENTS.md` requires. Project MCP servers load in
   cloud sessions without a prompt.
