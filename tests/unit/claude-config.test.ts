@@ -90,3 +90,48 @@ describe('Claude Code formatting hook', () => {
     }
   });
 });
+
+describe('Claude Code check before finishing', () => {
+  it('runs when Claude tries to end its turn', () => {
+    const commands = (settings().hooks?.Stop ?? []).flatMap(
+      (e: { hooks: { command: string }[] }) => e.hooks.map((h) => h.command),
+    );
+    assert.ok(
+      commands.some((c: string) => c.includes('check-before-stop.sh')),
+      'Stop should run check-before-stop.sh',
+    );
+  });
+
+  it('sends Claude back on a failing check and skips a state that passed', () => {
+    const repo = mkdtempSync(path.join(tmpdir(), 'stop-hook-'));
+    const env = (check: string) => ({
+      CLAUDE_PROJECT_DIR: repo,
+      CLAUDE_STOP_CHECK: check,
+      GIT_CONFIG_GLOBAL: '/dev/null',
+      GIT_CONFIG_NOSYSTEM: '1',
+    });
+    const stop = (check: string) =>
+      runHook('check-before-stop.sh', { hook_event_name: 'Stop' }, env(check));
+    const failing = 'echo lint found a problem >&2; exit 1';
+    try {
+      spawnSync('git', ['init', '-q'], { cwd: repo, env: env('true') });
+      writeFileSync(path.join(repo, 'page.html'), '<p>one</p>\n');
+
+      const blocked = stop(failing);
+      assert.equal(blocked.status, 2, 'a failing check blocks the stop');
+      assert.match(blocked.stderr, /lint found a problem/);
+
+      assert.equal(stop('true').status, 0, 'a passing check lets it stop');
+      assert.equal(
+        stop(failing).status,
+        0,
+        'an unchanged state that passed is not checked again',
+      );
+
+      writeFileSync(path.join(repo, 'page.html'), '<p>two</p>\n');
+      assert.equal(stop(failing).status, 2, 'a changed state is checked');
+    } finally {
+      rmSync(repo, { recursive: true, force: true });
+    }
+  });
+});
