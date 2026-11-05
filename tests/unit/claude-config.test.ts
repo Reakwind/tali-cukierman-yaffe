@@ -135,3 +135,49 @@ describe('Claude Code check before finishing', () => {
     }
   });
 });
+
+describe('agent instructions', () => {
+  it('keep the always-loaded AGENTS.md short and lead with the commands', () => {
+    const agents = read('AGENTS.md');
+    const lines = agents.trimEnd().split('\n').length;
+    assert.ok(lines <= 140, `AGENTS.md has ${lines} lines (at most 140)`);
+    const commands = agents.match(/## Commands\n([\s\S]*?)\n## /)?.[1] ?? '';
+    for (const command of [
+      'npm run verify',
+      'node --test tests/unit/',
+      'npx playwright test tests/e2e/',
+    ]) {
+      assert.ok(commands.includes(command), `Commands should list ${command}`);
+    }
+  });
+
+  it('keep the day-end pull request procedure in a skill only the owner starts', () => {
+    const skill = read('.claude/skills/day-finish/SKILL.md');
+    const front = skill.match(/^---\n([\s\S]*?)\n---\n/)?.[1] ?? '';
+    assert.match(front, /^name: day-finish$/m);
+    assert.match(front, /^description: .+/m);
+    assert.match(front, /^disable-model-invocation: true$/m);
+    for (const step of [
+      'npm run day:finish',
+      'pull_request_template.md',
+      'npm run verify',
+      'gh pr merge --squash --delete-branch',
+    ]) {
+      assert.ok(skill.includes(step), `the skill should cover ${step}`);
+    }
+    assert.match(read('AGENTS.md'), /\.claude\/skills\/day-finish\/SKILL\.md/);
+  });
+
+  it('load the page rules only when an agent works on the pages', () => {
+    assert.match(read('prototype/CLAUDE.md'), /^@AGENTS\.md$/m);
+    const pages = read('prototype/AGENTS.md');
+    assert.match(pages, /## Approved design direction/);
+    assert.match(pages, /`he\.html` holds only the Hebrew words/);
+    assert.match(pages, /No inline `style=`/);
+    assert.doesNotMatch(read('AGENTS.md'), /## Approved design direction/);
+    assert.match(
+      read('.claude/agents/site-reviewer.md'),
+      /prototype\/AGENTS\.md/,
+    );
+  });
+});
