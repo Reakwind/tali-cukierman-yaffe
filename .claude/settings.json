@@ -35,11 +35,9 @@
       "Bash(gh pr status:*)",
       "Bash(gh pr checks:*)",
       "Bash(gh pr checkout:*)",
-      "Bash(gh pr create:*)",
       "Bash(gh pr edit:*)",
       "Bash(gh pr comment:*)",
       "Bash(gh pr review:*)",
-      "Bash(gh pr merge --squash:*)",
       "Bash(gh issue:*)",
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
@@ -48,8 +46,14 @@
       "Bash(npm test:*)",
       "Bash(npm ci:*)",
       "Bash(npx playwright:*)",
-      "Bash(npx astro:*)",
       "Bash(node --test:*)"
+    ],
+    "ask": [
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge --squash:*)",
+      "Bash(npm run day:finish:*)",
+      "mcp__github__create_pull_request",
+      "mcp__github__merge_pull_request"
     ],
     "deny": [
       "Bash(git push --force:*)",
